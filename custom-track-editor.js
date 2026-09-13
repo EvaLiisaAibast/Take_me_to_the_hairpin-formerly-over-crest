@@ -21,9 +21,13 @@ const CustomTrackEditor = {
     // Initialize map centered on a rally-friendly location
     this.map = L.map('editor-map').setView([60.1695, 24.9354], 13); // Helsinki, Finland
     
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
+    // Add map tiles (CARTO basemaps, built on OpenStreetMap data).
+    // NOTE: don't use tile.openstreetmap.org here — its volunteer-run servers
+    // block apps that don't follow osm.wiki/Tile+usage+policy (403 "Access blocked").
+    // CARTO's free basemaps allow this kind of usage and send CORS headers.
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
       maxZoom: 19
     }).addTo(this.map);
     
