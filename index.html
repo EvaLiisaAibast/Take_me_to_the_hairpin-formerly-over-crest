@@ -2,499 +2,1005 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Menu Mockup — Take Me To The Hairpin</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<style>
+  html, body {
+    overflow-x: hidden;
+    min-height: 100%;
+    width: 100%;
+  }
+</style>
+<title>TAKE ME TO THE HAIRPIN</title>
+<link rel="icon" href="data:,"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil:wght@700;900&family=Special+Elite&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap"/>
-<link rel="stylesheet" href="styles.css">
-<script src="story_data.js"></script>
-<script src="rally_systems.js"></script>
-<script src="pacenote-matcher.js"></script>
-<script src="rally.js"></script>
-<script src="voice-engine.js"></script>
-<script src="story_system.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap"/>
+<link rel="stylesheet" href="styles.css"/>
+
+<audio id="bg-music" loop>
+  <source src="https://raw.githubusercontent.com/EvaLiisaAibast/Over_Crest/game/Blind%20Crest.mp3" type="audio/mpeg">
+</audio>
+
+<style>
+/* Glow Effects */
+.username-glow {
+  text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 20px currentColor;
+  animation: glow-pulse 2s ease-in-out infinite alternate;
+}
+
+.username-glow-strong {
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor, 0 0 40px currentColor;
+  animation: glow-pulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow-pulse {
+  from { text-shadow: 0 0 5px currentColor, 0 0 10px currentColor; }
+  to { text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor; }
+}
+
+/* Fire Effect */
+.username-fire {
+  background: linear-gradient(180deg, #ff4400 0%, #ff8800 50%, #ffaa00 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 5px #ff4400) drop-shadow(0 0 10px #ff8800);
+  animation: fire-flicker 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes fire-flicker {
+  0% { filter: drop-shadow(0 0 5px #ff4400) drop-shadow(0 0 10px #ff8800); }
+  100% { filter: drop-shadow(0 0 8px #ff6600) drop-shadow(0 0 15px #ffaa00) drop-shadow(0 0 20px #ffcc00); }
+}
+
+/* Rainbow Effect */
+.username-rainbow {
+  background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow-shift 3s linear infinite;
+}
+
+@keyframes rainbow-shift {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Neon Effect */
+.username-neon {
+  color: #fff;
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px var(--neon-color, #f5c518),
+    0 0 40px var(--neon-color, #f5c518),
+    0 0 80px var(--neon-color, #f5c518);
+  animation: neon-flicker 1.5s infinite alternate;
+}
+
+@keyframes neon-flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow: 
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px var(--neon-color, #f5c518),
+      0 0 40px var(--neon-color, #f5c518);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+/* Glitch Effect */
+.username-glitch {
+  position: relative;
+  animation: glitch-skew 1s infinite linear alternate-reverse;
+}
+
+.username-glitch::before,
+.username-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.username-glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 #00fff9;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.username-glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 #ff00c1;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(12px, 9999px, 52px, 0); }
+  20% { clip: rect(65px, 9999px, 99px, 0); }
+  40% { clip: rect(29px, 9999px, 75px, 0); }
+  60% { clip: rect(82px, 9999px, 8px, 0); }
+  80% { clip: rect(44px, 9999px, 13px, 0); }
+  100% { clip: rect(58px, 9999px, 89px, 0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(65px, 9999px, 99px, 0); }
+  20% { clip: rect(12px, 9999px, 52px, 0); }
+  40% { clip: rect(82px, 9999px, 8px, 0); }
+  60% { clip: rect(29px, 9999px, 75px, 0); }
+  80% { clip: rect(58px, 9999px, 89px, 0); }
+  100% { clip: rect(44px, 9999px, 13px, 0); }
+}
+
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); }
+  10% { transform: skew(-2deg); }
+  20% { transform: skew(2deg); }
+  30% { transform: skew(0deg); }
+  100% { transform: skew(0deg); }
+}
+
+/* Pulse Effect */
+.username-pulse {
+  animation: pulse-scale 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Shimmer Effect */
+.username-shimmer {
+  background: linear-gradient(90deg, var(--text-color, #f5c518) 0%, #fff 50%, var(--text-color, #f5c518) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* Profile Picture Upload */
+.profile-upload-area {
+  border: 2px dashed var(--brd);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.profile-upload-area:hover {
+  border-color: var(--gold);
+  background: rgba(245, 197, 24, 0.05);
+}
+
+.profile-upload-area.dragover {
+  border-color: var(--gold);
+  background: rgba(245, 197, 24, 0.1);
+}
+
+.profile-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--gold);
+}
+
+.banner-preview {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid var(--brd2);
+}
+</style>
+
 </head>
 <body>
 
-<!-- Menu Screen -->
-<div class="screen" id="menu">
-<div class="notebook">
+<div class="screen active" id="menu">
 
-  <div class="cover">
-    <video class="cover-video" autoplay muted loop playsinline>
+<div id="lobby-info-bar" style="position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,12,0.95);border-bottom:1px solid var(--brd2);padding:8px 16px;display:none;align-items:center;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span style="color:var(--gold);font-weight:600;">🎮 LOBBY: <span id="lobby-display-id">—</span></span>
+    <span style="color:var(--text3);">|</span>
+    <span style="color:var(--text3);">Server: <span id="lobby-display-server">—</span></span>
+  </div>
+  <button onclick="Multiplayer.leaveLobby();hideLobbyInfo();" style="background:none;border:none;color:#e8291c;cursor:pointer;font-size:11px;font-family:inherit;">✕ Leave</button>
+</div>
+<div class="menu-wrap" id="menu-wrap">
+  <div class="menu-left">
+    <video class="menu-hero" autoplay muted loop playsinline>
       <source src="1000216126.mp4" type="video/mp4"/>
     </video>
-    <div class="cover-video-overlay"></div>
-    <svg class="route-line" viewBox="0 0 200 700" preserveAspectRatio="none">
-      <path d="M170 0 C 120 90, 160 160, 100 230 S 40 330, 90 400 S 150 470, 70 540 S 30 610, 110 700"
-            fill="none" stroke="#b3401f" stroke-width="3" stroke-linecap="round" opacity=".55"/>
-      <circle cx="170" cy="0" r="4" fill="#b3401f" opacity=".6"/>
-      <circle cx="110" cy="700" r="4" fill="#b3401f" opacity=".6"/>
-    </svg>
-    <div class="tape tl"></div>
-    <div class="tape tr"></div>
-    <div class="cover-eyebrow">Co-Driver Recce Notebook</div>
-    <div class="cover-title">
-      <div class="stamp-box"></div>
-      TAKE ME TO<br>THE HAIRPIN
-    </div>
-    <div class="cover-sub">Co-Driver Academy &amp; Career Mode</div>
-    <div class="cover-quote">The notes are the truth. Trust them completely.</div>
-  </div>
-
-  <div class="page">
-    <div class="margin-rule"></div>
-
-    <div class="page-hdr">
-      <h2>Select Mode</h2>
-      <button class="mode-pill" id="mode-toggle-btn" onclick="toggleGameMode()">Game Mode</button>
-    </div>
-
-    <div class="controls-strip">
-      <span>Training = lessons &amp; telemetry · Game = full simulation</span>
-      <span class="badge">🎵 <input type="range" id="music-volume-slider" min="0" max="1" step="0.05" value="0.5" style="width:40px;height:3px;cursor:pointer" onchange="updateMusicVolume(this.value)"></span>
-      <span class="badge">🎤 <input type="range" id="voice-volume-slider" min="0" max="1" step="0.05" value="1.0" style="width:40px;height:3px;cursor:pointer" onchange="updateVoiceVolume(this.value)"></span>
-      <span class="badge rec" id="recording-toggle-btn" onclick="RecordingMode.toggle()">● REC OFF</span>
-      <span class="badge lan" onclick="LanParty.quickHost()">HOST LAN</span>
-    </div>
-
-    <div class="nav">
-      <div class="card primary" onclick="openSetup()">
-        <svg class="tulip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v11M12 14l-5 5M12 14l5 5"/><circle cx="12" cy="3" r="2"/></svg>
-        <div class="card-text">
-          <span class="card-label">Quick Stage</span>
-          <div class="card-sub">Jump straight into a run</div>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-
-      <div class="card" onclick="openCareer()">
-        <svg class="tulip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg>
-        <div class="card-text">
-          <span class="card-label">Career Mode</span>
-          <div class="card-sub">Three eras, one championship</div>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-
-      <div class="card" onclick="openTraining()">
-        <svg class="tulip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5a2 2 0 0 1 2-2h10l4 4v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M14 3v4h4"/></svg>
-        <div class="card-text">
-          <span class="card-label">Training School</span>
-          <div class="card-sub">Lessons on reading the notes</div>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-
-      <div class="card starred" onclick="openTutorial()">
-        <svg class="tulip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
-        <div class="card-text">
-          <span class="card-label">Interactive Tutorial<span class="star-tag">start here</span></span>
-          <div class="card-sub">Guided first stage</div>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-
-      <div class="card" onclick="openTuningStandalone()">
-        <svg class="tulip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20l4-10 4 6 4-8 4 12"/></svg>
-        <div class="card-text">
-          <span class="card-label">Tuning Garage</span>
-          <div class="card-sub">Set up the car for the stage</div>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-
-      <div class="card" onclick="openAnalytics()">
-        <svg class="tulip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-        <div class="card-text">
-          <span class="card-label">Analytics Dashboard</span>
-          <div class="card-sub">Review your call accuracy</div>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-
-      <div class="card" onclick="openPrograms()">
-        <svg class="tulip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20l-7-7a5 5 0 0 1 7-7 5 5 0 0 1 7 7h"/></svg>
-        <div class="card-text">
-          <span class="card-label">Training Programs</span>
-          <div class="card-sub">Structured practice plans</div>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-
-      <div class="card" onclick="openEditor()">
-        <svg class="tulip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
-        <div class="card-text">
-          <span class="card-label">Note Editor</span>
-          <div class="card-sub">Write your own stage notes</div>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-
-      <div class="card" onclick="openAchievements()">
-        <svg class="tulip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.5 6.5L21 9l-5 4.5L17.5 21 12 17l-5.5 4L8 13.5 3 9l6.5-.5z"/></svg>
-        <div class="card-text">
-          <span class="card-label">Achievements</span>
-          <div class="card-sub">Trophy cabinet</div>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-
-      <div class="card" onclick="Multiplayer.openLobby()">
-        <svg class="tulip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="3"/><path d="M2 20c0-3 3-5 7-5s7 2 7 5M14 15c3 .3 5 2 5 5"/></svg>
-        <div class="card-text">
-          <span class="card-label">Multiplayer</span>
-          <div class="card-sub">Race with friends over LAN</div>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-
-      <div class="card" onclick="openAccessibility()">
-        <svg class="tulip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        <div class="card-text">
-          <span class="card-label">Settings</span>
-          <div class="card-sub">Accessibility &amp; preferences</div>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </div>
-
-    <div class="page-foot">
-      <span>Group B · WRC 90s · Modern WRC — v2.0</span>
-      <span class="foot-stamp">STAGE REPORT ED.</span>
+    <div class="menu-overlay"></div>
+    <div class="menu-stripe"></div>
+    <div class="menu-content">
+      <div class="menu-title">TAKE ME TO<br>THE HAIRPIN</div>
+      <div class="menu-sub">Co-Driver Academy &amp; Career Mode</div>
+      <div class="menu-quote">"The notes are the truth. Trust them completely."</div>
     </div>
   </div>
-
+  <div class="menu-right">
+    <div class="menu-right-top" style="display:flex;align-items:center;justify-content:space-between">
+  <span>SELECT MODE</span>
+  <button id="mode-toggle-btn" title="Toggle Game/Training mode">🎮 Game Mode</button>
+</div>
+<div style="padding:.6rem 1.5rem;background:#0a0a0c;border-bottom:1px solid #252530;font-size:12px;color:#5a5a70;font-family:'IBM Plex Mono',monospace;line-height:1.5;display:flex;justify-content:space-between;align-items:center;">
+  <div>Read the notes. Keep the driver alive.<br>
+  <span style="color:#f5c518">Training Mode</span> = lessons & telemetry. <span style="color:#39ff14">Game Mode</span> = full rally simulation.</div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <div style="display:flex;align-items:center;gap:8px;padding:4px 8px;background:var(--surf);border:1px solid var(--brd2);border-radius:4px;">
+      <span style="font-size:10px;color:var(--text2)">🎵</span>
+      <input type="range" id="music-volume-slider" min="0" max="1" step="0.05" value="0.5" style="width:60px;height:4px;cursor:pointer" onchange="updateMusicVolume(this.value)">
+      <span style="font-size:10px;color:var(--text2)">🎤</span>
+      <input type="range" id="voice-volume-slider" min="0" max="1" step="0.05" value="1.0" style="width:60px;height:4px;cursor:pointer" onchange="updateVoiceVolume(this.value)">
+    </div>
+    <button id="recording-toggle-btn" class="gbtn" onclick="RecordingMode.toggle()" style="font-size:11px;padding:4px 10px;">⚪ Recording OFF</button>
+    <button class="gbtn" onclick="LanParty.quickHost()" style="font-size:11px;padding:4px 10px;background:#39ff14;color:#0a0a0c;border-color:#39ff14;">🎮 Host LAN</button>
+  </div>
+</div>
+    <div class="menu-nav">
+      <button class="mnbtn pri" onclick="openSetup()" style="background:var(--green);color:#0a0a0c;border-color:var(--green)">⚡ Quick Stage <span style="font-size:14px">★</span></button>
+      <button class="mnbtn" onclick="openCareer()">Career Mode <span>→</span></button>
+      <button class="mnbtn" onclick="openTraining()">Training School <span>→</span></button>
+      <button class="mnbtn" onclick="openTutorial()" style="border-color:var(--gold);color:var(--gold)">Interactive Tutorial <span style="font-size:14px">★</span></button>
+      <button class="mnbtn" onclick="openSignatureStages()" style="border-color:var(--red);color:var(--red)">🏆 Signature Stages <span style="font-size:12px">★</span></button>
+      <button class="mnbtn" onclick="openDailyChallenge()" style="border-color:var(--cyan);color:var(--cyan)">📅 Daily Challenge <span style="font-size:12px">NEW</span></button>
+      <button class="mnbtn" onclick="openWeeklyChallenge()" style="border-color:var(--mp-orange);color:var(--mp-orange)">🏆 Weekly Rally <span style="font-size:12px">HOT</span></button>
+      <button class="mnbtn" onclick="openTuningStandalone()">Tuning Garage <span>→</span></button>
+      <button class="mnbtn" id="menu-analytics-btn" onclick="openAnalytics()" style="display:none">Analytics Dashboard <span>→</span></button>
+      <button class="mnbtn" id="menu-programs-btn" onclick="openPrograms()" style="display:none">Training Programs <span>→</span></button>
+      <button class="mnbtn" onclick="openEditor()">Note Editor <span>→</span></button>
+      <button class="mnbtn" onclick="openAchievements()">Achievements <span>→</span></button>
+      <button class="mnbtn" onclick="openAccessibility()">Settings <span>→</span></button>
+    </div>
+    <div class="menu-bar">TAKE ME TO THE HAIRPIN — Stage Report Edition</div>
+    <div class="menu-foot">Group B · WRC 90s · Modern WRC<br>v2.0 — Three eras, one career</div>
+  </div>
+</div>
 </div>
 
-<!-- Setup Screen -->
 <div class="screen" id="setup">
-<div class="page-hdr" style="background:var(--paper);border-bottom:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;align-items:center;gap:1rem">
-  <button class="bk" onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">← Menu</button>
-  <div class="page-hdr-title" style="font-family:'Special Elite',monospace;font-size:18px;color:var(--ink)">Stage Setup</div>
+<div class="page-hdr">
+  <button class="bk" onclick="showMenu()">← Menu</button>
+  <div class="page-hdr-title">Stage Setup</div>
 </div>
-<div class="setup-scroll" style="flex:1;overflow-y:auto;padding:2rem;background:var(--paper)">
-  <div class="ss-sec" style="margin-bottom:2rem"><h3 style="font-family:'Special Elite',monospace;font-size:14px;color:var(--ink);margin-bottom:1rem">Era</h3><div class="era-grid" id="era-grid"></div></div>
-  <div class="ss-sec" style="margin-bottom:2rem">
-    <h3 style="font-family:'Special Elite',monospace;font-size:14px;color:var(--ink);margin-bottom:1rem">Crew</h3>
-    <div class="fields-row" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-      <div class="field"><label style="display:block;font-size:11px;color:var(--ink-soft);margin-bottom:5px;font-family:'IBM Plex Mono',monospace">Driver Name</label><input id="inp-drv" type="text" placeholder="e.g. Mikko Lahti" style="width:100%;background:var(--paper2);border:1px solid var(--paper-edge);color:var(--ink);padding:8px 10px;font-family:'IBM Plex Mono',monospace"/></div>
-      <div class="field"><label style="display:block;font-size:11px;color:var(--ink-soft);margin-bottom:5px;font-family:'IBM Plex Mono',monospace">Co-Driver Name</label><input id="inp-cod" type="text" placeholder="e.g. Janne Salo" style="width:100%;background:var(--paper2);border:1px solid var(--paper-edge);color:var(--ink);padding:8px 10px;font-family:'IBM Plex Mono',monospace"/></div>
+<div class="setup-scroll">
+  <div class="ss-sec"><h3>Era</h3><div class="era-grid" id="era-grid"></div></div>
+  <div class="ss-sec">
+    <h3>Crew</h3>
+    <div class="fields-row">
+      <div class="field"><label>Driver Name</label><input id="inp-drv" type="text" placeholder="e.g. Mikko Lahti"/></div>
+      <div class="field"><label>Co-Driver Name</label><input id="inp-cod" type="text" placeholder="e.g. Janne Salo"/></div>
     </div>
   </div>
-  <div class="ss-sec" style="margin-bottom:2rem"><h3 style="font-family:'Special Elite',monospace;font-size:14px;color:var(--ink);margin-bottom:1rem">Difficulty</h3><div class="diff-row" id="diff-row"></div></div>
-  <div class="ss-sec" style="margin-bottom:2rem"><h3 style="font-family:'Special Elite',monospace;font-size:14px;color:var(--ink);margin-bottom:1rem">Car</h3><div class="car-grid" id="car-grid"></div></div>
+  <div class="ss-sec"><h3>Difficulty</h3><div class="diff-row" id="diff-row"></div></div>
+  <div class="ss-sec"><h3>Car</h3><div class="car-grid" id="car-grid"></div></div>
 </div>
-<div class="start-bar" style="background:var(--paper2);border-top:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;justify-content:flex-end;gap:8px">
-  <button class="gbtn" onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:8px 16px;border:1px solid var(--paper-edge);color:var(--ink);background:transparent">← Menu</button>
-  <button class="gbtn" onclick="openTuningFromSetup()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:8px 16px;border:1px solid var(--green);color:var(--green);background:transparent">Tuning Garage</button>
-  <button class="gbtn pri" onclick="startStageFromSetup()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:8px 16px;border:1px solid var(--red);color:var(--red);background:transparent">Start Stage</button>
+<div class="start-bar">
+  <button class="gbtn" onclick="showMenu()">← Menu</button>
+  <button class="gbtn sec2" onclick="openTuningFromSetup()">Tuning Garage</button>
+  <button class="gbtn pri" onclick="startStageFromSetup()">Start Stage</button>
 </div>
 </div>
 
-<!-- Game Screen -->
-<div class="screen" id="game">
-<div class="game-hdr" style="background:var(--surf);border-bottom:1px solid var(--brd);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between">
-  <div>
-    <div id="g-stage" style="font-family:'Special Elite',monospace;font-size:20px;color:var(--text)">Stage Name</div>
-    <div id="g-meta" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text2)">Era · Surface · Weather</div>
-  </div>
-  <div style="display:flex;gap:1rem;align-items:center">
-    <div style="text-align:center"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text2)">ACCURACY</div><div id="g-acc" style="font-family:'Special Elite',monospace;font-size:24px;color:var(--gold)">0%</div></div>
-    <div style="text-align:center"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text2)">CORRECT</div><div id="g-corr" style="font-family:'Special Elite',monospace;font-size:24px;color:var(--text)">0</div></div>
-  </div>
-</div>
-<div class="game-main" style="flex:1;display:grid;grid-template-columns:1fr 300px;overflow:hidden">
-  <div class="game-left" style="padding:2rem;overflow-y:auto;background:var(--paper)">
-    <div id="g-note" style="font-family:'Big Shoulders Stencil',sans-serif;font-size:clamp(32px,6vw,64px);color:var(--ink);margin-bottom:2rem;line-height:1">Note</div>
-    <div style="display:flex;gap:1rem;margin-bottom:2rem">
-      <input id="g-input" type="text" placeholder="Type the pacenote..." style="flex:1;background:var(--paper2);border:2px solid var(--paper-edge);color:var(--ink);padding:12px 16px;font-family:'IBM Plex Mono',monospace;font-size:16px"/>
-      <button id="g-sub" onclick="submitAnswer()" style="font-family:'IBM Plex Mono',monospace;font-size:14px;padding:12px 24px;border:1px solid var(--red);color:var(--red);background:transparent">Submit</button>
-    </div>
-    <div id="g-feedback" style="font-family:'Special Elite',monospace;font-size:14px;color:var(--ink-soft);margin-bottom:1rem"></div>
-    <div id="g-vocab" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text3)"></div>
-  </div>
-  <div class="game-right" style="background:var(--surf);padding:1.5rem;overflow-y:auto">
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text2);margin-bottom:1rem">PROGRESS</div>
-    <div id="g-dots" style="display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin-bottom:2rem"></div>
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text2);margin-bottom:0.5rem">TIME</div>
-    <div id="g-time" style="font-family:'Special Elite',monospace;font-size:32px;color:var(--text)">00:00</div>
-  </div>
-</div>
-</div>
-
-<!-- Career Screen -->
-<div class="screen" id="career">
-<div class="page-hdr" style="background:var(--paper);border-bottom:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;align-items:center;gap:1rem">
-  <button onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">← Menu</button>
-  <div style="font-family:'Special Elite',monospace;font-size:20px;color:var(--ink)">Career Mode</div>
-</div>
-<div class="career-ticker" style="background:var(--red);padding:.3rem 1.5rem;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--paper);overflow:hidden;flex-shrink:0">
-  <div id="ticker-txt" class="ticker-inner">Loading...</div>
-</div>
-<div class="career-body" style="flex:1;overflow-y:auto;padding:2rem;background:var(--paper)">
-  <div style="display:grid;grid-template-columns:2fr 1fr;gap:2rem">
-    <div>
-      <h3 style="font-family:'Special Elite',monospace;font-size:16px;color:var(--ink);margin-bottom:1rem">Season Calendar</h3>
-      <div id="career-stage-list"></div>
-    </div>
-    <div>
-      <div style="background:var(--paper2);border:1px solid var(--paper-edge);padding:1.5rem;margin-bottom:1rem">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text2)">DRIVER</div>
-        <div id="c-driver-name" style="font-family:'Special Elite',monospace;font-size:20px;color:var(--ink)"></div>
-        <div id="c-driver-sub" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft)"></div>
-      </div>
-      <div style="background:var(--paper2);border:1px solid var(--paper-edge);padding:1.5rem;margin-bottom:1rem">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text2)">CHAMPIONSHIP POINTS</div>
-        <div id="c-pts" style="font-family:'Special Elite',monospace;font-size:36px;color:var(--red)">0</div>
-      </div>
-      <div style="background:var(--paper2);border:1px solid var(--paper-edge);padding:1.5rem">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text2)">CURRENT ROUND</div>
-        <div id="c-round" style="font-family:'Special Elite',monospace;font-size:18px;color:var(--ink)">Round 0 / 6</div>
-      </div>
-    </div>
-  </div>
-</div>
-<div style="background:var(--paper2);border-top:1px solid var(--paper-edge);padding:.6rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-shrink:0">
-  <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft)">Group B · WRC 90s · Modern WRC — v2.0</div>
-</div>
-</div>
-
-<!-- Achievements Screen -->
-<div class="screen" id="achievements">
-<div class="page-hdr" style="background:var(--paper);border-bottom:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;align-items:center;gap:1rem">
-  <button onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">← Menu</button>
-  <div style="font-family:'Special Elite',monospace;font-size:20px;color:var(--ink)">Achievements</div>
-</div>
-<div class="achievements-body" style="flex:1;overflow-y:auto;padding:2rem;background:var(--paper)">
-  <div id="achievements-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem"></div>
-</div>
-</div>
-
-<!-- Accessibility Screen -->
-<div class="screen" id="accessibility">
-<div class="page-hdr" style="background:var(--paper);border-bottom:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;align-items:center;gap:1rem">
-  <button onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">← Menu</button>
-  <div style="font-family:'Special Elite',monospace;font-size:20px;color:var(--ink)">Settings</div>
-</div>
-<div class="accessibility-body" style="flex:1;overflow-y:auto;padding:2rem;background:var(--paper)">
-  <div id="accessibility-content"></div>
-</div>
-</div>
-
-<!-- Result Screen -->
-<div class="screen" id="result">
-<div class="page-hdr" style="background:var(--paper);border-bottom:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;align-items:center;gap:1rem">
-  <button onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">← Menu</button>
-  <div style="font-family:'Special Elite',monospace;font-size:20px;color:var(--ink)">Stage Result</div>
-</div>
-<div class="result-body" style="flex:1;overflow-y:auto;padding:2rem;background:var(--paper)">
-  <div style="max-width:600px;margin:0 auto">
-    <div style="text-align:center;margin-bottom:2rem">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text2)">ACCURACY</div>
-      <div id="r-acc" style="font-family:'Special Elite',monospace;font-size:64px;color:var(--gold)">0%</div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem">
-      <div style="background:var(--paper2);border:1px solid var(--paper-edge);padding:1rem">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text2)">NOTES CORRECT</div>
-        <div id="r-correct" style="font-family:'Special Elite',monospace;font-size:24px;color:var(--ink)">0</div>
-      </div>
-      <div style="background:var(--paper2);border:1px solid var(--paper-edge);padding:1rem">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text2)">TIME PENALTY</div>
-        <div id="r-pen" style="font-family:'Special Elite',monospace;font-size:24px;color:var(--red)">0s</div>
-      </div>
-    </div>
-    <div style="display:flex;gap:1rem;justify-content:center">
-      <button onclick="openSetup()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:10px 20px;border:1px solid var(--paper-edge);color:var(--ink);background:transparent">Quick Stage</button>
-      <button onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:10px 20px;border:1px solid var(--red);color:var(--red);background:transparent">Menu</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- Training Screen -->
-<div class="screen" id="training">
-<div class="page-hdr" style="background:var(--paper);border-bottom:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;align-items:center;gap:1rem">
-  <button onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">← Menu</button>
-  <div style="font-family:'Special Elite',monospace;font-size:20px;color:var(--ink)">Training School</div>
-</div>
-<div class="training-body" style="flex:1;overflow-y:auto;padding:2rem;background:var(--paper)">
-  <div style="display:grid;grid-template-columns:250px 1fr;gap:2rem">
-    <div id="lesson-list" style="background:var(--paper2);border:1px solid var(--paper-edge);padding:1rem"></div>
-    <div id="school-main" style="background:var(--paper);border:1px solid var(--paper-edge);padding:2rem">
-      <div class="lhdr" style="margin-bottom:1.1rem;padding-bottom:.75rem;border-bottom:2px solid var(--red)">
-        <h2 id="l-title" style="font-family:'Special Elite',monospace;font-size:22px;color:var(--ink)">Lesson Title</h2>
-        <p id="l-desc" style="font-size:12px;color:var(--ink-soft);margin-top:3px">Lesson description</p>
-      </div>
-      <div id="l-content" class="ltxt" style="font-size:14px;line-height:1.8;color:var(--ink);margin-bottom:.85rem"></div>
-      <div id="l-quiz" style="display:none;margin-top:1.5rem"></div>
-      <div style="margin-top:2rem;padding:1rem;background:var(--paper2);border:1px solid var(--paper-edge)">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-soft);margin-bottom:.5rem">PROGRESS</div>
-        <div style="display:flex;align-items:center;gap:1rem">
-          <div style="flex:1;height:5px;background:var(--paper-edge);border-radius:3px;overflow:hidden">
-            <div id="cbar1" style="height:100%;background:var(--red);width:0%"></div>
-          </div>
-          <div id="clbl1" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink)">0 / 0</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:1rem;margin-top:.5rem">
-          <div style="flex:1;height:5px;background:var(--paper-edge);border-radius:3px;overflow:hidden">
-            <div id="cbar2" style="height:100%;background:var(--green);width:0%"></div>
-          </div>
-          <div id="clbl2" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink)">0 / 0</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- Tuning Screen -->
 <div class="screen" id="tuning">
-<div class="page-hdr" style="background:var(--paper);border-bottom:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between">
-  <div style="display:flex;align-items:center;gap:1rem">
-    <div style="font-family:'Special Elite',monospace;font-size:20px;color:var(--ink)" id="tun-title">Tuning Garage</div>
-    <div id="tun-car-badge" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);background:var(--paper2);padding:4px 8px;border:1px solid var(--paper-edge)"></div>
-  </div>
-  <button id="tun-back-btn" onclick="tunBack()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">← Back</button>
-</div>
-<div id="tun-era-picker" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.8);align-items:center;justify-content:center">
-  <div style="background:var(--paper);padding:2rem;max-width:400px;width:100%;border:2px solid var(--red)">
-    <h3 style="font-family:'Special Elite',monospace;font-size:18px;color:var(--ink);margin-bottom:1rem">Select Era & Car</h3>
-    <div style="margin-bottom:1rem">
-      <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-bottom:5px">Era</label>
-      <select id="tun-era-drop" style="width:100%;background:var(--paper2);border:1px solid var(--paper-edge);color:var(--ink);padding:8px;font-family:'IBM Plex Mono',monospace" onchange="tunEraChanged()"></select>
-    </div>
-    <div style="margin-bottom:1.5rem">
-      <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-bottom:5px">Car</label>
-      <select id="tun-car-drop" style="width:100%;background:var(--paper2);border:1px solid var(--paper-edge);color:var(--ink);padding:8px;font-family:'IBM Plex Mono',monospace"></select>
-    </div>
-    <div style="display:flex;gap:1rem;justify-content:flex-end">
-      <button onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:8px 16px;border:1px solid var(--paper-edge);color:var(--ink);background:transparent">Cancel</button>
-      <button onclick="confirmTunEra()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:8px 16px;border:1px solid var(--green);color:var(--green);background:transparent">Confirm</button>
-    </div>
+<div class="page-hdr" style="flex-wrap:wrap;gap:.5rem">
+  <button class="bk" id="tun-back-btn" onclick="tunBack()">← Back</button>
+  <div class="page-hdr-title" id="tun-title">Tuning Garage</div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text3)" id="tun-car-badge">No car selected</span>
+    <button class="gbtn sec2" onclick="openTuningEraSelect()" id="tun-era-select-btn">Change car/era</button>
+    <button class="gbtn pri" onclick="applyTuning()">Apply &amp; Continue →</button>
   </div>
 </div>
-<div class="tuning-body" style="flex:1;overflow-y:auto;padding:2rem;background:var(--paper)">
-  <div style="display:grid;grid-template-columns:200px 1fr;gap:2rem">
-    <div id="tune-nav" style="background:var(--paper2);border:1px solid var(--paper-edge);padding:1rem"></div>
-    <div id="tune-content">
-      <div id="tun-main"></div>
-      <div id="tun-summary" style="margin-top:2rem;padding:1rem;background:var(--paper2);border:1px solid var(--paper-edge)"></div>
+<div id="tun-era-picker" style="display:none;background:var(--surf2);border-bottom:1px solid var(--brd2);padding:.75rem 1.5rem">
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text2);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.08em">Select era and car to tune</div>
+  <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:center">
+    <div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:3px;font-family:'IBM Plex Mono',monospace">Era</div>
+      <select id="tun-era-drop" style="background:var(--surf);border:1px solid var(--brd2);color:var(--text);padding:6px 10px;font-size:13px;font-family:'IBM Plex Mono',monospace" onchange="tunEraChanged()">
+        <option value="grpb">Group B (1982–1986)</option>
+        <option value="w90">WRC 90s (1990–2001)</option>
+        <option value="w24">Modern WRC (2022–present)</option>
+      </select>
     </div>
+    <div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:3px;font-family:'IBM Plex Mono',monospace">Car</div>
+      <select id="tun-car-drop" style="background:var(--surf);border:1px solid var(--brd2);color:var(--text);padding:6px 10px;font-size:13px;font-family:'IBM Plex Mono',monospace" onchange="tunCarChanged()"></select>
+    </div>
+    <button class="gbtn pri" style="margin-top:18px" onclick="confirmTunEra()">Confirm</button>
+    <button class="gbtn" style="margin-top:18px" onclick="document.getElementById('tun-era-picker').style.display='none'">Cancel</button>
   </div>
 </div>
+<div id="tun-body" style="flex:1;display:grid;grid-template-columns:200px 1fr;overflow:hidden;min-height:0">
+  <div id="tun-nav" style="background:var(--surf);border-right:1px solid var(--brd2);overflow-y:auto;padding:.5rem"></div>
+  <div id="tun-main" style="overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1.5rem"></div>
 </div>
-
-<!-- Analytics Screen -->
-<div class="screen" id="analytics">
-<div class="page-hdr" style="background:var(--paper);border-bottom:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;align-items:center;gap:1rem">
-  <button onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">← Menu</button>
-  <div style="font-family:'Special Elite',monospace;font-size:20px;color:var(--ink)">Analytics Dashboard</div>
-</div>
-<div id="analytics-body" style="flex:1;overflow-y:auto;padding:2rem;background:var(--paper)"></div>
-</div>
-
-<!-- Programs Screen -->
-<div class="screen" id="programs">
-<div class="page-hdr" style="background:var(--paper);border-bottom:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;align-items:center;gap:1rem">
-  <button onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">← Menu</button>
-  <div style="font-family:'Special Elite',monospace;font-size:20px;color:var(--ink)">Training Programs</div>
-</div>
-<div id="programs-body" style="flex:1;overflow-y:auto;padding:2rem;background:var(--paper)"></div>
-</div>
-
-<!-- Editor Screen -->
-<div class="screen" id="editor">
-<div class="page-hdr" style="background:var(--paper);border-bottom:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;align-items:center;gap:1rem">
-  <button onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">← Menu</button>
-  <div style="font-family:'Special Elite',monospace;font-size:20px;color:var(--ink)">Note Editor</div>
-</div>
-<div style="flex:1;overflow-y:auto;padding:2rem;background:var(--paper)">
-  <div style="max-width:800px;margin:0 auto">
-    <div style="margin-bottom:1.5rem">
-      <div style="font-size:12px;color:var(--ink-soft);margin-bottom:.5rem">PACENOTE FORMAT</div>
-      <div id="editor-format-btns" style="display:flex;gap:6px;flex-wrap:wrap"></div>
-    </div>
-    <div style="margin-bottom:1.5rem">
-      <div style="font-size:12px;color:var(--ink-soft);margin-bottom:.5rem">AUDIO STYLE</div>
-      <div id="editor-audio-btns" style="display:flex;gap:6px;flex-wrap:wrap"></div>
-    </div>
-    <div style="margin-bottom:1.5rem">
-      <div style="font-size:12px;color:var(--ink-soft);margin-bottom:.5rem">EDITOR</div>
-      <textarea id="editor-textarea" style="width:100%;height:300px;background:var(--paper2);border:1px solid var(--paper-edge);color:var(--ink);padding:1rem;font-family:'IBM Plex Mono',monospace;font-size:14px" placeholder="Enter your pacenotes here..."></textarea>
-    </div>
+<div style="background:var(--surf);border-top:1px solid var(--brd2);padding:.6rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-shrink:0;flex-wrap:wrap">
+  <span style="font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace">Setup affects crash probability, damage resilience, and stage time</span>
+  <div style="margin-left:auto;display:flex;gap:6px;flex-wrap:wrap">
+    <button class="gbtn" onclick="resetTuning()" style="font-size:14px;padding:7px 14px">Reset defaults</button>
+    <button class="gbtn" onclick="loadPreset('safe')" style="font-size:14px;padding:7px 14px;border-color:var(--cyan);color:var(--cyan)">Safe setup</button>
+    <button class="gbtn" onclick="loadPreset('attack')" style="font-size:14px;padding:7px 14px;border-color:var(--red);color:var(--red)">Attack setup</button>
   </div>
 </div>
 </div>
 
-<!-- Multiplayer Lobby Screen -->
-<div class="screen" id="mp-lobby-screen">
-<div class="page-hdr" style="background:var(--paper);border-bottom:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;align-items:center;gap:1rem">
-  <button onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">← Menu</button>
-  <div style="font-family:'Special Elite',monospace;font-size:20px;color:var(--ink)">Multiplayer Lobby</div>
+<div class="screen" id="training">
+<div class="school-top">
+  <div class="school-logo">RPA Academy</div>
+  <div class="school-tabs">
+    <button class="st-tab on" onclick="switchLesson('intro',this)">Basics</button>
+    <button class="st-tab" onclick="switchLesson('corners',this)">Corners</button>
+    <button class="st-tab" onclick="switchLesson('hazards',this)">Hazards</button>
+    <button class="st-tab" onclick="switchLesson('era',this)">Era Guide</button>
+    <button class="st-tab" onclick="switchLesson('quiz',this)">Practice Quiz</button>
+  </div>
+  <button class="bk" style="border-color:#555;color:#888;margin-left:auto" onclick="showMenu()">← Menu</button>
 </div>
-<div class="mp-lobby-body" style="flex:1;overflow-y:auto;padding:2rem;background:var(--paper)">
-  <div id="mp-lobby-content"></div>
+<div class="school-title"><h1>TAKE ME TO THE HAIRPIN Academy</h1><span>Learn to read the road before the stage goes live</span></div>
+<div class="school-body">
+  <div class="school-sidebar">
+    <div id="lesson-list"></div>
+    <div style="margin-top:auto;padding-top:.75rem">
+      <div class="clbl" style="margin-bottom:4px">Progress</div>
+      <div class="cbar-wrap"><div class="cbar" id="cbar1" style="width:0%"></div></div>
+      <div class="clbl" style="margin-top:3px" id="clbl1">0 / 0</div>
+    </div>
+  </div>
+  <div class="school-main" id="school-main"></div>
+</div>
+<div class="school-foot">
+  <div class="clbl">Completed:</div>
+  <div class="cbar-wrap"><div class="cbar" id="cbar2" style="width:0%"></div></div>
+  <div class="clbl" id="clbl2">0 / 0</div>
 </div>
 </div>
 
-<!-- Story Screen -->
-<div class="screen" id="story-screen">
-<div class="page-hdr" style="background:var(--paper);border-bottom:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;align-items:center;gap:1rem">
-  <button onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">← Menu</button>
-  <div style="font-family:'Special Elite',monospace;font-size:20px;color:var(--ink)">Story</div>
+<div class="screen" id="game">
+<video class="game-bg-video" id="game-bg-video" autoplay muted loop playsinline preload="auto">
+  <source src="pixelShader_8_28_2026_8_59_24 PM.mp4" type="video/mp4"/>
+</video>
+<div class="game-bg-overlay"></div>
+<div class="game-flash" id="game-flash"></div>
+<div class="g-topbar">
+  <div>
+    <div class="g-stage" id="g-stage">—</div>
+    <div class="g-meta" id="g-meta">—</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div style="display:flex;align-items:center;gap:6px;padding:4px 8px;background:var(--surf);border:1px solid var(--brd2);border-radius:4px;">
+      <span style="font-size:9px;color:var(--text2)">🎵</span>
+      <input type="range" id="game-music-volume-slider" min="0" max="1" step="0.05" value="0.5" style="width:40px;height:3px;cursor:pointer" onchange="updateMusicVolume(this.value)">
+      <span style="font-size:9px;color:var(--text2)">🎤</span>
+      <input type="range" id="game-voice-volume-slider" min="0" max="1" step="0.05" value="1.0" style="width:40px;height:3px;cursor:pointer" onchange="updateVoiceVolume(this.value)">
+    </div>
+    <div class="g-scores">
+      <div><div class="g-sv" id="g-corr">0</div><div class="g-sl">Correct</div></div>
+      <div><div class="g-sv" id="g-of">/ 8</div><div class="g-sl">Notes</div></div>
+    </div>
+  </div>
 </div>
-<div class="story-body" style="flex:1;overflow-y:auto;background:var(--paper)">
-  <div style="padding:2rem">
-    <div style="background:var(--paper2);border:1px solid var(--paper-edge);padding:1rem;margin-bottom:1rem">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-soft);margin-bottom:.5rem">STATS</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem">
-        <div id="stat-trust" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink)">Trust: 0</div>
-        <div id="stat-reputation" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink)">Rep: 0</div>
-        <div id="stat-stress" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink)">Stress: 0</div>
-        <div id="stat-grit" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink)">Grit: 0</div>
+<div class="g-prog-bar"><div class="g-prog-fill" id="g-prog" style="width:0%"></div></div>
+<div class="g-dots" id="g-dots"></div>
+<div class="g-body">
+  <div class="g-main">
+    <div class="note-box">
+      <div class="note-lbl" id="g-colbl">Co-driver calls</div>
+      <div id="g-tulip" style="display:flex;gap:4px;flex-wrap:wrap;min-height:92px;margin-bottom:0.75rem;align-items:flex-start;padding:4px;background:rgba(255,255,255,0.02);border-radius:4px;"></div>
+      <div class="note-raw" id="g-note">—</div>
+      <div class="note-audio-row">
+        <button class="abtn" onclick="speakNote()" id="btn-hear-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          Hear co-driver call
+        </button>
+        <button class="abtn" id="btn-hear-trans" style="display:none" onclick="speakTranslation()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Hear translation
+        </button>
       </div>
     </div>
-    <div id="story-content"></div>
-    <div id="story-choices" style="margin-top:1.5rem"></div>
+    <div class="narr-strip" id="g-narr"><div class="narr-txt" id="g-narr-txt"></div></div>
+    <div id="tuning-warnings" style="display:none;background:#1a1400;border:1px solid #f5c518;padding:0.5rem;margin-bottom:0.5rem;font-size:11px;font-family:'IBM Plex Mono',monospace;"></div>
+    <div class="inp-block">
+      <div class="inp-lbl">Translate the note — type what it means <span style="color:var(--text3);font-size:10px">(Enter to submit)</span></div>
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <input class="big-in" id="g-input" type="text" placeholder="e.g. left medium — 150 metres — right tight" autocomplete="off" style="flex:1"/>
+        <button class="gbtn" id="input-mode-toggle" onclick="INPUT_MODE.toggle();updateInputModeUI()" style="padding:0 12px;min-width:80px;">⌨️ Type</button>
+        <div id="mic-indicator" style="display:none;align-items:center;justify-content:center;width:32px;height:32px;background:#39ff14;border-radius:50%;animation:pulse 1s infinite;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0c" stroke-width="2" style="width:16px;height:16px;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="gbtn" onclick="skipNote()">Skip</button>
+        <button class="gbtn pri" id="g-sub" onclick="submitAnswer()">Submit (Enter)</button>
+      </div>
+    </div>
+    <div class="fb-box" id="g-fb"><div id="g-fb-txt"></div><div class="fb-ans" id="g-fb-ans"></div></div>
+  </div>
+  <div class="g-side">
+    <div class="timer-wrap">
+      <svg class="timer-svg" viewBox="0 0 86 86">
+        <circle cx="43" cy="43" r="36" fill="none" stroke="#1e1e28" stroke-width="5"/>
+        <circle cx="43" cy="43" r="36" fill="none" stroke="#39ff14" stroke-width="5"
+          stroke-dasharray="226.2" stroke-dashoffset="0" stroke-linecap="round"
+          transform="rotate(-90 43 43)" id="t-arc"/>
+      </svg>
+      <div class="timer-num" id="g-timer">12</div>
+      <div class="timer-lbl">stage clock</div>
+    </div>
+    <div class="s-section">
+      <h4>Commentator</h4>
+      <div class="comm-wrap" id="g-comm" style="display:none">
+        <div class="comm-av" id="g-comm-av">CV</div>
+        <div class="comm-bub" id="g-comm-txt"></div>
+      </div>
+      <div id="g-comm-ph" style="font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace">Awaiting call…</div>
+    </div>
+    <div class="hint-box">
+      <div class="hint-title">Vocabulary</div>
+      <div id="g-vocab"></div>
+    </div>
+    <div class="s-section">
+      <h4>Stage conditions</h4>
+      <div class="cond-txt" id="g-cond">—</div>
+    </div>
+    <div class="s-section">
+      <h4>Car status</h4>
+      <div id="dmg-hud">
+        <svg viewBox="0 0 100 170" width="100%" style="max-height:130px;margin-bottom:6px" id="dmg-car-svg">
+          <rect x="12" y="35" width="76" height="90" rx="7" fill="#1e1e28" stroke="#3a3a50" stroke-width="2" id="svg-body"/>
+          <rect x="22" y="16" width="56" height="28" rx="5" fill="#16161e" stroke="#3a3a50" stroke-width="1.5" id="svg-roof"/>
+          <rect x="25" y="18" width="50" height="22" rx="3" fill="#0a2535" opacity="0.85" id="svg-screen"/>
+          <rect x="4" y="42" width="14" height="22" rx="4" fill="#252535" stroke="#404055" stroke-width="1" id="svg-wfl"/>
+          <rect x="82" y="42" width="14" height="22" rx="4" fill="#252535" stroke="#404055" stroke-width="1" id="svg-wfr"/>
+          <rect x="4" y="105" width="14" height="22" rx="4" fill="#252535" stroke="#404055" stroke-width="1" id="svg-wrl"/>
+          <rect x="82" y="105" width="14" height="22" rx="4" fill="#252535" stroke="#404055" stroke-width="1" id="svg-wrr"/>
+          <rect x="12" y="28" width="76" height="9" rx="3" fill="#1e1e28" stroke="#3a3a50" stroke-width="1" id="svg-front"/>
+          <rect x="12" y="124" width="76" height="9" rx="3" fill="#1e1e28" stroke="#3a3a50" stroke-width="1" id="svg-rear"/>
+          
+          <rect x="12" y="28" width="76" height="9" rx="3" fill="#e8291c" opacity="0" id="hit-front"/>
+          <rect x="12" y="124" width="76" height="9" rx="3" fill="#e8291c" opacity="0" id="hit-rear"/>
+          <rect x="4" y="42" width="14" height="22" rx="4" fill="#e8291c" opacity="0" id="hit-wfl"/>
+          <rect x="82" y="42" width="14" height="22" rx="4" fill="#e8291c" opacity="0" id="hit-wfr"/>
+          <rect x="4" y="105" width="14" height="22" rx="4" fill="#e8291c" opacity="0" id="hit-wrl"/>
+          <rect x="82" y="105" width="14" height="22" rx="4" fill="#e8291c" opacity="0" id="hit-wrr"/>
+          <rect x="22" y="16" width="56" height="28" rx="5" fill="#e8291c" opacity="0" id="hit-roof"/>
+          <rect x="12" y="35" width="76" height="90" rx="7" fill="#e8291c" opacity="0" id="hit-body"/>
+        </svg>
+        <div class="dmg-bars">
+          <div class="dbr"><span class="dbl">Engine</span><div class="dbw"><div class="dbi" id="db-eng" style="width:100%"></div></div><span class="dbv" id="dv-eng">100</span></div>
+          <div class="dbr"><span class="dbl">Susp</span><div class="dbw"><div class="dbi" id="db-sus" style="width:100%"></div></div><span class="dbv" id="dv-sus">100</span></div>
+          <div class="dbr"><span class="dbl">Tyres</span><div class="dbw"><div class="dbi" id="db-tyr" style="width:100%"></div></div><span class="dbv" id="dv-tyr">100</span></div>
+          <div class="dbr"><span class="dbl">Body</span><div class="dbw"><div class="dbi" id="db-bod" style="width:100%"></div></div><span class="dbv" id="dv-bod">100</span></div>
+        </div>
+        <div class="dmg-status-txt" id="dmg-status">All systems nominal</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="adaptive-bar" style="display:none;background:#001a1a;border-top:1px solid var(--cyan);padding:.25rem 1.5rem;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--cyan);letter-spacing:.1em;flex-shrink:0">
+  <span id="adaptive-indicator">ADAPTIVE DIFFICULTY ACTIVE</span>
+  <span id="adaptive-time" style="margin-left:1rem;color:var(--text2)"></span>
+</div>
+<div class="g-foot">
+  <button class="aband" onclick="abandonStage()">Retire from stage</button>
+  <span style="font-size:12px;color:var(--text2);font-family:'IBM Plex Mono',monospace;background:var(--surf2);padding:4px 10px;border:1px solid var(--brd2)" id="g-foot-note">Note 1 of 8</span>
+</div>
+</div>
+
+<div class="screen" id="daily-challenge">
+<div class="page-hdr">
+  <button class="bk" onclick="showMenu()">← Menu</button>
+  <div class="page-hdr-title">Daily Challenge</div>
+</div>
+<div class="setup-scroll">
+  <div class="ss-sec">
+    <h3>Today's Stage</h3>
+    <div id="daily-stage-info" style="background:var(--surf2);padding:1rem;border-radius:4px;margin-bottom:1rem">
+      <div style="font-size:14px;color:var(--text3);margin-bottom:0.5rem">Loading...</div>
+    </div>
+  </div>
+  <div class="ss-sec">
+    <h3>Your Best Today</h3>
+    <div id="daily-best-score" style="font-family:'IBM Plex Mono',monospace;font-size:24px;color:var(--gold)">No runs yet</div>
+  </div>
+  <div class="ss-sec">
+    <h3>Global Leaderboard</h3>
+    <div id="daily-leaderboard" style="font-family:'IBM Plex Mono',monospace;font-size:12px">Loading...</div>
+  </div>
+</div>
+<div class="start-bar">
+  <button class="gbtn" onclick="showMenu()">← Menu</button>
+  <button class="gbtn pri" onclick="startDailyChallenge()">Start Daily Challenge</button>
+</div>
+</div>
+
+<div class="screen" id="signature-stages">
+<div class="page-hdr">
+  <button class="bk" onclick="showMenu()">← Menu</button>
+  <div class="page-hdr-title">Signature Stages</div>
+</div>
+<div class="setup-scroll">
+  <div class="ss-sec">
+    <h3>Legendary Stages</h3>
+    <div style="background:var(--surf2);padding:1rem;border-radius:4px;margin-bottom:1rem;border:1px solid var(--red)">
+      <div style="font-size:14px;color:var(--red);margin-bottom:0.5rem;font-weight:600">HAND-TUNED PACENOTES</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.4">These stages feature specially crafted pacenote sequences that test specific skills. Each is inspired by real rally stages that made history. Beat the record times to earn your place among the legends.</div>
+    </div>
+  </div>
+  <div class="ss-sec">
+    <h3>Your Personal Bests</h3>
+    <div id="signature-personal-bests" style="font-family:'IBM Plex Mono',monospace;font-size:12px">Loading...</div>
+  </div>
+  <div class="ss-sec">
+    <h3>Select Stage</h3>
+    <div id="signature-stages-list">Loading...</div>
+  </div>
+</div>
+<div class="start-bar">
+  <button class="gbtn" onclick="showMenu()">← Menu</button>
+</div>
+</div>
+
+<div class="screen" id="daily-challenge">
+<div class="page-hdr">
+  <button class="bk" onclick="showMenu()">← Menu</button>
+  <div class="page-hdr-title">Daily Challenge</div>
+</div>
+<div class="setup-scroll">
+  <div class="ss-sec">
+    <h3>Today's Stage</h3>
+    <div id="daily-stage-info" style="background:var(--surf2);padding:1rem;border-radius:4px;margin-bottom:1rem">
+      <div style="font-size:14px;color:var(--text3);margin-bottom:0.5rem">Loading...</div>
+    </div>
+  </div>
+  <div class="ss-sec">
+    <h3>Your Best Today</h3>
+    <div id="daily-best-score" style="font-family:'IBM Plex Mono',monospace;font-size:24px;color:var(--gold)">No runs yet</div>
+  </div>
+  <div class="ss-sec">
+    <h3>Daily Leaderboard</h3>
+    <div id="daily-leaderboard" style="font-family:'IBM Plex Mono',monospace;font-size:12px">Loading...</div>
+  </div>
+</div>
+<div class="start-bar">
+  <button class="gbtn" onclick="showMenu()">← Menu</button>
+  <button class="gbtn pri" onclick="startDailyChallenge()">Start Daily Challenge</button>
+</div>
+</div>
+
+<div class="screen" id="weekly-challenge">
+<div class="page-hdr">
+  <button class="bk" onclick="showMenu()">← Menu</button>
+  <div class="page-hdr-title">Weekly Rally</div>
+</div>
+<div class="setup-scroll">
+  <div class="ss-sec">
+    <h3>This Week's Stage</h3>
+    <div id="weekly-stage-info" style="background:var(--surf2);padding:1rem;border-radius:4px;margin-bottom:1rem">
+      <div style="font-size:14px;color:var(--text3);margin-bottom:0.5rem">Loading...</div>
+    </div>
+  </div>
+  <div class="ss-sec">
+    <h3>Your Best This Week</h3>
+    <div id="weekly-best-score" style="font-family:'IBM Plex Mono',monospace;font-size:24px;color:var(--gold)">No runs yet</div>
+  </div>
+  <div class="ss-sec">
+    <h3>Weekly Leaderboard</h3>
+    <div id="weekly-leaderboard" style="font-family:'IBM Plex Mono',monospace;font-size:12px">Loading...</div>
+  </div>
+</div>
+<div class="start-bar">
+  <button class="gbtn" onclick="showMenu()">← Menu</button>
+  <button class="gbtn pri" onclick="startWeeklyChallenge()">Start Weekly Rally</button>
+</div>
+</div>
+
+<div class="screen" id="result">
+<div class="mp-mast">
+  <div class="mp-mast-top">
+    <span id="r-era-tag">Group B Special</span>
+    <span id="r-date">—</span>
+  </div>
+  <div class="mp-name-row">
+    <div class="mp-title">MAX<em>POWER</em><br><span style="font-size:.55em;letter-spacing:2px">STAGE REPORT</span></div>
+    
+  </div>
+  <div class="mp-mast-bottom">
+    <div class="mp-strap" id="r-outlet">Rallye Mondiale</div>
+    <div class="mp-issue" id="r-issue">—</div>
+  </div>
+</div>
+<div class="flame-bar"></div>
+<div class="mp-hl-block">
+  <div class="mp-pos" id="r-pos-badge">P1</div>
+  <div class="mp-headline" id="r-headline">—</div>
+  <div class="mp-deck" id="r-deck">—</div>
+</div>
+<div class="mp-body-wrap">
+  <div class="mp-main">
+    <div class="mp-babe-bar">
+      
+      <div>
+        <div class="mp-babe-txt">Max Power Stage Report</div>
+        <div class="mp-babe-sub">The fastest stage debrief in rallying</div>
+      </div>
+    </div>
+    <div class="mp-article" id="r-article">—</div>
+<div id="pro-summary"></div>
+    <div class="mp-pull"><p id="r-quote">—</p><cite id="r-quote-attr">—</cite></div>
+  </div>
+  <div class="mp-side">
+    <div class="mp-box">
+      <h3>Stage Result</h3>
+      <div class="rs"><span class="rs-l">Position</span><span class="rs-v gld" id="r-pos">—</span></div>
+      <div class="rs"><span class="rs-l">Stage time</span><span class="rs-v gld" id="r-time">—</span></div>
+      <div class="rs"><span class="rs-l">Accuracy</span><span class="rs-v" id="r-acc">—</span></div>
+      <div class="rs"><span class="rs-l">Notes correct</span><span class="rs-v" id="r-correct">—</span></div>
+      <div class="rs"><span class="rs-l">Time penalty</span><span class="rs-v red" id="r-pen">—</span></div>
+    </div>
+    <div class="mp-box">
+      <h3>Note Breakdown</h3>
+      <div id="r-breakdown">—</div>
+    </div>
+    <div class="mp-box">
+      <h3>Performance Timeline</h3>
+      <div id="r-timeline">—</div>
+    </div>
+    <div class="mp-standings" id="r-std-box" style="display:none">
+      <h3>Championship</h3>
+      <div id="r-standings">—</div>
+    </div>
+    <div class="mp-advert">
+      <div class="mp-advert-logo">PIRELLI</div>
+      <p>The tyre that wins rallies — and makes babes smile</p>
+    </div>
+  </div>
+</div>
+<div class="mp-foot">
+  <button class="mpbtn" onclick="showMenu()">← Menu</button>
+  <button class="mpbtn" onclick="openSetup()">Quick Stage</button>
+  <button class="mpbtn" onclick="generateShareableCard()">📸 Share Result</button>
+  <button class="mpbtn pri" id="r-career-btn" style="display:none" onclick="continueCareer()">Next Stage →</button>
+</div>
+</div>
+
+<div class="screen" id="career">
+<div class="career-hdr">
+  <div class="career-hdr-top">
+    <h1>Career Mode</h1>
+    <div style="display:flex;gap:8px">
+      <button class="gbtn" onclick="openTeamManagement()" style="font-size:12px;padding:5px 12px">🔧 Team &amp; Garage</button>
+      <button class="gbtn" onclick="resetCareer()" style="font-size:12px;padding:5px 12px">Reset</button>
+      <button class="gbtn" onclick="showMenu()">← Menu</button>
+    </div>
+  </div>
+  <div class="career-banner">
+    <div class="career-driver"><div class="cd-name" id="c-driver-name">Driver</div><div class="cd-sub" id="c-driver-sub">Co-driver: —</div></div>
+    <div class="career-pts"><div class="cp-val" id="c-pts">0</div><div class="cp-lbl">Championship Points</div></div>
+    <div class="career-round" id="c-round">Round 0 / 6</div>
+  </div>
+</div>
+<div class="career-ticker"><div class="ticker-inner" id="ticker-txt">RALLY SEASON UNDERWAY — THREE ERAS — SIX ROUNDS — CHAMPIONSHIP ON THE LINE</div></div>
+<div class="career-body">
+  <div class="career-list">
+    <div class="cl-hdr">Season Calendar</div>
+    <div id="career-stage-list"></div>
+  </div>
+  <div class="career-main">
+    <div class="c-section">
+      <div class="c-sec-hdr"><h3>Championship Standings</h3></div>
+      <div class="c-sec-body"><table class="std-tbl" id="c-standings"></table></div>
+    </div>
+    <div class="c-section">
+      <div class="c-sec-hdr"><h3>Season Stats</h3></div>
+      <div class="c-sec-body"><div class="stats-grid" id="c-stats"></div></div>
+    </div>
+    <div class="c-section">
+      <div class="c-sec-hdr"><h3>Trophy Cabinet</h3></div>
+      <div class="c-sec-body"><div class="trophy-wrap" id="c-trophies"></div></div>
+    </div>
   </div>
 </div>
 </div>
 
-<!-- Route Select Screen -->
-<div class="screen" id="route-select">
-<div class="page-hdr" style="background:var(--paper);border-bottom:1px solid var(--paper-edge);padding:1rem 2rem;display:flex;align-items:center;gap:1rem">
-  <button onclick="showMenu()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">← Menu</button>
-  <div style="font-family:'Special Elite',monospace;font-size:20px;color:var(--ink)">Select Route</div>
-</div>
-<div class="route-body" style="flex:1;overflow-y:auto;padding:2rem;background:var(--paper)">
-  <div id="route-content"></div>
-</div>
-</div>
-
-<!-- Tutorial Overlay -->
-<div id="tut-overlay" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.85);flex-direction:column;align-items:center;justify-content:center;padding:2rem">
-  <div style="background:var(--paper);max-width:600px;width:100%;padding:2rem;border:2px solid var(--red);position:relative">
-    <button onclick="skipTutorial()" style="position:absolute;top:10px;right:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--red);color:var(--red);background:transparent">Skip</button>
-    <div id="tut-content" style="font-family:'Special Elite',monospace;font-size:18px;color:var(--ink);line-height:1.6"></div>
-    <div style="margin-top:1.5rem;display:flex;justify-content:flex-end">
-      <button onclick="nextTutStep()" style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:8px 16px;border:1px solid var(--green);color:var(--green);background:transparent">Next →</button>
+<div id="tut-overlay" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.96);align-items:center;justify-content:center;flex-direction:column;padding:1.5rem">
+  <div id="tut-box" style="max-width:560px;width:100%;background:#111116;border:1px solid #252530;overflow:hidden">
+    <div id="tut-progress-bar" style="height:3px;background:#252530"><div id="tut-prog-fill" style="height:100%;background:#f5c518;transition:width .4s;width:0%"></div></div>
+    <div style="padding:1.5rem">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.15em;color:#5a5a70;text-transform:uppercase;margin-bottom:.5rem" id="tut-step-label">Tutorial · Step 1 of 6</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#f5c518;margin-bottom:.75rem" id="tut-title">Read the notes. Keep the driver alive.</div>
+      <div style="font-size:14px;line-height:1.7;color:#9090a8;margin-bottom:1.25rem" id="tut-body"></div>
+      <div id="tut-note-display" style="display:none;background:#17171e;border:1px solid #252530;padding:.85rem 1.1rem;font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:#f5c518;letter-spacing:.06em;margin-bottom:1rem"></div>
+      <div id="tut-input-wrap" style="display:none;margin-bottom:1rem">
+        <div style="font-size:11px;font-family:'IBM Plex Mono',monospace;color:#5a5a70;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem">Type your translation:</div>
+        <input id="tut-input" type="text" placeholder="e.g. left tight" autocomplete="off" style="width:100%;background:#17171e;border:1px solid #252530;color:#f0f0f0;padding:10px 12px;font-size:14px;font-family:'IBM Plex Mono',monospace"/>
+        <div id="tut-input-hint" style="font-size:11px;color:#5a5a70;font-family:'IBM Plex Mono',monospace;margin-top:.35rem"></div>
+        <div id="tut-feedback-line" style="font-size:13px;font-family:'IBM Plex Mono',monospace;margin-top:.5rem;min-height:20px"></div>
+      </div>
+      <div id="tut-highlight-box" style="display:none;background:#1a1400;border:1px solid #f5c518;padding:.75rem 1rem;font-size:13px;color:#f5c518;margin-bottom:1rem;font-family:'IBM Plex Mono',monospace"></div>
+      <div style="display:flex;gap:8px;justify-content:space-between;align-items:center;margin-top:.5rem">
+        <button id="tut-skip" onclick="skipTutorial()" style="padding:6px 14px;border:1px solid #252530;background:none;color:#5a5a70;font-size:12px;font-family:'IBM Plex Mono',monospace;cursor:pointer">Skip tutorial</button>
+        <button id="tut-next" onclick="tutNext()" style="padding:10px 24px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;background:#e8000a;border:1px solid #e8000a;color:#fff;cursor:pointer">Continue</button>
+      </div>
     </div>
   </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM loaded');
-  console.log('show function exists:', typeof show !== 'undefined');
-  console.log('openSetup function exists:', typeof openSetup !== 'undefined');
-  console.log('openCareer function exists:', typeof openCareer !== 'undefined');
-  if (typeof show !== 'undefined') {
-    show('menu');
-  } else {
-    console.error('show function not defined');
-  }
-});
-</script>
+<div id="crash-flash-overlay" style="display:none;position:fixed;inset:0;z-index:8000;pointer-events:none;background:rgba(232,41,28,.45)"></div>
+
+<div id="crash-big-msg" style="display:none;position:fixed;inset:0;z-index:8001;pointer-events:none;align-items:center;justify-content:center;flex-direction:column;gap:.5rem">
+  <div id="crash-big-title" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,8vw,90px);letter-spacing:4px;color:#e8291c;text-shadow:0 0 30px rgba(232,41,28,.8);line-height:1">HEAVY CONTACT</div>
+  <div id="crash-big-sub" style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#ff9090;letter-spacing:.1em"></div>
+</div>
+
+<div id="correct-flash" style="display:none;position:fixed;top:1.5rem;right:1.5rem;z-index:7000;pointer-events:none;padding:.5rem 1.1rem;background:rgba(57,255,20,.15);border:1px solid #39ff14;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#39ff14"></div>
+
+<div id="split-ticker" style="display:none;position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);z-index:7000;pointer-events:none;padding:.4rem 1rem;background:#000;border:1px solid #f5c518;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#f5c518"></div>
+
+<div id="car-detail-modal" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.9);align-items:center;justify-content:center;padding:2rem">
+  <div style="background:linear-gradient(135deg,#1a1a1a 0%,#252530 100%);border-radius:12px;border:3px solid var(--rally-red);max-width:900px;width:100%;max-height:90vh;overflow-y:auto;position:relative">
+    <div style="position:absolute;top:1rem;right:1rem;z-index:10">
+      <button onclick="closeCarDetail()" style="background:none;border:none;color:#f0f0f0;font-size:24px;cursor:pointer;padding:0.5rem">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:2rem">
+      <div style="background:linear-gradient(135deg,#0a0a0c 0%,#1a1a1a 100%);border-radius:12px;border:3px solid var(--rally-red);padding:2rem;display:flex;align-items:center;justify-content:center">
+        <img id="modal-car-image" src="" alt="" style="max-width:100%;height:auto">
+      </div>
+      <div>
+        <h1 id="modal-car-name" style="font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:3px">Car Name</h1>
+        <span id="modal-car-era" style="display:inline-block;background:var(--red);color:#fff;padding:0.5rem 1.5rem;border-radius:30px;font-family:'IBM Plex Mono',monospace;font-size:0.875rem;letter-spacing:2px;margin-bottom:2rem">Era</span>
+        
+        <div style="background:linear-gradient(135deg,#1a1a1a 0%,#252530 100%);border-radius:12px;border:2px solid var(--gold);padding:2rem;margin-bottom:2rem">
+          <h3 style="font-family:'IBM Plex Mono',monospace;color:var(--gold);margin-bottom:1rem;font-size:1.25rem">Specifications</h3>
+          <div style="display:flex;justify-content:space-between;padding:0.75rem 0;border-bottom:1px solid var(--brd2)">
+            <span style="color:var(--text3);font-family:'IBM Plex Mono',monospace">Engine</span>
+            <span id="modal-car-engine" style="color:#fff;font-weight:600">-</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:0.75rem 0;border-bottom:1px solid var(--brd2)">
+            <span style="color:var(--text3);font-family:'IBM Plex Mono',monospace">Power</span>
+            <span id="modal-car-power" style="color:#fff;font-weight:600">-</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:0.75rem 0;border-bottom:1px solid var(--brd2)">
+            <span style="color:var(--text3);font-family:'IBM Plex Mono',monospace">Drive</span>
+            <span id="modal-car-drive" style="color:#fff;font-weight:600">-</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:0.75rem 0">
+            <span style="color:var(--text3);font-family:'IBM Plex Mono',monospace">Years Active</span>
+            <span id="modal-car-years" style="color:#fff;font-weight:600">-</span>
+          </div>
+        </div>
+
+        <div style="background:linear-gradient(135deg,#1a1a1a 0%,#252530 100%);border-radius:12px;border:2px solid var(--red);padding:2rem">
+          <h3 style="font-family:'IBM Plex Mono',monospace;color:var(--red);margin-bottom:1rem;font-size:1.25rem">Racing History</h3>
+          <p id="modal-car-story" style="color:var(--text3);line-height:1.7">Loading...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="achievements">
+<div class="page-hdr">
+  <button class="bk" onclick="showMenu()">← Menu</button>
+  <div class="page-hdr-title">Achievements</div>
+</div>
+<div class="achievements-body">
+  <div class="achievements-header">
+    <h2>Your Trophy Cabinet</h2>
+    <p style="color:var(--text3);font-size:13px;margin-top:0.5rem">Unlock milestones by mastering the co-driver role</p>
+  </div>
+  <div class="achievements-grid" id="achievements-grid"></div>
+</div>
+<div class="start-bar">
+  <button class="gbtn" onclick="showMenu()">← Menu</button>
+</div>
+</div>
+
+<script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+<script src="rally_systems.js?v=6"></script>
+<script src="rally.js?v=6"></script>
+<script src="story_data.js?v=6"></script>
+<script src="story_system.js?v=6"></script>
+
+<div class="screen" id="tuning">
+<div class="tun-header">
+  <div class="tun-hdr-top">
+    <h1>Tuning Garage</h1>
+    <div style="display:flex;gap:8px">
+      <button class="gbtn" onclick="resetTuning()" style="font-size:11px;padding:5px 12px">Reset defaults</button>
+      <button class="gbtn" onclick="returnFromTuning()">← Back</button>
+    </div>
+  </div>
+  <div class="tun-car-strip">
+    <div><div class="tun-car-name" id="tun-car-name">—</div><div class="tun-car-spec" id="tun-car-spec">—</div></div>
+    <div style="margin-left:auto;display:flex;gap:6px" id="tun-preset-row">
+      <button class="preset-btn" onclick="applyPreset('gravel')">Gravel setup</button>
+      <button class="preset-btn" onclick="applyPreset('tarmac')">Tarmac setup</button>
+      <button class="preset-btn" onclick="applyPreset('snow')">Snow/Ice setup</button>
+      <button class="preset-btn" onclick="applyPreset('attack')">Full attack</button>
+    </div>
+  </div>
+</div>
+<div class="tun-body">
+  <div class="tun-nav">
+    <div class="tun-nav-section">Powertrain</div>
+    <button class="tun-nav-btn on" onclick="showTunSection('engine',this)"><span class="tnb-icon">🔧</span><span class="tnb-text">Engine<span class="tnb-sub">Internals, mapping, boost</span></span></button>
+    <button class="tun-nav-btn" onclick="showTunSection('transmission',this)"><span class="tnb-icon">⚙️</span><span class="tnb-text">Transmission<span class="tnb-sub">Diffs, ratios, clutch</span></span></button>
+    <div class="tun-nav-section">Chassis</div>
+    <button class="tun-nav-btn" onclick="showTunSection('suspension',this)"><span class="tnb-icon">🏎️</span><span class="tnb-text">Suspension<span class="tnb-sub">Springs, dampers, geometry</span></span></button>
+    <button class="tun-nav-btn" onclick="showTunSection('brakes',this)"><span class="tnb-icon">🛑</span><span class="tnb-text">Brakes<span class="tnb-sub">Bias, pads, cooling</span></span></button>
+    <button class="tun-nav-btn" onclick="showTunSection('steering',this)"><span class="tnb-icon">🔄</span><span class="tnb-text">Steering<span class="tnb-sub">Rack, lock, weight</span></span></button>
+    <div class="tun-nav-section">Aero & Weight</div>
+    <button class="tun-nav-btn" onclick="showTunSection('aero',this)"><span class="tnb-icon">💨</span><span class="tnb-text">Aerodynamics<span class="tnb-sub">Wing, splitter, diffuser</span></span></button>
+    <button class="tun-nav-btn" onclick="showTunSection('weight',this)"><span class="tnb-icon">⚖️</span><span class="tnb-text">Weight & Balance<span class="tnb-sub">Ballast, distribution</span></span></button>
+    <div class="tun-nav-section">Tyres</div>
+    <button class="tun-nav-btn" onclick="showTunSection('tyres',this)"><span class="tnb-icon">🔘</span><span class="tnb-text">Tyres<span class="tnb-sub">Compound, pressure, width</span></span></button>
+    <div class="tun-nav-section">Electronics</div>
+    <button class="tun-nav-btn" onclick="showTunSection('electronics',this)"><span class="tnb-icon">💻</span><span class="tnb-text">Electronics<span class="tnb-sub">ABS, TC, maps, launch</span></span></button>
+  </div>
+  <div class="tun-main" id="tun-main"></div>
+  <div class="tun-stats">
+    <h3>Performance</h3>
+    <div id="tun-gauges"></div>
+    <div style="margin-top:.5rem">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem">Setup summary</div>
+      <div class="setup-summary" id="tun-summary">—</div>
+    </div>
+    <div class="tun-car-facts" id="tun-car-facts">—</div>
+    <div class="tun-warning" id="tun-warning" style="display:none">—</div>
+  </div>
+</div>
+<div class="tun-footer">
+  <button class="gbtn" onclick="returnFromTuning()">Cancel</button>
+  <button class="gbtn pri" onclick="confirmTuning()">Save & Continue</button>
+</div>
+</div>
+
+<div class="screen" id="editor">
+  <div class="page-hdr">
+    <button class="bk" onclick="showMenu()">← Menu</button>
+    <div class="page-hdr-title">Note Editor</div>
+    <div style="margin-left:auto;display:flex;gap:8px">
+      <button class="gbtn sec2" onclick="previewCustomStage()">Preview Stage</button>
+      <button class="gbtn sec2" onclick="ExportSystem.exportStage()">Export</button>
+      <button class="gbtn pri" onclick="playCustomStage()">Play Stage</button>
+    </div>
+  </div>
+  <div style="flex:1;display:grid;grid-template-columns:1fr 340px;overflow:hidden;min-height:0">
+    <div style="padding:1.25rem;overflow-y:auto;display:flex;flex-direction:column;gap:.75rem">
+      <div style="display:flex;gap:8px;align-items:center">
+        <input id="editor-stage-name" type="text" placeholder="Stage name..." style="flex:1;background:var(--surf2);border:1px solid var(--brd2);color:var(--text);padding:7px 10px;font-size:13px;font-family:'IBM Plex Mono',monospace"/>
+        <input id="editor-country" type="text" placeholder="Country..." style="width:120px;background:var(--surf2);border:1px solid var(--brd2);color:var(--text);padding:7px 10px;font-size:13px;font-family:'IBM Plex Mono',monospace"/>
+      </div>
+      <div style="display:flex;gap:8px">
+        <input id="editor-note-input" type="text" placeholder="Type note (e.g. L3 INTO R4!)" style="flex:1;background:var(--surf2);border:1px solid var(--brd2);color:var(--gold);padding:8px 10px;font-size:15px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase"/>
+        <button class="gbtn pri" onclick="editorAddNote()" style="padding:8px 16px;font-size:14px">Add Note</button>
+      </div>
+      <div id="editor-translation-preview" style="font-size:12px;color:var(--text2);font-family:'IBM Plex Mono',monospace;min-height:18px"></div>
+      <div id="editor-note-list" style="display:flex;flex-direction:column;gap:4px">
+        
+      </div>
+    </div>
+    <div style="background:var(--surf);border-left:1px solid var(--brd2);padding:1.25rem;overflow-y:auto">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--text2);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--brd)">Templates</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:1rem">
+        <button class="gbtn" onclick="loadTemplate('finnish')">Finnish Forest</button>
+        <button class="gbtn" onclick="loadTemplate('monte')">Monte Carlo Tarmac</button>
+        <button class="gbtn" onclick="loadTemplate('safari')">Safari Rough</button>
+        <button class="gbtn" onclick="loadTemplate('snow')">Snow/Ice</button>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--text2);margin:.75rem 0 .4rem;padding-bottom:.4rem;border-bottom:1px solid var(--brd)">AI Generator</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:1rem">
+        <select id="ai-terrain" style="background:var(--surf2);border:1px solid var(--brd2);color:var(--text);padding:6px;font-size:12px;">
+          <option value="gravel">Gravel</option>
+          <option value="tarmac">Tarmac</option>
+          <option value="snow">Snow</option>
+          <option value="mixed">Mixed</option>
+        </select>
+        <select id="ai-difficulty" style="background:var(--surf2);border:1px solid var(--brd2);color:var(--text);padding:6px;font-size:12px;">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+          <option value="expert">Expert</option>
+        </select>
+        <input id="ai-note-count" type="number" value="20" min="5" max="100" style="background:var(--surf2);border:1px solid var(--brd2);color:var(--text);padding:6px;font-size:12px;" placeholder="Note count"/>
+        <button class="gbtn pri" onclick="generateNotes()" style="font-size:12px;">Generate Stage</button>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--text2);margin:.75rem 0 .4rem;padding-bottom:.4rem;border-bottom:1px solid var(--brd)">Notation Format</div>
+      <div id="editor-format-btns" style="display:flex;flex-direction:column;gap:6px;margin-bottom:1rem"></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--text2);margin:.75rem 0 .4rem;padding-bottom:.4rem;border-bottom:1px solid var(--brd)">Co-driver Style</div>
+      <div id="editor-audio-btns" style="display:flex;flex-direction:column;gap:6px;margin-bottom:1rem"></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--text2);margin:.75rem 0 .4rem;padding-bottom:.4rem;border-bottom:1px solid var(--brd)">Import Stage</div>
+      <textarea id="editor-import-json" placeholder="Paste exported stage JSON here..." style="width:100%;height:60px;background:var(--surf2);border:1px solid var(--brd2);color:var(--text2);padding:8px;font-size:11px;font-family:'IBM Plex Mono',monospace;resize:vertical"></textarea>
+      <button class="gbtn" onclick="editorImport()" style="width:100%;margin-top:6px">Import</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="analytics">
+  <div class="page-hdr">
+    <button class="bk" onclick="showMenu()">← Menu</button>
+    <div class="page-hdr-title">Analytics Dashboard</div>
+    <div style="margin-left:auto;display:flex;gap:8px">
+      <button class="gbtn sec2" onclick="ExportSystem.exportAnalyticsCSV()">Export CSV</button>
+      <button class="gbtn sec2" onclick="ExportSystem.exportAnalyticsJSON()">Export JSON</button>
+      <button class="gbtn" onclick="ExportSystem.exportTrainingReport()">Full Report</button>
+    </div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1.25rem" id="analytics-body">
+    
+  </div>
+</div>
+
+<div class="screen" id="programs">
+  <div class="page-hdr">
+    <button class="bk" onclick="showMenu()">← Menu</button>
+    <div class="page-hdr-title">Training Programs</div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:1.5rem;max-width:700px;margin:0 auto;width:100%" id="programs-body">
+    
+  </div>
+</div>
+
+<div class="screen" id="accessibility">
+  <div class="page-hdr">
+    <button class="bk" onclick="showMenu()">← Menu</button>
+    <div class="page-hdr-title">Accessibility & Settings</div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:1.5rem;max-width:600px;margin:0 auto;width:100%" id="accessibility-body">
+    
+  </div>
+</div>
+
+<div id="crash-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.96);align-items:center;justify-content:center;flex-direction:column;padding:2rem">
+<div style="background:#0e0e12;border:2px solid #e8291c;max-width:500px;width:100%;padding:0;overflow:hidden">
+  <div style="background:#e8291c;padding:.6rem 1.25rem;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:#fff" id="crash-hdr-bar">INCIDENT</div>
+  <div style="padding:1.5rem;display:flex;flex-direction:column;gap:1rem">
+    <div id="stick-anim-container" style="width:100%;height:120px;background:#0a0a0c;border:1px solid #252530;position:relative;overflow:hidden;margin-bottom:0.5rem">
+      <canvas id="stick-canvas" width="460" height="120" style="display:block"></canvas>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem">
+      <div style="font-size:48px;line-height:1" id="crash-emoji">💥</div>
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:#e8291c;line-height:1" id="crash-title">OFF THE ROAD!</div>
+        <div style="font-size:13px;color:#9090a8;margin-top:4px;font-family:'IBM Plex Mono',monospace" id="crash-desc">The car left the road at this corner.</div>
+      </div>
+    </div>
+    <div style="font-size:13px;line-height:1.7;color:#c0c0d0;font-style:italic;background:#16161a;padding:.75rem 1rem;border-left:3px solid #e8291c" id="crash-narr">The car slides wide, fighting for grip that isn't there.</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px" id="crash-dmg-grid"></div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#f5c518" id="crash-time-lost"></div>
+    <div id="crash-repair-wrap" style="display:none">
+      <div style="height:4px;background:#1e1e28;border-radius:2px;overflow:hidden;margin-bottom:4px">
+        <div id="crash-repair-bar" style="height:100%;background:#39ff14;width:0%;transition:width .1s linear"></div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9090a8" id="crash-repair-txt">Recovery crew working…</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button id="crash-ok-btn" onclick="dismissCrash()" style="display:none;flex:1;padding:10px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;background:#1e1e28;border:1px solid #39ff14;color:#39ff14;cursor:pointer">Continue</button>
+      <button id="crash-dnf-btn" onclick="crashDNF()" style="display:none;padding:10px 16px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;background:none;border:1px solid #e8291c;color:#e8291c;cursor:pointer">Retire (DNF)</button>
+    </div>
+  </div>
+</div>
+</div>
+
 </body>
 </html>
