@@ -3915,8 +3915,7 @@ function normaliseAnswer(s){
   return s;
 }
 
-// --- unchanged from rally.js -------------------------------------------
-const VOICE_CONFUSABLE_WORDS = { tight: 'right', right: 'tight' };
+// VOICE_CONFUSABLE_WORDS is now declared in pacenote-matcher.js
 
 // ============================================================================
 // NEW: bounded Damerau-Levenshtein edit distance (optimal string alignment
