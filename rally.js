@@ -3193,6 +3193,9 @@ function renderAchievements(){
 }
 function openSetup(){
   G.careerMode=false;
+  if (typeof posthog !== 'undefined') {
+    posthog.capture('quick_stage_started');
+  }
   buildSetup();show('setup');
 }
 function buildSetup(){
@@ -3279,6 +3282,9 @@ function pickDiff(i,el){
   document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');
 }
 function openCareer(){
+  if (typeof posthog !== 'undefined') {
+    posthog.capture('career_mode_started');
+  }
   if(!CAREER.started){
     if(typeof StorySystem !== 'undefined' && !StorySystem.state.genderRoute){
       showRouteSelection();
@@ -3453,6 +3459,35 @@ function startStageFromSetup(){
   const era=ERAS[G.era];
   const stage=era.stages[Math.floor(Math.random()*era.stages.length)];
   beginStageWithData(stage);
+}
+function playCustomStage(){
+  if (typeof CustomTrackEditor === 'undefined') {
+    alert('Custom track editor not loaded');
+    return;
+  }
+  
+  const trackData = CustomTrackEditor.exportTrack();
+  
+  if (!trackData.notes || trackData.notes.length === 0) {
+    alert('Please add at least one pacenote to your track');
+    return;
+  }
+  
+  if (!G.car) {
+    alert('Select a car first from Stage Setup');
+    show('setup');
+    return;
+  }
+  
+  // Create stage object from custom track
+  const customStage = {
+    name: trackData.name,
+    notes: trackData.notes,
+    custom: true
+  };
+  
+  // Start the custom stage
+  beginStageWithData(customStage);
 }
 function beginStageWithData(stage){
   clearInterval(G.timer);
@@ -3826,11 +3861,15 @@ function updateUrgencyState() {
   }
 }
 function updateTimer(){
-  document.getElementById('g-timer').textContent=G.remaining;
+  const timerEl = document.getElementById('g-timer');
+  const arcEl = document.getElementById('t-arc');
+  if (!timerEl || !arcEl) return;
+  
+  timerEl.textContent=G.remaining;
   const frac=G.remaining/G.timeLimit;
-  document.getElementById('t-arc').setAttribute('stroke-dashoffset',226.2*(1-frac));
+  arcEl.setAttribute('stroke-dashoffset',226.2*(1-frac));
   const customColor = (typeof Accessibility !== 'undefined') ? Accessibility.prefs.timerColor : '#39ff14';
-  document.getElementById('t-arc').setAttribute('stroke',G.remaining<=3?'#e8291c':G.remaining<=5?'#f5c518':customColor);
+  arcEl.setAttribute('stroke',G.remaining<=3?'#e8291c':G.remaining<=5?'#f5c518':customColor);
 }
 function applyStyleToNote(rawNote, style) {
   if (!rawNote) return rawNote;
@@ -4134,6 +4173,17 @@ function submitAnswer(){
   const baseScore = similarity(typed, currentNote.ans, { voiceTolerant: isVoice });
   const finalScore = Math.min(1.0, baseScore * RALLY_STATE.multiplier);
   const ok = finalScore >= RALLY_STATE.forgivenessWindow;
+  
+  if (typeof posthog !== 'undefined') {
+    posthog.capture('answer_submitted', {
+      score: finalScore,
+      correct: ok,
+      reaction_time: reactionTime,
+      input_source: isVoice ? 'voice' : 'typing',
+      note_index: G.idx
+    });
+  }
+  
   RALLY_STATE.reactionTimes.push(reactionTime);
   if (ok) {
     RALLY_STATE.streak++;
@@ -4539,6 +4589,9 @@ function endStage(){
   saveSignatureStageResult();
 }
 function openTraining(){
+  if (typeof posthog !== 'undefined') {
+    posthog.capture('training_mode_started');
+  }
   buildLessonList();
   loadLesson('intro');
   show('training');
@@ -8637,6 +8690,7 @@ function addMultiplayerButton() {
   btn.className = 'mnbtn';
   btn.innerHTML = 'Multiplayer <span style="font-size:14px">👥</span>';
   btn.onclick = () => {
+    // Connect to Node.js backend for accounts/leaderboards
     if (!Multiplayer.connected) {
       Multiplayer.connect();
     }
@@ -8646,30 +8700,46 @@ function addMultiplayerButton() {
 }
 
 function showMultiplayerMenu() {
+  const playerName = prompt('Enter your name:', 'Player') || 'Player';
   const choice = prompt('Enter lobby code to join, or leave blank to create a new lobby:');
   if (choice === null) return; // Cancelled
   
   if (choice.trim()) {
-    Multiplayer.joinLobby(choice.trim().toUpperCase());
+    // Join existing lobby via P2P
+    MultiplayerP2P.joinLobby(choice.trim(), playerName);
   } else {
-    const era = prompt('Select era (grpb, w90, w24):', 'grpb') || 'grpb';
-    Multiplayer.createLobby({ era });
+    // Create new lobby via P2P
+    MultiplayerP2P.isHost = true;
+    MultiplayerP2P.init(playerName);
   }
 }
 const _originalEndStage = endStage;
 endStage = function() {
   _originalEndStage();
-  if (Multiplayer.isMultiplayerMode) {
+  // Send to P2P for live race sync
+  if (MultiplayerP2P.raceInProgress) {
     const total = G.notes.length;
     const timeMs = G.stageTime || Date.now() - RALLY_STATE.startTime;
-    Multiplayer.finishRace(G.correct, total, G.crashCount, timeMs, G.dnf);
+    MultiplayerP2P.sendFinish(timeMs);
+  }
+  // Send to Node.js backend for leaderboards/accounts
+  if (Multiplayer.connected) {
+    Multiplayer.submitRaceResult({
+      correct: G.correct,
+      total: G.notes.length,
+      time: timeMs,
+      crashes: G.crashCount,
+      dnf: G.dnf
+    });
   }
 };
 const _originalProcessAnswer = processAnswer;
 processAnswer = function(typed, note, ok, score, skipped) {
   _originalProcessAnswer(typed, note, ok, score, skipped);
-  if (Multiplayer.isMultiplayerMode && Multiplayer.raceInProgress) {
-    Multiplayer.submitNoteResult(G.idx, G.correct, G.notes.length);
+  // Send to P2P for live race sync
+  if (MultiplayerP2P.raceInProgress) {
+    const progress = (G.idx / G.notes.length) * 100;
+    MultiplayerP2P.sendProgress(progress);
   }
 };
 const getServerUrl = () => {
