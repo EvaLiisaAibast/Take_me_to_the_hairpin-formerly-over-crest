@@ -16,6 +16,8 @@ if (typeof StoryData === 'undefined') {
 function getDefaultStoryState() {
   return {
     genderRoute: null, // 'male' or 'female'
+    themeArc: null,    // 'street' | 'roadbook' | null(=classic WRC, cockpit theme)
+    careerTheme: null, // theme LOCKED at route selection for this career run
     chapter: 1,
     stageIndex: 0,
 
@@ -490,10 +492,27 @@ const StorySystem = {
     this.save();
   },
   
-  // Select route at start
-  selectRoute(route) {
+  // Select route at start. The theme is LOCKED to the arc: a Street career
+  // runs entirely in the street theme, a Dakar career in roadbook, and the
+  // classic WRC career in cockpit — themes can't leak across careers.
+  selectRoute(route, arc) {
     this.state.genderRoute = route;
+    this.state.themeArc = arc || null;         // null = classic cockpit story
+    this.state.careerTheme = arc === 'street' ? 'theme-street'
+                           : arc === 'roadbook' ? 'theme-roadbook'
+                           : null;
+    if (typeof RpaTheme !== 'undefined' && this.state.careerTheme !== undefined) {
+      try { RpaTheme.set(this.state.careerTheme); } catch (e) {}
+    }
     this.save();
+  },
+  
+  // The story dataset for the active arc (classic StoryData or ThemeStoryData)
+  arcData() {
+    if (this.state.themeArc && typeof ThemeStoryData !== 'undefined' && ThemeStoryData[this.state.themeArc]) {
+      return ThemeStoryData[this.state.themeArc];
+    }
+    return StoryData;
   },
   
   // Apply choice consequences
@@ -954,21 +973,129 @@ const StorySystem = {
     return 'unknown';
   },
   
-  // Get current stage context
-  getStageContext(era, stageIndex) {
+  // Get current stage context for a story slot.
+  //
+  // ANTI-LOOP RULES (fixes the story replaying its chapters every season):
+  //   The career calendar is 6 one-stage rounds cycling eras grpb→w90→w24→grpb→….
+  //   The old code derived the chapter FROM THE ERA, so round 4 (grpb again)
+  //   jumped the story back to chapter 1 and replayed the whole arc forever.
+  //   Chapters now advance monotonically with the global round index and never
+  //   use the era for progression. The chapter BOUNDARIES are per-arc:
+  //     classic WRC (12 scenes, flag-gated):  rounds 0-1 / 2-3 / 4-5
+  //     theme arcs  (10 scenes, linear drama): rounds 0-2 / 3-4 / 5
+  //   The theme mapping puts each arc's finale pair ("the last run" pre-stage
+  //   and the epilogue) on the REAL final round instead of round 4, so careers
+  //   end on their ending. ctx.stage is the beat WITHIN the chapter (1,2,3,4…
+  //   — the numbering the scene conditions were authored against).
+  getStageContext(era, stageIndex, kind) {
     const eras = ['grpb', 'w90', 'w24'];
     const currentEra = eras.indexOf(era) + 1;
-    const stageInChapter = stageIndex % 4;
-    
+    const idx = Math.max(0, Math.floor(+stageIndex || 0));
+    // Round where each chapter starts. Theme arcs stretch chapter 1 over the
+    // opening act and give chapter 3 the whole finale round.
+    const starts = this.state.themeArc ? [0, 3, 5] : [0, 2, 4];
+    let chapter = 1;
+    for (let i = 0; i < starts.length; i++) if (idx >= starts[i]) chapter = i + 1;
+    const firstOfChapter = starts.indexOf(idx) !== -1;
     return {
       era: currentEra,
-      chapter: currentEra,
-      stage: stageInChapter + 1,
-      isFirstStage: stageIndex === 0,
-      isLastStage: stageIndex === 3 || stageIndex === 7 || stageIndex === 11,
-      isChapterEnd: stageInChapter === 3,
+      chapter: chapter,
+      // Beat within the chapter (pre = odd, post = even).
+      stage: (idx - starts[chapter - 1]) * 2 + (kind === 'post' ? 2 : 1),
+      // Beat across the whole arc (1..12)
+      beat: idx * 2 + (kind === 'post' ? 2 : 1),
+      isFirstStage: firstOfChapter,
+      isLastStage: idx >= 5,
+      isFinalRound: idx >= 5,
+      isChapterEnd: kind === 'post' && starts.indexOf(idx + 1) !== -1,
+      // Pre-beat of the last round in a chapter (chapter climax incoming).
+      isLastPreOfChapter: kind === 'pre' && starts.indexOf(idx + 1) !== -1,
     };
-  }
+  },
+
+  // Chapter data for a story slot. The pool is ALL chapters — scenes were
+  // authored against a different calendar cadence, and flag-gated vignettes
+  // (mechanic's daughter, recruiter visits, photograph story…) would starve
+  // if only the current chapter could answer a slot. The seen ledger in
+  // pickScene keeps this from ever replaying anything.
+  chaptersFor(ctx) {
+    const arc = this.arcData()[this.state.genderRoute] || {};
+    const chapters = [1, 2, 3].map((n) => ({ key: `ch${n}`, data: arc[`chapter${n}`] || {} }));
+    // Finale chapter gets top priority on the final round (classic arc keeps
+    // its finale in a `chapter4`; theme arcs have no chapter4 — no-op there).
+    if (ctx.isFinalRound && arc.chapter4) {
+      chapters.unshift({ key: 'ch4', data: arc.chapter4 });
+    }
+    return chapters;
+  },
+
+  // --- Scene slot picker (the other half of the anti-loop fix) -------------
+  // Exactly one scene per slot, and NO scene can ever play twice: every shown
+  // scene is stamped into state.flags.seenScenes and skipped afterwards.
+  // Pool = the chapter's pre + post lists combined (the older story data was
+  // authored for a 4-stage-per-chapter calendar, so scenes legitimately sit in
+  // the "other" list for our 2-beats-per-round calendar), plus chapter4's
+  // finale lists on the final round. Priority is AUTHORED ORDER: the current
+  // chapter's own list first, then its other list, then the remaining chapters
+  // (chapter4/finale first when present). No heuristics — the order the writer
+  // put scenes in IS the priority.
+  pickScene(chapters, ctx, kind) {
+    const own = kind === 'pre' ? 'preStage' : 'postStage';
+    const other = kind === 'pre' ? 'postStage' : 'preStage';
+    const ownKey = `ch${ctx.chapter}`;
+    const pool = [];
+    const push = (ch, listName) => {
+      (ch.data[listName] || []).forEach((entry, i) => {
+        pool.push({ entry, key: entry.id || `${ch.key}:${listName}[${i}]` });
+      });
+    };
+    // Pass 1+2: the slot's own chapter (own list, then the other list).
+    const ownCh = chapters.find((ch) => ch.key === ownKey);
+    if (ownCh) { push(ownCh, own); push(ownCh, other); }
+    // Pass 3: every other chapter in the order chaptersFor() returned them
+    // (chapter4/finale is unshifted to the front on the final round).
+    chapters.forEach((ch) => { if (ch.key !== ownKey) { push(ch, own); push(ch, other); } });
+    const seen = this.state.flags.seenScenes || {};
+    for (const c of pool) {
+      if (seen[c.key]) continue;
+      let ok = false;
+      try { ok = !!c.entry.condition(ctx); } catch (e) { ok = false; }
+      if (ok) return c;
+    }
+    // Nothing matched (every candidate seen or flag-gated off). Serve a short
+    // untracked paddock beat instead of an empty slot — never stamped into
+    // the seen ledger, so it can fill as many quiet slots as needed.
+    return { entry: { id: 'paddock_beat', condition: () => true, scene: this.paddockBeat(ctx) }, key: null };
+  },
+
+  // Small interstitial used when no authored scene matches a slot. Rotates a
+  // handful of service-park vignettes keyed by the global beat so adjacent
+  // slots rarely repeat the same text.
+  paddockBeat(ctx) {
+    const vignettes = [
+      { location: 'SERVICE PARK · TIME CONTROL', lines: [
+        'The mechanics wave you over: nothing broken, nothing to sign. For ninety seconds the paddock is just engines ticking as they cool and someone else\'s team manager arguing about tyreographs. You use the quiet to run the next stage in your head, corners first, then the calls.' ] },
+      { location: 'SERVICE PARK · FUEL Stand', lines: [
+        'A rival co-driver nods at you across the fuel stand — the nod that says neither of us slept and both of us are still here. You drink the water they hand you. The notes in your lap are warm from the ride; you redraw the one tricky braking reference before the next stage start.' ] },
+      { location: 'SERVICE PARK · RADIO CHECK', lines: [
+        'Team radio, mid-volume: times in, times out, a weather rumour about the far section. You answer what is asked, then walk a slow lap around the car, reciting the next stage under your breath. The driver watches you do it and says nothing, which is how you know it is working.' ] },
+      { location: 'SERVICE ROAD · BETWEEN STAGES', lines: [
+        'The convoy idles toward the next stage and the trees stroke shadows over the roadbook. Somewhere behind you a helicopter lifts — the leaders already done. You are neither early nor late in the story of this rally. You are exactly where the notes put you.' ] },
+      { location: 'SERVICE PARK · DUSK', lines: [
+        'Late light, long service. Someone\'s grill is going; the smell of cheap sausages mixes with brake cleaner, which should be horrible and somehow is the whole sport in one breath. You reprint the next stage pages and, feeling superstitious, read the first call out loud to nobody.' ] }
+    ];
+    const v = vignettes[(ctx.beat - 1) % vignettes.length];
+    return { location: v.location, dialogue: v.lines.map(t => ({ speaker: 'narrator', text: t })) };
+  },
+
+  // Stamp a scene as shown so it can never replay (persisted with the save).
+  // Fallback paddock beats arrive with key === null and are never stamped.
+  markSceneSeen(picked) {
+    if (!picked || !picked.key) return;
+    if (!this.state.flags.seenScenes) this.state.flags.seenScenes = {};
+    this.state.flags.seenScenes[picked.key] = true;
+    this.save();
+  },
 };
 
 // StoryData is now loaded from story_data.js
@@ -1153,11 +1280,15 @@ const StoryUI = {
           }
         }
         
-        // Try to find a good English voice
-        const voices = window.speechSynthesis.getVoices();
-        const prefVoice = voices.find(v => v.lang.startsWith('en') && 
-          (v.name.toLowerCase().includes('daniel') || v.name.toLowerCase().includes('google') || v.name.toLowerCase().includes('uk')));
-        if (prefVoice) utt.voice = prefVoice;
+        // Try to find a good English voice — shared natural-voice picker
+        if (typeof VoicePicker !== 'undefined') {
+          VoicePicker.apply(utt, line.speaker === 'you' ? StorySystem.state.genderRoute : null);
+        } else {
+          const voices = window.speechSynthesis.getVoices();
+          const prefVoice = voices.find(v => v.lang.startsWith('en') && 
+            (v.name.toLowerCase().includes('daniel') || v.name.toLowerCase().includes('google') || v.name.toLowerCase().includes('uk')));
+          if (prefVoice) utt.voice = prefVoice;
+        }
         
         window.speechSynthesis.speak(utt);
       }
@@ -1293,10 +1424,14 @@ const StoryUI = {
         utt.pitch = 0.9;
         utt.volume = 0.85;
         
-        const voices = window.speechSynthesis.getVoices();
-        const prefVoice = voices.find(v => v.lang.startsWith('en') && 
-          (v.name.toLowerCase().includes('daniel') || v.name.toLowerCase().includes('google')));
-        if (prefVoice) utt.voice = prefVoice;
+        if (typeof VoicePicker !== 'undefined') {
+          VoicePicker.apply(utt, StorySystem.state.genderRoute);
+        } else {
+          const voices = window.speechSynthesis.getVoices();
+          const prefVoice = voices.find(v => v.lang.startsWith('en') && 
+            (v.name.toLowerCase().includes('daniel') || v.name.toLowerCase().includes('google')));
+          if (prefVoice) utt.voice = prefVoice;
+        }
         
         window.speechSynthesis.speak(utt);
       }
@@ -1372,98 +1507,109 @@ const StoryUI = {
   }
 };
 
-// Route selection screen
+// Route selection screen — three careers, each locked to its theme.
+// Classic WRC (cockpit), STREET Midnight Class, DAKAR Dust & Honor.
+// The theme is set the moment the career is picked and the dock is locked
+// for the run: themes can't carry over between stories.
+const CAREER_ARCS = [
+  {
+    arc: null, theme: '', label: 'CLASSIC WRC', sub: 'COCKPIT THEME',
+    hook: 'The paddock politics route. Factory offers, a troubled driver, and the girlfriend who blames you for every scratch.',
+    stats: 'Driver Trust · Team Respect · Mental Stress',
+    icon: 'bi-camera-reels'
+  },
+  {
+    arc: 'street', theme: 'theme-street', label: 'MIDNIGHT CLASS', sub: 'STREET THEME · WANGAN',
+    hook: 'You are a homeless kid sleeping in a dead coupe. An old Japanese tuner heard you call the Bayshore through a wall. Now you read for the fastest rookie in Yokohama — while the police net closes and Kenji hides a failing heart.',
+    stats: 'Driver Trust · Team Respect · Grit · Legacy',
+    icon: 'bi-lightning-charge'
+  },
+  {
+    arc: 'roadbook', theme: 'theme-roadbook', label: 'DUST AND HONOR', sub: 'DAKAR THEME · ROADBOOK',
+    hook: 'You grew up racing mud flats, until the crash that killed your first driver. Tarek — the mechanic who pulled you out — hands you a second seat beside a rookie with money and no fear. The erg keeps what it takes.',
+    stats: 'Grit · Reputation · Legacy · Driver Trust',
+    icon: 'bi-journal-bookmark'
+  }
+];
+
 function showRouteSelection() {
-  // Create selection screen if not exists
   let selectScreen = document.getElementById('route-select');
   if (!selectScreen) {
     selectScreen = document.createElement('div');
     selectScreen.id = 'route-select';
     selectScreen.className = 'screen';
-    selectScreen.style.cssText = `
-      background: linear-gradient(135deg, #0a0a0c 0%, #1a1a2e 100%);
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 2rem;
-    `;
-    
-    selectScreen.innerHTML = `
-      <div style="
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: clamp(24px, 5vw, 48px);
-        letter-spacing: 4px;
-        color: #f5c518;
-        margin-bottom: 1rem;
-        text-align: center;
-      ">CHOOSE YOUR PATH</div>
-      
-      <div style="
-        font-family: 'IBM Plex Sans', sans-serif;
-        font-size: 14px;
-        color: #9090a8;
-        margin-bottom: 3rem;
-        text-align: center;
-        max-width: 500px;
-      ">Select your co-driver route. Each offers a different story, different challenges, and different relationships.</div>
-      
-      <div style="
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        max-width: 900px;
-        width: 100%;
-      ">
-        <button onclick="selectRoute('male')" style="
-          background: linear-gradient(180deg, rgba(245,197,24,0.1) 0%, rgba(10,10,12,0.9) 100%);
-          border: 2px solid #f5c518;
-          padding: 2rem;
-          cursor: pointer;
-          text-align: left;
-          transition: all 0.3s;
-        " onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 10px 30px rgba(245,197,24,0.3)'" 
-        onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style="font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: #f5c518; margin-bottom: 1rem;">MALE CO-DRIVER</div>
-          <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: #c0c0d0; line-height: 1.6;">
-            Navigate the politics of the paddock. Keep a troubled driver sober. Face the girlfriend who blames you for every scratch. Prove that you can be the voice of reason when everything is sideways at 140.
-          </div>
-          <div style="margin-top: 1.5rem; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #606070;">
-            Stats: Driver Trust · Team Respect · Mental Stress
-          </div>
-        </button>
-        
-        <button onclick="selectRoute('female')" style="
-          background: linear-gradient(180deg, rgba(245,197,24,0.1) 0%, rgba(10,10,12,0.9) 100%);
-          border: 2px solid #f5c518;
-          padding: 2rem;
-          cursor: pointer;
-          text-align: left;
-          transition: all 0.3s;
-        " onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 10px 30px rgba(245,197,24,0.3)'" 
-        onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style="font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: #f5c518; margin-bottom: 1rem;">FEMALE CO-DRIVER</div>
-          <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: #c0c0d0; line-height: 1.6;">
-            Break barriers in a male-dominated sport. Turn doubt into determination. Build GRIT—the ability to stay precise when everything questions your right to be here. Forge your own legacy.
-          </div>
-          <div style="margin-top: 1.5rem; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #606070;">
-            Stats: Grit · Reputation · Legacy
-          </div>
-        </button>
-      </div>
-    `;
-    
     document.body.appendChild(selectScreen);
   }
+  
+  /* Each card carries its discipline's photo + accent, so "choose your
+     career" reads as three different worlds, not three grey boxes.
+     Photos: Wikimedia Commons — wrc: Antti Leppänen, CC BY-SA 3.0;
+     street: Morio, CC BY-SA 4.0; roadbook: Dakar organization, PD. */
+  const ARC_MEDIA = {
+    wrc: {
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Karl_Kruuda_Rally_Finland_2013_Surkee.jpg/960px-Karl_Kruuda_Rally_Finland_2013_Surkee.jpg',
+      credit: 'Antti Leppänen · CC BY-SA 3.0 · Wikimedia'
+    },
+    street: {
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Route_5_%28Shuto_Expressway%29_night_2015_July.jpg/960px-Route_5_%28Shuto_Expressway%29_night_2015_July.jpg',
+      credit: 'Morio · CC BY-SA 4.0 · Wikimedia'
+    },
+    roadbook: {
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Rally_Dakar_2009_14.jpg/960px-Rally_Dakar_2009_14.jpg',
+      credit: 'Dakar organization · Public domain · Wikimedia'
+    }
+  };
+  const arcCards = CAREER_ARCS.map((a, i) => {
+    const disc = a.arc === 'street' ? 'street' : a.arc === 'roadbook' ? 'roadbook' : 'wrc';
+    const m = ARC_MEDIA[disc];
+    return `
+    <button class="arc-card disc-${disc}" id="arc-${i}" onclick="pickArc(${i})" data-disc="${disc}">
+      <span class="arc-photo" style="background-image:url('${m.img}')" aria-hidden="true"></span>
+      <span class="arc-scrim" aria-hidden="true"></span>
+      <span class="arc-body">
+        <span class="arc-kicker"><i class="bi ${a.icon}"></i> ${a.sub}</span>
+        <span class="arc-title">${a.label}</span>
+        <span class="arc-hook">${a.hook}</span>
+        <span class="arc-stats">Stats: ${a.stats}</span>
+      </span>
+      <span class="arc-credit">${m.credit}</span>
+    </button>`;
+  }).join('');
+  
+  selectScreen.innerHTML = `
+    <div class="route-head"><i class="bi bi-signpost-split-fill" aria-hidden="true"></i> CHOOSE YOUR CAREER</div>
+    <div class="route-sub">Three disciplines. Three co-drivers. One seat. Each career is a full story in its own world — the game locks to its theme while you play it.</div>
+    <div class="arc-grid">${arcCards}</div>
+    <div class="route-gender" id="gender-row" style="display:none">
+      <div class="route-gender-title">YOUR VOICE</div>
+      <div class="gender-btns">
+        <button class="gender-btn" id="pick-male" onclick="pickGender('male')">MALE CO-DRIVER</button>
+        <button class="gender-btn" id="pick-female" onclick="pickGender('female')">FEMALE CO-DRIVER</button>
+      </div>
+      <div class="route-gender-note">Both voices play the same story; some scenes land differently.</div>
+    </div>`;
   
   show('route-select');
 }
 
+// Step 1: pick the career (locks the theme immediately)
+function pickArc(i) {
+  const a = CAREER_ARCS[i];
+  window._pendingArc = a;
+  // theme flips NOW so the selection screen itself re-skins to the chosen world
+  if (typeof RpaTheme !== 'undefined') { try { RpaTheme.set(a.theme || null); } catch (e) {} }
+  document.getElementById('gender-row').style.display = '';
+  document.querySelectorAll('.arc-card').forEach((c, j) => c.classList.toggle('sel', j === i));
+  document.getElementById('gender-row').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Step 2: pick the voice and start the story
+function pickGender(g) { selectRoute(g); }
 function selectRoute(route) {
-  StorySystem.selectRoute(route);
+  const a = window._pendingArc || CAREER_ARCS[0];
+  StorySystem.selectRoute(route, a.arc);
   
-  // Show intro for selected route
-  const intro = StoryData[route].intro;
+  const intro = StorySystem.arcData()[route].intro;
   const introScene = {
     location: intro.location,
     dialogue: [
@@ -1471,9 +1617,13 @@ function selectRoute(route) {
     ],
     choices: [
       {
-        text: 'Begin Your Journey',
+        text: a.arc === 'street' ? 'Take The Seat'
+            : a.arc === 'roadbook' ? 'Sit Back In'
+            : 'Begin Your Journey',
         consequence: {
-          text: 'The world of rally awaits. Your seat is ready.',
+          text: a.arc === 'street' ? 'Yokohama at midnight. Your voice is the law of the road now.'
+              : a.arc === 'roadbook' ? 'The desert is patient. So are you. The season begins.'
+              : 'The world of rally awaits. Your seat is ready.',
           stats: route === 'female' ? { grit: 10 } : { driverTrust: 5, mentalStress: 5 }
         }
       }
@@ -1481,70 +1631,53 @@ function selectRoute(route) {
   };
   
   StoryUI.showScene(introScene, () => {
-    // Start career after intro
     openCareer();
   });
 }
 
-// Show story before a stage
-function showPreStageStory(stageIndex, onComplete) {
+// Shared slot picker for pre/post stage story. See StorySystem.getStageContext
+// (monotone chapter mapping) and StorySystem.pickScene (seen ledger) — together
+// they guarantee the story advances round by round and never replays a scene.
+function showStorySlot(kind, stageIndex, onComplete) {
   const route = StorySystem.state.genderRoute;
   if (!route) {
     onComplete();
     return;
   }
-  
+
   const era = G.era || 'grpb';
-  const ctx = StorySystem.getStageContext(era, stageIndex);
-  const chapterData = StoryData[route][`chapter${ctx.chapter}`];
-  
-  if (!chapterData || !chapterData.preStage) {
+  const ctx = StorySystem.getStageContext(era, stageIndex, kind);
+  const chapters = StorySystem.chaptersFor(ctx);
+  const picked = StorySystem.pickScene(chapters, ctx, kind);
+
+  if (!picked) {
     onComplete();
     return;
   }
-  
-  // Find applicable scene
-  const scene = chapterData.preStage.find(s => s.condition(ctx));
-  
-  if (scene) {
-    // Check for era variants (System 2)
-    let sceneToShow = scene.scene;
-    if (scene.scene.eraVariants && scene.scene.eraVariants[era]) {
-      sceneToShow = {...scene.scene, dialogue: scene.scene.eraVariants[era].dialogue};
-    }
-    StoryUI.showScene(sceneToShow, onComplete);
-  } else {
-    onComplete();
+
+  // Stamp BEFORE showing: skipping with 'S' still counts as seen.
+  StorySystem.markSceneSeen(picked);
+
+  // Check for era variants (System 2)
+  let sceneToShow = picked.entry.scene;
+  if (sceneToShow && sceneToShow.eraVariants && sceneToShow.eraVariants[era]) {
+    sceneToShow = {...sceneToShow, dialogue: sceneToShow.eraVariants[era].dialogue};
   }
+  if (!sceneToShow) {
+    onComplete();
+    return;
+  }
+  StoryUI.showScene(sceneToShow, onComplete);
+}
+
+// Show story before a stage
+function showPreStageStory(stageIndex, onComplete) {
+  showStorySlot('pre', stageIndex, onComplete);
 }
 
 // Show story after a stage
 function showPostStageStory(stageIndex, stageResult, onComplete) {
-  const route = StorySystem.state.genderRoute;
-  if (!route) {
-    onComplete();
-    return;
-  }
-  
-  const era = G.era || 'grpb';
-  const ctx = StorySystem.getStageContext(era, stageIndex);
-  const chapterData = StoryData[route][`chapter${ctx.chapter}`];
-  
-  if (!chapterData || !chapterData.postStage) {
-    onComplete();
-    return;
-  }
-  
-  // Find applicable scene
-  const scene = chapterData.postStage.find(s => s.condition(ctx));
-  
-  if (scene) {
-    // Modify scene based on stage result if needed
-    const modifiedScene = {...scene.scene};
-    StoryUI.showScene(modifiedScene, onComplete);
-  } else {
-    onComplete();
-  }
+  showStorySlot('post', stageIndex, onComplete);
 }
 
 // Keyboard shortcut: 'S' skips the current story scene, matching the
