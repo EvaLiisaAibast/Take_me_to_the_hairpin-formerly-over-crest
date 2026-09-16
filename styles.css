@@ -1,34 +1,217 @@
-@font-face {
-    font-family: 'Xenogears';
-    src: url('xenogears.regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+/* ============================================================================
+   RALLY PACENOTE ACADEMY — STYLES
+   Single stylesheet. Organized top-to-bottom:
+
+     1. DESIGN TOKENS        — colors, radii, motion, focus rings
+     2. BASE & A11Y          — resets, selection, focus-visible, reduced motion
+     3. COMPONENT PRIMITIVES — buttons, inputs, cards, chips
+     4. SCREENS              — menu, setup, training school, game, recce,
+                               result, career, tuning, editor, achievements…
+     5. UTILITIES & ANIMATIONS
+
+   Theme support: .light-theme on <body> flips the token values.
+   ============================================================================ */
+
+/* ============================================================================
+   1. DESIGN TOKENS
+   ============================================================================ */
+:root {
+  /* surfaces */
+  --bg: #0a0a0c;
+  --surf: #111116;
+  --surf2: #17171e;
+  --surf3: #1e1e28;
+  --brd: #252530;
+  --brd2: #35354a;
+
+  /* accents */
+  --gold: #f5c518;
+  --red: #e8291c;
+  --cyan: #00e5ff;
+  --green: #39ff14;
+  --mp-red: #e8000a;
+  --mp-yellow: #ffe500;
+  --mp-orange: #ff6600;
+
+  /* text */
+  --text: #f0f0f0;
+  --text2: #9090a8;
+  --text3: #50506a;
+
+  /* radii */
+  --rpa-radius: 10px;
+  --rpa-radius-sm: 6px;
+
+  /* motion */
+  --rpa-anim: 160ms cubic-bezier(.4, 0, .2, 1);
+
+  /* focus rings */
+  --rpa-ring-gold: 0 0 0 3px rgba(245, 197, 24, .14);
+  --rpa-ring-cyan: 0 0 0 3px rgba(0, 229, 255, .14);
 }
 
-:root{
-  --bg:#0a0a0c;--surf:#111116;--surf2:#17171e;--surf3:#1e1e28;
-  --brd:#252530;--brd2:#35354a;
-  --gold:#f5c518;--red:#e8291c;--cyan:#00e5ff;--green:#39ff14;
-  --mp-red:#e8000a;--mp-yellow:#ffe500;--mp-orange:#ff6600;
-  --text:#f0f0f0;--text2:#9090a8;--text3:#50506a;
+.light-theme {
+  --bg: #f5f5f7;
+  --surf: #ffffff;
+  --surf2: #e8e8ed;
+  --surf3: #d8d8e0;
+  --brd: #c0c0c8;
+  --brd2: #a0a0a8;
+  --gold: #d4a017;
+  --red: #c41e12;
+  --cyan: #0088aa;
+  --green: #2d8f0f;
+  --mp-red: #b80008;
+  --mp-yellow: #d4b400;
+  --mp-orange: #cc5200;
+  --text: #1a1a1a;
+  --text2: #505058;
+  --text3: #808088;
 }
-.light-theme{
-  --bg:#f5f5f7;--surf:#ffffff;--surf2:#e8e8ed;--surf3:#d8d8e0;
-  --brd:#c0c0c8;--brd2:#a0a0a8;
-  --gold:#d4a017;--red:#c41e12;--cyan:#0088aa;--green:#2d8f0f;
-  --mp-red:#b80008;--mp-yellow:#d4b400;--mp-orange:#cc5200;
-  --text:#1a1a1a;--text2:#505058;--text3:#808088;
+
+/* ============================================================================
+   2. BASE & A11Y
+   ============================================================================ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: radial-gradient(120% 100% at 50% 0%, #111116 0%, var(--bg) 55%);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'IBM Plex Sans',sans-serif;background:radial-gradient(120% 100% at 50% 0%,#111116 0%,var(--bg) 55%);color:var(--text);min-height:100vh;overflow-x:hidden}
-button{cursor:pointer;font-family:'IBM Plex Sans',sans-serif}
-input{font-family:'IBM Plex Mono',monospace}
-img{display:block;max-width:100%}
-.screen{display:none;position:fixed;inset:0;flex-direction:column;overflow-y:auto;background:var(--bg)}
-.screen.active{display:flex}
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:var(--surf)}
-::-webkit-scrollbar-thumb{background:var(--brd2)}
+button { cursor: pointer; font-family: 'IBM Plex Sans', sans-serif; }
+input { font-family: 'IBM Plex Mono', monospace; }
+img { display: block; max-width: 100%; }
+
+.screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  flex-direction: column;
+  overflow-y: auto;
+  background: var(--bg);
+  scroll-behavior: smooth;
+}
+.screen.active { display: flex; }
+
+/* Keyboard focus is visible everywhere */
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+/* Honor the OS reduce-motion setting */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection { background: rgba(245, 197, 24, .25); color: inherit; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--surf); }
+::-webkit-scrollbar-thumb { background: var(--brd2); }
+
+.setup-scroll { scrollbar-gutter: stable; }
+
+@font-face {
+  font-family: 'Xenogears';
+  src: url('xenogears.regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ============================================================================
+   4. SCREENS — legacy rules preserved verbatim below this line
+   (organized by screen; see section banners within)
+   ============================================================================ */
+/* ============================================================================
+   3. COMPONENT PRIMITIVES
+   ============================================================================ */
+
+/* ---- buttons: shared motion, then variants ---- */
+.gbtn {
+  border-radius: var(--rpa-radius-sm);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .035), rgba(255, 255, 255, 0));
+  transition: background var(--rpa-anim), border-color var(--rpa-anim),
+              color var(--rpa-anim), transform var(--rpa-anim), box-shadow var(--rpa-anim);
+}
+.gbtn:hover { background: rgba(245, 197, 24, .08); transform: translateY(-1px); }
+.gbtn:active { transform: translateY(0); box-shadow: none; }
+
+.mnbtn {
+  border-radius: var(--rpa-radius-sm);
+  background: linear-gradient(90deg, rgba(255, 255, 255, .02), transparent 60%);
+  position: relative;
+  transition: background var(--rpa-anim), border-color var(--rpa-anim), color var(--rpa-anim),
+              transform var(--rpa-anim), box-shadow var(--rpa-anim);
+}
+.mnbtn::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--gold);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform var(--rpa-anim);
+}
+.mnbtn:hover::before { transform: scaleY(1); }
+.mnbtn:hover { background: rgba(245, 197, 24, .06); border-color: rgba(245, 197, 24, .45); }
+
+.bk { border-radius: var(--rpa-radius-sm); transition: all var(--rpa-anim); }
+
+/* ---- inputs: unified focus ring ---- */
+input, textarea, select {
+  border-radius: var(--rpa-radius-sm);
+  transition: border-color var(--rpa-anim), box-shadow var(--rpa-anim), background var(--rpa-anim);
+}
+input:focus, textarea:focus {
+  outline: none;
+  border-color: rgba(245, 197, 24, .55) !important; /* beats inline border colors */
+  box-shadow: var(--rpa-ring-gold);
+}
+select { cursor: pointer; }
+
+/* ---- side editor panels (conventions + timing tuning) ---- */
+#note-conventions-panel label,
+#timing-tuning-panel label {
+  display: flex; flex-direction: column; gap: 3px;
+  color: var(--text2); font-size: 11px;
+}
+#note-conventions-panel select,
+#timing-tuning-panel select { width: 100%; border-radius: var(--rpa-radius-sm); }
+#timing-tuning-panel input[type="range"] { width: 100%; accent-color: var(--gold); }
+#timing-tuning-panel .tun-curve { width: 100%; height: auto; display: block; margin: 6px 0; }
+
+/* ---- timing-verdict chip (pill, not bare text) ---- */
+.timing-chip {
+  display: inline-block;
+  padding: 2px 9px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .28);
+  backdrop-filter: blur(4px);
+}
+.light-theme .timing-chip { background: rgba(255, 255, 255, .65); }
+
+/* ---- XP toast ---- */
+.rpa-toast {
+  position: fixed; right: 18px; bottom: 18px; z-index: 1200;
+  padding: 10px 14px; border-radius: var(--rpa-radius-sm);
+  background: var(--surf3); border: 1px solid var(--gold); color: var(--gold);
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .5);
+  animation: rpaFadeIn .25s ease both;
+}
+
+/* ---- utilities ---- */
+.rpa-fade-in { animation: rpaFadeIn .25s ease both; }
+@keyframes rpaFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
 
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
@@ -128,7 +311,7 @@ img{display:block;max-width:100%}
 .diff-sec{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--text3);margin-top:2px;letter-spacing:0;font-weight:400}
 .car-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem}
 .car-btn{background:linear-gradient(135deg,#1a1a1a 0%,#252530 100%);border-radius:12px;overflow:hidden;border:2px solid var(--brd2);transition:all .3s;position:relative;text-decoration:none;display:block;cursor:pointer;padding:0}
-.car-btn::before{content:'';position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:1px solid var(--brd2);border-radius:8px;pointer-events:none}
+.bk{padding:5px 13px;border:1px solid var(--brd2);background:none;color:var(--text2);font-size:11px;letter-spacing:.1em;text-transform:uppercase;transition:all .15s}
 .car-btn:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 8px 25px rgba(0,0,0,.4);border-color:var(--brd)}
 .car-btn:hover::before{border-color:var(--brd)}
 .car-btn.sel{border:3px solid var(--gold);background:linear-gradient(135deg,#1a1400 0%,#252015 100%);box-shadow:0 0 0 4px rgba(245,197,24,0.2)}
@@ -151,7 +334,7 @@ img{display:block;max-width:100%}
 .gbtn.pri:hover{background:#c00;color:var(--mp-yellow)}
 
 
-#training{color:#1a1a1a;flex-direction:column;background:#fffef5}
+.field input:focus{outline:none;border-color:var(--gold)}
 .school-top{background:#1a1a1a;color:#fff;padding:.5rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
 .school-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;color:var(--gold)}
 .school-tabs{display:flex;gap:0;overflow-x:auto}
@@ -174,8 +357,8 @@ img{display:block;max-width:100%}
 .lhdr p{font-size:12px;color:#777;margin-top:3px}
 .ltxt{font-size:14px;line-height:1.8;color:#333;margin-bottom:.85rem}
 .ltxt strong{color:#1a1a1a}
-.vcgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:7px;margin-bottom:1.1rem}
-.vc{background:#f5f0e8;border:1px solid #d0ccc0;padding:7px 11px}
+.gbtn{padding:10px 20px;font-family:'Bebas Neue','Anton',sans-serif;font-size:17px;letter-spacing:2px;border:1px solid var(--brd);background:transparent;color:var(--text2);transition:all .15s}
+.gbtn:hover{border-color:var(--gold);color:var(--gold)}
 .vc-r{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;color:#1a1a1a}
 .vc-m{font-size:11px;color:#555;margin-top:2px}
 .vc-e{font-size:10px;color:#999;margin-top:2px;font-style:italic}
@@ -283,7 +466,7 @@ img{display:block;max-width:100%}
 #result{background:#f0e8d0;color:#1a1a1a;overflow-y:auto;flex-direction:column}
 .mp-mast{background:#000;flex-shrink:0}
 .mp-mast-top{background:linear-gradient(90deg,#e8000a,#ff6600,#ffe500);padding:.35rem 1.5rem;display:flex;justify-content:space-between;align-items:center}
-.mp-mast-top span{font-family:'Anton',sans-serif;font-size:11px;letter-spacing:.2em;color:#000;text-transform:uppercase}
+.big-in:focus{outline:none;border-color:var(--gold)}
 .mp-name-row{padding:.6rem 1.5rem 0;display:flex;align-items:flex-end;justify-content:space-between}
 .mp-title{font-family:'Anton',sans-serif;font-size:clamp(38px,5.5vw,68px);color:#fff;letter-spacing:-1px;text-shadow:3px 3px 0 var(--mp-red);line-height:.85}
 .mp-title em{color:var(--mp-yellow);font-style:normal}
@@ -655,18 +838,41 @@ body.pro-mode #mode-toggle-btn { border-color: var(--gold); color: var(--gold); 
 .pct-title { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--gold); margin-bottom: .5rem; font-weight: 600; }
 .pct-tips { padding-left: 1.1rem; }
 .pct-tips li { font-size: 12px; color: var(--text2); line-height: 1.6; margin-bottom: .25rem; }
-.pro-export-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.pro-export-row { display: flex; gap: 10px; flex-wrap: wrap; }
 .pro-export-btn {
-  padding: 6px 12px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 150px;
+  min-width: 150px;
+  padding: 12px 14px;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 11px;
+  letter-spacing: .5px;
   border: 1px solid var(--brd2);
-  background: var(--surf);
-  color: var(--text2);
+  border-left: 3px solid var(--cyan);
+  background: linear-gradient(180deg, var(--surf2), var(--surf));
+  color: var(--text);
   cursor: pointer;
-  transition: all .12s;
+  transition: transform .12s, border-color .12s, box-shadow .12s;
+  text-align: left;
 }
-.pro-export-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.pro-export-btn .pe-ico { font-size: 16px; color: var(--cyan); flex: 0 0 auto; }
+.pro-export-btn .pe-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.pro-export-btn .pe-title { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1.5px; line-height: 1; }
+.pro-export-btn .pe-sub { font-size: 9.5px; color: var(--text3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pro-export-btn::after {
+  content: '\F4DC'; /* bootstrap-icons download glyph, rendered via icon font below */
+  font-family: 'bootstrap-icons';
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--text3);
+  transition: color .12s, transform .12s;
+}
+.pro-export-btn:hover { transform: translateY(-2px); border-color: var(--cyan); box-shadow: 0 4px 14px rgba(0,0,0,.35); }
+.pro-export-btn:hover::after { color: var(--cyan); transform: translateY(2px); }
+.pro-export-btn:active { transform: translateY(0); }
 
 
 .replay-timeline-wrap { padding: .75rem 0; }
@@ -882,4 +1088,553 @@ body.pro-mode #g-stage::after {
   background: var(--gold);
   color: #0a0a0c;
   font-weight: 600;
+}
+
+
+/* ============================================================================
+   RECCE & CALL-BACK SCREEN — road-book styling
+   ============================================================================ */
+/* Pass-1 canonical note: reads like the road shouting at you */
+#recce-canon-note {
+  padding: 10px 14px;
+  border-left: 3px solid var(--gold);
+  background: linear-gradient(90deg, rgba(245, 197, 24, .09), transparent 72%);
+  border-radius: 0 var(--rpa-radius-sm) var(--rpa-radius-sm) 0;
+  text-shadow: 0 0 26px rgba(245, 197, 24, .22);
+}
+/* Pass-2: your own scribble, in crew-ink cyan */
+#cb-scribble {
+  padding: 10px 14px;
+  border-left: 3px solid var(--cyan);
+  background: linear-gradient(90deg, rgba(0, 229, 255, .07), transparent 72%);
+  border-radius: 0 var(--rpa-radius-sm) var(--rpa-radius-sm) 0;
+  text-shadow: 0 0 26px rgba(245, 197, 24, .22);
+  font-variant-ligatures: none; /* shorthand glyphs must not fuse */
+}
+#recce-scribble { font-variant-ligatures: none; }
+#g-note { text-shadow: 0 0 26px rgba(245, 197, 24, .22); }
+
+/* Countdown urgency without layout shift */
+#recce-countdown.low, #cb-timer.low { color: var(--red) !important; font-weight: 700; }
+
+/* Review + summary rows */
+#recce-lint-list > div,
+#recce-summary-table > div {
+  border-radius: var(--rpa-radius-sm);
+  transition: border-color var(--rpa-anim), background var(--rpa-anim);
+}
+#recce-lint-list > div:hover,
+#recce-summary-table > div:hover { border-color: var(--brd2); background: var(--surf3); }
+
+#recce-tulip svg { filter: drop-shadow(0 1px 4px rgba(0, 0, 0, .5)); }
+.fb-box { border-radius: var(--rpa-radius); }
+
+/* Light-theme parity for recce rails */
+.light-theme #recce-canon-note { background: linear-gradient(90deg, rgba(212, 160, 23, .13), transparent 72%); }
+.light-theme #cb-scribble { background: linear-gradient(90deg, rgba(0, 136, 170, .10), transparent 72%); }
+
+
+/* ============================================================================
+   MENU v3 — VISIBLE facelift (you asked to SEE a difference)
+   Deliberately loud: animated pace-note stripe, stage-note ticker in the
+   top bar, bigger menu rows with corner-tag numbers, hero vignette.
+   Scoped to #menu so nothing else changes.
+   ============================================================================ */
+
+/* Hero: cinematic vignette + slow ken-burns drift on the video */
+#menu .menu-hero {
+  filter: brightness(.55) contrast(1.12) saturate(1.15);
+  animation: menuKenBurns 26s ease-in-out infinite alternate;
+}
+#menu .menu-overlay {
+  background:
+    radial-gradient(120% 90% at 30% 70%, transparent 30%, rgba(10,10,12,.55) 78%),
+    linear-gradient(180deg, rgba(10,10,12,.20) 0%, rgba(10,10,12,.38) 45%, rgba(10,10,12,.94) 100%);
+}
+@keyframes menuKenBurns {
+  from { transform: scale(1) translateX(0); }
+  to   { transform: scale(1.08) translateX(-1.5%); }
+}
+
+/* Title: clean stack instead of the double-shadow block */
+#menu .menu-title {
+  color: #fff;
+  text-shadow: none;
+  letter-spacing: 6px;
+  animation: titleIn .7s cubic-bezier(.2,.8,.2,1) both;
+}
+#menu .menu-title br + * { color: var(--mp-yellow); } /* "THE HAIRPIN" line pops */
+#menu .menu-sub {
+  color: var(--mp-yellow);
+  border-left: 3px solid var(--mp-red);
+  padding-left: 10px;
+  margin-top: .8rem;
+  animation: titleIn .7s .08s cubic-bezier(.2,.8,.2,1) both;
+}
+#menu .menu-quote { animation: titleIn .7s .16s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes titleIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Side panel: stage-note ticker in the red top bar */
+#menu .menu-right-top {
+  position: relative;
+  background: #0c0c10;
+  border-bottom: 2px solid var(--mp-red);
+  color: var(--mp-yellow);
+  letter-spacing: 4px;
+  overflow: hidden;
+}
+#menu .menu-right-top::after {
+  content: 'L1 FLAT · R2 CARE · L3 TIGHTENS · ⚠ DON’T CUT · R4 OVER CREST · FLAT TO FINISH ·';
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+  white-space: nowrap;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(245,197,24,.45);
+  animation: noteTicker 22s linear infinite;
+  pointer-events: none;
+}
+@keyframes noteTicker {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(-100%); }
+}
+
+/* Nav rows: taller, staggered entrance like a stage book unfolding */
+#menu .menu-nav { gap: 8px; }
+#menu .mnbtn {
+  padding: 1.05rem 1.4rem;
+  font-size: 20px;
+  border-radius: 8px;
+  border-left-width: 3px;
+  animation: rowIn .5s cubic-bezier(.2,.8,.2,1) both;
+}
+#menu .mnbtn:nth-child(1)  { animation-delay: .05s }
+#menu .mnbtn:nth-child(2)  { animation-delay: .09s }
+#menu .mnbtn:nth-child(3)  { animation-delay: .13s }
+#menu .mnbtn:nth-child(4)  { animation-delay: .17s }
+#menu .mnbtn:nth-child(5)  { animation-delay: .21s }
+#menu .mnbtn:nth-child(6)  { animation-delay: .25s }
+#menu .mnbtn:nth-child(7)  { animation-delay: .29s }
+#menu .mnbtn:nth-child(8)  { animation-delay: .33s }
+#menu .mnbtn:nth-child(9)  { animation-delay: .37s }
+#menu .mnbtn:nth-child(10) { animation-delay: .41s }
+#menu .mnbtn:nth-child(11) { animation-delay: .45s }
+#menu .mnbtn:nth-child(12) { animation-delay: .49s }
+#menu .mnbtn:nth-child(13) { animation-delay: .53s }
+#menu .mnbtn:nth-child(14) { animation-delay: .57s }
+@keyframes rowIn {
+  from { opacity: 0; transform: translateX(22px); }
+  to   { opacity: 1; transform: none; }
+}
+#menu .mnbtn:hover { transform: translateY(-2px) translateX(4px); }
+
+/* Bottom bar: pace-note chevron strip */
+#menu .menu-bar {
+  background: #0c0c10;
+  border-top: 2px solid var(--mp-red);
+  color: var(--text2);
+  letter-spacing: .25em;
+  position: relative;
+}
+#menu .menu-bar::before {
+  content: '‹‹‹';
+  color: var(--mp-red);
+  letter-spacing: 0;
+  margin-right: 10px;
+}
+
+/* ---- pixel-art car sprites: crisp blocks, never smoothed ---- */
+.car-img, #modal-car-image {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ============================================================================
+   LAUNCH SPLASH — one gate before the menu. Cockpit look is the default;
+   Street/Roadbook re-skin it in themes.css.
+   ============================================================================ */
+#splash{position:fixed;inset:0;z-index:20000;background:#08080b;display:flex;align-items:center;justify-content:center;padding:2rem 1rem;overflow:hidden;transition:opacity .55s ease,visibility .55s ease}
+#splash.bye{opacity:0;visibility:hidden;pointer-events:none}
+#splash::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse at 20% 10%,rgba(232,41,28,.08),transparent 55%),
+  radial-gradient(ellipse at 85% 90%,rgba(245,197,24,.05),transparent 55%)}
+.splash-inner{position:relative;max-width:640px;width:100%;text-align:center;padding:3.2rem 2.4rem;background:#0c0c10;border:1px solid #23232e;box-shadow:0 40px 120px rgba(0,0,0,.7)}
+.splash-rivet{position:absolute;width:9px;height:9px;border-radius:50%;background:#1d1d26;box-shadow:inset 0 1px 2px rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.06)}
+.splash-rivet.tl{top:12px;left:12px}.splash-rivet.tr{top:12px;right:12px}
+.splash-rivet.bl{bottom:12px;left:12px}.splash-rivet.br{bottom:12px;right:12px}
+.splash-stripe{position:absolute;top:0;left:0;right:0;height:4px;background:repeating-linear-gradient(-45deg,var(--red,#e8291c) 0 14px,#0c0c10 14px 28px)}
+.splash-kicker{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.5em;color:var(--text3,#5a5a70);margin-bottom:1.1rem}
+.splash-title{font-family:'Bebas Neue','Anton',sans-serif;font-size:clamp(2.6rem,9vw,4.6rem);line-height:.92;color:#f2f2f6;letter-spacing:.02em}
+.splash-title span{color:var(--gold,#f5c518)}
+.splash-credit{margin-top:1.6rem;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.28em;color:var(--text2,#8a8aa0)}
+.splash-credit span{color:#fff;font-weight:600;border-bottom:2px solid var(--red,#e8291c);padding-bottom:2px}
+.splash-rights{margin-top:.4rem;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--text3,#5a5a70)}
+.splash-btn{margin-top:1.8rem;padding:.85rem 2.6rem;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:14px;letter-spacing:.2em;color:#fff;background:var(--red,#e8291c);border:none;cursor:pointer;transition:transform .15s ease,filter .15s ease}
+.splash-btn:hover{transform:translateY(-2px);filter:brightness(1.15)}
+.splash-themes{margin-top:2.2rem;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:left}
+.splash-theme{padding:.8rem .7rem;background:#101016;border:1px solid #23232e;border-left:3px solid var(--red,#e8291c)}
+.splash-theme i{font-size:15px;color:var(--gold,#f5c518);display:block;margin-bottom:.35rem}
+.splash-theme b{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:#e8e8f0}
+.splash-theme span{display:block;margin-top:.25rem;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;color:var(--text3,#5a5a70)}
+.splash-foot{margin-top:1.2rem;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--text3,#5a5a70)}
+@media(max-width:640px){.splash-themes{grid-template-columns:1fr}.splash-inner{padding:2.4rem 1.4rem}}
+@media(prefers-reduced-motion:reduce){#splash,#splash.bye,.splash-btn{transition:none}}
+
+/* ============================================================================
+   THEME GIMMICK BANNER — setup screen reminder that theme = different game
+   ============================================================================ */
+.theme-gimmick-banner{display:flex;gap:.9rem;align-items:flex-start;padding:.9rem 1.1rem;background:var(--surf);border:1px solid var(--brd2);border-left:4px solid var(--gold);font-family:'IBM Plex Mono',monospace}
+.theme-gimmick-banner>i{font-size:20px;color:var(--gold);margin-top:2px}
+.theme-gimmick-banner b{display:block;font-size:12px;letter-spacing:.14em;color:var(--text1,#f2f2f6)}
+.theme-gimmick-banner span{display:block;margin-top:.3rem;font-size:11.5px;line-height:1.55;color:var(--text2,#8a8aa0)}
+
+/* ============================================================================
+   SPLASH v2 — studio boot (name card) -> engine sting -> title slam ->
+   walkthrough. The .splash-inner reveal, walk steps and boot card are all
+   animated; reduced-motion collapses everything to fades.
+   ============================================================================ */
+#splash-boot{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;background:#08080b;cursor:pointer;transition:opacity .45s ease,visibility .45s ease}
+#splash-boot.gone{opacity:0;visibility:hidden;pointer-events:none}
+/* --- boot ident v2: the game's own tulip diagram draws the studio mark --- */
+.boot-tulip{width:104px;height:104px;margin-bottom:.2rem}
+.boot-tulip path{fill:none;stroke:var(--red,#e8291c);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.boot-tulip .bt-entry{stroke-dasharray:1;stroke-dashoffset:1;animation:btDraw .5s .1s ease-out forwards}
+.boot-tulip .bt-bend{stroke-dasharray:1;stroke-dashoffset:1;animation:btDraw .9s .45s cubic-bezier(.4,0,.2,1) forwards}
+.boot-tulip .bt-arrow{fill:var(--red,#e8291c);stroke:none;opacity:0;transform:translateX(-8px);animation:btArrow .45s 1.25s cubic-bezier(.2,1.4,.4,1) forwards}
+@keyframes btDraw{to{stroke-dashoffset:0}}
+@keyframes btArrow{to{opacity:1;transform:none}}
+/* the GAME is the hero of the ident; the maker is a small credit line */
+.boot-title{display:flex;flex-direction:column;align-items:center;gap:.05rem;line-height:1;animation:bootName .7s .55s cubic-bezier(.2,1.2,.4,1) both}
+.boot-title .bt-l1{font-family:'Bebas Neue','Anton',sans-serif;font-size:clamp(2.6rem,9vw,5rem);letter-spacing:.3em;text-indent:.3em;color:#f2f2f6}
+.boot-title .bt-l2{font-family:'Bebas Neue','Anton',sans-serif;font-size:clamp(2.6rem,9vw,5rem);letter-spacing:.3em;text-indent:.3em;color:transparent;-webkit-text-stroke:1.5px #e8291c;text-stroke:1.5px #e8291c}
+.boot-name{display:flex;align-items:center;justify-content:center;gap:.65em;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.35em;text-indent:.35em;color:var(--text3,#5a5a70);animation:bootFade 1.4s 1.35s ease both}
+.boot-name .bn-l1,.boot-name .bn-l2{font:inherit;color:inherit;letter-spacing:inherit;text-indent:0;-webkit-text-stroke:0}
+.boot-name .bn-l2{color:var(--text3,#5a5a70)}
+.boot-name .bn-dot{width:3px;height:3px;background:var(--red,#e8291c);border-radius:50%;flex:0 0 auto}
+@keyframes bootName{from{opacity:0;transform:translateY(14px) scale(1.03)}to{opacity:1;transform:none}}
+.boot-rule{width:min(320px,56vw);height:2px;background:linear-gradient(90deg,transparent,var(--red,#e8291c),transparent);transform:scaleX(0);animation:bootLine 1.2s 1s ease both}
+.boot-sub{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.4em;color:var(--text3,#5a5a70);animation:bootPulse 2.2s 1s ease infinite}
+@keyframes bootFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes bootLine{to{transform:scaleX(1)}}
+@keyframes bootPulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+/* before interaction the title card sits quiet; .live triggers the show */
+#splash .splash-inner{opacity:0;transform:scale(.86);transition:none}
+#splash.live .splash-inner{opacity:1;transform:scale(1);transition:transform .38s cubic-bezier(.2,1.6,.4,1),opacity .3s ease}
+#splash.live .splash-title{animation:titleSlam .5s cubic-bezier(.15,1.4,.35,1) both .18s}
+#splash.live .splash-stripe{animation:stripeSweep .7s .32s ease both}
+#splash.live .splash-credit{animation:riseIn .45s .5s ease both}
+#splash.live .splash-rights{animation:riseIn .45s .62s ease both}
+#splash.live .splash-btn{animation:riseIn .45s .78s ease both}
+#splash.live .splash-walk{animation:riseIn .45s .92s ease both}
+#splash.live .splash-themes{animation:riseIn .45s 1.04s ease both}
+#splash.live .splash-foot{animation:riseIn .45s 1.16s ease both}
+@keyframes titleSlam{0%{opacity:0;transform:scale(2.1)}62%{opacity:1;transform:scale(.97)}100%{opacity:1;transform:scale(1)}}
+@keyframes stripeSweep{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+@keyframes riseIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* quick walkthrough: three steps, one lit at a time */
+.splash-walk{margin-top:1.6rem;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:left}
+.walk-step{display:flex;gap:10px;padding:.75rem .7rem;background:#101016;border:1px solid #23232e;opacity:.4;transition:opacity .4s ease,border-color .4s ease}
+.walk-step i{font-size:16px;color:var(--text3,#5a5a70);margin-top:2px;transition:color .4s ease}
+.walk-step b{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#e8e8f0}
+.walk-step span{display:block;margin-top:.25rem;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;color:var(--text3,#5a5a70)}
+.walk-step.on{opacity:1;border-color:var(--red,#e8291c)}
+.walk-step.on i{color:var(--gold,#f5c518)}
+
+@media(max-width:640px){.splash-walk{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){
+  #splash .splash-inner,#splash.live .splash-inner{opacity:1;transform:none;transition:opacity .3s ease}
+  #splash.live .splash-title,#splash.live .splash-stripe,#splash.live .splash-credit,
+  #splash.live .splash-rights,#splash.live .splash-btn,#splash.live .splash-walk,
+  #splash.live .splash-themes,#splash.live .splash-foot,.boot-name,.boot-rule{animation:none}
+  .boot-tulip .bt-entry,.boot-tulip .bt-bend{stroke-dashoffset:0;animation:none}
+  .boot-tulip .bt-arrow{opacity:1;transform:none;animation:none}
+  .walk-step{opacity:1}
+}
+
+/* ============================================================================
+   SPLASH v3 — images + ambient animation layer. Photo triptych with slow
+   Ken Burns drift behind the card, pixel-car convoy cruising the bottom,
+   avatar roundel in the boot ident. All decorative layers sit UNDER the
+   card and are pointer-events:none.
+   ============================================================================ */
+.splash-photos{position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:0;transition:opacity 1.2s ease}
+#splash.live .splash-photos{opacity:1}
+.sp-ph{position:absolute;top:-6%;height:112%;width:38%;background-size:cover;background-position:center;filter:saturate(.85) brightness(.5) contrast(1.05);will-change:transform}
+.sp-cyprus{left:-4%;background-image:url('solberg_cyprus.jpg');animation:kbA 26s ease-in-out infinite alternate}
+.sp-giza{left:31%;background-image:url('dakar_giza.jpg');animation:kbB 31s ease-in-out infinite alternate}
+.sp-wangan{right:-4%;background-image:url('wangan_shuto.jpg');animation:kbA 23s 1.8s ease-in-out infinite alternate-reverse}
+@keyframes kbA{from{transform:scale(1) translateY(0)}to{transform:scale(1.12) translateY(-2.5%)}}
+@keyframes kbB{from{transform:scale(1.1) translateY(-2%)}to{transform:scale(1) translateY(1.5%)}}
+.splash-photo-veil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,rgba(8,8,11,.92) 0%,rgba(8,8,11,.72) 45%,rgba(8,8,11,.55) 100%)}
+/* seam masks between photos */
+.splash-photos::before,.splash-photos::after{content:'';position:absolute;top:0;bottom:0;width:12%;z-index:2}
+.splash-photos::before{left:24%;background:linear-gradient(90deg,rgba(8,8,11,0),rgba(8,8,11,.85))}
+.splash-photos::after{right:24%;background:linear-gradient(270deg,rgba(8,8,11,0),rgba(8,8,11,.85))}
+
+/* pixel-car convoy cruising along the bottom, in front of the photos */
+.splash-convoy{position:absolute;left:0;right:0;bottom:2.2%;height:110px;pointer-events:none;opacity:0;transition:opacity 1s ease .4s}
+#splash.live .splash-convoy{opacity:1}
+.convoy-car{position:absolute;bottom:0;width:150px;image-rendering:pixelated;filter:drop-shadow(0 6px 8px rgba(0,0,0,.6));will-change:transform}
+/* the whole garage rolls by — WRC, Group B, street, Dakar — evenly spaced */
+.convoy-car.c1{animation:drive 19s linear infinite;width:140px}
+.convoy-car.c2{animation:drive 19s linear infinite 2.1s;width:116px;bottom:5px}
+.convoy-car.c3{animation:drive 19s linear infinite 4.2s;width:132px;bottom:2px}
+.convoy-car.c4{animation:drive 19s linear infinite 6.3s;width:146px;bottom:4px}
+.convoy-car.c5{animation:drive 19s linear infinite 8.4s;width:112px;bottom:6px}
+.convoy-car.c6{animation:drive 19s linear infinite 10.5s;width:160px;bottom:0}
+.convoy-car.c7{animation:drive 19s linear infinite 12.6s;width:108px;bottom:5px}
+.convoy-car.c8{animation:drive 19s linear infinite 14.7s;width:122px;bottom:3px}
+.convoy-car.c9{animation:drive 19s linear infinite 16.8s;width:128px;bottom:4px}
+@keyframes drive{from{transform:translateX(-190px) scaleX(1)}to{transform:translateX(calc(100vw + 190px)) scaleX(1)}}
+
+/* boot tagline + year land after the name stamp */
+.boot-tag{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.52em;text-indent:.52em;color:var(--gold,#f5c518);animation:bootFade 1.4s 1.3s ease both}
+#splash-boot{gap:.9rem}
+
+/* work-with-me chip on the credit line */
+.splash-gh{display:inline-flex;align-items:center;gap:6px;margin-left:14px;padding:5px 12px;background:#101016;border:1px solid #2a2a3a;color:var(--gold,#f5c518);font-size:10px;letter-spacing:.18em;text-decoration:none;transition:border-color .2s,transform .2s}
+.splash-gh:hover{border-color:var(--gold,#f5c518);transform:translateY(-1px)}
+
+@media(prefers-reduced-motion:reduce){
+  .sp-ph,.convoy-car{animation:none!important}
+  .sp-cyprus{transform:scale(1)}.sp-giza{transform:scale(1)}.sp-wangan{transform:scale(1)}
+  .convoy-car.c1{left:2%}.convoy-car.c2{left:13%}.convoy-car.c3{left:24%}.convoy-car.c4{left:35%}.convoy-car.c5{left:46%}.convoy-car.c6{left:57%}.convoy-car.c7{left:68%}.convoy-car.c8{left:79%}.convoy-car.c9{left:90%}
+  .splash-photos,.splash-convoy{opacity:1}
+}
+
+/* copyright year under the boot name + the rights/contact line styling */
+.boot-year{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.5em;text-indent:.5em;color:var(--text3,#5a5a70);animation:bootFade 1.4s 1.15s ease both}
+.splash-rights{line-height:1.7}
+.splash-rights .rights-link{color:var(--gold,#f5c518);text-decoration:none;border-bottom:1px solid rgba(245,197,24,.4);padding-bottom:1px;transition:border-color .2s}
+.splash-rights .rights-link:hover{border-bottom-color:var(--gold,#f5c518)}
+
+/* ==================== POST-STAGE DEBRIEF (v1) ==================== */
+/* Long-form "what did I do wrong" analysis below the article. */
+.db-wrap{margin:18px 0 26px;padding:18px 20px;background:var(--surf1);border:1px solid var(--brd1);border-radius:6px}
+.db-hdr{display:flex;align-items:baseline;gap:10px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--text);border-bottom:2px solid var(--gold);padding-bottom:8px;margin-bottom:14px}
+.db-hdr .bi{color:var(--gold);font-size:18px;transform:translateY(1px)}
+.db-sub{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--text3);text-transform:none}
+.db-sec-title{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:var(--gold);margin:16px 0 8px}
+.db-sec-title:first-of-type{margin-top:2px}
+.db-item{border:1px solid var(--brd2);border-left:3px solid var(--red);border-radius:4px;padding:10px 12px;margin-bottom:10px;background:var(--surf2)}
+.db-item-hdr{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.db-item-num{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--red);font-weight:600}
+.db-note{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--text);background:var(--surf3);padding:2px 8px;border-radius:3px}
+.db-verdict{font-size:12.5px;color:var(--text);line-height:1.45;margin-bottom:6px}
+.db-ans,.db-typed{font-size:11.5px;color:var(--text2);line-height:1.4;margin:3px 0}
+.db-ans span,.db-typed span{display:inline-block;min-width:86px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:1px;color:var(--text3);text-transform:uppercase}
+.db-right,.db-wrong{margin-top:8px;display:flex;flex-direction:column;gap:5px}
+.db-right div{font-size:11.5px;color:var(--green);line-height:1.4;display:flex;gap:6px;align-items:baseline}
+.db-right .bi{transform:translateY(1px)}
+.db-wrong-row{display:flex;flex-direction:column;gap:2px;font-size:11.5px;color:var(--red);line-height:1.4}
+.db-wrong-row>span{display:flex;gap:6px;align-items:baseline}
+.db-wrong-row .bi{transform:translateY(1px)}
+.db-wrong-row em{font-style:normal;color:var(--text2);font-size:11px;padding-left:18px;line-height:1.45}
+.db-pattern{border:1px solid var(--brd2);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--surf2)}
+.db-pat-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1.5px;color:var(--text);margin-bottom:4px}
+.db-pat-title .bi{color:var(--cyan);margin-right:4px}
+.db-pattern p{font-size:12px;color:var(--text2);line-height:1.55;margin:0}
+.db-plan{display:flex;flex-direction:column;gap:6px}
+.db-plan-row{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text);line-height:1.4;padding:8px 10px;background:var(--surf2);border:1px solid var(--brd2);border-radius:4px}
+.db-plan-row .bi{color:var(--gold);flex-shrink:0}
+.db-plan-row span{flex:1}
+.db-plan-btn{flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;background:transparent;border:1px solid var(--gold);color:var(--gold);padding:4px 10px;border-radius:3px;cursor:pointer;transition:all .15s}
+.db-plan-btn:hover{background:var(--gold);color:var(--bg1)}
+.db-empty{font-size:12px;color:var(--text3);padding:10px 0}
+
+/* ==================== PaceAI — on-device personal model ==================== */
+.paceai-readiness {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-top: 8px; padding: 10px 14px;
+  background: linear-gradient(135deg, rgba(94, 234, 212, 0.07), rgba(59, 130, 246, 0.05));
+  border: 1px solid rgba(94, 234, 212, 0.25);
+  border-left: 3px solid #5eead4;
+  border-radius: 8px;
+  font-size: 12px; color: var(--text2);
+}
+.paceai-readiness i { color: #5eead4; font-size: 14px; margin-top: 1px; }
+.paceai-readiness b {
+  display: block; font-size: 10px; letter-spacing: 0.14em;
+  color: #5eead4; margin-bottom: 2px; font-family: 'IBM Plex Mono', monospace;
+}
+.paceai-readiness span { line-height: 1.45; }
+
+.paceai-chip {
+  display: none; align-items: center; gap: 5px;
+  font-size: 10px; font-family: 'IBM Plex Mono', monospace;
+  color: var(--text3); letter-spacing: 0.04em;
+  padding: 2px 8px; border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: color 0.3s, border-color 0.3s, background 0.3s;
+  white-space: nowrap;
+}
+.paceai-chip i { font-size: 10px; }
+.paceai-chip.warm { color: #fbbf24; border-color: rgba(251,191,36,0.35); background: rgba(251,191,36,0.07); }
+.paceai-chip.hot  { color: #f87171; border-color: rgba(248,113,113,0.4); background: rgba(248,113,113,0.08); }
+
+/* debrief AI analyst block */
+.db-tchart { border: 1px solid var(--brd2); border-radius: 4px; background: var(--surf2); padding: 12px 12px 8px; margin-bottom: 10px; }
+.db-tchart svg { display: block; }
+.dbtc-stats { display: flex; gap: 8px; flex-wrap: wrap; align-items: baseline; margin: 8px 0 10px; }
+.dbtc-pill { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1px; border: 1px solid; border-radius: 999px; padding: 2px 10px; }
+.dbtc-avg { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text3); margin-left: auto; }
+.dbtc-explain { display: grid; gap: 8px; }
+.dbtc-row { display: flex; gap: 10px; font-size: 12px; color: var(--text2); line-height: 1.55; }
+.dbtc-row .bi { flex: 0 0 auto; font-size: 11px; margin-top: 3px; }
+.dbtc-row b { color: var(--text); }
+.dbtc-foot { font-size: 10.5px; color: var(--text3); border-top: 1px solid var(--brd2); margin-top: 10px; padding-top: 8px; line-height: 1.5; }
+
+.db-ai {
+  border: 1px solid rgba(94, 234, 212, 0.22);
+  border-radius: 10px;
+  background: linear-gradient(160deg, rgba(94, 234, 212, 0.05), rgba(15, 23, 42, 0.25));
+  padding: 12px 16px; margin-bottom: 10px;
+}
+.db-ai-headline {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 11px; letter-spacing: 0.1em; color: #5eead4;
+  font-family: 'IBM Plex Mono', monospace;
+  padding-bottom: 8px; margin-bottom: 8px;
+  border-bottom: 1px dashed rgba(94, 234, 212, 0.2);
+}
+.db-ai-sig { margin-bottom: 10px; }
+.db-ai-sig-title {
+  font-size: 12px; font-weight: 700; color: var(--text1);
+  display: flex; align-items: center; gap: 6px; margin-bottom: 3px;
+}
+.db-ai-sig-title i { color: #5eead4; font-size: 11px; }
+.db-ai-sig p { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--text2); }
+.db-ai-conf {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  font-size: 10.5px; color: var(--text3); font-family: 'IBM Plex Mono', monospace;
+  padding-top: 8px; border-top: 1px dashed rgba(94, 234, 212, 0.15);
+}
+.db-ai-conf .db-plan-btn { flex-shrink: 0; }
+
+/* splash theme cards are now REAL selectors — picked state */
+.splash-theme{cursor:pointer;transition:border-color .15s ease,transform .15s ease,background .15s ease}
+.splash-theme:hover{transform:translateY(-2px)}
+.splash-theme.sel{border-color:var(--gold,#f5c518)!important;border-left-color:var(--gold,#f5c518)!important;box-shadow:0 0 0 1px rgba(245,197,24,.35),0 6px 18px rgba(0,0,0,.45)}
+.splash-theme.sel b{color:var(--gold,#f5c518)}
+
+/* ==================== Career route selection (three worlds) ================ */
+#route-select {
+  background: linear-gradient(160deg, #0a0a0c 0%, #12121e 60%, #1a1424 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 2rem 1.5rem; overflow-y: auto;
+}
+.route-head {
+  font-family: 'Bebas Neue', 'Anton', sans-serif;
+  font-size: clamp(30px, 6vw, 56px); letter-spacing: 6px; color: #f5c518;
+  text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+}
+.route-head i { font-size: .8em; opacity: .85; }
+.route-sub {
+  font-size: 14px; color: #9090a8; text-align: center; max-width: 640px;
+  margin: 0.6rem 0 1.8rem; line-height: 1.6; font-family: 'IBM Plex Sans', sans-serif;
+}
+.arc-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.4rem; max-width: 1060px; width: 100%;
+}
+.arc-card {
+  /* Photographic discipline card: full-bleed photo, scrim, text docked at
+     the bottom, accent bar + glow per discipline. Children are <span>s
+     (buttons can't validly contain <div>s) reset to block flow. */
+  position: relative; overflow: hidden;
+  background: #101016;
+  border: 2px solid #2a2a3a; border-radius: 10px;
+  padding: 0; cursor: pointer; text-align: left;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  color: inherit; font-family: inherit;
+  min-height: 400px; display: flex; flex-direction: column;
+}
+/* discipline accent bar across the top */
+.arc-card::before {
+  content: ''; position: absolute; z-index: 3; top: 0; left: 0; right: 0; height: 4px;
+  background: var(--arc-accent, #f5c518);
+}
+.arc-card.disc-wrc      { --arc-accent: #ffd23f; --arc-glow: 245,197,24; }
+.arc-card.disc-street   { --arc-accent: #35e0ff; --arc-glow: 53,224,255; }
+.arc-card.disc-roadbook { --arc-accent: #ffb84d; --arc-glow: 255,184,77; }
+.arc-photo {
+  display: block; position: absolute; inset: 0;
+  background-size: cover; background-position: center 62%;
+  transform: scale(1.001);
+  transition: transform .5s ease, filter .35s ease;
+}
+.arc-scrim {
+  display: block; position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(6,6,10,.30) 0%, rgba(6,6,10,.42) 34%,
+    rgba(6,6,10,.78) 62%, rgba(6,6,10,.95) 84%, rgba(6,6,10,.98) 100%);
+}
+.arc-body {
+  display: flex; flex-direction: column; flex: 1; justify-content: flex-end;
+  position: relative; z-index: 2; padding: 1.5rem 1.4rem 1.45rem;
+}
+.arc-credit {
+  position: absolute; z-index: 2; right: 10px; bottom: 7px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: .4px;
+  color: rgba(255,255,255,.45); pointer-events: none;
+}
+.arc-card:hover { transform: translateY(-6px); border-color: rgb(var(--arc-glow)); box-shadow: 0 18px 44px rgba(0,0,0,.55), 0 0 24px rgba(var(--arc-glow),.18); }
+.arc-card:hover .arc-photo { transform: scale(1.06); }
+.arc-card.sel { border-color: rgb(var(--arc-glow)); box-shadow: 0 0 0 1px rgb(var(--arc-glow)), 0 14px 40px rgba(var(--arc-glow),.22); }
+.arc-card.sel .arc-photo { transform: scale(1.06); filter: saturate(1.25) brightness(1.05); }
+.arc-card.sel::after {
+  content: 'SELECTED'; position: absolute; z-index: 3; top: 14px; right: 12px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2px;
+  color: #0a0a0c; background: var(--arc-accent); padding: 3px 8px; border-radius: 3px;
+}
+.arc-kicker {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 2px;
+  color: var(--arc-accent, #5eead4); margin-bottom: .7rem; display: flex; align-items: center; gap: 6px;
+}
+.arc-title { font-family: 'Bebas Neue', 'Anton', sans-serif; font-size: 30px; letter-spacing: 3px; color: #f5f5fa; margin-bottom: .7rem; display: block; }
+.arc-hook { font-size: 13.5px; color: #c4c4d6; line-height: 1.65; margin-bottom: 1.1rem; display: block; text-shadow: 0 1px 3px rgba(0,0,0,.8); }
+.arc-stats { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #8a8a9e; letter-spacing: 1px; display: block; border-top: 1px solid rgba(255,255,255,.12); padding-top: .8rem; }
+.route-gender { margin-top: 2rem; text-align: center; width: 100%; max-width: 640px; }
+.route-gender-title {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 3px;
+  color: #f5c518; margin-bottom: .8rem;
+}
+.gender-btns { display: flex; gap: 1rem; justify-content: center; }
+.gender-btn {
+  background: #101016; border: 2px solid #2a2a3a; color: #c0c0d0;
+  padding: .9rem 2.2rem; font-family: 'Bebas Neue', sans-serif; font-size: 18px;
+  letter-spacing: 2px; cursor: pointer; border-radius: 6px;
+  transition: all .2s ease;
+}
+.gender-btn:hover { border-color: #f5c518; color: #f5c518; transform: translateY(-2px); }
+.route-gender-note { font-size: 11px; color: #606070; margin-top: .8rem; font-family: 'IBM Plex Mono', monospace; }
+
+/* body theme skins tint the SELECTION SCREEN to the chosen world; the
+   cards' discipline accents (wrc gold / street cyan / roadbook amber)
+   stay independent of the active theme on purpose — each card must read
+   as its own world even while the screen re-skins. */
+body.theme-street #route-select { background: linear-gradient(160deg, #05060f 0%, #0a1020 55%, #101a33 100%); }
+body.theme-street .route-head, body.theme-street .gender-btn:hover { color: #7fd0ff; }
+body.theme-street .route-gender-title { color: #7fd0ff; }
+body.theme-roadbook #route-select { background: linear-gradient(160deg, #14100a 0%, #1d150c 55%, #2a1d0f 100%); }
+body.theme-roadbook .route-head, body.theme-roadbook .gender-btn:hover { color: #e8a13a; }
+body.theme-roadbook .route-gender-title { color: #e8a13a; }
+body.theme-roadbook .route-sub, body.theme-roadbook .arc-hook { color: #d8c9a8; }
+
+@media (prefers-reduced-motion: reduce) {
+  .arc-card, .arc-photo { transition: none; }
+  .arc-card:hover { transform: none; }
+  .arc-card:hover .arc-photo, .arc-card.sel .arc-photo { transform: none; }
+}
+@media (max-width: 720px) {
+  .arc-card { min-height: 320px; }
+  .arc-title { font-size: 26px; }
 }
