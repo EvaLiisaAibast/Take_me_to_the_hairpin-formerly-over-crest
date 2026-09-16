@@ -1,6 +1,6 @@
 # DIALOGUE & STORY REFERENCE
 
-> Complete in-game dialogue for every career, route and chapter. Generated from `story_data.js` and `story-themes.js` — regenerate with `bun .freebuff/gen-dialogue-doc.js`. Do not edit by hand; edit the data files and re-run.
+> Complete in-game dialogue for every career, route and chapter. Generated from `story_data.js` and `story-themes.js`. Do not edit by hand; edit the data files and re-run.
 
 **The premise in one line:** you are the *co-driver*. The driver has the hands; you have the words. Every career is a different world, and the game locks to its theme while you play it.
 
