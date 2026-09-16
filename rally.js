@@ -187,6 +187,136 @@ const CAR_DETAILS = {
     drive: 'FWD',
     years: '1984–1986',
     story: 'The Renault 5 Maxi was a Group B homologation special that competed against more powerful AWD rivals. Despite being front-wheel drive, its lightweight design and turbocharged engine made it surprisingly competitive on tarmac events, showcasing the potential of FWD in rallying.'
+  },
+  'wangan-r32': {
+    name: 'Nissan Skyline GT-R R32',
+    era: 'Mid Night Club · Wangan',
+    image: 'wangan_r32.png',
+    engine: '2.6L Twin-Turbo I6 (RB26DETT)',
+    power: '280 hp (nominal) — far more in practice',
+    drive: '4WD (ATTESA E-TS)',
+    years: '1989–1994',
+    story: 'Godzilla. The R32 GT-R was the car that made the Wangan feared: ATTESA all-wheel drive, twin turbos and a chassis that ate 300 km/h for breakfast. Mid Night Club members ran them flat-out down the Bayshore Route, and it banked the unbeaten streaks that built the legend.'
+  },
+  'wangan-r34': {
+    name: 'Nissan Skyline GT-R R34',
+    era: 'Mid Night Club · Wangan',
+    image: 'wangan_r34.png',
+    engine: '2.6L Twin-Turbo I6 (RB26DETT)',
+    power: '330 hp (nominal)',
+    drive: '4WD (ATTESA E-TS Pro)',
+    years: '1999–2002',
+    story: 'The final and most refined Skyline GT-R, and a staple of the Wangan scene in its last years. Getrag six-speed, better aero, and the same over-engineered RB26 that tuned far beyond its paper numbers. The club disbanded in 1999, but the R34 carried the spirit forward.'
+  },
+  'wangan-supra': {
+    name: 'Toyota Supra A80',
+    era: 'Mid Night Club · Wangan',
+    image: 'wangan_supra.png',
+    engine: '3.0L Twin-Turbo I6 (2JZ-GTE)',
+    power: '280 hp (nominal) — 1000+ hp builds exist',
+    drive: 'RWD',
+    years: '1993–2002',
+    story: 'The 2JZ engine made the A80 Supra a Wangan icon: overbuilt from the factory, it swallowed big turbochargers and sustained speeds few cars could match. On the Bayshore Route it was the definitive top-speed weapon of the JDM golden era.'
+  },
+  'wangan-rx7': {
+    name: 'Mazda RX-7 FD3S',
+    era: 'Mid Night Club · Wangan',
+    image: 'wangan_rx7.png',
+    engine: '1.3L Twin-Rotor Turbo (13B-REW)',
+    power: '255 hp (nominal)',
+    drive: 'RWD',
+    years: '1992–2002',
+    story: 'The FD3S paired a screaming twin-rotor rotary with near-perfect 50:50 balance. Light, revvy and razor-sharp, it rewarded skill over power — the kind of car a Mid Night member drove to prove a point rather than to win a top-speed war.'
+  },
+  'wangan-nsx': {
+    name: 'Honda NSX',
+    era: 'Mid Night Club · Wangan',
+    image: 'wangan_nsx.png',
+    engine: '3.0L V6 VTEC (C30A)',
+    power: '270 hp',
+    drive: 'RWD',
+    years: '1990–2005',
+    story: 'The aluminium supercar Ayrton Senna helped refine. Mid-engine stability and linear VTEC delivery made the NSX a uniquely precise expressway tool — Japan proving it could out-think Ferrari, and Wangan racers loved it for that.'
+  },
+  'wangan-930': {
+    name: 'Porsche 911 Turbo 930',
+    era: 'Mid Night Club · Wangan',
+    image: 'wangan_930.png',
+    engine: '3.3L Turbo Flat-6',
+    power: '300 hp',
+    drive: 'RWD',
+    years: '1975–1989',
+    story: 'The widowmaker. Massive turbo lag and a rear engine made the 930 lethal at full throttle — exactly why the Mid Night Club respected it. European exotics like this were the cars the original club formed to chase, and beat, on the Wangan.'
+  },
+  'wangan-z32': {
+    name: 'Nissan 300ZX Z32',
+    era: 'Mid Night Club · Wangan',
+    image: 'wangan_z32.png?v=2',
+    engine: '3.0L Twin-Turbo V6 (VG30DETT)',
+    power: '300 hp',
+    drive: 'RWD',
+    years: '1989–2000',
+    story: 'Technically dazzling with twin turbos, four-wheel steering and a cockpit like a fighter jet. The Z32 was Japan answering the 930 on its own terms — stable, fast and genuinely competitive at Wangan speeds.'
+  },
+  'dakar-hilux': {
+    name: 'Toyota Hilux T1+',
+    era: 'Dakar · T1+ Ultimate',
+    image: 'dakar_hilux.png',
+    engine: '3.5L Twin-Turbo V6',
+    power: '400 hp',
+    drive: '4WD',
+    years: '2022–Present',
+    story: 'The current Dakar benchmark. The T1+ Hilux runs bigger wheels, long-travel suspension and a twin-turbo V6 under the Ultimate-class rules. Toyota has won the Dakar with Hilux machinery again and again — it is the truck everyone else has to beat.'
+  },
+  'dakar-mini': {
+    name: 'Mini ALL4 Racing',
+    era: 'Dakar · T1 (2011–2016)',
+    image: 'dakar_mini.png',
+    engine: '3.0L Turbo Diesel I6',
+    power: '300+ hp',
+    drive: '4WD',
+    years: '2011–2016',
+    story: 'X-raid\'s Countryman-based monster won the Dakar four years straight. Not much Mini underneath — a tubular frame wearing the badge — but its pace was absolute. Nasser Al-Attiyah, Stéphane Peterhansel and Leonid Novitskiy all took it to the podium.'
+  },
+  'dakar-touareg': {
+    name: 'VW Race Touareg 2',
+    era: 'Dakar · T1 (2004–2011)',
+    image: 'dakar_touareg.png',
+    engine: '2.5L Twin-Turbo Diesel I5',
+    power: '286 hp',
+    drive: '4WD',
+    years: '2004–2011',
+    story: 'Volkswagen\'s diesel prototype took three consecutive Dakar wins (2009-2011), including the 2009 Argentine edition — the first held outside Africa. The Race Touareg proved diesel torque was the future of cross-country rallying.'
+  },
+  'dakar-pajero': {
+    name: 'Mitsubishi Pajero Evolution',
+    era: 'Dakar · T2 (2003–2007)',
+    image: 'dakar_pajero.png',
+    engine: '3.8L Naturally Aspirated V6 (6G75)',
+    power: '220 hp',
+    drive: '4WD',
+    years: '2003–2007',
+    story: 'The most successful Dakar car of its era: seven straight manufacturers\' titles and twelve wins, with Peterhansel, Masuoka and Al-Attiyah at the wheel. The Evolution MPR11 was a pure-bred racer that made Mitsubishi synonymous with the desert.'
+  },
+  'dakar-lancer': {
+    name: 'Mitsubishi Racing Lancer',
+    era: 'Dakar · T1 (2009–2011)',
+    image: 'dakar_lancer.png',
+    engine: '3.9L Turbo Diesel V6',
+    power: '280 hp',
+    drive: '4WD',
+    years: '2009–2011',
+    story: 'Mitsubishi\'s diesel cross-country prototype, built for the South American Dakar era. It debuted alongside the Race Touareg and kept the Pajero lineage alive at the front of the field — the last great Mitsubishi Dakar machine.'
+  },
+  'dakar-kamaz': {
+    name: 'KAMAZ 4326',
+    era: 'Dakar · T5 Trucks',
+    image: 'dakar_kamaz.png',
+    engine: '13L Turbo Diesel V8',
+    power: '830 hp',
+    drive: '4WD',
+    years: '2000s–Present',
+    story: 'The blue hammer. KAMAZ-master has dominated the truck category for two decades, and the 4326 is the machine that made it routine: 830hp, nine tonnes, and crews who charge dunes at race-car pace. Watch one pass you at 160 km/h and you will never forget it.'
   }
 };
 
@@ -828,8 +958,7 @@ function renderTeamManagement(){
           <div style="font-size:12px;color:#9090a8;margin-top:2px;">${s.perk}</div>
         </div>
         <button ${hired || !canAfford ? 'disabled' : ''} onclick="TeamManagement.hire('${s.id}');renderTeamManagement();"
-          style="flex-shrink:0;padding:.6rem 1rem;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;border:1px solid ${hired?'#39ff14':'#35354a'};background:${hired?'transparent':'#f5c518'};color:${hired?'#39ff14':'#000'};cursor:${hired||!canAfford?'default':'pointer'};opacity:${!hired&&!canAfford?'0.5':'1'};">
-          ${hired ? '✓ Hired' : '$' + s.cost}
+          style="flex-shrink:0;padding:.6rem 1rem;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;border:1px solid ${hired?'#39ff14':'#35354a'};background:${hired?'transparent':'#f5c518'};color:${hired?'#39ff14':'#000'};cursor:${hired||!canAfford?'default':'pointer'};opacity:${!hired&&!canAfford?'0.5':'1'};">           ${hired ? '<i class="bi bi-check-lg"></i> Hired' : '$' + s.cost}
         </button>
       </div>`;
   }).join('');
@@ -863,8 +992,7 @@ function renderTeamManagement(){
     </div>`;
 }
 
-const CRASH_TYPES = [
-  {id:'off_road', title:'OFF THE ROAD!', emoji:'🚗💨',
+const CRASH_TYPES = [   {id:'off_road', title:'OFF THE ROAD!', emoji:'<i class="bi bi-cone-striped"></i>',
    descs:["The front pushed wide — not enough braking for the corner.",
           "The rear stepped out and you couldn't catch it in time.",
           "The car understeered over the apex and into the barrier.",
@@ -873,40 +1001,35 @@ const CRASH_TYPES = [
           "The rear breaks away on the exit and the car pirouettes into the bank. Dust everywhere.",
           "The front pushes wide on the damp patch. The armco arrives faster than expected.",
           "Into the bank sideways. The car bounces back onto the road. Somehow it's still running."],
-   dmg:{susp:[15,35],body:[20,40],tyres:[10,25]},timeLost:[20,45],recoverable:true},
-  {id:'rock_strike', title:'ROCK STRIKE!', emoji:'🪨',
+   dmg:{susp:[15,35],body:[20,40],tyres:[10,25]},timeLost:[20,45],recoverable:true},   {id:'rock_strike', title:'ROCK STRIKE!', emoji:'<i class="bi bi-exclamation-triangle"></i>',
    descs:["A rock from the road surface has hit the underside hard.",
           "Debris from the previous car — the rock was mid-line.",
           "Tyre strike on a boulder on the inside of the corner."],
    narrs:["A loud crack from underneath. The car jars hard. Something has been hit.",
           "The front suspension judders — a rock hidden in the gravel caught the tyre square.",
           "BANG. The car kicks sideways. Rock strike on the front wheel. The crew keeps going."],
-   dmg:{susp:[20,45],tyres:[15,40],engine:[5,15]},timeLost:[10,25],recoverable:true},
-  {id:'spin', title:'SPIN!', emoji:'🔄',
+   dmg:{susp:[20,45],tyres:[15,40],engine:[5,15]},timeLost:[10,25],recoverable:true},   {id:'spin', title:'SPIN!', emoji:'<i class="bi bi-arrow-repeat"></i>',
    descs:["Lost the rear on the corner exit — power oversteer.",
           "The car rotated in the braking zone.",
           "Snap oversteer on the wet inside of the corner."],
    narrs:["The rear breaks away without warning. One, two, three rotations. The car faces backward.",
           "The throttle was too early. The car rotates. Full opposite lock — too slow.",
           "On the snap of the rear, the co-driver grabs the door handle. This happens fast."],
-   dmg:{tyres:[10,25],body:[5,20]},timeLost:[8,20],recoverable:true},
-  {id:'puncture', title:'PUNCTURE!', emoji:'💨',
+   dmg:{tyres:[10,25],body:[5,20]},timeLost:[8,20],recoverable:true},   {id:'puncture', title:'PUNCTURE!', emoji:'<i class="bi bi-life-preserver"></i>',
    descs:["Front-right tyre is flat — cut on the gravel.",
           "Sidewall puncture on the rear-left. Happened mid-corner.",
           "Rock through the tyre on the straight section."],
    narrs:["The car pulls hard left. The front-right is gone — a cut from the sharp gravel.",
           "The handling changes completely. One corner of the car is on the rim.",
           "BOOM. The tyre explodes from a sharp rock mid-stage. The car slews sideways."],
-   dmg:{tyres:[40,70]},timeLost:[30,90],recoverable:true,longStop:true},
-  {id:'water_off', title:'INTO THE WATER!', emoji:'💧',
+   dmg:{tyres:[40,70]},timeLost:[30,90],recoverable:true,longStop:true},   {id:'water_off', title:'INTO THE WATER!', emoji:'<i class="bi bi-droplet-fill"></i>',
    descs:["The car has gone into the river crossing — speed too high.",
           "Lost control at the water splash — slick rocks on the exit.",
           "Understeered into the stream on the corner beyond the splash."],
    narrs:["The car ploughs through the water at the wrong angle. The engine coughs. Water everywhere.",
           "A sheet of white water and then silence. The car is stuck in the stream bed.",
           "The front drops into the water. The engine stalls. The co-driver is already on the radio."],
-   dmg:{engine:[20,50],body:[15,30],susp:[10,25]},timeLost:[45,120],recoverable:true,longStop:true},
-  {id:'big_off', title:'HEAVY CONTACT!', emoji:'💥',
+   dmg:{engine:[20,50],body:[15,30],susp:[10,25]},timeLost:[45,120],recoverable:true,longStop:true},   {id:'big_off', title:'HEAVY CONTACT!', emoji:'<i class="bi bi-exclamation-octagon"></i>',
    descs:["The car has hit the bank hard — this one is serious.",
           "Gone off into the trees on the outside of the corner.",
           "High-speed contact with the barrier. The crew are shaken but OK."],
@@ -1630,7 +1753,7 @@ function confirmTunEra(){
   const carDrop = document.getElementById('tun-car-drop');
   G.era = eraDrop.value;
   const carIdx = parseInt(carDrop.value);
-  G.car = ERAS[G.era].cars[carIdx];
+  G.car = (getThemedCars()||ERAS[G.era].cars)[carIdx];
   if(document.getElementById('inp-drv')) {
   }
   document.getElementById('tun-era-picker').style.display = 'none';
@@ -2125,8 +2248,7 @@ const LESSONS=[
       <div class="ltxt">• 32 notes across 4 eras (8 per era)<br/>• Timed responses (Normal difficulty)<br/>• Mixed surface conditions<br/>• Surprise hazard notes included</div>
     </div>
     <div class="era-blk">
-      <h4>Certification Levels</h4>
-      <div class="ltxt">🥉 <strong>Junior (70-79%)</strong> — Novice co-driver, continue training<br/>🥈 <strong>National (80-89%)</strong> — Qualified for national rallies<br/>🥇 <strong>World (90-100%)</strong> — Elite co-driver, ready for WRC</div>
+      <h4>Certification Levels</h4>       <div class="ltxt"><i class="bi bi-award" style="color:#cd7f32"></i> <strong>Junior (70-79%)</strong> — Novice co-driver, continue training<br/><i class="bi bi-award" style="color:#c0c0c0"></i> <strong>National (80-89%)</strong> — Qualified for national rallies<br/><i class="bi bi-award" style="color:#ffd700"></i> <strong>World (90-100%)</strong> — Elite co-driver, ready for WRC</div>
     </div>
     <div class="tip"><strong>Final advice:</strong> Speed without accuracy is useless. A slow correct note saves stages. A fast wrong note ends careers. Trust your training, trust the system, trust yourself.</div>
     <div style="text-align:center;margin-top:1rem;">
@@ -2155,16 +2277,24 @@ const INPUT_MODE = {
 
 const Achievements = {
   achievements: [
-    {id: 'first_pace_note', name: '🏁 First Pace Note', desc: 'Complete your first stage', unlocked: false},
-    {id: 'voice_only', name: '🎤 No Looking Down', desc: 'Finish a stage in voice-only mode', unlocked: false},
-    {id: 'group_b_survivor', name: '💀 Group B Survivor', desc: 'Finish a Group B stage without crashing', unlocked: false},
-    {id: 'engineer_brain', name: '🔧 Engineer Brain', desc: 'Change 25 tuning parameters', unlocked: false},
-    {id: 'walter_apprentice', name: '👑 Walter\'s Apprentice', desc: 'Get perfect pacenote accuracy', unlocked: false},
-    {id: 'clean_sweep', name: '✨ Clean Sweep', desc: 'Complete a stage with 100% accuracy', unlocked: false},
-    {id: 'speed_demon', name: '⚡ Speed Demon', desc: 'Complete a stage on Insane difficulty', unlocked: false},
-    {id: 'era_master', name: '🏆 Era Master', desc: 'Complete stages in all three eras', unlocked: false},
-    {id: 'occupational_hazard', name: '🍫 Occupational Hazard', desc: 'Get hit in the head by an emergency granola bar', unlocked: false},
-    {id: 'living_up_to_the_name', name: '⭐ Living Up To The Name', desc: 'Complete a clean stage with a legendary rally name', unlocked: false}
+    {id: 'first_pace_note', name: 'First Pace Note', icon: 'bi-flag-checkered', desc: 'Complete your first stage', unlocked: false},
+    {id: 'voice_only', name: 'No Looking Down', icon: 'bi-mic', desc: 'Finish a stage in voice-only mode', unlocked: false},
+    {id: 'group_b_survivor', name: 'Group B Survivor', icon: 'bi-shield-check', desc: 'Finish a Group B stage without crashing', unlocked: false},
+    {id: 'engineer_brain', name: 'Engineer Brain', icon: 'bi-wrench', desc: 'Change 25 tuning parameters', unlocked: false},
+    {id: 'walter_apprentice', name: "Walter's Apprentice", icon: 'bi-award', desc: 'Get perfect pacenote accuracy', unlocked: false},
+    {id: 'clean_sweep', name: 'Clean Sweep', icon: 'bi-stars', desc: 'Complete a stage with 100% accuracy', unlocked: false},
+    {id: 'speed_demon', name: 'Speed Demon', icon: 'bi-speedometer2', desc: 'Complete a stage on Insane difficulty', unlocked: false},
+    {id: 'era_master', name: 'Era Master', icon: 'bi-trophy', desc: 'Complete stages in all three eras', unlocked: false},
+    {id: 'occupational_hazard', name: 'Occupational Hazard', icon: 'bi-basket', desc: 'Get hit in the head by an emergency granola bar', unlocked: false},
+    {id: 'living_up_to_the_name', name: 'Living Up To The Name', icon: 'bi-star', desc: 'Complete a clean stage with a legendary rally name', unlocked: false},
+    {id: 'strain_master', name: 'Cold Machine', icon: 'bi-thermometer-snow', desc: 'Killer B: finish with peak strain under 25%', unlocked: false},
+    {id: 'edge_runner', name: 'Edge Runner', icon: 'bi-graph-down', desc: 'Killer B: cross 75% strain and still finish', unlocked: false},
+    {id: 'ghost_of_the_wangan', name: 'Ghost of the Wangan', icon: 'bi-ghost', desc: 'Wangan Run: escape 3 police pursuits in one run', unlocked: false},
+    {id: 'untouchable', name: 'Untouchable', icon: 'bi-escape', desc: 'Wangan Run: finish with escapes and zero BUSTED', unlocked: false},
+    {id: 'flame_alive', name: 'Keep The Fire', icon: 'bi-fire', desc: 'Night Recon: finish with the FLAME ALIVE rating', unlocked: false},
+    {id: 'pyromaniac', name: 'Pyromaniac', icon: 'bi-brightness-high', desc: 'Night Recon: win 5 burns in one run', unlocked: false},
+    {id: 'bookworm', name: 'Bookworm', icon: 'bi-journal-bookmark', desc: 'Road Call: read 10 roadbook entries in one run', unlocked: false},
+    {id: 'first_read', name: 'First Read', icon: 'bi-book', desc: 'Road Call: finish reading from the book with 80%+ accuracy', unlocked: false}
   ],
   tuningChanges: 0,
   erasCompleted: new Set(),
@@ -2200,6 +2330,7 @@ const Achievements = {
     if (achievement && !achievement.unlocked) {
       achievement.unlocked = true;
       this.save();
+      if(typeof SfxBus !== 'undefined') SfxBus.play('achievement');
       this.showNotification(achievement, customCredit);
     }
   },
@@ -2222,7 +2353,7 @@ const Achievements = {
       text-align: center;
     `;
     notification.innerHTML = `
-      <div style="font-size: 24px; margin-bottom: 5px;">🏆 Achievement Unlocked!</div>
+      <div style="font-size: 24px; margin-bottom: 5px;"><i class="bi bi-award"></i> Achievement Unlocked!</div>
       <div style="font-weight: 600; color: #f5c518; font-size: 16px;">${achievement.name}</div>
       <div style="font-size: 12px; color: #9090a8; margin-top: 5px;">${achievement.desc}</div>
       ${customCredit ? `<div style="font-size: 9px; color: #5a5a70; margin-top: 8px; font-style: italic;">${customCredit}</div>` : ''}
@@ -2295,14 +2426,14 @@ function updateInputModeUI() {
   
   // Allow toggling between voice and typing in both modes
   if (INPUT_MODE.type === 'speak') {
-    toggleBtn.textContent = '🎤 Voice';
+    toggleBtn.innerHTML = '<i class="bi bi-mic"></i> Voice';
     toggleBtn.style.background = '#39ff14';
     toggleBtn.style.color = '#0a0a0c';
     inputEl.style.display = 'none';
     if (micIndicator) micIndicator.style.display = 'flex';
     VoiceInput.start();
   } else {
-    toggleBtn.textContent = '⌨️ Type';
+    toggleBtn.innerHTML = '<i class="bi bi-keyboard"></i> Type';
     toggleBtn.style.background = '';
     toggleBtn.style.color = '';
     inputEl.style.display = 'block';
@@ -2828,12 +2959,13 @@ function triggerCrash(noteRaw){
     window.speechSynthesis.cancel();
     const msg=isDNF?'The stage is over. Retirement confirmed.':crash.title.replace('!','')+'. '+desc;
     const u=new SpeechSynthesisUtterance(msg);u.rate=0.9;u.pitch=0.7;
+    if(typeof VoicePicker!=='undefined')VoicePicker.apply(u);
     window.speechSynthesis.speak(u);
   }
   return isDNF;
 }
 function showCrashModal(crash,desc,narr,hits,timeLost,isDNF,longStop){
-  document.getElementById('crash-emoji').textContent=crash.emoji;
+  document.getElementById('crash-emoji').innerHTML=crash.emoji;
   document.getElementById('crash-title').textContent=crash.title;
   document.getElementById('crash-desc').textContent=desc;
   document.getElementById('crash-narr').textContent=narr;
@@ -3083,6 +3215,10 @@ function show(id){
   document.getElementById(id).classList.add('active');
   if(id==='game') startGameVideo();
   else if(prevActive&&prevActive.id==='game') stopGameVideo();
+  if (typeof WanganModes !== 'undefined') WanganModes.onShow(id);
+  if (typeof NightRecon !== 'undefined') NightRecon.onShow(id);
+  if (typeof GroupBSurvival !== 'undefined') GroupBSurvival.onShow(id);
+  if (typeof RoadCall !== 'undefined') RoadCall.onShow(id);
 }
 function startGameVideo(){
   const v=document.getElementById('game-bg-video');
@@ -3096,17 +3232,39 @@ function stopGameVideo(){
   if(v)v.pause();
 }
 function showMenu(){if(G.timer)clearInterval(G.timer);show('menu');const bgMusic=document.getElementById('bg-music');if(bgMusic){bgMusic.play().catch(()=>{});}if(typeof DriverProfileSystem!=='undefined')DriverProfileSystem.reset();}
+/* Called by theme-switcher.js whenever the theme changes. If the stage-setup
+   screen is open, the theme owns the garage — rebuild the whole selection
+   (era picker visibility, gimmick banner, car grid) and keep the player's
+   other choices (names, difficulty). Also handles the theme picking mid-
+   flow while the menu is up: the next openSetup() builds correctly anyway. */
+window.rpaOnThemeChanged=function(){
+  if(typeof G==='undefined'||!G)return;
+  if(G.stageEnded===false&&document.getElementById('game')&&document.getElementById('game').classList.contains('active'))return; // never touch a running stage
+  const setupEl=document.getElementById('setup');
+  if(setupEl&&setupEl.classList.contains('active')){
+    G.car=null; // themed garages don't share cars — let buildCarGrid pick the new default
+    // preserve crew names typed but not yet started (buildSetup resets fields from G.*)
+    const drv=document.getElementById('inp-drv'),cod=document.getElementById('inp-cod');
+    const keep={d:drv?drv.value:'',c:cod?cod.value:''};
+    buildSetup();
+    if(drv&&!keep.d)drv.value=''; if(drv&&keep.d)drv.value=keep.d;
+    if(cod&&keep.c)cod.value=keep.c;
+  }
+};
 function quickPlay(){
   G.careerMode=false;
   G.era='grpb';
   G.driver='Driver';
   G.codriver='Co-driver';
-  G.car=ERAS['grpb'].cars[0];
+  G.car=(getThemedCars()||ERAS['grpb'].cars)[0];
   G.diff=1;
   G.timeLimit=DIFFS[1].s;
   beginStage(null);
 }
+/* Legacy slider entry points — routed through AudioMixer so the menu,
+   in-stage and dock controls all share one persisted state. */
 function updateMusicVolume(value){
+  if(typeof AudioMixer !== 'undefined'){ AudioMixer.set('music', value); return; }
   const vol = parseFloat(value);
   const bgMusic = document.getElementById('bg-music');
   if(bgMusic) bgMusic.volume = vol;
@@ -3116,6 +3274,7 @@ function updateMusicVolume(value){
   if(gameSlider) gameSlider.value = vol;
 }
 function updateVoiceVolume(value){
+  if(typeof AudioMixer !== 'undefined'){ AudioMixer.set('voice', value); return; }
   const vol = parseFloat(value);
   if(typeof CoDriverAudio !== 'undefined') CoDriverAudio.setVoiceVolume(vol);
   if(typeof Accessibility !== 'undefined') Accessibility.set('voiceVolume', vol);
@@ -3151,7 +3310,7 @@ function triggerGranolaBarEvent(){
     font-family: 'IBM Plex Sans', sans-serif;
   `;
   overlay.innerHTML = `
-    <div style="font-size: 48px; margin-bottom: 15px;">🍫</div>
+    <div style="font-size: 48px; margin-bottom: 15px;"><i class="bi bi-basket"></i></div>
     <div style="font-size: 18px; color: #f5c518; font-weight: 600; margin-bottom: 10px;">*BONK*</div>
     <div style="font-size: 14px; color: #ffffff; margin-bottom: 20px;">"Eat something before you start calling notes."</div>
     <div style="font-size: 9px; color: #5a5a70; font-style: italic;">Thanks to Reddit user ElmoLibre for the snack bag idea.</div>
@@ -3185,7 +3344,7 @@ function renderAchievements(){
   grid.innerHTML = Achievements.achievements.map(a => `
     <div class="achievement-card ${a.unlocked ? 'unlocked' : ''}">
       <div class="achievement-status">${a.unlocked ? 'UNLOCKED' : 'LOCKED'}</div>
-      <div class="achievement-icon">${a.name.split(' ')[0]}</div>
+      <div class="achievement-icon">${a.icon ? `<i class="bi ${a.icon}"></i>` : '<i class="bi bi-patch-question"></i>'}</div>
       <div class="achievement-name">${a.name}</div>
       <div class="achievement-desc">${a.desc}</div>
     </div>
@@ -3198,16 +3357,109 @@ function openSetup(){
   }
   buildSetup();show('setup');
 }
+/* ---- Themed garages: the car roster follows the active theme ----
+   Street theme = Mid Night Club Wangan legends (Tokyo expressway, 80s-90s)
+   Roadbook theme = Dakar machinery (T1/T2 cars + the truck)
+   Default (Cockpit) theme = the classic WRC eras from ERAS above. */
+const WANGAN_CARS=[
+  {n:'Nissan Skyline GT-R R32',d:'280hp · RB26 · 4WD',img:'wangan_r32.png',
+   stats:{acceleration:78,weight:76,handling:74,stability:82,turboLag:45,expert:55}},
+  {n:'Nissan Skyline GT-R R34',d:'330hp · RB26 · 4WD',img:'wangan_r34.png',
+   stats:{acceleration:82,weight:74,handling:78,stability:84,turboLag:40,expert:60}},
+  {n:'Toyota Supra A80',d:'280hp · 2JZ · RWD',img:'wangan_supra.png',
+   stats:{acceleration:85,weight:78,handling:72,stability:76,turboLag:60,expert:65}},
+  {n:'Mazda RX-7 FD3S',d:'255hp · rotary · RWD',img:'wangan_rx7.png',
+   stats:{acceleration:76,weight:70,handling:85,stability:62,turboLag:55,expert:78}},
+  {n:'Honda NSX',d:'270hp · VTEC · RWD',img:'wangan_nsx.png',
+   stats:{acceleration:75,weight:72,handling:88,stability:75,turboLag:0,expert:70}},
+  {n:'Porsche 911 Turbo 930',d:'300hp · flat-6 · RWD',img:'wangan_930.png',
+   stats:{acceleration:74,weight:68,handling:55,stability:45,turboLag:85,expert:95}},
+  {n:'Nissan 300ZX Z32',d:'300hp · twin turbo · RWD',img:'wangan_z32.png?v=2',
+   stats:{acceleration:80,weight:80,handling:70,stability:78,turboLag:50,expert:60}}
+];
+const DAKAR_CARS=[
+  {n:'Toyota Hilux T1+',d:'400hp · V6 TT · 4WD',img:'dakar_hilux.png',
+   stats:{acceleration:80,weight:58,handling:82,stability:82,turboLag:35,expert:60}},
+  {n:'Mini ALL4 Racing',d:'300hp · diesel · 4WD',img:'dakar_mini.png',
+   stats:{acceleration:70,weight:55,handling:80,stability:85,turboLag:40,expert:55}},
+  {n:'VW Race Touareg 2',d:'286hp · TDI · 4WD',img:'dakar_touareg.png',
+   stats:{acceleration:72,weight:60,handling:78,stability:88,turboLag:45,expert:55}},
+  {n:'Mitsubishi Pajero Evolution',d:'220hp · V6 · 4WD',img:'dakar_pajero.png',
+   stats:{acceleration:62,weight:62,handling:85,stability:80,turboLag:0,expert:70}},
+  {n:'Mitsubishi Racing Lancer',d:'280hp · diesel · 4WD',img:'dakar_lancer.png',
+   stats:{acceleration:68,weight:58,handling:82,stability:84,turboLag:42,expert:62}},
+  {n:'KAMAZ 4326',d:'830hp · truck · 4WD',img:'dakar_kamaz.png',
+   stats:{acceleration:40,weight:100,handling:35,stability:95,turboLag:30,expert:90}}
+];
+let ACTIVE_CARS=null;
+function getThemedCars(){
+  if(document.body.classList.contains('theme-street'))return WANGAN_CARS;
+  if(document.body.classList.contains('theme-roadbook'))return DAKAR_CARS;
+  return null;
+}
+/* Garage order: alphabetical by name, every grid, every theme. The old
+   lists were in ad-hoc build order; now rosters read like a real entry
+   list. onclick still maps through the ORIGINAL array index. */
+function sortedCars(list){
+  return list.slice().sort((a,b)=>(a.n||'').toLowerCase()<(b.n||'').toLowerCase()?-1:(a.n||'').toLowerCase()>(b.n||'').toLowerCase()?1:0);
+}
+/* One-line summary of what the active theme changes, shown above the
+   difficulty picker so the theme→gameplay link is visible on every setup. */
+const THEME_GIMMICKS={
+  street:{cls:'gimmick-street',icon:'bi-signpost-split',title:'STREET THEME — MID NIGHT CLUB',
+    text:'Your garage is the Wangan legends. Quick Stage runs Tokyo expressway stages; Wangan Run (menu) lets you plan your own route across the Bayshore — and police pursuits can trigger at random. Outrun them or get BUSTED.'},
+  roadbook:{cls:'gimmick-roadbook',icon:'bi-journal-bookmark',title:'ROADBOOK THEME — DAKAR',
+    text:'Your garage is Dakar machinery. Quick Stage runs desert marathon stages with Dakar-style calls; Night Recon (menu) makes you manage the flame, and Road Call (menu) has you read notes straight off the roadbook.'},
+  cockpit:{cls:'gimmick-cockpit',icon:'bi-camera-reels',title:'COCKPIT THEME — CLASSIC WRC',
+    text:'Your garage is the WRC eras: Group B, WRC 90s and Modern Rally1. Classic Jemba-style numbered notes, and Killer B (menu) drops you into a Group B survival run where the intercom fights back.'}
+};
+function renderGimmickBanner(){
+  const el=document.getElementById('gimmick-banner');
+  if(!el)return;
+  const key=document.body.classList.contains('theme-street')?'street':
+             document.body.classList.contains('theme-roadbook')?'roadbook':'cockpit';
+  const g=THEME_GIMMICKS[key];
+  el.className='theme-gimmick-banner '+g.cls;
+  el.style.display='';
+  el.innerHTML='<i class="bi '+g.icon+'"></i><div><b>'+g.title+'</b><span>'+g.text+'</span></div>';
+  
+  // PaceAI readiness line — what your personal model expects from you tonight
+  try {
+    if (window.PaceAI) {
+      const rd = PaceAI.readiness({});
+      if (rd && rd.text) {
+        let rEl = document.getElementById('paceai-readiness');
+        if (!rEl) {
+          rEl = document.createElement('div');
+          rEl.id = 'paceai-readiness';
+          rEl.className = 'paceai-readiness';
+          el.parentElement.insertBefore(rEl, el.nextSibling);
+        }
+        rEl.innerHTML = '<i class="bi bi-person-gear"></i><div><b>RACE ENGINEER</b><span>' + rd.text + (rd.tip ? ' ' + rd.tip : '') + '</span></div>';
+        rEl.style.display = '';
+      }
+    }
+  } catch (e) { /* never break setup for analytics */ }
+}
+
 function buildSetup(){
   document.getElementById('inp-drv').value=G.driver!=='Driver'?G.driver:'';
   document.getElementById('inp-cod').value=G.codriver!=='Co-driver'?G.codriver:'';
-  document.getElementById('era-grid').innerHTML=Object.entries(ERAS).map(([k,e])=>`
+  const themed=getThemedCars();
+  const eraWrap=document.getElementById('era-grid');
+  if(eraWrap)eraWrap.parentElement.style.display=themed?'none':'';
+  renderGimmickBanner();
+  if(themed){
+    if(!G.era)G.era='grpb';
+  }else{
+    document.getElementById('era-grid').innerHTML=Object.entries(ERAS).map(([k,e])=>`
     <div class="era-card${G.era===k?' sel':''}" onclick="pickEra('${k}',this)">
       <div class="era-badge ${e.badge}">${e.label}</div>
       <div class="era-name">${e.label}</div>
       <div class="era-desc">${e.desc}</div>
-      <div class="era-cars-mini">${e.cars.slice(0,3).map(c=>`<span class="ecm">${c.n.split(' ').pop()}</span>`).join('')}</div>
+      <div class="era-cars-mini">${sortedCars(e.cars).slice(0,3).map(c=>`<span class="ecm">${c.n.split(' ').pop()}</span>`).join('')}</div>
     </div>`).join('');
+  }
   document.getElementById('diff-row').innerHTML=DIFFS.map((d,i)=>`
     <div class="diff-btn${G.diff===i?' sel':''}" onclick="pickDiff(${i},this)">${d.n}<span class="diff-sec">${d.s}s</span></div>`).join('');
   if(G.era)buildCarGrid();
@@ -3219,8 +3471,9 @@ function pickEra(k,el){
 }
 function buildCarGrid(){
   if(!G.era)return;
-  document.getElementById('car-grid').innerHTML=ERAS[G.era].cars.map((c,i)=>`
-    <div class="car-btn${G.car&&G.car.n===c.n?' sel':''}" onclick="pickCar(${i},this)">
+  ACTIVE_CARS=getThemedCars()||ERAS[G.era].cars;
+  document.getElementById('car-grid').innerHTML=sortedCars(ACTIVE_CARS).map((c,i)=>`
+    <div class="car-btn${G.car&&G.car.n===c.n?' sel':''}" onclick="pickCar(${ACTIVE_CARS.indexOf(c)},this)">
       <div class="car-img-wrap"><img src="${c.img}" alt="${c.n}" class="car-img" loading="lazy"></div>
       <div class="car-info">
         <div class="car-cn">${c.n}</div>
@@ -3228,10 +3481,10 @@ function buildCarGrid(){
         <button class="car-detail-btn" onclick="event.stopPropagation();showCarDetail('${c.n}')" style="margin-top:0.5rem;padding:0.4rem 0.8rem;background:var(--red);border:none;color:#fff;font-size:11px;font-family:'IBM Plex Mono',monospace;cursor:pointer;border-radius:4px;transition:all .2s">View Details</button>
       </div>
     </div>`).join('');
-  if(!G.car)G.car=ERAS[G.era].cars[0];
+  if(!G.car||!ACTIVE_CARS.some(c=>c.n===G.car.n))G.car=ACTIVE_CARS[0];
 }
 function pickCar(i,el){
-  G.car=ERAS[G.era].cars[i];
+  G.car=ACTIVE_CARS[i];
   document.querySelectorAll('.car-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');
 }
 
@@ -3254,7 +3507,20 @@ function showCarDetail(carName){
     'Ford Puma Rally1': 'ford-puma-rally1',
     'Hyundai i20N Rally1': 'hyundai-i20n-rally1',
     'Toyota GR Yaris Rally1': 'toyota-gr-yaris-rally1',
-    'Toyota Corolla WRC': 'toyota-corolla-wrc'
+    'Toyota Corolla WRC': 'toyota-corolla-wrc',
+    'Nissan Skyline GT-R R32': 'wangan-r32',
+    'Nissan Skyline GT-R R34': 'wangan-r34',
+    'Toyota Supra A80': 'wangan-supra',
+    'Mazda RX-7 FD3S': 'wangan-rx7',
+    'Honda NSX': 'wangan-nsx',
+    'Porsche 911 Turbo 930': 'wangan-930',
+    'Nissan 300ZX Z32': 'wangan-z32',
+    'Toyota Hilux T1+': 'dakar-hilux',
+    'Mini ALL4 Racing': 'dakar-mini',
+    'VW Race Touareg 2': 'dakar-touareg',
+    'Mitsubishi Pajero Evolution': 'dakar-pajero',
+    'Mitsubishi Racing Lancer': 'dakar-lancer',
+    'KAMAZ 4326': 'dakar-kamaz'
   };
   
   const carId = carMap[carName];
@@ -3290,10 +3556,28 @@ function openCareer(){
       showRouteSelection();
       return;
     }
+    // THEME ISOLATION: the career's theme was locked at route selection.
+    // Re-apply it so a career started in one theme can't leak into another
+    // (and the dock is locked while the career is live).
+    if (typeof StorySystem !== 'undefined' && StorySystem.state.careerTheme !== undefined && typeof RpaTheme !== 'undefined') {
+      try { RpaTheme.set(StorySystem.state.careerTheme); } catch (e) {}
+    }
+    const arc = StorySystem?.state?.themeArc || null;
     const isMale = StorySystem?.state?.genderRoute === 'male';
-    G.driver = isMale ? 'Mikko Lahti' : 'Sofia Andersson';
-    G.codriver = isMale ? 'Janne Salo' : 'Elena Voss';
-    G.era='grpb'; G.car=ERAS['grpb'].cars[0]; G.diff=1; G.timeLimit=DIFFS[1].s;
+    // Cast per story arc
+    if (arc === 'street') {
+      G.driver = isMale ? 'Haruto Sato' : 'Haruto Sato';
+      G.codriver = isMale ? 'You' : 'You';
+    } else if (arc === 'roadbook') {
+      G.driver = 'Amine Diallo';
+      G.codriver = 'You';
+    } else {
+      G.driver = isMale ? 'Mikko Lahti' : 'Sofia Andersson';
+      G.codriver = isMale ? 'Janne Salo' : 'Elena Voss';
+    }
+    // Career calendar per arc: the classic WRC schedule, or the themed ones
+    const themedCar = (getThemedCars()||ERAS['grpb'].cars)[0];
+    G.era='grpb'; G.car=themedCar; G.diff=1; G.timeLimit=DIFFS[1].s;
     
     // Apply era-based starting modifiers (System 2)
     if (typeof StorySystem !== 'undefined') {
@@ -3347,14 +3631,14 @@ function buildCareerScreen(){
     {v:CAREER.completed.filter(c=>c&&c.pos==='P1').length,l:'Stage Wins'},
     {v:CAREER.completed.length?Math.round(CAREER.completed.filter(Boolean).reduce((s,c)=>s+(c.acc||0),0)/CAREER.completed.filter(Boolean).length):0,l:'Avg Accuracy %'}
   ].map(s=>`<div class="sg"><div class="sg-val">${s.v}</div><div class="sg-lbl">${s.l}</div></div>`).join('');
-  const trophyDefs=[{n:'P1 Finish',i:'🏆',c:CAREER.completed.some(c=>c&&c.pos==='P1')},
-    {n:'Stage Win',i:'⭐',c:CAREER.completed.some(c=>c&&c.acc>=80)},
-    {n:'Clean Run',i:'💯',c:CAREER.completed.some(c=>c&&c.acc===100)},
-    {n:'Podium',i:'🥇',c:CAREER.completed.some(c=>c&&['P1','P2','P3'].includes(c.pos))},
-    {n:'Full Season',i:'🎖',c:CAREER.completed.length===CAREER_CAL.length}];
+  const trophyDefs=[{n:'P1 Finish',i:'bi-trophy-fill',c:CAREER.completed.some(c=>c&&c.pos==='P1')},
+    {n:'Stage Win',i:'bi-star-fill',c:CAREER.completed.some(c=>c&&c.acc>=80)},
+    {n:'Clean Run',i:'bi-emoji-smile',c:CAREER.completed.some(c=>c&&c.acc===100)},
+    {n:'Podium',i:'bi-medal',c:CAREER.completed.some(c=>c&&['P1','P2','P3'].includes(c.pos))},
+    {n:'Full Season',i:'bi-patch-check-fill',c:CAREER.completed.length===CAREER_CAL.length}];
   document.getElementById('c-trophies').innerHTML=trophyDefs.map(t=>`
     <div class="trophy-item${t.c?' earned':''}">
-      <div class="trophy-icon">${t.i}</div>
+      <div class="trophy-icon"><i class="bi ${t.i}"></i></div>
       <div class="trophy-lbl">${t.n}</div>
     </div>`).join('');
 }
@@ -3378,7 +3662,7 @@ function showDriverProfileBriefing(profile){
 function startCareerStage(i){
   G.careerMode=true;G.careerIdx=i;
   const c=CAREER_CAL[i];G.era=c.era;G.diff=1;G.timeLimit=DIFFS[1].s;
-  G.car=CAREER.car||ERAS[c.era].cars[0];G.driver=CAREER.driver;G.codriver=CAREER.codriver;
+  G.car=CAREER.car||(getThemedCars()||ERAS[c.era].cars)[0];G.driver=CAREER.driver;G.codriver=CAREER.codriver;
 
   // Driver-specific pacenote profile: each career round can be contracted
   // to a driver with their own notation preference (see DRIVER_PROFILES
@@ -3417,7 +3701,7 @@ function beginStage(stageOverride){
   G.driver=document.getElementById('inp-drv')?.value.trim()||G.driver||'Driver';
   G.codriver=document.getElementById('inp-cod')?.value.trim()||G.codriver||'Co-driver';
   if(!G.era){alert('Select an era first!');return;}
-  if(!G.car)G.car=ERAS[G.era].cars[0];
+  if(!G.car)G.car=(getThemedCars()||ERAS[G.era].cars)[0];
   const era=ERAS[G.era];
   const stage=stageOverride||era.stages[Math.floor(Math.random()*era.stages.length)];
 
@@ -3492,6 +3776,10 @@ function playCustomStage(){
 function beginStageWithData(stage){
   clearInterval(G.timer);
   G.idx=0;G.correct=0;G.skipped=0;G.results=[];G.currentStageName=stage.name;G.stageEnded=false;
+  if (typeof NotesTiming !== 'undefined') { NotesTiming.resetSession(); RALLY_STATE.lastTimingVerdict = null; RALLY_STATE.lastTimingRatio = null; }
+  if (typeof posthog !== 'undefined') {
+    posthog.capture('stage_started', { stage: stage.name, notes: stage.notes ? stage.notes.length : 0, difficulty: G.diff, mode: G.careerMode ? 'career' : 'quick' });
+  }
   G.crashed=false;G.dnf=false;G.totalTimeLost=0;G.crashCount=0;
   G.notes=stage.notes.map(n=>({...n,ans:(typeof PacenoteSystem !== 'undefined') ? PacenoteSystem.translate(n.raw) : n.ans}));
   G.timeLimit=G.timeLimit||DIFFS[G.diff].s;
@@ -3515,7 +3803,7 @@ function beginStageWithData(stage){
     '2': 'Very tight',
     '3': 'Tight',
     '4': 'Medium',
-    '5': 'Fast',
+    '5': 'Open',
     '6': 'Fast sweep (openest)'
   };
   
@@ -3530,6 +3818,9 @@ function beginStageWithData(stage){
   document.getElementById('g-vocab').innerHTML = vocabHtml;
   document.getElementById('g-dots').innerHTML=G.notes.map((_,i)=>`<div class="gd" id="gd-${i}"></div>`).join('');
   show('game');
+  if (typeof WanganModes !== 'undefined') WanganModes.maybeEncounter(0);
+  if (typeof NightRecon !== 'undefined' && NightRecon.isActive()) NightRecon.onNoteShown(0);
+  if (typeof RoadCall !== 'undefined' && RoadCall.isActive()) RoadCall.onNoteShown(0);
   if(ATMO[G.era]&&ATMO[G.era].opening){
     const op=ATMO[G.era].opening[Math.floor(Math.random()*ATMO[G.era].opening.length)];
     const atmoEl=document.createElement('div');
@@ -3539,6 +3830,7 @@ function beginStageWithData(stage){
     if(window.speechSynthesis){
       window.speechSynthesis.cancel();
       const u=new SpeechSynthesisUtterance(op);u.rate=0.82;u.pitch=0.9;u.volume=0.7;
+      if(typeof VoicePicker!=='undefined')VoicePicker.apply(u);
       window.speechSynthesis.speak(u);
     }
   }
@@ -3548,9 +3840,23 @@ function loadNote(){
   G.processingAnswer = false;
 
   if(G.idx>=G.notes.length){endStage();return;}
+  if (typeof WanganModes !== 'undefined') WanganModes.maybeEncounter(G.idx);
+  if (typeof NightRecon !== 'undefined' && NightRecon.isActive()) NightRecon.onNoteShown(G.idx);
+  if (typeof RoadCall !== 'undefined' && RoadCall.isActive()) RoadCall.onNoteShown(G.idx);
   const n=G.notes[G.idx];
+  /* Killer B critical zone: above 75 strain the intercom garbles what the
+     player SEES — the answer is still scored against the real note. */
+  let displayRaw = n.raw;
+  let gbGarbled = false;
+  if (typeof GroupBSurvival !== 'undefined' && GroupBSurvival.isActive()) {
+    const gb = GroupBSurvival.onNoteShown(G.idx, n.raw);
+    displayRaw = gb.raw;
+    gbGarbled = !!gb.garbled;
+  }
+  const gbNoteEl = document.getElementById('g-note');
+  if (gbNoteEl) gbNoteEl.classList.toggle('gb-garble', gbGarbled);
   const style = typeof CoDriverAudio !== 'undefined' ? CoDriverAudio.getVoiceCharacter() : 'measured';
-  const driverFormattedRaw = (G.careerMode && typeof PacenoteSystem !== 'undefined') ? PacenoteSystem.applyFormatToRaw(n.raw) : n.raw;
+  const driverFormattedRaw = (G.careerMode && typeof PacenoteSystem !== 'undefined') ? PacenoteSystem.applyFormatToRaw(displayRaw) : displayRaw;
   const transformedNote = applyStyleToNote(driverFormattedRaw, style);
   if(G.idx === 0) {
     RALLY_STATE.startTime = Date.now();
@@ -3565,6 +3871,7 @@ function loadNote(){
   document.getElementById('g-input').disabled=false;
   document.getElementById('g-sub').disabled=false;
   document.getElementById('g-input').value='';
+  document.getElementById('g-input').placeholder='e.g. left medium — 150 metres — right tight';
   document.getElementById('g-input').focus();
 
   const noteElement = document.getElementById('g-note');
@@ -3611,6 +3918,27 @@ function loadNote(){
   document.getElementById('g-input').disabled=false;
   document.getElementById('g-sub').disabled=false;
   document.getElementById('g-foot-note').textContent=`Note ${G.idx+1} of ${G.notes.length}`;
+  
+  // PaceAI live forecast — quiet chip warning you about YOUR likely mistake
+  try {
+    if (window.PaceAI) {
+      const fc = PaceAI.forecast(n.ans);
+      let chip = document.getElementById('paceai-chip');
+      if (!chip) {
+        chip = document.createElement('div');
+        chip.id = 'paceai-chip';
+        chip.className = 'paceai-chip';
+        document.getElementById('g-foot-note').parentElement.appendChild(chip);
+      }
+      const labels = { direction: 'L/R', severity: 'number', modifier: 'hazard', noise: '' };
+      const modLabel = fc.riskyMod ? fc.riskyMod.toUpperCase() : '';
+      const what = fc.riskyMod ? modLabel + ' hazard' : (fc.riskyCat ? labels[fc.riskyCat.cat] + ' call' : 'clean note');
+      const pct = Math.round(fc.risk * 100);
+      chip.innerHTML = '<i class="bi bi-activity"></i> ' + pct + '% miss risk \u00B7 ' + what;
+      chip.className = 'paceai-chip' + (pct >= 40 ? ' hot' : pct >= 25 ? ' warm' : '');
+      chip.style.display = 'inline-flex';
+    }
+  } catch (e) { /* never break a stage for analytics */ }
   document.getElementById('g-prog').style.width=(G.idx/G.notes.length*100)+'%';
   document.getElementById('g-corr').textContent=G.correct;
   if(G.idx>0){
@@ -3647,7 +3975,7 @@ function loadNote(){
     if (warningEl) {
       warningEl.style.display = 'block';
       warningEl.innerHTML = G.tuningConsequences.map(c => 
-        `<div style="color:${c.type === 'danger' ? '#e8291c' : '#f5c518'}">⚠️ ${c.msg}</div>`
+        `<div style="color:${c.type === 'danger' ? '#e8291c' : '#f5c518'}"><i class="bi bi-exclamation-triangle-fill"></i> ${c.msg}</div>`
       ).join('');
     }
   }
@@ -3656,6 +3984,8 @@ function loadNote(){
   checkForNewModifiers(n.raw);
   
   clearInterval(G.timer);
+  // REAL time pressure starts HERE — when the note is shown, not at first keystroke.
+  if (typeof NotesTiming !== 'undefined') { NotesTiming.onNoteShown(G.remaining); }
   G.timer=setInterval(()=>{G.remaining--;updateTimer();if(G.remaining<=0){clearInterval(G.timer);timeUp();}},1000);
   
   if (INPUT_MODE.type === 'speak') {
@@ -3663,6 +3993,13 @@ function loadNote(){
   } else {
     setTimeout(()=>document.getElementById('g-input').focus(),50);
   }
+  // First-run hint: show the "how to call" panel on the player's first two
+  // stages only, then leave them alone. Cheap, honest onboarding.
+  try {
+    const stagesDone = parseInt(localStorage.getItem('rpa_stages_done')||'0',10)||0;
+    const hint=document.getElementById('howto-hint');
+    if(hint)hint.style.display=(stagesDone<2)?'block':'none';
+  } catch(e){}
   if(G.idx>0&&G.idx%3===0)setTimeout(injectAtmosphere,800);
   const input = document.getElementById('g-input');
   input.style.borderColor = 'var(--brd2)';
@@ -3753,10 +4090,32 @@ function calculateDynamicTimeLimit() {
     timeLimit += TeamManagement.getTimeBonus();
   }
   
+  // Look-ahead pressure: when the NEXT note is complex, the CURRENT budget
+  // shrinks — a real co-driver must finish this call before the driver needs
+  // the next one. Stacked notes create stacked pressure.
+  if (typeof NotesTiming !== 'undefined') {
+    const nextNoteForTiming = G.notes && G.notes[G.idx + 1];
+    timeLimit *= NotesTiming.lookAheadFactor(
+      currentNoteForTiming ? currentNoteForTiming.raw : '',
+      nextNoteForTiming ? nextNoteForTiming.raw : ''
+    );
+  }
+
+  // Night Recon: burning fuel = the driver attacks → shorter answer window
+  if (typeof NightRecon !== 'undefined' && NightRecon.isActive()) {
+    timeLimit *= NightRecon.timeFactor();
+  }
+  // Killer B: strain thresholds tighten the windows as the car degrades
+  if (typeof GroupBSurvival !== 'undefined' && GroupBSurvival.isActive()) {
+    timeLimit *= GroupBSurvival.timeFactor();
+  }
+
   // Difficulty-specific clamping ranges
   const minTimes = [5, 4.5, 4, 3.5, 3];
   const maxTimes = [18, 16, 14, 12, 10];
-  return Math.max(minTimes[G.diff], Math.min(maxTimes[G.diff], timeLimit));
+  // The clock ticks whole seconds and is rendered as text — round to an
+  // integer so the HUD never shows float artifacts like 4.543750000000001.
+  return Math.round(Math.max(minTimes[G.diff], Math.min(maxTimes[G.diff], timeLimit)));
 }
 
 function applyRhythmShift() {
@@ -3808,7 +4167,10 @@ function applyRhythmShift() {
 function applyWeatherTempo() {
   if(!RALLY_STATE.weatherEffect) {
     const weatherTypes = ['clear', 'rain', 'ice', 'fog'];
-    const seed = G.idx + G.stageName.charCodeAt(0); // Deterministic seed
+    // G.stageName is never set (it's G.currentStageName) — this threw on
+    // every stage and killed loadNote before the note timer ever started,
+    // leaving the player with infinite time and a dead stage clock.
+    const seed = G.idx + (G.currentStageName || 'Unknown').charCodeAt(0); // Deterministic seed
     RALLY_STATE.weatherEffect = weatherTypes[seed % weatherTypes.length];
   }
   const conditionsElement = document.getElementById('g-cond');
@@ -3865,7 +4227,8 @@ function updateTimer(){
   const arcEl = document.getElementById('t-arc');
   if (!timerEl || !arcEl) return;
   
-  timerEl.textContent=G.remaining;
+  // Guard: even if a future path assigns a float, the HUD shows whole seconds.
+  timerEl.textContent=Math.max(0,Math.ceil(G.remaining));
   const frac=G.remaining/G.timeLimit;
   arcEl.setAttribute('stroke-dashoffset',226.2*(1-frac));
   const customColor = (typeof Accessibility !== 'undefined') ? Accessibility.prefs.timerColor : '#39ff14';
@@ -4164,14 +4527,45 @@ function submitAnswer(){
   VoiceInput.stop();
   if(G.idx>=G.notes.length||G.stageEnded)return;
   const typed=document.getElementById('g-input').value.trim();
-  if(!typed)return;
+  if(!typed){
+    // Empty submit (Enter or button with nothing typed) must NOT end the
+    // call window: restart the countdown from where it was so the stage
+    // clock keeps running and the player still gets judged on time.
+    if(G.remaining>0){
+      G.timer=setInterval(()=>{G.remaining--;updateTimer();if(G.remaining<=0){clearInterval(G.timer);timeUp();}},1000);
+    }
+    const inp=document.getElementById('g-input');
+    inp.style.borderColor='#e8291c';
+    inp.placeholder='Type the call first — e.g. left medium — then Enter';
+    return;
+  }
   
   const currentNote = G.notes[G.idx];
   const reactionTime = Date.now() - RALLY_STATE.lastInputTime;
   const isVoice = RALLY_STATE.inputSource === 'voice';
   RALLY_STATE.inputSource = null; // consume the flag so it never leaks onto the next submission
   const baseScore = similarity(typed, currentNote.ans, { voiceTolerant: isVoice });
-  const finalScore = Math.min(1.0, baseScore * RALLY_STATE.multiplier);
+
+  // REAL time pressure (pacenote-timing.js): reaction is measured from note
+  // display. EARLY calls (before a co-driver could know the corner) and LATE
+  // calls (hesitation — the car is already at turn-in) are penalised
+  // symmetrically; the natural reading window earns a small bonus.
+  let timingVerdict = null, timingElapsedMs = null;
+  let finalScore = baseScore * RALLY_STATE.multiplier;
+  if (typeof NotesTiming !== 'undefined') {
+    const timing = NotesTiming.onSubmit();
+    if (timing) {
+      timingVerdict = timing.verdict;
+      timingElapsedMs = timing.elapsedMs;
+      RALLY_STATE.lastTimingVerdict = timingVerdict;
+      // Exact elapsed/budget fraction — the debrief timing chart plots this.
+      RALLY_STATE.lastTimingRatio = timing.ratio;
+      finalScore = NotesTiming.applyToScore(finalScore, timing);
+      if (timingVerdict === 'early') RALLY_STATE.earlyInputs++;
+      if (timingVerdict === 'late') RALLY_STATE.lateInputs++;
+    }
+  }
+  finalScore = Math.min(1.0, finalScore);
   const ok = finalScore >= RALLY_STATE.forgivenessWindow;
   
   if (typeof posthog !== 'undefined') {
@@ -4180,7 +4574,10 @@ function submitAnswer(){
       correct: ok,
       reaction_time: reactionTime,
       input_source: isVoice ? 'voice' : 'typing',
-      note_index: G.idx
+      note_index: G.idx,
+      timing_verdict: timingVerdict,
+      reaction_from_shown_ms: timingElapsedMs,
+      verdict_counts: (typeof NotesTiming !== 'undefined') ? { e: NotesTiming.stats.early, s: NotesTiming.stats.sweet, l: NotesTiming.stats.late } : null
     });
   }
   
@@ -4196,6 +4593,9 @@ function submitAnswer(){
     handleMistakeDisruption();
   }
   
+  if (typeof WanganModes !== 'undefined') WanganModes.onAnswer(G.idx, ok);
+  if (typeof GroupBSurvival !== 'undefined' && GroupBSurvival.isActive()) GroupBSurvival.onAnswer(G.idx, ok);
+  if (typeof NightRecon !== 'undefined' && NightRecon.isActive()) finalScore = NightRecon.adjustScore(G.idx, finalScore, ok);
   processAnswer(typed, currentNote, ok, finalScore, false);
 }
 function skipNote(){
@@ -4222,11 +4622,24 @@ function skipNote(){
 function timeUp(){
   clearInterval(G.timer);
   VoiceInput.stop();
-  if(G.idx>=G.notes.length||G.stageEnded)return; // guard against out-of-bounds
+  if (typeof NotesTiming !== 'undefined') { NotesTiming.onTimeout(); RALLY_STATE.lastTimingVerdict = 'timeout'; RALLY_STATE.lastTimingRatio = 1; }  if (G.idx>=G.notes.length||G.stageEnded)return; // guard against out-of-bounds
+  if (typeof WanganModes !== 'undefined') WanganModes.onTimeout(G.idx);
+  if (typeof GroupBSurvival !== 'undefined' && GroupBSurvival.isActive()) GroupBSurvival.onTimeout(G.idx);
+  if (typeof NightRecon !== 'undefined' && NightRecon.isActive()) NightRecon.adjustScore(G.idx, 0, false);
   document.getElementById('g-input').disabled=true;document.getElementById('g-sub').disabled=true;
   const n=G.notes[G.idx];
   const dot=document.getElementById(`gd-${G.idx}`);if(dot)dot.className='gd bad';
   G.results.push({raw:n.raw,ans:n.ans,typed:'',ok:false,score:0,timeout:true});
+  
+  // PaceAI: timeouts teach too — a note you never called is a real observation
+  try {
+    if (window.PaceAI) {
+      const miss = analyzeMiss('', n.ans, n.raw, 'timeout');
+      const parts = { direction: 0, severity: 0, modifier: 0, noise: 0 };
+      (miss.gotWrong || []).forEach(w => { parts[w.k] = (parts[w.k] || 0) + 1; });
+      PaceAI.observe({ expected: n.ans, typed: '', ok: false, skipped: false, timeout: true, timing: 'timeout', parts });
+    }
+  } catch (e) { /* analytics must never break the game */ }
   G.idx++;
   const timeIsLast = G.idx >= G.notes.length;
   const toCrash = !timeIsLast && rollCrash(n.raw,true,false);
@@ -4246,6 +4659,26 @@ window.__origShowResult = function(ok,n,score,skipped,timeout,crashFollows=false
   const fb=document.getElementById('g-fb');
   fb.className='fb-box '+(ok?'ok':timeout?'to':'bad');
   
+  // Timing-pressure feedback: tell the player WHY the score moved.
+  // Symmetric language for symmetric penalties — rushing and dawdling are
+  // both driving errors, and the player deserves to know which one they did.
+  fb.querySelectorAll('.timing-chip').forEach(x => x.remove());
+  const tv = RALLY_STATE.lastTimingVerdict;
+  if (tv && tv !== 'timeout') {
+    const ratio = RALLY_STATE.lastTimingRatio;
+    const pct = ratio != null ? Math.round(ratio * 100) + '% of the note\'s time budget elapsed' : '';
+    const chip = document.createElement('div');
+    chip.className = 'timing-chip';
+    chip.style.cssText = 'font-size:10px;letter-spacing:1px;margin-top:4px;font-family:\'IBM Plex Mono\',monospace';
+    chip.style.color = tv === 'sweet' ? '#39ff14' : '#f5c518';
+    chip.innerHTML = tv === 'early'
+      ? '<i class="bi bi-stopwatch"></i> CALLED EARLY — the driver acted on a corner you had not verified' + (pct ? ' (' + pct + ')' : '')
+      : tv === 'late'
+      ? '<i class="bi bi-stopwatch"></i> CALLED LATE — the car was already at turn-in' + (pct ? ' (' + pct + ')' : '')
+      : '<i class="bi bi-stopwatch"></i> CALLED IN THE WINDOW' + (pct ? ' (' + pct + ')' : '');
+    fb.appendChild(chip);
+  }
+  
   // Generate detailed breakdown for incorrect answers
   let breakdownHTML = '';
   if (!ok && !skipped) {
@@ -4254,12 +4687,12 @@ window.__origShowResult = function(ok,n,score,skipped,timeout,crashFollows=false
     
     breakdownHTML = `
       <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.1)">
-        <div style="font-size:11px;color:#f5c518;margin-bottom:8px">❓ Why did this fail?</div>
+        <div style="font-size:11px;color:#f5c518;margin-bottom:8px"><i class="bi bi-question-circle"></i> Why did this fail?</div>
         <div style="font-size:12px;color:var(--text2);line-height:1.4">
           ${analysis.explanation}
         </div>
         ${analysis.suggestions ? `
-          <div style="margin-top:8px;font-size:11px;color:#39ff14">💡 Try:</div>
+          <div style="margin-top:8px;font-size:11px;color:#39ff14"><i class="bi bi-lightbulb"></i> Try:</div>
           <div style="font-size:12px;color:var(--text2);line-height:1.4">
             ${analysis.suggestions}
           </div>
@@ -4281,9 +4714,9 @@ window.__origShowResult = function(ok,n,score,skipped,timeout,crashFollows=false
   if(window.speechSynthesis){
     window.speechSynthesis.cancel();
     const utt=new SpeechSynthesisUtterance(n.comm);
-    utt.rate=0.9;utt.pitch=ok?1.1:0.85;utt.volume=0.85;
-    const pref=voices.find(v=>v.lang.startsWith('en')&&(v.name.toLowerCase().includes('daniel')||v.name.toLowerCase().includes('google')));
-    if(pref)utt.voice=pref;
+    utt.rate=0.9;utt.pitch=ok?1.1:0.85;
+    utt.volume=(typeof CoDriverAudio!=='undefined')?CoDriverAudio.voiceVolume*0.85:0.85;
+    if(typeof VoicePicker!=='undefined')VoicePicker.apply(utt);
     window.speechSynthesis.speak(utt);
   }
 };
@@ -4313,13 +4746,19 @@ function analyzeMistake(typed, expected, raw, timeout) {
     const expectedDirection = expectedWords.find(w => w === 'left' || w === 'right');
     const matchedDirection = expectedDirection && typedWords.includes(expectedDirection);
     
-    // Check for severity match
-    const severityMatch = typedWords.some(w => ['hairpin', 'very tight', 'tight', 'medium', 'open', 'fast sweep', 'six'].includes(w));
+    // Check for severity match. NOTE: entries like 'very tight' can never
+    // match single words via .includes(w) — compare against the JOINED typed
+    // words instead, and accept bare 1-6 digits (some conventions type them).
+    const severityTerms = ['hairpin', 'very tight', 'tight', 'medium', 'open', 'fast sweep'];
+    const typedJoined = typedWords.join(' ');
+    const severityMatch = severityTerms.some(t => typedJoined.includes(t)) || typedWords.some(w => /^[1-6]$/.test(w));
     
-    // Check for modifier match
-    const rawModifiers = ['care', "don't cut", 'jump', 'crest', 'ice', 'mud', 'junction', 'square', 'stop', 'narrow', 'flat', 'bump', 'long', 'tightens', 'opens'];
-    const hasModifier = rawModifiers.some(m => raw.toLowerCase().includes(m));
-    const typedModifier = typedWords.find(w => rawModifiers.includes(w));
+    // Check for modifier match — same joined-string fix, plus terms the
+    // stages actually use (MAYBE, SAND, RUTS were missing entirely).
+    const rawModifiers = ["don't cut", 'dont cut', 'caution', 'jump', 'crest', 'ice', 'mud', 'junction', 'square', 'stop', 'narrow', 'flat', 'bump', 'long', 'tightens', 'opens', 'maybe', 'sand', 'water', 'rocks', 'ruts'];
+    const expectedJoined = expectedWords.join(' ');
+    const hasModifier = rawModifiers.some(m => raw.toLowerCase().includes(m) || expectedJoined.includes(m));
+    const typedModifier = rawModifiers.find(m => typedJoined.includes(m));
     
     if (!matchedDirection) {
       explanation = `Direction mismatch. Expected "${expectedDirection || 'direction'}" but got "${typedWords.find(w => ['left', 'right', 'l', 'r'].includes(w)) || 'no direction'}".`;
@@ -4329,7 +4768,7 @@ function analyzeMistake(typed, expected, raw, timeout) {
       suggestions = 'Remember: 1=hairpin, 2=very tight, 3=tight, 4=medium, 5=open, 6=fast sweep.';
     } else if (hasModifier && !typedModifier) {
       explanation = 'Missing modifier. The note contains important road condition information.';
-      suggestions = `Look for modifiers like CARE, DONTCUT, JUMP, etc. These tell the driver about road conditions.`;
+      suggestions = `Look for modifiers like DONTCUT, JUMP, CREST, CAUTION — these tell the driver about road conditions.`;
     } else {
       // Partial match - check word overlap
       const overlap = [...typedSet].filter(w => expectedSet.has(w)).length;
@@ -4363,10 +4802,9 @@ function speakNote(){
     return t.toLowerCase();
   });
   const utt=new SpeechSynthesisUtterance(parts.join(', '));
-  utt.rate=1.35;utt.pitch=1.1;utt.volume=1;
-  const v=window.speechSynthesis.getVoices();
-  const pref=v.find(x=>x.lang.startsWith('en')&&x.name.toLowerCase().includes('male'));
-  if(pref)utt.voice=pref;
+  utt.rate=1.35;utt.pitch=1.1;
+  utt.volume=(typeof CoDriverAudio!=='undefined')?CoDriverAudio.voiceVolume:1;
+  if(typeof VoicePicker!=='undefined')VoicePicker.apply(utt);
   window.speechSynthesis.speak(utt);
 }
 function speakTranslation(){
@@ -4374,12 +4812,19 @@ function speakTranslation(){
   const n=G.notes[G.idx-1];if(!n)return;
   window.speechSynthesis.cancel();
   const utt=new SpeechSynthesisUtterance(n.ans);
-  utt.rate=0.85;utt.pitch=0.9;utt.volume=0.9;
+  utt.rate=0.85;utt.pitch=0.9;
+  utt.volume=(typeof CoDriverAudio!=='undefined')?CoDriverAudio.voiceVolume*0.9:0.9;
+  if(typeof VoicePicker!=='undefined')VoicePicker.apply(utt);
   window.speechSynthesis.speak(utt);
 }
 function abandonStage(){if(confirm('Abandon this stage?')){clearInterval(G.timer);showMenu();}}
 function endStage(){
   if(G.stageEnded)return; // prevent double-call
+  try{const n=parseInt(localStorage.getItem('rpa_stages_done')||'0',10)||0;localStorage.setItem('rpa_stages_done',String(n+1));}catch(e){}
+  if (typeof WanganModes !== 'undefined') WanganModes.onEndStage();
+  if (typeof NightRecon !== 'undefined') NightRecon.onEndStage();
+  if (typeof GroupBSurvival !== 'undefined') GroupBSurvival.onEndStage();
+  if (typeof RoadCall !== 'undefined') RoadCall.onEndStage();
   G.stageEnded=true;
   clearInterval(G.timer);
   document.getElementById('g-prog').style.width='100%';
@@ -4547,6 +4992,45 @@ function endStage(){
       <div class="bd-r ${r.ok?'ok':'bad'}"></div>
     </div>`).join('');
   
+  // Full "what did I do wrong" debrief — itemized diagnoses, the pattern,
+  // and a training plan. Long-form, because a one-liner teaches nothing.
+  try { renderStageDebrief(); } catch(e) { console.error('debrief render failed:', e); }
+  
+  // PaceAI: this stage's summary joins the trend history + debrief AI section
+  try {
+    if (window.PaceAI) {
+      const missed = results.filter(r => !r.ok);
+      const sessCats = { direction: 0, severity: 0, modifier: 0, noise: 0 };
+      let modMisses = 0, modTrials = 0;
+      missed.forEach(r => {
+        const m = analyzeMiss(r.typed || '', r.ans, r.raw, r.skipped ? 'skipped' : ((r.timeout || !r.typed) ? 'timeout' : 'wrong'));
+        (m.gotWrong || []).forEach(w => { sessCats[w.k] = (sessCats[w.k] || 0) + 1; });
+        // modifier trials: count hazards present in the expected answer
+        PaceAI_MODS.forEach(mo => { if (new RegExp('\\b' + mo + '\\b','i').test(r.ans)) { modTrials++; if (!(r.typed && new RegExp('\\b' + mo + '\\b','i').test(r.typed))) modMisses++; } });
+      });
+      PaceAI.endSession({
+        acc: results.length ? results.filter(r => r.ok).length / results.length : 0,
+        total: results.length,
+        cat: sessCats,
+        catT: {
+          direction: results.filter(r => /\bleft\b|\bright\b|\bl(?=\d)|\br(?=\d)/i.test(r.ans)).length,
+          severity:  results.filter(r => /\b(?:zero|one|two|three|four|five|six|seven|eight|nine|[1-9])\b/i.test(r.ans)).length,
+          modifier:  results.filter(r => PaceAI_MODS.some(mo => new RegExp('\\b' + mo + '\\b','i').test(r.ans))).length,
+          noise: 0
+        },
+        timing: {
+          early: results.filter(r => r.timingVerdict === 'early').length,
+          sweet: results.filter(r => r.timingVerdict === 'sweet').length,
+          late:  results.filter(r => r.timingVerdict === 'late').length
+        },
+        timeouts: results.filter(r => r.timeout).length,
+        modMisses, modTrials,
+        when: Date.now()
+      });
+    }
+  } catch (e) { console.error('PaceAI endSession failed:', e); }
+  
+  
   // Render performance timeline
   renderPerformanceTimeline();
   
@@ -4595,6 +5079,400 @@ function openTraining(){
   buildLessonList();
   loadLesson('intro');
   show('training');
+}
+
+// ============================================================================
+// POST-STAGE DEBRIEF ENGINE — answers "what did I actually do wrong?"
+// ============================================================================
+// Every miss gets an itemized diagnosis (what was right, what was wrong, the
+// lesson), then all misses are pattern-matched across the stage so the player
+// sees their habit, not just the error. Ends with a concrete training plan.
+
+// All tokens that can appear in a pacenote, with the lesson for each.
+const DEBRIEF_TOKENS = [
+  { re: /\bHAIRPIN\b/i,        name: 'hairpin',       means: 'a 1 — slowest corner, almost stopping' },
+  { re: /\bVERY TIGHT\b/i,     name: 'very tight',    means: 'a 2 — near-hairpin' },
+  { re: /\bTIGHT\b/i,          name: 'tight',         means: 'a 3 — slow corner' },
+  { re: /\bMEDIUM\b/i,         name: 'medium',        means: 'a 4 — medium corner' },
+  { re: /\bOPEN\b/i,           name: 'open',          means: 'a 5 — fast, wide corner' },
+  { re: /\bFAST SWEEP\b/i,     name: 'fast sweep',    means: 'a 6 — flat-out sweeper' },
+  { re: /\bDON'?T ?CUT\b/i,    name: "don't cut",     means: 'danger on the inside — rock or drop. Never clip the apex' },
+  { re: /\bCAUTION\b/i,        name: 'caution',       means: 'hazard on or near the line — lift' },
+  { re: /\bMAXIMUM CAUTION\b/i, name: 'maximum caution', means: '!! — hazard that can end the stage. Take it seriously' },
+  { re: /\bINTO\b/i,           name: 'INTO',          means: 'corners are linked — no gap, plan both in one breath' },
+  { re: /\bCREST\b/i,          name: 'crest',         means: 'corner over a blind rise — commit before you can see' },
+  { re: /\bJUMP\b/i,           name: 'jump',          means: 'car leaves the ground — set the car up straight' },
+  { re: /\bFLAT\b/i,           name: 'FLAT',          means: 'full throttle, no braking' },
+  { re: /\bJUNCTION\b/i,       name: 'junction',      means: 'another road crosses — blind, check before turning' },
+  { re: /\bNARROWS?\b/i,       name: 'narrows',       means: 'road tightens between trees or walls' },
+  { re: /\bICE\b/i,           name: 'ice',           means: 'icy patch — smooth inputs only' },
+  { re: /\bMUD\b/i,           name: 'mud',           means: 'mud on the line — expect to slide' },
+  { re: /\bWATER\b/i,         name: 'water',         means: 'water crossing — keep momentum, steady throttle' },
+  { re: /\bSAND\b/i,          name: 'sand',          means: 'sand drifts — grip comes and goes' },
+  { re: /\bRUTS?\b/i,         name: 'ruts',          means: 'wheel ruts — the car follows them whether you want it or not' },
+  { re: /\bROCKS?\b/i,        name: 'rocks',         means: 'rocks on or beside the line' },
+  { re: /\bMAYBE\b/i,         name: 'MAYBE',         means: 'recon was unsure — be ready for the call to change' },
+  { re: /\bLONG\b/i,          name: 'long',          means: 'the corner lasts longer than the number suggests' },
+  { re: /\bTIGHTENS\b/i,      name: 'tightens',      means: 'corner gets slower through its length' },
+  { re: /\bOPENS\b/i,         name: 'opens',         means: 'corner gets faster through its length' },
+  { re: /\bSQUARE\b/i,        name: 'square',        means: '90° corner — brake fully before turn-in' },
+  { re: /\bBUMP\b/i,          name: 'bump',          means: 'uneven surface — unsettle the car before the corner' }
+];
+
+// The severity ladder (1-6) used to grade the number part of a call.
+const DEBRIEF_SEVERITY = { 1: 'hairpin', 2: 'very tight', 3: 'tight', 4: 'medium', 5: 'open', 6: 'fast sweep' };
+
+function debriefTokensIn(text) {
+  const found = [];
+  const up = (text || '').toUpperCase();
+  for (const t of DEBRIEF_TOKENS) { if (t.re.test(up)) found.push(t); }
+  return found;
+}
+
+// Layered diagnosis of a single miss: what the player got RIGHT, what they
+// got WRONG (each wrong thing carries its lesson), and the verdict sentence.
+function analyzeMiss(typed, expected, raw, missKind) {
+  const typedLower = (typed || '').toLowerCase();
+  const expectedLower = (expected || '').toLowerCase();
+  const gotRight = [];
+  const gotWrong = [];
+
+  // --- Direction ---
+  const expectedDir = /\bleft\b|\bL(?=\d|\b)/i.test(expected) ? 'left' : /\bright\b|\bR(?=\d|\b)/i.test(expected) ? 'right' : null;
+  if (expectedDir) {
+    const saidDir = typedLower.match(/\bleft\b|\bright\b/);
+    const saidLetter = typedLower.match(/(^|\s)(l|r)(\s|$|\d)/);
+    const said = saidDir ? saidDir[0] : saidLetter ? (saidLetter[2] === 'l' ? 'left' : 'right') : null;
+    if (said === expectedDir) {
+      gotRight.push({ k: 'direction', txt: 'Direction correct — called ' + expectedDir + '.' });
+    } else if (said && said !== expectedDir) {
+      gotWrong.push({ k: 'direction', txt: 'Called <strong>' + said + '</strong> when the note was <strong>' + expectedDir + '</strong>.', lesson: 'A mirrored direction sends the driver off at the junction — say L or R first, out loud, before anything else.' });
+    } else {
+      gotWrong.push({ k: 'direction', txt: 'No direction in the call at all.', lesson: 'Direction is the first word a driver needs. Start every call with L or R.' });
+    }
+  }
+
+  // --- Severity: compare the number, not just presence ---
+  const expNum = (expected.match(/\b([1-6])\b/) || [])[1];
+  const typedNum = (typedLower.match(/\b([1-6])\b/) || [])[1];
+  if (expNum) {
+    if (typedNum === expNum) {
+      gotRight.push({ k: 'severity', txt: 'Severity correct — ' + expNum + ' (' + DEBRIEF_SEVERITY[expNum] + ').' });
+    } else if (typedNum) {
+      const diff = Math.abs(parseInt(typedNum) - parseInt(expNum));
+      gotWrong.push({ k: 'severity', txt: 'Called a <strong>' + typedNum + '</strong> (' + DEBRIEF_SEVERITY[typedNum] + ') but the note was a <strong>' + expNum + '</strong> (' + DEBRIEF_SEVERITY[expNum] + ').', lesson: diff === 1 ? 'One grade off — you were close. Practice hearing the difference between adjacent grades on the vocab page.' : 'Grade ' + diff + ' off — the driver would have carried the wrong speed. Re-read the 1\u20136 ladder until it is automatic.' });
+    } else {
+      gotWrong.push({ k: 'severity', txt: 'No severity number in the call.', lesson: 'The number IS the corner. Without it the driver guesses the speed. Drill the 1\u20136 ladder.' });
+    }
+  }
+
+  // --- Modifiers: expected ones vs the ones the player called ---
+  const rawUp = (raw || '').toUpperCase();
+  const expectedMods = debriefTokensIn(expected + ' ' + rawUp).map(t => t.name);
+  const typedMods = debriefTokensIn(typed).map(t => t.name);
+  for (const t of debriefTokensIn(expected + ' ' + rawUp)) {
+    if (typedMods.includes(t.name)) {
+      gotRight.push({ k: 'modifier', txt: 'Called the ' + t.name + ' — good, that is ' + t.means + '.' });
+    } else {
+      const gloss = rawUp.includes(t.name.toUpperCase()) && !expectedLower.includes(t.name.toLowerCase()) ? ' (shorthand: ' + t.name + ')' : '';
+      gotWrong.push({ k: 'modifier', txt: 'Missed <strong>' + t.name + '</strong>' + gloss + '.', lesson: t.name + ' means ' + t.means + '. A driver without this information meets it at speed.' });
+    }
+  }
+
+  // --- Noise the player invented (says things the note never asked for) ---
+  const noise = typedMods.filter(m => !expectedMods.includes(m));
+  if (noise.length) {
+    gotWrong.push({ k: 'noise', txt: 'Called ' + noise.map(n => '<strong>' + n + '</strong>').join(', ') + ' — the note never said that.', lesson: 'Inventing hazards the note does not contain also misleads the driver. Call only what is written.' });
+  }
+
+  // --- Kind-specific verdicts ---
+  let verdict;
+  if (missKind === 'timeout') {
+    verdict = 'You never got the call out in time. The driver arrived at the corner with no instruction.';
+  } else if (missKind === 'skipped') {
+    verdict = 'You skipped the note. In a real car, silence at a corner is the most dangerous call of all.';
+  } else if (missKind === 'empty') {
+    verdict = 'You submitted nothing. The driver heard silence and guessed.';
+  } else if (!gotWrong.length) {
+    verdict = 'Everything needed was in the call — the phrasing just drifted too far from the answer key. Match the meaning, keep the wording close.';
+  } else if (gotWrong.length === 1) {
+    verdict = 'One element let you down — everything else was right. This is a fixable habit.';
+  } else {
+    verdict = 'Several elements of the call went missing under pressure. Slow down and read the note in pieces: direction, number, then hazards.';
+  }
+
+  return { gotRight, gotWrong, verdict, note: raw, expected, typed, missKind };
+}
+
+// --- The timing chart + early/late explainer (debrief section 2.4) -------
+// Draws EVERY note of the stage as one strip along the time budget: where
+// each marker sits horizontally IS when you called, relative to the zones.
+// Paired with plain language on why each zone triggers and what it costs.
+function buildTimingChartHTML(results) {
+  const Z = (typeof NotesTiming !== 'undefined') ? NotesTiming.ZONES : { earlyCut: 0.35, lateCut: 0.80, sweetLo: 0.45, sweetHi: 0.70, maxPenalty: 0.25 };
+  const rows = results.map((r, i) => ({
+    i: i + 1,
+    raw: r.raw,
+    ok: r.ok,
+    ratio: (r.timingRatio != null && isFinite(r.timingRatio)) ? Math.max(0, Math.min(1.05, r.timingRatio)) : null,
+    verdict: r.timingVerdict || null,
+  }));
+  const plotted = rows.filter(r => r.ratio != null);
+  if (!plotted.length) return '';
+
+  const W = 860, LH = 26, padL = 34, padR = 12;
+  const H = padL + plotted.length * LH + 118; // chart + axis labels + legend
+  const x = r => padL + Math.min(r, 1) * (W - padL - padR);
+  const colors = { early: '#ff5a5a', sweet: '#39ff14', late: '#f5c518', timeout: '#ff2d2d' };
+
+  // zone bands + a tiny score-impact curve underneath
+  const curvePts = [];
+  for (let i = 0; i <= 60; i++) {
+    const rr = i / 60;
+    let net = 0;
+    if (rr < Z.earlyCut) net = -Math.min(Z.maxPenalty, (Z.earlyCut - rr) * 0.8);
+    else if (rr > Z.lateCut) net = -Math.min(Z.maxPenalty, (rr - Z.lateCut) * 0.8);
+    else if (rr >= Z.sweetLo && rr <= Z.sweetHi) net = 0.05;
+    curvePts.push([padL + rr * (W - padL - padR), net]);
+  }
+  const cy0 = padL + plotted.length * LH + 62;
+  const curvePath = curvePts.map(([cx, net], j) => (j ? 'L' : 'M') + cx.toFixed(1) + ',' + (cy0 - net * 140).toFixed(1)).join(' ');
+
+  let svg = '';
+  // bands
+  svg += `<rect x="${padL}" y="10" width="${(x(Z.earlyCut) - padL).toFixed(1)}" height="${plotted.length * LH}" fill="rgba(255,90,90,.07)"/>`;
+  svg += `<rect x="${x(Z.earlyCut).toFixed(1)}" y="10" width="${(x(Z.lateCut) - x(Z.earlyCut)).toFixed(1)}" height="${plotted.length * LH}" fill="rgba(57,255,20,.05)"/>`;
+  svg += `<rect x="${x(Z.lateCut).toFixed(1)}" y="10" width="${(W - padR - x(Z.lateCut)).toFixed(1)}" height="${plotted.length * LH}" fill="rgba(245,197,24,.07)"/>`;
+  // bonus window edges
+  [Z.sweetLo, Z.sweetHi].forEach(zz => {
+    svg += `<line x1="${x(zz).toFixed(1)}" y1="10" x2="${x(zz).toFixed(1)}" y2="${10 + plotted.length * LH}" stroke="rgba(57,255,20,.35)" stroke-width="1" stroke-dasharray="2 3"/>`;
+  });
+  // rows
+  plotted.forEach((r, k) => {
+    const y = 10 + k * LH + LH / 2;
+    const c = colors[r.verdict] || '#888';
+    svg += `<text x="${padL - 6}" y="${(y + 3).toFixed(1)}" text-anchor="end" font-size="9" font-family="IBM Plex Mono,monospace" fill="var(--text3)">${r.i}</text>`;
+    svg += `<text x="${padL + 4}" y="${(y + 3).toFixed(1)}" font-size="8.5" font-family="IBM Plex Mono,monospace" fill="var(--text3)" opacity="0.75">${String(r.raw).slice(0, 34)}</text>`;
+    if (r.verdict === 'timeout') {
+      svg += `<rect x="${(W - padR - 34).toFixed(1)}" y="${(y - 6).toFixed(1)}" width="34" height="12" fill="${c}" opacity="0.9"/>`;
+      svg += `<text x="${(W - padR - 17).toFixed(1)}" y="${(y + 3).toFixed(1)}" text-anchor="middle" font-size="8" font-family="IBM Plex Mono,monospace" fill="#000" font-weight="bold">TO</text>`;
+    } else {
+      svg += `<circle cx="${x(r.ratio).toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="${c}" stroke="rgba(0,0,0,.6)"/>`;
+    }
+  });
+  // zone cut lines
+  [Z.earlyCut, Z.lateCut].forEach(zz => {
+    svg += `<line x1="${x(zz).toFixed(1)}" y1="10" x2="${x(zz).toFixed(1)}" y2="${10 + plotted.length * LH}" stroke="var(--rpa-danger,\#e8291c)" stroke-width="1" stroke-dasharray="4 3"/>`;
+  });
+  // zone labels + scale
+  const yl = 10 + plotted.length * LH + 14;
+  svg += `<text x="${((padL + x(Z.earlyCut)) / 2).toFixed(1)}" y="${yl}" text-anchor="middle" font-size="10" font-family="IBM Plex Mono,monospace" fill="#ff5a5a" letter-spacing="1">EARLY</text>`;
+  svg += `<text x="${((x(Z.earlyCut) + x(Z.lateCut)) / 2).toFixed(1)}" y="${yl}" text-anchor="middle" font-size="10" font-family="IBM Plex Mono,monospace" fill="#39ff14" letter-spacing="1">READING WINDOW</text>`;
+  svg += `<text x="${((x(Z.lateCut) + W - padR) / 2).toFixed(1)}" y="${yl}" text-anchor="middle" font-size="10" font-family="IBM Plex Mono,monospace" fill="#f5c518" letter-spacing="1">LATE</text>`;
+  svg += `<text x="${padL}" y="${yl + 13}" font-size="8.5" font-family="IBM Plex Mono,monospace" fill="var(--text3)">0%</text>`;
+  svg += `<text x="${(W - padR)}" y="${yl + 13}" text-anchor="end" font-size="8.5" font-family="IBM Plex Mono,monospace" fill="var(--text3)">100% of the note's time budget</text>`;
+  // score-impact curve
+  svg += `<line x1="${padL}" y1="${cy0}" x2="${W - padR}" y2="${cy0}" stroke="var(--brd2)" stroke-width="1"/>`;
+  svg += `<path d="${curvePath}" fill="none" stroke="var(--gold)" stroke-width="1.6"/>`;
+  svg += `<text x="${padL}" y="${cy0 - 44}" font-size="8.5" font-family="IBM Plex Mono,monospace" fill="var(--text3)">score impact: bonus above the line, penalty below (same ramp both sides)</text>`;
+
+  // counts
+  const nE = plotted.filter(r => r.verdict === 'early').length;
+  const nS = plotted.filter(r => r.verdict === 'sweet').length;
+  const nL = plotted.filter(r => r.verdict === 'late').length;
+  const nT = plotted.filter(r => r.verdict === 'timeout').length;
+  const ratios = plotted.map(r => r.ratio);
+  const avg = (ratios.reduce((a, b) => a + b, 0) / ratios.length) * 100;
+
+  // Explainer — the WHY, in plain words
+  const explainer = `
+    <div class="dbtc-explain">
+      <div class="dbtc-row"><i class="bi bi-droplet" style="color:#ff5a5a"></i><div><b>EARLY — under ${Math.round(Z.earlyCut * 100)}% of the budget.</b> The note is still landing: a real co-driver cannot have read and verified a full call this fast, so anything you say now risks being a guess. The driver acts on a corner you had not confirmed. Penalty ramps up the earlier you call — up to −${Math.round(Z.maxPenalty * 100)}% at the very top of the rush.</div></div>
+      <div class="dbtc-row"><i class="bi bi-droplet" style="color:#39ff14"></i><div><b>READING WINDOW — ${Math.round(Z.earlyCut * 100)}% to ${Math.round(Z.lateCut * 100)}%.</b> Note read, call delivered, driver still has road to use it in. Between ${Math.round(Z.sweetLo * 100)}% and ${Math.round(Z.sweetHi * 100)}% you get a small +${Math.round(5)}% bonus — the natural rhythm of a working crew.</div></div>
+      <div class="dbtc-row"><i class="bi bi-droplet" style="color:#f5c518"></i><div><b>LATE — over ${Math.round(Z.lateCut * 100)}%.</b> Your words arrive after the driver needed them; the car is already at turn-in and your call becomes commentary instead of instruction. Same ramp, same cap as EARLY — rushing and dawdling cost the same, by design.</div></div>
+      <div class="dbtc-row"><i class="bi bi-droplet" style="color:#ff2d2d"></i><div><b>TIMEOUT — the budget ran out with no call at all.</b> To the driver that is a bottomless silence; the note scores zero. The chart marks these as full-width red blocks on the right edge.</div></div>
+    </div>`;
+
+  return `
+    <div class="db-sec-title">Your timing, note by note</div>
+    <div class="db-tchart">
+      <svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="When each call landed in the time budget">${svg}</svg>
+      <div class="dbtc-stats">
+        <span class="dbtc-pill" style="border-color:#ff5a5a;color:#ff5a5a">${nE} early</span>
+        <span class="dbtc-pill" style="border-color:#39ff14;color:#39ff14">${nS} in window</span>
+        <span class="dbtc-pill" style="border-color:#f5c518;color:#f5c518">${nL} late</span>
+        ${nT ? `<span class="dbtc-pill" style="border-color:#ff2d2d;color:#ff2d2d">${nT} timeout</span>` : ''}
+        <span class="dbtc-avg">avg call at ${Math.round(avg)}% of budget</span>
+      </div>
+      ${explainer}
+      <div class="dbtc-foot">How to read it: every row is one note of the stage, in order. The marker's horizontal position is WHEN you committed — left of the red dashed line is a rushed call, right of it is a late one. The gold curve underneath is the exact score impact of any position.</div>
+    </div>`;
+}
+
+// Pattern-matching across ALL misses of a stage: find the habit.
+function buildDebriefPatterns(misses) {
+  const counts = { direction: 0, severity: 0, modifier: 0, noise: 0 };
+  const modMisses = {};
+  let timeouts = 0, early = 0, late = 0, sweet = 0;
+  let firstHalfErrors = 0, secondHalfErrors = 0;
+  const total = G.results.length;
+
+  misses.forEach(m => {
+    m.gotWrong.forEach(w => {
+      counts[w.k] = (counts[w.k] || 0) + 1;
+      if (w.k === 'modifier') {
+        const name = (w.txt.match(/<strong>([^<]+)<\/strong>/) || [])[1];
+        if (name) modMisses[name] = (modMisses[name] || 0) + 1;
+      }
+    });
+  });
+  G.results.forEach((r, i) => {
+    if (r.ok) return;
+    if (i < total / 2) firstHalfErrors++; else secondHalfErrors++;
+    if (r.timingVerdict === 'early') early++;
+    else if (r.timingVerdict === 'late') late++;
+    else if (r.timingVerdict === 'sweet') sweet++;
+    if (r.timeout) timeouts++;
+  });
+
+  const patterns = [];
+  // Fatigue / rhythm collapse
+  if (secondHalfErrors > firstHalfErrors * 2 && secondHalfErrors >= 3) {
+    patterns.push({ title: 'Fatigue collapse', body: 'You made ' + firstHalfErrors + ' mistake' + (firstHalfErrors === 1 ? '' : 's') + ' in the first half of the stage but ' + secondHalfErrors + ' in the second. Your accuracy is falling exactly when the driver needs you most — real co-drivers lose the stage in sector three, not sector one. Consciously reset between notes: breathe, re-locate your place in the notes, then call.' });
+  } else if (firstHalfErrors > secondHalfErrors * 2 && firstHalfErrors >= 3) {
+    patterns.push({ title: 'Cold start', body: 'Most of your errors came in the opening sector (' + firstHalfErrors + ' vs ' + secondHalfErrors + ' later). You needed time to settle into the note rhythm. A slow, deliberate first notes section — even slightly over-careful — pays for itself by mid-stage.' });
+  }
+  // Timing signature
+  if (late >= 3 && late > early * 2) {
+    patterns.push({ title: 'Hesitation habit', body: 'You called LATE on ' + late + ' note' + (late === 1 ? '' : 's') + '. The car is at turn-in before your words arrive — your reading is accurate but your pipeline is too slow. Practice saying the call in your head the moment the note appears, not after you have fully parsed it.' });
+  } else if (early >= 3 && early > late * 2) {
+    patterns.push({ title: 'Rushing the call', body: 'You jumped in EARLY on ' + early + ' note' + (early === 1 ? '' : 's') + ' — calling before the note was fully read. Real co-drivers get fired for that: the driver acts on a call you had not verified. Let the note land, read, then speak.' });
+  } else if (sweet >= 3) {
+    patterns.push({ title: 'Good rhythm', body: 'You hit the natural reading window on ' + sweet + ' calls — your timing is genuinely solid. Keep the pipeline you have and spend your practice budget on vocabulary instead.' });
+  }
+  // Timeout cluster
+  if (timeouts >= 3) {
+    patterns.push({ title: 'Timeout cluster', body: 'The clock beat you ' + timeouts + ' times. That is not a knowledge problem — it is a decision-speed problem. You know the material but hesitate to commit to an answer. Commit to your FIRST instinct; it is usually the note.' });
+  }
+  // Category habits
+  if (counts.direction >= 2) {
+    patterns.push({ title: 'Direction confusion', body: 'You got the direction wrong ' + counts.direction + ' times. This is the most dangerous habit on the list — L and R are the whole job. Left/right confusion under pressure is fixable: physically gesture with your hand while practicing until it is reflex.' });
+  }
+  if (counts.severity >= 2) {
+    patterns.push({ title: 'Severity misjudgement', body: 'You misjudged how tight ' + counts.severity + ' corners were. The 1\u20136 ladder is the calibration of the whole sport — hairpin to flat-out sweeper. Drill it until 3 vs 4 is instant, because the speed difference between them is enormous.' });
+  }
+  if (counts.modifier >= 3) {
+    const worst = Object.entries(modMisses).sort((a, b) => b[1] - a[1]).slice(0, 3);
+    patterns.push({ title: 'Dropping hazards', body: 'You missed ' + counts.modifier + ' modifier call' + (counts.modifier === 1 ? '' : 's') + (worst.length ? ' — most often ' + worst.map(w => '\u201C' + w[0] + '\u201D (' + w[1] + '\u00D7)').join(', ') : '') + '. Hazards are what hurt the car: DON\u2019T CUT, CREST, CAUTION, ICE. When reading fast, protect the hazard words first — they matter more than polish.' });
+  }
+  if (counts.noise >= 2) {
+    patterns.push({ title: 'Inventing hazards', body: 'You called hazards the note never contained ' + counts.noise + ' times. Over-calling is its own failure mode: a driver braking for an ICE warning that is not there loses as much time as one who misses a real corner. Call what is written — exactly.' });
+  }
+  if (!misses.length) {
+    patterns.push({ title: 'Clean run', body: 'Not one note went wrong. At this pace the next step is not accuracy — it is the clock. Try a higher difficulty or a faster era and see if the timing pressure breaks the accuracy.' });
+  }
+  return patterns;
+}
+
+// The training plan: prioritized, concrete, linked to the tools that exist.
+function buildTrainingPlan(patterns, misses) {
+  const items = [];
+  const titles = new Set(patterns.map(p => p.title));
+  if (titles.has('Direction confusion')) items.push({ txt: 'Drill directions in isolation: call 20 notes saying ONLY "left" or "right" before adding anything else.', link: 'openTutorial', linkTxt: 'Interactive Tutorial' });
+  if (titles.has('Severity misjudgement')) items.push({ txt: 'Re-learn the 1\u20136 ladder with examples, then get quizzed on number meanings until recall is instant.', link: 'openTraining', linkTxt: 'Training School' });
+  if (titles.has('Dropping hazards')) items.push({ txt: 'Spend ten minutes on the vocabulary panel — hazard words are what keep the car alive.', link: 'showMenu', linkTxt: 'Vocabulary (menu)' });
+  if (titles.has('Hesitation habit') || titles.has('Timeout cluster')) items.push({ txt: 'Practice under a harsher clock than the real stage: Recce a stage once, then call it back from your own shorthand.', link: 'openRecce', linkTxt: 'Recce & Call-Back' });
+  if (titles.has('Rushing the call')) items.push({ txt: 'Slow-run an easy stage on purpose: accuracy only, ignore the score, until the early-calling reflex is gone.', link: 'openSetup', linkTxt: 'Quick Stage (easy)' });
+  if (titles.has('Fatigue collapse')) items.push({ txt: 'Run one full-length stage focusing ONLY on the second half. Fatigue is trainable — but only if you practice while tired.', link: 'openSetup', linkTxt: 'Quick Stage' });
+  if (!items.length && misses.length) items.push({ txt: 'Your misses were scattered, not patterned — that means concentration, not knowledge. One more full stage with full attention usually clears it.', link: 'openSetup', linkTxt: 'Quick Stage' });
+  if (!items.length) items.push({ txt: 'Clean stage. Push the difficulty up and see where the accuracy starts to crack — that edge is where you learn.', link: 'openSetup', linkTxt: 'Quick Stage (harder)' });
+  return items.slice(0, 4);
+}
+
+function renderStageDebrief() {
+  const container = document.getElementById('r-debrief');
+  if (!container) return;
+  const results = G.results || [];
+  const misses = [];
+  results.forEach(r => {
+    if (r.ok) return;
+    const kind = r.skipped ? 'skipped' : (r.timeout || !r.typed ? 'timeout' : 'wrong');
+    misses.push(analyzeMiss(r.typed || '', r.ans, r.raw, kind));
+  });
+
+  const patterns = buildDebriefPatterns(misses);
+  const plan = buildTrainingPlan(patterns, misses);
+  const total = results.length;
+  const missCount = misses.length;
+
+  let html = '';
+  html += '<div class="db-wrap">';
+  html += '<div class="db-hdr"><i class="bi bi-clipboard-pulse"></i> CO-DRIVER DEBRIEF <span class="db-sub">what went wrong, and why</span></div>';
+
+  if (!total) {
+    html += '<div class="db-empty">No stage data to analyze.</div></div>';
+    container.innerHTML = html;
+    return;
+  }
+
+  // --- Section 1: every miss, itemized ---
+  if (missCount) {
+    html += '<div class="db-sec-title">The ' + missCount + ' note' + (missCount === 1 ? '' : 's') + ' that cost you time</div>';
+    misses.forEach((m, i) => {
+      const idx = results.findIndex(r => !r.ok && r.raw === m.note && !results.slice(0, i).some((rr, j) => !rr.ok && rr.raw === m.note));
+      const num = idx >= 0 ? idx + 1 : i + 1;
+      html += '<div class="db-item">';
+      html += '<div class="db-item-hdr"><span class="db-item-num">NOTE ' + num + '</span><code class="db-note">' + m.note + '</code></div>';
+      html += '<div class="db-verdict">' + m.verdict + '</div>';
+      html += '<div class="db-ans"><span>answer key:</span> ' + m.expected + '</div>';
+      if (m.typed && m.missKind === 'wrong') html += '<div class="db-typed"><span>you called:</span> \u201C' + m.typed + '\u201D</div>';
+      if (m.gotRight.length) {
+        html += '<div class="db-right">' + m.gotRight.map(g => '<div><i class="bi bi-check-lg"></i> ' + g.txt + '</div>').join('') + '</div>';
+      }
+      if (m.gotWrong.length) {
+        html += '<div class="db-wrong">' + m.gotWrong.map(w => '<div class="db-wrong-row"><i class="bi bi-x-lg"></i><span>' + w.txt + '</span><em>' + w.lesson + '</em></div>').join('') + '</div>';
+      }
+      html += '</div>';
+    });
+  }
+
+  // --- Section 2: the pattern ---
+  html += '<div class="db-sec-title">The pattern in your mistakes</div>';
+  patterns.forEach(p => {
+    html += '<div class="db-pattern"><div class="db-pat-title"><i class="bi bi-graph-up-arrow"></i> ' + p.title + '</div><p>' + p.body + '</p></div>';
+  });
+
+  // --- Section 2.4: the timing chart — WHERE in the budget you called ---
+  html += buildTimingChartHTML(results);
+
+  // --- Section 2.5: the race engineer's read (personal on-device notes) ---
+  try {
+    if (window.PaceAI) {
+      const ai = PaceAI.analyze(results, misses);
+      if (ai) {
+        html += '<div class="db-sec-title">Your race engineer — the notebook kept on you</div>';
+        html += '<div class="db-ai">';
+        html += '<div class="db-ai-headline"><i class="bi bi-journal-text"></i> ' + ai.headline + '</div>';
+        ai.signals.forEach(s => {
+          html += '<div class="db-ai-sig"><div class="db-ai-sig-title"><i class="bi bi-broadcast"></i> ' + s.title + '</div><p>' + s.body + '</p></div>';
+        });
+        if (!ai.signals.length) html += '<div class="db-ai-sig"><div class="db-ai-sig-title"><i class="bi bi-check-lg"></i> Nothing new to flag</div><p>This stage matched your model\'s expectations — no leak got worse, no new pattern formed.</p></div>';
+        html += '<div class="db-ai-conf">' + ai.confidence + ' <button class="db-plan-btn" onclick="if(confirm(\'Tear up the engineer\'s notes on you and start fresh?\')) PaceAI.reset();">reset notes</button></div>';
+        html += '</div>';
+      }
+    }
+  } catch (e) { console.error('PaceAI debrief failed:', e); }
+
+  // --- Section 3: the plan ---
+  html += '<div class="db-sec-title">Your training plan for next time</div>';
+  const aiExtra = (window.PaceAI ? PaceAI.topTrainingNote() : null);
+  const planRows = (aiExtra ? [{ txt: aiExtra.txt, link: aiExtra.link, linkTxt: aiExtra.linkTxt }] : []).concat(plan);
+  html += '<div class="db-plan">' + planRows.map(it =>
+    '<div class="db-plan-row"><i class="bi bi-arrow-right-circle"></i><span>' + it.txt + '</span><button class="db-plan-btn" onclick="' + it.link + '()">' + it.linkTxt + '</button></div>'
+  ).join('') + '</div>';
+
+  html += '</div>';
+  container.innerHTML = html;
 }
 
 function renderPerformanceTimeline() {
@@ -4646,7 +5524,7 @@ function renderPerformanceTimeline() {
         position:relative;
         cursor:pointer;
         transition:all 0.2s
-      " title="Note ${i+1}: ${r.raw}\nTyped: ${r.typed || '(skipped)'}\nTime: ${reactionTime}ms\n${isCorrect ? '✓ Correct' : '✗ Wrong'}">
+      " title="Note ${i+1}: ${r.raw}\nTyped: ${r.typed || '(skipped)'}\nTime: ${reactionTime}ms\n${isCorrect ? 'Correct' : 'Wrong'}">
         ${reactionTime > 2000 ? `<span style="position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--text2)">${(reactionTime/1000).toFixed(1)}s</span>` : ''}
       </div>
     `;
@@ -4667,8 +5545,7 @@ function renderPerformanceTimeline() {
         </tr>
   `;
 
-  G.results.forEach((r, i) => {
-    const resultIcon = r.ok ? '✓' : (r.timeout ? '⏱' : (r.skipped ? '⊘' : '✗'));
+  G.results.forEach((r, i) => {     const resultIcon = r.ok ? '<i class="bi bi-check-lg"></i>' : (r.timeout ? '<i class="bi bi-clock"></i>' : (r.skipped ? '<i class="bi bi-dash-circle"></i>' : '<i class="bi bi-x-lg"></i>'));
     const resultColor = r.ok ? 'var(--green)' : (r.timeout ? '#ff6b00' : 'var(--red)');
     
     timelineHTML += `
@@ -5243,7 +6120,7 @@ function renderSignatureStages() {
         <div>Record: ${stage.bestTime}</div>
         <div>${stage.recordHolder}</div>
       </div>
-      <div style="margin-top:1rem;font-size:12px;color:var(--cyan)">★ SIGNATURE STAGE — Hand-tuned pacenotes</div>
+      <div style="margin-top:1rem;font-size:12px;color:var(--cyan)"><i class="bi bi-stars"></i> SIGNATURE STAGE — Hand-tuned pacenotes</div>
     </div>
   `).join('');
 }
@@ -5451,7 +6328,7 @@ function buildLessonList(){
   document.getElementById('lesson-list').innerHTML=LESSONS.map(l=>`
     <button class="lbtn${currentLesson===l.id?' on':''}" onclick="loadLesson('${l.id}')">
       ${l.name}
-      ${lessonsCompleted.has(l.id)?'<span class="ldone">✓</span>':''}
+      ${lessonsCompleted.has(l.id)?'<span class="ldone"><i class="bi bi-check-lg"></i></span>':''}
     </button>`).join('');
   updateProgress();
 }
@@ -5518,7 +6395,7 @@ function showTelemetryButton(){
   const btn=document.createElement('button');
   btn.id='telemetry-btn';
   btn.className='qb s';
-  btn.textContent='📊 View Telemetry';
+  btn.innerHTML='<i class="bi bi-graph-up"></i> View Telemetry';
   btn.onclick=showTelemetryGraph;
   btn.style.cssText='background:var(--gold);color:#0a0a0c;border-color:var(--gold);';
   container.appendChild(btn);
@@ -5538,7 +6415,7 @@ function showTelemetryGraph(){
   overlay.innerHTML=`
     <div class="page-hdr">
       <button class="bk" onclick="document.getElementById('telemetry-overlay').remove();">← Back to Quiz</button>
-      <div class="page-hdr-title">📊 Telemetry Analysis</div>
+      <div class="page-hdr-title"><i class="bi bi-graph-up-arrow"></i> Telemetry Analysis</div>
     </div>
     <div style="flex:1;padding:2rem;max-width:900px;margin:0 auto;width:100%;overflow:auto;">
       
@@ -5576,7 +6453,7 @@ function showTelemetryGraph(){
             <div style="display:flex;align-items:center;gap:1rem;padding:0.5rem;background:var(--surf);border-radius:4px;font-size:12px;">
               <span style="color:var(--text3);width:30px;">${quizTelemetry.length-i}</span>
               <span style="flex:1;color:var(--text);font-family:'IBM Plex Mono',monospace;">${t.note}</span>
-              <span style="color:${t.correct?'#39ff14':'#e8291c'};width:60px;text-align:center;">${t.correct?'✓':'✗'} ${Math.round(t.score*100)}%</span>
+              <span style="color:${t.correct?'#39ff14':'#e8291c'};width:60px;text-align:center;">${t.correct?'OK':'X'} ${Math.round(t.score*100)}%</span>
               <span style="color:var(--gold);width:70px;text-align:right;">${Math.round(t.reactionTime/100)/10}s</span>
             </div>
           `).join('')}
@@ -5865,7 +6742,7 @@ function drawTulipSVG(note){
     if(isLong){
       const dashS = tulipPolar(TULIP_CX,TULIP_CY,exitAngle,TULIP_EXIT_LEN+3);
       const dashE = tulipPolar(TULIP_CX,TULIP_CY,exitAngle,TULIP_EXIT_LEN+13);
-      g += `<line x1="${tulipPt(dashS)}" x2="${tulipPt(dashE)}" stroke="${COL.dim}" stroke-width="1" stroke-dasharray="3,2.5" stroke-linecap="round" y1="0" y2="0"/>`;
+      g += `<line x1="${dashS[0].toFixed(1)}" y1="${dashS[1].toFixed(1)}" x2="${dashE[0].toFixed(1)}" y2="${dashE[1].toFixed(1)}" stroke="${COL.dim}" stroke-width="1" stroke-dasharray="3,2.5" stroke-linecap="round"/>`;
     }
     const exitCol  = isIce ? COL.blue : COL.main;
     const exitDash = isIce ? '4,2.5' : null;
@@ -6270,7 +7147,7 @@ function checkTutInput() {
 
   clearInterval(tutTimer);
   if (matched) {
-    feedbackEl.textContent = '✓ ' + (step.successMsg || 'Correct');
+    feedbackEl.textContent = 'OK — ' + (step.successMsg || 'Correct');
     feedbackEl.style.color = '#39ff14';
     inputEl.disabled = true;
     document.getElementById('tut-next').style.display = 'block';
@@ -8177,12 +9054,32 @@ function processAnswer(typed, note, ok, score, skipped) {
     ok,
     score,
     skipped,
+    timingVerdict: RALLY_STATE.lastTimingVerdict,
+    timingRatio: RALLY_STATE.lastTimingRatio != null ? RALLY_STATE.lastTimingRatio : null,
     reactionTime: RALLY_STATE.reactionTimes[RALLY_STATE.reactionTimes.length - 1],
     momentum: RALLY_STATE.momentum,
     multiplier: RALLY_STATE.multiplier,
     timingTier: calculateTimingTier(RALLY_STATE.reactionTimes[RALLY_STATE.reactionTimes.length - 1], G.timeLimit),
     sector: RALLY_STATE.currentSector
   });
+  
+  // PaceAI: fold this note into the personal on-device model
+  try {
+    if (window.PaceAI && !skipped) {
+      const miss = analyzeMiss(typed || '', note.ans, note.raw, skipped ? 'skipped' : (ok ? 'ok' : 'wrong'));
+      const parts = { direction: 0, severity: 0, modifier: 0, noise: 0 };
+      (miss.gotWrong || []).forEach(w => { parts[w.k] = (parts[w.k] || 0) + 1; });
+      PaceAI.observe({
+        expected: note.ans,
+        typed: typed || '',
+        ok,
+        skipped,
+        timeout: !ok && !typed,
+        timing: RALLY_STATE.lastTimingVerdict,
+        parts
+      });
+    }
+  } catch (e) { /* analytics must never break the game */ }
   
   G.idx++;
   const isLastNote = G.idx >= G.notes.length;
@@ -8209,6 +9106,11 @@ function processAnswer(typed, note, ok, score, skipped) {
 }
 
 function playFlowSound(type) {
+  /* SFX now really plays: synthesized tones on the mixer's SFX bus. */
+  if(typeof SfxBus !== 'undefined' && SfxBus.play){
+    SfxBus.play(type === 'correct' ? 'correct' : 'mistake');
+    return;
+  }
   try {
     const audio = new Audio();
     if (type === 'correct') {
@@ -8509,9 +9411,9 @@ const Multiplayer = {
           <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text3);margin-bottom:0.5rem;">PLAYERS</div>
           ${this.currentLobby.players.map(p => `
             <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem;border-bottom:1px solid var(--brd);">
-              <span style="font-size:16px;">${p.id === this.currentLobby.hostId ? '👑' : '👤'}</span>
+              <span style="font-size:16px;">${p.id === this.currentLobby.hostId ? '<i class=\"bi bi-trophy-fill\"></i>' : '<i class=\"bi bi-person\"></i>'}</span>
               <span style="flex:1;">${p.name} ${p.id === this.playerId ? '(You)' : ''}</span>
-              <span style="color:${p.ready ? '#39ff14' : '#f5c518'};">${p.ready ? '✓ Ready' : '⏳ Waiting'}</span>
+              <span style="color:${p.ready ? '#39ff14' : '#f5c518'};">${p.ready ? '<i class=\"bi bi-check-lg\"></i> Ready' : '<i class=\"bi bi-hourglass-split\"></i> Waiting'}</span>
             </div>
           `).join('')}
         </div>
@@ -8610,7 +9512,7 @@ const Multiplayer = {
       <div style="display:flex;align-items:center;gap:0.3rem;">
         <span style="color:var(--text3);">${p.name}:</span>
         <span style="color:var(--gold);">${p.noteIndex || 0}/${G.notes.length}</span>
-        <span style="color:#39ff14;">✓${p.correct || 0}</span>
+        <span style="color:#39ff14;">OK ${p.correct || 0}</span>
       </div>
     `).join('');
   },
@@ -8688,7 +9590,7 @@ function addMultiplayerButton() {
   const btn = document.createElement('button');
   btn.id = 'mp-btn';
   btn.className = 'mnbtn';
-  btn.innerHTML = 'Multiplayer <span style="font-size:14px">👥</span>';
+  btn.innerHTML = 'Multiplayer <span style="font-size:14px"><i class="bi bi-people"></i></span>';
   btn.onclick = () => {
     // Connect to Node.js backend for accounts/leaderboards
     if (!Multiplayer.connected) {
@@ -8696,7 +9598,8 @@ function addMultiplayerButton() {
     }
     showMultiplayerMenu();
   };
-  menuNav.insertBefore(btn, menuNav.lastElementChild);
+  const grp = document.querySelector('.menu-nav .g-play');
+  (grp || menuNav).insertBefore(btn, (grp || menuNav).lastElementChild);
 }
 
 function showMultiplayerMenu() {
@@ -9219,7 +10122,7 @@ endStage = function() {
         padding:2rem;
       `;
       
-      const certEmoji = certification === 'World' ? '🥇' : certification === 'National' ? '🥈' : certification === 'Junior' ? '🥉' : '❌';
+      const certEmoji = certification === 'World' ? '<i class="bi bi-award" style="color:#ffd700"></i>' : certification === 'National' ? '<i class="bi bi-award" style="color:#c0c0c0"></i>' : certification === 'Junior' ? '<i class="bi bi-award" style="color:#cd7f32"></i>' : '<i class="bi bi-x-lg"></i>';
       const certColor = certification === 'World' ? '#FFD700' : certification === 'National' ? '#C0C0C0' : certification === 'Junior' ? '#CD7F32' : '#ff4444';
       
       overlay.innerHTML = `
@@ -9263,10 +10166,11 @@ function addAccountButton() {
   btn.id = 'account-btn';
   btn.className = 'mnbtn';
   btn.innerHTML = AccountSystem.isLoggedIn() 
-    ? `👤 ${AccountSystem.getDisplayName()}`
-    : 'Account 👤';
+    ? `<i class="bi bi-person"></i> ${AccountSystem.getDisplayName()}`
+    : 'Account';
   btn.onclick = () => showAccountScreen();
-  menuNav.insertBefore(btn, menuNav.lastElementChild);
+  const grp = document.querySelector('.menu-nav .g-create');
+  (grp || menuNav).insertBefore(btn, (grp || menuNav).lastElementChild);
 }
 
 function showAccountScreen() {
@@ -9325,7 +10229,7 @@ function showForgotPasswordScreen() {
         <div style="font-size:12px;color:var(--text3);margin-bottom:1rem;text-align:center;">Enter your email and we'll send you a reset link</div>
         
         <div style="background:#1e1e0e;border:1px solid var(--brd);padding:0.75rem;margin-bottom:1rem;font-size:11px;color:#f5c518;">
-          <strong>ℹ️ Important:</strong> You must have configured your email settings in Account Settings to receive password reset emails. The game sends emails using your own email account.
+          <strong>ℹ Important:</strong> You must have configured your email settings in Account Settings to receive password reset emails. The game sends emails using your own email account.
         </div>
         
         <input type="email" id="reset-email" placeholder="Email" style="width:100%;padding:0.75rem;margin-bottom:1rem;background:var(--surf);border:1px solid var(--brd);color:var(--text);">
@@ -9437,7 +10341,7 @@ function showLoggedInScreen() {
     <div style="flex:1;padding:2rem;max-width:600px;margin:0 auto;width:100%;overflow:auto;">
       ${profile.bannerUrl ? `<div style="width:100%;height:150px;margin-bottom:1rem;border-radius:8px;overflow:hidden;"><img src="${profile.bannerUrl}" style="width:100%;height:100%;object-fit:cover;"></div>` : ''}
       <div style="background:var(--surf2);border:1px solid var(--brd2);padding:1.5rem;margin-bottom:1rem;text-align:center;">
-        ${profile.avatarUrl ? `<img src="${profile.avatarUrl}" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);margin-bottom:0.5rem;">` : `<div style="font-size:48px;margin-bottom:0.5rem;">${displayStyle.avatar || '👤'}</div>`}
+        ${profile.avatarUrl ? `<img src="${profile.avatarUrl}" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);margin-bottom:0.5rem;">` : `<div style="font-size:48px;margin-bottom:0.5rem;">${displayStyle.avatar || '<i class="bi bi-person-circle"></i>'}</div>`}
         <div class="${effectClassString}" style="${displayNameStyle}" ${effects.includes('glitch') ? `data-text="${displayName}"` : ''}>${displayName}</div>
         <div style="font-size:14px;color:var(--text3);">${displayStyle.badge || AccountSystem.getRank()} • Level ${AccountSystem.getLevel()}</div>
         ${profile.bio ? `<div style="font-size:12px;color:var(--text3);margin-top:0.5rem;font-style:italic;">"${profile.bio}"</div>` : ''}
@@ -9469,19 +10373,19 @@ function showLoggedInScreen() {
       <div style="background:var(--surf2);border:1px solid var(--brd2);padding:1rem;margin-bottom:1rem;">
         <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text3);margin-bottom:0.75rem;">SOCIAL</div>
         <div style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
-          ${profile.social.youtube ? `<a href="https://youtube.com/${profile.social.youtube}" target="_blank" style="color:#ff0000;font-size:20px;text-decoration:none;">📺</a>` : ''}
-          ${profile.social.twitch ? `<a href="https://twitch.tv/${profile.social.twitch}" target="_blank" style="color:#9146ff;font-size:20px;text-decoration:none;">📡</a>` : ''}
-          ${profile.social.twitter ? `<a href="https://twitter.com/${profile.social.twitter}" target="_blank" style="color:#1da1f2;font-size:20px;text-decoration:none;">🐦</a>` : ''}
-          ${profile.social.discord ? `<span style="color:#5865f2;font-size:20px;">💬 ${profile.social.discord}</span>` : ''}
+          ${profile.social.youtube ? `<a href="https://youtube.com/${profile.social.youtube}" target="_blank" style="color:#ff0000;font-size:20px;text-decoration:none;"><i class="bi bi-youtube"></i></a>` : ''}
+          ${profile.social.twitch ? `<a href="https://twitch.tv/${profile.social.twitch}" target="_blank" style="color:#9146ff;font-size:20px;text-decoration:none;"><i class="bi bi-twitch"></i></a>` : ''}
+          ${profile.social.twitter ? `<a href="https://twitter.com/${profile.social.twitter}" target="_blank" style="color:#1da1f2;font-size:20px;text-decoration:none;"><i class="bi bi-twitter-x"></i></a>` : ''}
+          ${profile.social.discord ? `<span style="color:#5865f2;font-size:20px;"><i class="bi bi-chat-dots"></i> ${profile.social.discord}</span>` : ''}
         </div>
       </div>
       ` : ''}
       
       <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:0.5rem;margin-bottom:1rem;">
-        <button class="gbtn" onclick="showLeaderboard()">🏆 Leaderboard</button>
-        <button class="gbtn" onclick="showForumBoards()">💬 Forum</button>
-        <button class="gbtn" onclick="showProfileCustomization()">🎨 Customize</button>
-        <button class="gbtn" onclick="showAccountSettings()">⚙️ Settings</button>
+        <button class="gbtn" onclick="showLeaderboard()"><i class="bi bi-trophy"></i> Leaderboard</button>
+        <button class="gbtn" onclick="showForumBoards()"><i class="bi bi-chat-dots"></i> Forum</button>
+        <button class="gbtn" onclick="showProfileCustomization()"><i class="bi bi-palette"></i> Customize</button>
+        <button class="gbtn" onclick="showAccountSettings()"><i class="bi bi-gear"></i> Settings</button>
       </div>
       
       <button class="gbtn" onclick="AccountSystem.logout();document.getElementById('account-overlay').remove();addAccountButton();showMenu();" style="width:100%;">Logout</button>
@@ -9604,35 +10508,35 @@ function showProfileCustomization() {
           <label style="font-size:12px;color:var(--text3);display:block;margin-bottom:0.25rem;">Effects (CSS Styles)</label>
           <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:0.5rem;">
             <label style="display:flex;align-items:center;gap:0.25rem;font-size:12px;cursor:pointer;">
-              <input type="checkbox" id="effect-glow" ${(displayStyle.effects || []).includes('glow') ? 'checked' : ''}> ✨ Glow
+              <input type="checkbox" id="effect-glow" ${(displayStyle.effects || []).includes('glow') ? 'checked' : ''}> <i class="bi bi-stars"></i> Glow
             </label>
             <label style="display:flex;align-items:center;gap:0.25rem;font-size:12px;cursor:pointer;">
-              <input type="checkbox" id="effect-glow-strong" ${(displayStyle.effects || []).includes('glow-strong') ? 'checked' : ''}> 🌟 Strong Glow
+              <input type="checkbox" id="effect-glow-strong" ${(displayStyle.effects || []).includes('glow-strong') ? 'checked' : ''}> <i class="bi bi-star-half"></i> Strong Glow
             </label>
             <label style="display:flex;align-items:center;gap:0.25rem;font-size:12px;cursor:pointer;">
-              <input type="checkbox" id="effect-rainbow" ${(displayStyle.effects || []).includes('rainbow') ? 'checked' : ''}> 🌈 Rainbow
+              <input type="checkbox" id="effect-rainbow" ${(displayStyle.effects || []).includes('rainbow') ? 'checked' : ''}> <i class="bi bi-rainbow"></i> Rainbow
             </label>
             <label style="display:flex;align-items:center;gap:0.25rem;font-size:12px;cursor:pointer;">
-              <input type="checkbox" id="effect-fire" ${(displayStyle.effects || []).includes('fire') ? 'checked' : ''}> 🔥 Fire
+              <input type="checkbox" id="effect-fire" ${(displayStyle.effects || []).includes('fire') ? 'checked' : ''}> <i class="bi bi-fire"></i> Fire
             </label>
             <label style="display:flex;align-items:center;gap:0.25rem;font-size:12px;cursor:pointer;">
-              <input type="checkbox" id="effect-neon" ${(displayStyle.effects || []).includes('neon') ? 'checked' : ''}> 💡 Neon
+              <input type="checkbox" id="effect-neon" ${(displayStyle.effects || []).includes('neon') ? 'checked' : ''}> <i class="bi bi-lightbulb"></i> Neon
             </label>
             <label style="display:flex;align-items:center;gap:0.25rem;font-size:12px;cursor:pointer;">
-              <input type="checkbox" id="effect-glitch" ${(displayStyle.effects || []).includes('glitch') ? 'checked' : ''}> 👾 Glitch
+              <input type="checkbox" id="effect-glitch" ${(displayStyle.effects || []).includes('glitch') ? 'checked' : ''}> <i class="bi bi-cpu"></i> Glitch
             </label>
             <label style="display:flex;align-items:center;gap:0.25rem;font-size:12px;cursor:pointer;">
-              <input type="checkbox" id="effect-pulse" ${(displayStyle.effects || []).includes('pulse') ? 'checked' : ''}> 💓 Pulse
+              <input type="checkbox" id="effect-pulse" ${(displayStyle.effects || []).includes('pulse') ? 'checked' : ''}> <i class="bi bi-activity"></i> Pulse
             </label>
             <label style="display:flex;align-items:center;gap:0.25rem;font-size:12px;cursor:pointer;">
-              <input type="checkbox" id="effect-shimmer" ${(displayStyle.effects || []).includes('shimmer') ? 'checked' : ''}> ✨ Shimmer
+              <input type="checkbox" id="effect-shimmer" ${(displayStyle.effects || []).includes('shimmer') ? 'checked' : ''}> <i class="bi bi-stars"></i> Shimmer
             </label>
           </div>
         </div>
         
         <div style="margin-bottom:0.75rem;">
           <label style="font-size:12px;color:var(--text3);display:block;margin-bottom:0.25rem;">Avatar Emoji</label>
-          <input type="text" id="custom-avatar" value="${displayStyle.avatar || '👤'}" maxlength="2" style="width:60px;padding:0.5rem;background:var(--surf);border:1px solid var(--brd);color:var(--text);font-size:24px;text-align:center;">
+          <input type="text" id="custom-avatar" value="${displayStyle.avatar || '<i class="bi bi-person-circle"></i>'}" maxlength="2" style="width:60px;padding:0.5rem;background:var(--surf);border:1px solid var(--brd);color:var(--text);font-size:24px;text-align:center;">
         </div>
         
         <div style="margin-bottom:0.75rem;">
@@ -9646,12 +10550,12 @@ function showProfileCustomization() {
         <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text3);margin-bottom:0.75rem;">PROFILE PICTURE (PNG, JPG, GIF)</div>
         
         <div style="text-align:center;margin-bottom:1rem;">
-          ${profile.avatarUrl ? `<img src="${profile.avatarUrl}" id="avatar-preview" class="profile-preview" style="margin-bottom:0.5rem;">` : `<div id="avatar-preview-placeholder" style="width:100px;height:100px;border-radius:50%;background:var(--surf);border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 0.5rem;font-size:48px;">${displayStyle.avatar || '👤'}</div>`}
+          ${profile.avatarUrl ? `<img src="${profile.avatarUrl}" id="avatar-preview" class="profile-preview" style="margin-bottom:0.5rem;">` : `<div id="avatar-preview-placeholder" style="width:100px;height:100px;border-radius:50%;background:var(--surf);border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 0.5rem;font-size:48px;">${displayStyle.avatar || '<i class="bi bi-person-circle"></i>'}</div>`}
         </div>
         
         <input type="file" id="profile-picture-input" accept="image/png,image/jpeg,image/jpg,image/gif" style="display:none;" onchange="handleProfilePictureUpload(this)">
         <div class="profile-upload-area" onclick="document.getElementById('profile-picture-input').click()" ondragover="event.preventDefault();this.classList.add('dragover');" ondragleave="this.classList.remove('dragover');" ondrop="event.preventDefault();handleProfilePictureDrop(event);">
-          <div style="font-size:32px;margin-bottom:0.5rem;">📷</div>
+          <div style="font-size:32px;margin-bottom:0.5rem;"><i class="bi bi-camera"></i></div>
           <div style="font-size:12px;color:var(--text3);">Click or drag image here<br>Max 2MB (PNG, JPG, GIF)</div>
         </div>
         <div id="profile-picture-data" style="display:none;"></div>
@@ -9667,7 +10571,7 @@ function showProfileCustomization() {
         
         <input type="file" id="banner-input" accept="image/png,image/jpeg,image/jpg,image/gif" style="display:none;" onchange="handleBannerUpload(this)">
         <div class="profile-upload-area" onclick="document.getElementById('banner-input').click()" ondragover="event.preventDefault();this.classList.add('dragover');" ondragleave="this.classList.remove('dragover');" ondrop="event.preventDefault();handleBannerDrop(event);">
-          <div style="font-size:32px;margin-bottom:0.5rem;">🖼️</div>
+          <div style="font-size:32px;margin-bottom:0.5rem;"><i class="bi bi-image"></i></div>
           <div style="font-size:12px;color:var(--text3);">Click or drag banner image here<br>Max 5MB (PNG, JPG, GIF)</div>
         </div>
         <div id="banner-data" style="display:none;"></div>
@@ -9764,7 +10668,7 @@ async function saveProfileCustomization() {
       fontFamily: document.getElementById('custom-font').value,
       color: document.getElementById('custom-color').value,
       effects: effects,
-      avatar: document.getElementById('custom-avatar').value || '👤',
+      avatar: document.getElementById('custom-avatar').value || '<i class="bi bi-person-circle"></i>',
       badge: document.getElementById('custom-badge').value
     }
   };
@@ -9816,14 +10720,14 @@ async function showAccountSettings() {
       
       <!-- Email Settings -->
       <div style="background:var(--surf2);border:1px solid var(--brd2);padding:1.5rem;margin-bottom:1rem;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);margin-bottom:1rem;">📧 Email Settings</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);margin-bottom:1rem;"><i class="bi bi-envelope"></i> Email Settings</div>
         <div style="font-size:12px;color:var(--text3);margin-bottom:1rem;">
           Configure your own SMTP settings to receive password reset emails. Your email password is encrypted on the server.
         </div>
         
         <div id="smtp-status" style="background:${smtpConfigured ? '#0e1e0e' : '#1e1e0e'};border:1px solid ${smtpConfigured ? '#39ff14' : 'var(--brd)'};padding:1rem;margin-bottom:1rem;">
           <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-            <span style="color:${smtpConfigured ? '#39ff14' : '#f5c518'};">${smtpConfigured ? '✓' : '⚠'}</span>
+            <span style="color:${smtpConfigured ? '#39ff14' : '#f5c518'};">${smtpConfigured ? '<i class="bi bi-check-lg"></i>' : '<i class="bi bi-exclamation-triangle"></i>'}</span>
             <span style="font-weight:600;color:${smtpConfigured ? '#39ff14' : '#f5c518'};">
               ${smtpConfigured ? 'Email Configured' : 'Email Not Configured'}
             </span>
@@ -9833,7 +10737,7 @@ async function showAccountSettings() {
               <div>Host: ${smtpStatus.host}</div>
               <div>Port: ${smtpStatus.port}</div>
               <div>User: ${smtpStatus.user}</div>
-              <div style="margin-top:0.5rem;color:#39ff14;">✓ Password reset emails will be sent from your account</div>
+              <div style="margin-top:0.5rem;color:#39ff14;"><i class="bi bi-check-lg"></i> Password reset emails will be sent from your account</div>
             </div>
           ` : `
             <div style="font-size:11px;color:var(--text3);">
@@ -9876,7 +10780,7 @@ async function showAccountSettings() {
       </div>
       
       <div style="background:var(--surf2);border:1px solid var(--brd2);padding:1.5rem;margin-bottom:1rem;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);margin-bottom:1rem;">⚠️ Danger Zone</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);margin-bottom:1rem;"><i class="bi bi-exclamation-triangle"></i> Danger Zone</div>
         
         <div style="background:#1e0e0e;border:1px solid #e8291c;padding:1rem;margin-bottom:1rem;">
           <div style="font-size:14px;color:#e8291c;margin-bottom:0.5rem;font-weight:600;">Delete Account</div>
@@ -9888,7 +10792,7 @@ async function showAccountSettings() {
       </div>
       
       <div style="background:var(--surf2);border:1px solid var(--brd2);padding:1.5rem;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);margin-bottom:1rem;">ℹ️ Account Info</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);margin-bottom:1rem;">ℹ Account Info</div>
         <div style="font-size:12px;color:var(--text3);">
           <div style="margin-bottom:0.5rem;"><strong>Username:</strong> ${AccountSystem.account?.username}</div>
           <div style="margin-bottom:0.5rem;"><strong>Email:</strong> ${AccountSystem.account?.email}</div>
@@ -9987,7 +10891,7 @@ async function testSmtpSettings() {
   
   if (testResult.success) {
     errorDiv.style.display = 'none';
-    successDiv.textContent = '✓ Test email sent! Check your inbox.';
+    successDiv.innerHTML = '<i class="bi bi-check-lg"></i> Test email sent! Check your inbox.';
     successDiv.style.display = 'block';
   } else {
     errorDiv.textContent = 'Test failed: ' + testResult.error;
@@ -10008,7 +10912,7 @@ function showDeleteAccountConfirmation() {
     </div>
     <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:2rem;">
       <div style="background:#1e0e0e;border:2px solid #e8291c;padding:2rem;max-width:400px;width:100%;text-align:center;">
-        <div style="font-size:48px;margin-bottom:1rem;">⚠️</div>
+        <div style="font-size:48px;margin-bottom:1rem;"><i class="bi bi-exclamation-triangle"></i></div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#e8291c;margin-bottom:1rem;">ARE YOU SURE?</div>
         <div style="font-size:12px;color:var(--text3);margin-bottom:1.5rem;line-height:1.6;">
           This action is <strong>PERMANENT</strong> and cannot be undone. All your data will be erased including:
@@ -10188,7 +11092,7 @@ async function showForumBoards() {
     </div>
     <div style="flex:1;padding:1rem;max-width:900px;margin:0 auto;width:100%;overflow:auto;">
       <div style="background:var(--surf2);border:1px solid var(--brd2);padding:1rem;margin-bottom:1rem;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);margin-bottom:0.5rem;">📢 Discussion Boards</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);margin-bottom:0.5rem;"><i class="bi bi-megaphone"></i> Discussion Boards</div>
         <div style="font-size:12px;color:var(--text3);">Join the conversation with fellow rally enthusiasts</div>
       </div>
       
@@ -10240,14 +11144,14 @@ async function showForumBoard(boardId, page = 1, sort = 'hot') {
       </div>
       
       <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
-        <button class="gbtn ${sort === 'hot' ? 'pri' : ''}" onclick="showForumBoard('${boardId}', 1, 'hot')" style="font-size:12px;">🔥 Hot</button>
-        <button class="gbtn ${sort === 'new' ? 'pri' : ''}" onclick="showForumBoard('${boardId}', 1, 'new')" style="font-size:12px;">🆕 New</button>
-        <button class="gbtn ${sort === 'top' ? 'pri' : ''}" onclick="showForumBoard('${boardId}', 1, 'top')" style="font-size:12px;">🏆 Top</button>
+        <button class="gbtn ${sort === 'hot' ? 'pri' : ''}" onclick="showForumBoard('${boardId}', 1, 'hot')" style="font-size:12px;"><i class="bi bi-fire"></i> Hot</button>
+        <button class="gbtn ${sort === 'new' ? 'pri' : ''}" onclick="showForumBoard('${boardId}', 1, 'new')" style="font-size:12px;"><i class="bi bi-stars"></i> New</button>
+        <button class="gbtn ${sort === 'top' ? 'pri' : ''}" onclick="showForumBoard('${boardId}', 1, 'top')" style="font-size:12px;"><i class="bi bi-trophy"></i> Top</button>
       </div>
       
       ${data.threads.length === 0 ? `
         <div style="text-align:center;padding:3rem;color:var(--text3);">
-          <div style="font-size:48px;margin-bottom:1rem;">📝</div>
+          <div style="font-size:48px;margin-bottom:1rem;"><i class="bi bi-journal-text"></i></div>
           <div>No threads yet. Be the first to post!</div>
         </div>
       ` : data.threads.map(thread => `
@@ -10259,7 +11163,7 @@ async function showForumBoard(boardId, page = 1, sort = 'hot') {
               <button class="vote-btn" onclick="event.stopPropagation();voteOnThread('${thread.id}', 'down')" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;">▼</button>
             </div>
             <div style="flex:1;">
-              <div style="font-weight:600;color:var(--text);font-size:15px;">${thread.title} ${thread.isPinned ? '📌' : ''}</div>
+              <div style="font-weight:600;color:var(--text);font-size:15px;">${thread.title} ${thread.isPinned ? '<i class="bi bi-pin-angle"></i>' : ''}</div>
               <div style="font-size:12px;color:var(--text3);margin-top:0.25rem;">
                 Posted by ${getStyledDisplayName(thread.author, thread.authorDisplayName, thread.authorStyle)} 
                 • ${formatTimeAgo(thread.createdAt)} 
@@ -10323,7 +11227,7 @@ async function showForumThread(threadId) {
         <div id="forum-file-preview" style="display:none;margin-bottom:0.5rem;"></div>
         <input type="file" id="forum-file-input" style="display:none;" onchange="handleForumFileUpload(this, '${threadId}')">
         <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
-          <button class="gbtn" onclick="document.getElementById('forum-file-input').click()" style="font-size:12px;padding:4px 12px;" title="Upload video, audio, image, or any file">📎 Attach File</button>
+          <button class="gbtn" onclick="document.getElementById('forum-file-input').click()" style="font-size:12px;padding:4px 12px;" title="Upload video, audio, image, or any file"><i class="bi bi-paperclip"></i> Attach File</button>
           <span id="forum-file-status" style="font-size:11px;color:var(--text3);align-self:center;"></span>
         </div>
         
@@ -10334,7 +11238,7 @@ async function showForumThread(threadId) {
       <!-- Replies -->
       ${data.posts.length === 0 ? `
         <div style="text-align:center;padding:2rem;color:var(--text3);">
-          <div style="font-size:32px;margin-bottom:0.5rem;">💬</div>
+          <div style="font-size:32px;margin-bottom:0.5rem;"><i class="bi bi-chat-dots"></i></div>
           <div>No replies yet. Be the first to comment!</div>
         </div>
       ` : `
@@ -10386,7 +11290,7 @@ function renderPostContent(content) {
     .replace(/\[VIDEO:([^\]]+)\]/g, '<div style="margin:0.5rem 0;"><video src="$1" controls style="max-width:100%;max-height:300px;border-radius:8px;"></video></div>')
     .replace(/\[AUDIO:([^\]]+)\]/g, '<div style="margin:0.5rem 0;"><audio src="$1" controls style="width:100%;max-width:300px;"></audio></div>')
     .replace(/\[IMAGE:([^\]]+)\]/g, '<div style="margin:0.5rem 0;"><img src="$1" style="max-width:100%;max-height:300px;border-radius:8px;cursor:pointer;" onclick="window.open(\'$1\',\'_blank\')"></div>')
-    .replace(/\[FILE:([^:]+):([^\]]+)\]/g, '<div style="margin:0.5rem 0;"><a href="$1" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;background:var(--surf);border:1px solid var(--brd);border-radius:4px;color:var(--text);text-decoration:none;">📎 $2</a></div>');
+    .replace(/\[FILE:([^:]+):([^\]]+)\]/g, '<div style="margin:0.5rem 0;"><a href="$1" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;background:var(--surf);border:1px solid var(--brd);border-radius:4px;color:var(--text);text-decoration:none;"><i class="bi bi-paperclip"></i> $2</a></div>');
   
   return rendered;
 }
@@ -10505,7 +11409,7 @@ async function handleForumFileUpload(input, threadId) {
     const result = await AccountSystem.uploadForumFile(file.name, dataUrl, threadId);
     
     if (result.success) {
-      statusSpan.textContent = `✓ ${file.name}`;
+      statusSpan.innerHTML = `<i class="bi bi-check-lg"></i> ${file.name.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}`;
       statusSpan.style.color = '#39ff14';
       let fileDataDiv = document.getElementById('forum-file-data');
       if (!fileDataDiv) {
@@ -10523,7 +11427,7 @@ async function handleForumFileUpload(input, threadId) {
       } else if (result.isAudio) {
         previewDiv.innerHTML = `<audio src="${result.url}" controls style="width:200px;"></audio>`;
       } else {
-        previewDiv.innerHTML = `<div style="padding:0.5rem;background:var(--surf);border-radius:4px;display:inline-block;">📎 ${file.name}</div>`;
+        previewDiv.innerHTML = `<div style="padding:0.5rem;background:var(--surf);border-radius:4px;display:inline-block;"><i class="bi bi-paperclip"></i> ${file.name}</div>`;
       }
     } else {
       statusSpan.textContent = 'Upload failed';
@@ -10646,21 +11550,21 @@ async function showPublicProfile(username) {
     <div style="flex:1;padding:2rem;max-width:600px;margin:0 auto;width:100%;overflow:auto;">
       ${profile.bannerUrl ? `<div style="width:100%;height:150px;margin-bottom:1rem;border-radius:8px;overflow:hidden;"><img src="${profile.bannerUrl}" style="width:100%;height:100%;object-fit:cover;"></div>` : ''}
       <div style="background:var(--surf2);border:1px solid var(--brd2);padding:1.5rem;margin-bottom:1rem;text-align:center;">
-        ${profile.avatarUrl ? `<img src="${profile.avatarUrl}" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);margin-bottom:0.5rem;">` : `<div style="font-size:48px;margin-bottom:0.5rem;">${displayStyle.avatar || '👤'}</div>`}
+        ${profile.avatarUrl ? `<img src="${profile.avatarUrl}" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);margin-bottom:0.5rem;">` : `<div style="font-size:48px;margin-bottom:0.5rem;">${displayStyle.avatar || '<i class="bi bi-person-circle"></i>'}</div>`}
         <div class="${effectClassString}" style="${displayNameStyle}" ${effects.includes('glitch') ? `data-text="${displayName}"` : ''}>${displayName}</div>
         <div style="font-size:14px;color:var(--text3);">
           ${data.rank} • Level ${data.level}
           ${data.isOnline ? ' <span style="color:#39ff14;">● Online</span>' : ''}
         </div>
         ${profile.bio ? `<div style="font-size:12px;color:var(--text3);margin-top:0.5rem;font-style:italic;">"${profile.bio}"</div>` : ''}
-        ${profile.location ? `<div style="font-size:12px;color:var(--text3);margin-top:0.25rem;">📍 ${profile.location}</div>` : ''}
+        ${profile.location ? `<div style="font-size:12px;color:var(--text3);margin-top:0.25rem;"><i class="bi bi-geo-alt"></i> ${profile.location}</div>` : ''}
       </div>
       
       ${profile.favoriteCar || profile.favoriteStage ? `
       <div style="background:var(--surf2);border:1px solid var(--brd2);padding:1rem;margin-bottom:1rem;">
         <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text3);margin-bottom:0.75rem;">FAVORITES</div>
-        ${profile.favoriteCar ? `<div style="font-size:12px;margin-bottom:0.25rem;">🚗 ${profile.favoriteCar}</div>` : ''}
-        ${profile.favoriteStage ? `<div style="font-size:12px;">🏁 ${profile.favoriteStage}</div>` : ''}
+        ${profile.favoriteCar ? `<div style="font-size:12px;margin-bottom:0.25rem;"><i class="bi bi-car-front-fill"></i> ${profile.favoriteCar}</div>` : ''}
+        ${profile.favoriteStage ? `<div style="font-size:12px;"><i class="bi bi-flag-fill"></i> ${profile.favoriteStage}</div>` : ''}
       </div>
       ` : ''}
       
@@ -10682,9 +11586,9 @@ async function showPublicProfile(username) {
       <div style="background:var(--surf2);border:1px solid var(--brd2);padding:1rem;margin-bottom:1rem;">
         <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text3);margin-bottom:0.75rem;">SOCIAL</div>
         <div style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
-          ${profile.social.youtube ? `<a href="https://youtube.com/${profile.social.youtube}" target="_blank" style="color:#ff0000;font-size:20px;text-decoration:none;">📺</a>` : ''}
-          ${profile.social.twitch ? `<a href="https://twitch.tv/${profile.social.twitch}" target="_blank" style="color:#9146ff;font-size:20px;text-decoration:none;">📡</a>` : ''}
-          ${profile.social.twitter ? `<a href="https://twitter.com/${profile.social.twitter}" target="_blank" style="color:#1da1f2;font-size:20px;text-decoration:none;">🐦</a>` : ''}
+          ${profile.social.youtube ? `<a href="https://youtube.com/${profile.social.youtube}" target="_blank" style="color:#ff0000;font-size:20px;text-decoration:none;"><i class="bi bi-youtube"></i></a>` : ''}
+          ${profile.social.twitch ? `<a href="https://twitch.tv/${profile.social.twitch}" target="_blank" style="color:#9146ff;font-size:20px;text-decoration:none;"><i class="bi bi-twitch"></i></a>` : ''}
+          ${profile.social.twitter ? `<a href="https://twitter.com/${profile.social.twitter}" target="_blank" style="color:#1da1f2;font-size:20px;text-decoration:none;"><i class="bi bi-twitter-x"></i></a>` : ''}
         </div>
       </div>
       ` : ''}
@@ -10745,6 +11649,9 @@ const KeyboardShortcuts = {
       
       switch(e.key.toLowerCase()) {
         case 's':
+          // Don't yank the note away while the player is mid-word in the
+          // input — S only skips when they've deliberately blurred (ESC).
+          if (document.activeElement && document.activeElement.id === 'g-input') return;
           e.preventDefault();
           this.skipNote();
           break;
@@ -10782,7 +11689,15 @@ const KeyboardShortcuts = {
     if (G.timer) {
       clearInterval(G.timer);
       G.timer = null;
+      this._pausedAt = Date.now();
     } else if (!G.stageEnded) {
+      // The timing module measures reaction from note display; a manual
+      // pause must not count against the player or every answer after
+      // resume would be judged 'late'.
+      if (this._pausedAt && typeof NotesTiming !== 'undefined') {
+        NotesTiming.resumeAfterPause(Date.now() - this._pausedAt);
+        this._pausedAt = null;
+      }
       G.timer = setInterval(() => {
         G.remaining--;
         updateTimer();
@@ -10805,11 +11720,13 @@ const KeyboardShortcuts = {
       <div style="background:var(--surf);border:1px solid var(--brd);padding:2rem;max-width:400px;">
         <h2 style="font-family:'Bebas Neue',sans-serif;color:var(--gold);margin-bottom:1rem;">Keyboard Shortcuts</h2>
         <div style="display:flex;flex-direction:column;gap:0.5rem;font-family:'IBM Plex Mono',monospace;font-size:13px;">
-          <div><strong>S</strong> — Skip note</div>
-          <div><strong>R</strong> — Replay audio</div>
+          <div><strong>Enter</strong> — Submit your call</div>
+          <div><strong>S</strong> — Skip note (typed text is discarded)</div>
+          <div><strong>R</strong> — Replay co-driver narration</div>
           <div><strong>P</strong> — Pause/Resume timer</div>
           <div><strong>H</strong> — Show this help</div>
           <div><strong>ESC</strong> — Blur input</div>
+          <div style="margin-top:8px;color:var(--text3);font-size:11px">Shortcuts only work when the input is NOT focused — press ESC first. S and R are ignored mid-stage otherwise.</div>
         </div>
         <button onclick="this.parentElement.parentElement.remove()" style="margin-top:1.5rem;padding:0.75rem 1.5rem;background:var(--gold);color:#000;border:none;cursor:pointer;font-weight:600;">Close</button>
       </div>
@@ -11295,7 +12212,7 @@ const RecordingMode = {
   updateUI: function() {
     const btn = document.getElementById('recording-toggle-btn');
     if (btn) {
-      btn.textContent = this.enabled ? '🔴 Recording ON' : '⚪ Recording OFF';
+      btn.innerHTML = this.enabled ? '<i class="bi bi-record-fill"></i> Recording ON' : '<i class="bi bi-record-circle"></i> Recording OFF';
       btn.style.background = this.enabled ? '#e8291c' : 'var(--surf2)';
     }
   },
@@ -11400,7 +12317,7 @@ const LanParty = {
       '</div>',
       '<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:2rem;">',
       '<div style="background:var(--surf2);border:1px solid var(--brd2);padding:2rem;max-width:500px;width:100%;text-align:center;">',
-      '<div style="font-size:64px;margin-bottom:1rem;">🎮</div>',
+      '<div style="font-size:64px;margin-bottom:1rem;"><i class="bi bi-controller"></i></div>',
       '<div style="font-family:\'Bebas Neue\',sans-serif;font-size:28px;color:var(--gold);margin-bottom:1rem;">HOST A LAN PARTY</div>',
       '<div style="background:#0a0a0c;border:1px solid var(--brd2);padding:1.5rem;margin-bottom:1rem;">',
       '<div style="font-size:12px;color:var(--text3);margin-bottom:0.5rem;">YOUR SERVER IP (for friends to join):</div>',
@@ -11413,8 +12330,8 @@ const LanParty = {
       '3. Server must be running (npm start)<br>',
       '4. Check Windows Firewall allows port 3000',
       '</div>',
-      '<div style="color:var(--green);font-size:14px;margin-bottom:1rem;">✓ Lobby created automatically!</div>',
-      '<button class="gbtn" onclick="LanParty.copyIp(\'' + localIp + '\');" style="width:100%;">📋 Copy IP Address</button>',
+      '<div style="color:var(--green);font-size:14px;margin-bottom:1rem;"><i class="bi bi-check-lg"></i> Lobby created automatically!</div>',
+      '<button class="gbtn" onclick="LanParty.copyIp(\'' + localIp + '\');" style="width:100%;"><i class="bi bi-clipboard"></i> Copy IP Address</button>',
       '</div>',
       '</div>'
     ].join('');
@@ -11435,7 +12352,7 @@ const LanParty = {
       '</div>',
       '<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:2rem;">',
       '<div style="background:var(--surf2);border:1px solid var(--brd2);padding:2rem;max-width:500px;width:100%;text-align:center;">',
-      '<div style="font-size:64px;margin-bottom:1rem;">🎮</div>',
+      '<div style="font-size:64px;margin-bottom:1rem;"><i class="bi bi-controller"></i></div>',
       '<div style="font-family:\'Bebas Neue\',sans-serif;font-size:28px;color:var(--gold);margin-bottom:1rem;">HOST A LAN PARTY</div>',
       '<div style="background:#0a0a0c;border:1px solid var(--brd2);padding:1.5rem;margin-bottom:1rem;">',
       '<div style="font-size:12px;color:var(--text3);margin-bottom:0.5rem;">YOUR SERVER IP (for friends to join):</div>',
@@ -11449,7 +12366,7 @@ const LanParty = {
       '4. Check Windows Firewall allows port 3000',
       '</div>',
       '<button class="gbtn pri" onclick="Multiplayer.createLobby();overlay.remove();" style="width:100%;margin-bottom:0.5rem;">Create Lobby Now</button>',
-      '<button class="gbtn" onclick="LanParty.copyIp(\'' + localIp + '\');" style="width:100%;">📋 Copy IP Address</button>',
+      '<button class="gbtn" onclick="LanParty.copyIp(\'' + localIp + '\');" style="width:100%;"><i class="bi bi-clipboard"></i> Copy IP Address</button>',
       '</div>',
       '</div>'
     ].join('');
