@@ -1,0 +1,3164 @@
+/* ============================================================================
+   THEMES.CSS — two personalities + the shared responsive layout system
+   ============================================================================
+   Loaded via <body class="theme-street"> / <body class="theme-roadbook">.
+   Each theme:
+     1. Re-declares the design tokens (whole app retheme)
+     2. Gives the MAIN MENU a genuinely different LAYOUT
+     3. Uses the project's two videos and its own Commons photograph
+   Group B was removed (too close to the default Cockpit look); a stub rule
+   keeps stale localStorage choices harmless.
+   ============================================================================ */
+
+body.theme-groub { display: flow-root; } /* legacy stub — does nothing */
+
+/* ============================================================================
+   SHARED RESPONSIVE MENU — button clusters that fit the viewport
+   ----------------------------------------------------------------------------
+   The markup has three clusters inside .menu-nav:
+     .menu-group.g-play    (Quick Stage, Career, era challenges)
+     .menu-group.g-learn   (Training School, Tutorial, Recce)
+     .menu-group.g-create  (Note Editor, Tuning, Achievements, Settings…)
+   Desktop: the two side-by-side panes stay, groups flow in 2–3 columns.
+   Laptop (≤1180px): menu collapses to ONE column — video on top, nav under.
+   Phone (≤640px): single column, full-width rows.
+   ============================================================================ */
+
+.menu-nav { flex-wrap: wrap; align-content: flex-start; }
+.menu-group { display: contents; }             /* groups vanish into the parent grid/flex */
+.menu-group-title {
+  flex: 1 1 100%;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text3);
+  padding: .55rem 2px .2rem;
+  border-bottom: 1px solid var(--brd);
+  user-select: none;
+}
+.menu-group-title:first-child { padding-top: 0; }
+
+@media (min-width: 641px) {
+  .menu-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; }
+  .menu-group-title { grid-column: 1 / -1; }
+  /* two columns in the 400px side panel: slightly denser rows */
+  .menu-nav .mnbtn { font-size: 17px; padding: .8rem .9rem; }
+  .menu-nav .mnbtn span { font-size: 11px; }
+}
+
+/* hidden-behind-flag buttons must not leave holes in the grid */
+.mnbtn[style*="display:none"], .mnbtn[hidden] { display: none !important; }
+
+/* ============================================================================
+   THEME: STREET RACER — JDM night, wet asphalt, magenta/cyan neon
+   ----------------------------------------------------------------------------
+   Menu: the rally video goes FULL-BLEED as the entire backdrop; the mode
+   clusters dock at the bottom as horizontal chip groups over blurred glass.
+   ============================================================================ */
+
+body.theme-street {
+  /* surfaces: deep night blue-black */
+  --bg: #05060e;
+  --surf: #0b0d1a;
+  --surf2: #101327;
+  --surf3: #161a35;
+  --brd: #232858;
+  --brd2: #36408a;
+
+  /* accents: neon */
+  --gold: #ffd60a;
+  --red: #ff2ec4;      /* neon magenta replaces red */
+  --cyan: #00f0ff;
+  --green: #00ff9d;
+  --mp-red: #ff2ec4;
+  --mp-yellow: #00f0ff;
+  --mp-orange: #ff6b9d;
+
+  --text: #eef0ff;
+  --text2: #9aa2d8;
+  --text3: #4c5488;
+
+  --rpa-radius: 4px;
+  --rpa-radius-sm: 3px;
+
+  --rpa-ring-gold: 0 0 0 3px rgba(255, 214, 10, .25);
+  --rpa-ring-cyan: 0 0 0 3px rgba(0, 240, 255, .25);
+
+  /* night-city photo behind every screen (except menu, which has the video) */
+  background:
+    linear-gradient(rgba(5, 6, 14, .9), rgba(5, 6, 14, .95)),
+    url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Tokyo_Shibuya_Scramble_Crossing_2018-10-09.jpg/1920px-Tokyo_Shibuya_Scramble_Crossing_2018-10-09.jpg') center / cover fixed no-repeat;
+}
+
+/* --- Street menu: full-bleed video, bottom dock chip clusters --- */
+
+body.theme-street .menu-wrap { grid-template-columns: 1fr; grid-template-rows: 1fr auto; max-width: none; }
+body.theme-street .menu-left { grid-row: 1; grid-column: 1; }
+body.theme-street .menu-right {
+  grid-row: 2; grid-column: 1;
+  background: rgba(7, 8, 18, .9);
+  backdrop-filter: blur(12px);
+  border-left: none;
+  border-top: 1px solid var(--brd2);
+  max-height: 58dvh;
+  overflow-y: auto;
+}
+body.theme-street .menu-stripe { background: linear-gradient(90deg, var(--cyan), var(--mp-red)); width: 100%; height: 4px; top: 0; bottom: auto; }
+body.theme-street .menu-hero { filter: brightness(.62) saturate(1.45) contrast(1.15); }
+
+/* "Shibuya at night": the real crossing photo (Commons, CC) with a slow
+   Ken Burns drift + live JST clock. The rally <video> below stays as the
+   motion layer. No third-party player dependency — always renders. */
+.street-cam {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background: #05060e;
+}
+.street-cam-shot {
+  position: absolute;
+  inset: -6%;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Tokyo_Shibuya_Scramble_Crossing_2018-10-09.jpg/1920px-Tokyo_Shibuya_Scramble_Crossing_2018-10-09.jpg') center 30% / cover no-repeat;
+  filter: brightness(.5) saturate(1.5) contrast(1.18);
+  animation: shibuyaDrift 34s ease-in-out infinite alternate;
+}
+@keyframes shibuyaDrift {
+  from { transform: scale(1.02) translateX(-1.4%); }
+  to   { transform: scale(1.12) translateX(1.4%); }
+}
+.street-cam-live {
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  z-index: 2;
+  font-family: 'Press Start 2P', 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #ff2ec4;
+  background: rgba(5, 6, 14, .72);
+  border: 1px solid rgba(255, 46, 196, .45);
+  padding: 3px 8px;
+  border-radius: 3px;
+  pointer-events: none;
+  animation: camPulse 2.4s ease-in-out infinite;
+}
+@keyframes camPulse { 0%, 100% { opacity: .85; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .street-cam-shot { animation: none; }
+  .street-cam-live { animation: none; }
+}
+/* the title floats over the full-bleed video (it's a direct grid child now,
+   so Street pins it absolutely — otherwise it auto-places below the console) */
+body.theme-street #menu .menu-content {
+  position: absolute;
+  top: 9vh;
+  left: 3vw;
+  right: 3vw;
+  z-index: 3;
+}
+body.theme-street .menu-overlay {
+  background:
+    radial-gradient(90% 70% at 50% 30%, transparent 40%, rgba(5, 6, 14, .55) 100%),
+    linear-gradient(180deg, transparent 45%, rgba(5, 6, 14, .82) 100%);
+}
+
+/* title: arcade attract-screen. Press Start 2P + the neon gradient. */
+body.theme-street #menu .menu-title {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: clamp(20px, 2.6vw, 36px);
+  line-height: 1.6;
+  color: var(--cyan);
+  text-shadow: none;
+  letter-spacing: 0;
+  font-style: normal;
+  transform: none;
+  animation: none;
+}
+body.theme-street #menu .menu-title br + * { margin-top: .4em; }
+@supports (-webkit-background-clip: text) {
+  body.theme-street #menu .menu-title {
+    background: linear-gradient(90deg, var(--cyan) 20%, var(--mp-red) 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* hard arcade offset keeps the gradient glyphs readable on the photo */
+    text-shadow: 3px 3px 0 rgba(5, 6, 14, .92), 0 0 22px rgba(0, 240, 255, .18);
+  }
+  body.theme-street #menu .menu-title span {
+    background: linear-gradient(90deg, var(--gold), #ff9d00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 3px 3px 0 rgba(5, 6, 14, .92), 0 0 22px rgba(255, 157, 0, .2);
+  }
+}
+body.theme-street #menu .menu-sub {
+  color: var(--text2);
+  border-left: none; padding-left: 0;
+  border-top: 2px solid var(--mp-red);
+  display: inline-block; padding-top: 6px;
+  font-family: 'VT323', 'IBM Plex Mono', monospace;
+  font-size: 21px;
+  letter-spacing: 2px;
+}
+body.theme-street #menu .menu-quote {
+  color: var(--text3);
+  font-family: 'VT323', 'IBM Plex Mono', monospace;
+  font-size: 17px;
+}
+
+/* masthead + clusters become the dock */
+body.theme-street #menu .menu-right-top {
+  background: transparent;
+  color: var(--cyan);
+  border-bottom: none;
+  font-size: 13px;
+  letter-spacing: 4px;
+  padding: .6rem 1rem 18px;
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+body.theme-street .menu-right-top + div { display: none !important; }  /* inline-styled strip wastes dock space */
+body.theme-street #menu .menu-right-top::after {
+  /* different notes for Street: Wangan calls, not WRC pace */
+  content: 'WANGAN EAST · C6 UPHILL · ⚠ TRAP AHEAD · TUNNEL: NO LIFT · 300 KM/H DANGER · DEADLINE 05:00 ·';
+  left: auto; right: 1rem; bottom: 4px;
+  color: rgba(0, 240, 255, .45);
+  font-family: 'Press Start 2P', 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  animation: noteTicker 26s linear infinite;
+}
+
+/* dock: real cluster rows (groups become flex rows of chips) */
+body.theme-street #menu .menu-nav { display: flex; flex-direction: column; gap: 2px; padding: .4rem 1rem .9rem; }
+body.theme-street .menu-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+body.theme-street .menu-group-title {
+  flex: 1 1 100%;
+  border-bottom-color: rgba(54, 64, 138, .5);
+  color: var(--cyan);
+  font-family: 'Press Start 2P', 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+body.theme-street #menu .mnbtn {
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  background: var(--surf2);
+  border: 1px solid var(--brd);
+  border-bottom: 2px solid var(--brd2);
+  border-radius: 3px;
+  padding: .45rem .8rem;
+  font-family: 'VT323', 'IBM Plex Mono', monospace;
+  font-size: 21px;
+  letter-spacing: 1px;
+  animation: none;
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+body.theme-street #menu .mnbtn:hover {
+  transform: translateY(-3px);
+  border-bottom-color: var(--cyan);
+  background: var(--surf3);
+}
+body.theme-street #menu .mnbtn.pri { border-color: var(--mp-red); border-bottom-color: var(--mp-red); background: rgba(255, 46, 196, .12); }
+body.theme-street #menu .menu-bar { display: none; }
+
+/* ultra-wide: the dock stops stacking group-rows and goes INLINE — each
+   cluster title sits left of its chips on one line, so the dock gets
+   shorter and the full-bleed video gets the vertical space a widescreen
+   deserves. Matches the "wide" feel of the other two themes. */
+@media (min-width: 1500px) {
+  body.theme-street #menu .menu-nav { gap: 0; padding: .5rem 2.2rem 1rem; }
+  body.theme-street .menu-group { flex: 0 0 auto; gap: 8px; padding-right: 2.4rem; }
+  body.theme-street .menu-group + .menu-group { border-left: 1px solid rgba(54, 64, 138, .45); padding-left: 2.4rem; }
+  body.theme-street .menu-group-title {
+    flex: 0 0 auto;
+    border-bottom: none;
+    padding: 0 .9rem 0 0;
+    font-size: 9px;
+  }
+  body.theme-street #menu .mnbtn { font-size: 22px; padding: .5rem .95rem; }
+  body.theme-street .menu-right { max-height: none; }
+  body.theme-street .street-boxart { right: 44px; top: 96px; }
+  body.theme-street #menu .menu-content { top: 10vh; left: 4vw; }
+  body.theme-street .street-cam-live { font-size: 10px; left: 24px; top: 18px; }
+}
+
+/* Street game screen: shader video clearly visible under a magenta/cyan wash */
+body.theme-street #game-bg-video { opacity: .5; filter: saturate(1.5) contrast(1.12) hue-rotate(-8deg); }
+body.theme-street .game-bg-overlay { background: radial-gradient(85% 70% at 50% 40%, transparent 30%, rgba(5, 6, 14, .55) 100%); }
+
+/* --- Street heritage wall: the REAL Mid Night Club --------------------- *
+ * The secret Wangan society (Tokyo–Yokohama, 1987–1999): 300 km/h Porsche
+ * 930 "Blackbird", R32 GT-Rs, Shuto Expressway. All photos Wikimedia
+ * Commons, free licenses (CC BY / CC BY-SA), credited in .theme-credits.  */
+
+.street-boxart {
+  display: none;
+  position: absolute;
+  z-index: 3;
+  right: 26px;
+  top: 84px;                       /* over the video's upper band, clear of title + dock */
+  gap: 14px;
+  pointer-events: none;
+}
+body.theme-street .street-boxart { display: flex; }
+.street-boxart figure {
+  margin: 0;
+  position: relative;
+  transform: perspective(600px) rotateY(-9deg);
+  transition: transform 220ms ease, filter 220ms ease;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .55));
+}
+.street-boxart figure:hover { transform: perspective(600px) rotateY(0deg) translateY(-8px) scale(1.06); }
+.street-boxart img {
+  display: block;
+  height: 168px;                   /* single image gets room to breathe */
+  width: auto;
+  border-radius: 4px;
+  border: 1px solid rgba(54, 64, 138, .9);
+  box-shadow: 0 0 22px rgba(255, 46, 196, .18), 0 0 4px rgba(0, 240, 255, .25);
+  background: #101327;
+}
+.street-boxart figcaption {
+  position: absolute;
+  left: 0; right: 0; bottom: -16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: .5px;
+  color: var(--text3);
+  text-align: center;
+  white-space: nowrap;
+}
+/* keep them off the menu on narrow screens (static flow would cram them
+   between the video, dock and footer); the game screen keeps its wall */
+@media (max-width: 1180px) {
+  body.theme-street #menu .street-boxart { display: none; }
+}
+
+/* game screen: smaller wall, tucked under the HUD bar on the right */
+body.theme-street #game .street-boxart { top: 64px; right: 16px; gap: 10px; }
+body.theme-street #game .street-boxart img { height: 76px; border-radius: 3px; }
+
+/* ============================================================================
+   THEME: PAPER ROADBOOK — printed route sheet, felt-pen margin notes
+   ----------------------------------------------------------------------------
+   Menu: one centered sheet; the RALLY VIDEO plays inside a small "polaroid"
+   window at the top like a film-strip on paper. Index of modes below.
+   ============================================================================ */
+
+body.theme-roadbook {  /* surfaces: scorched umber — the shade side of the dune */
+  --bg: #191106;
+  --surf: #221709;
+  --surf2: #2a1d0e;
+  --surf3: #332412;
+  --brd: #4a371e;
+  --brd2: #6d5330;
+
+  /* accents: dakar orange, bleached sand, alert red */
+  --gold: #ff8c1a;
+  --red: #e04430;
+  --cyan: #e8c98f;
+  --green: #ffb84d;
+  --mp-red: #e04430;
+  --mp-yellow: #ffb000;
+  --mp-orange: #ff8c1a;
+
+  /* text: sand-lit */
+  --text: #f3e6c8;
+  --text2: #b39b72;
+  --text3: #7d6845;
+
+  --rpa-radius: 2px;
+  --rpa-radius-sm: 1px;
+
+  --rpa-ring-gold: 0 0 0 3px rgba(255, 140, 26, .28);
+  --rpa-ring-cyan: 0 0 0 3px rgba(232, 201, 143, .28);
+
+  background:
+    repeating-linear-gradient(0deg, rgba(214, 176, 116, .022) 0 1px, transparent 1px 4px),
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 140, 26, .05), transparent 55%),
+    linear-gradient(rgba(26, 17, 6, .98), rgba(19, 12, 4, .99));
+}
+
+/* --- Paper menu v4: the MAP PLATE replaces the photo plate — see ROADBOOK v4
+   section below for the plate, route line, and dashcam inset. --- */
+/* the map plate (v4): the left pane becomes a fixed-height plate block */
+body.theme-roadbook .menu-left {
+  display: block;
+  position: relative;
+  grid-column: 1;
+  height: 190px;
+  padding: 0;
+}
+body.theme-roadbook #menu .menu-hero {
+  position: absolute;
+  inset: auto;
+  width: 27%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  filter: sepia(.45) contrast(.95) brightness(.92);
+  border: 1px solid var(--brd2);
+  box-shadow: 2px 3px 0 rgba(34, 29, 21, .25);
+  background: var(--surf);
+  animation: none;
+  opacity: 1;
+}
+body.theme-roadbook .menu-overlay, body.theme-roadbook .menu-stripe, body.theme-roadbook .menu-content { display: none; }
+
+/* v4: masthead head-rule + hard ink frame on the sheet */
+body.theme-roadbook #menu .menu-right-top {
+  border-bottom: 3px double var(--text);
+  padding-bottom: .5rem;
+}
+body.theme-roadbook .menu-right {
+  border: 1.5px solid var(--text);
+  box-shadow: 4px 5px 0 rgba(34, 29, 21, .14);
+}
+
+/* the sheet itself — scrolls internally if long, never drags the page */
+body.theme-roadbook .menu-right {
+  background: var(--surf);
+  border: 1px solid var(--brd2);
+  border-top: none;
+  box-shadow: 3px 4px 0 rgba(34, 29, 21, .12);
+  max-height: calc(100dvh - 300px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brd2) transparent;
+}
+
+/* masthead */
+body.theme-roadbook #menu .menu-right-top {
+  background: transparent;
+  color: var(--text);
+  border-bottom: 3px double var(--text);
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: 2px;
+  padding: 1.2rem 1.5rem 1.7rem;
+  position: relative;
+  overflow: hidden;
+}
+body.theme-roadbook #menu .menu-right-top::after {
+  content: 'ss 7 · 4.2 km · gravel · 2nd pass';
+  position: absolute;
+  left: auto; right: 1.5rem; bottom: 6px;
+  font-family: 'Caveat', 'IBM Plex Mono', cursive;
+  font-weight: 600;
+  font-size: 19px;
+  font-style: normal;
+  letter-spacing: .5px;
+  color: var(--mp-red);
+  animation: none;
+}
+/* inline-styled info strip → printed footnote */
+body.theme-roadbook .menu-right-top + div {
+  background: transparent !important;
+  border-bottom: 1px solid var(--brd) !important;
+  color: var(--text2) !important;
+}
+body.theme-roadbook .menu-right-top + div span[style*="f5c518"] { color: var(--mp-orange) !important; }
+body.theme-roadbook .menu-right-top + div span[style*="39ff14"] { color: var(--green) !important; }
+body.theme-roadbook .menu-right-top + div button[style*="39ff14"] {
+  background: var(--surf3) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--brd2) !important;
+}
+
+/* index of modes: dotted rules, ink serif; cluster titles = section headings.
+   Plain block flow — flex column would turn the 100%-basis titles into
+   height-sized slivers and wrap items into phantom columns. */
+body.theme-roadbook #menu .menu-nav { display: block; padding: .6rem 1.5rem; }
+body.theme-roadbook .menu-group-title {
+  display: block;
+  flex: none;
+  width: auto;
+  font-family: 'Caveat', 'Playfair Display', cursive;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: var(--mp-red);
+  border-bottom: none;
+  padding: .9rem 0 .15rem;
+}
+body.theme-roadbook #menu .mnbtn {
+  background: transparent;
+  border: none;
+  border-bottom: 1px dotted var(--brd2);
+  border-radius: 0;
+  color: var(--text);
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: none;
+  letter-spacing: .2px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: .55rem .2rem;
+  animation: none;
+  transition: color 140ms ease, padding-left 140ms ease;
+}
+body.theme-roadbook #menu .mnbtn span {
+  font-family: 'Caveat', 'IBM Plex Mono', cursive;
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--text3);
+}
+body.theme-roadbook #menu .mnbtn:hover { color: var(--mp-red); padding-left: .7rem; background: transparent; }
+body.theme-roadbook #menu .mnbtn.pri { background: transparent; color: var(--text); }
+body.theme-roadbook #menu .mnbtn.pri::after {
+  content: '◄ start here';
+  font-family: 'Caveat', 'IBM Plex Mono', cursive;
+  font-weight: 700;
+  font-size: 19px;
+  font-style: normal;
+  color: var(--mp-red);
+  margin-left: auto;
+}
+body.theme-roadbook #menu .mnbtn.pri span { color: var(--mp-red); border: 2px solid var(--mp-red); padding: 1px 5px; transform: rotate(-4deg); border-radius: 2px; }
+body.theme-roadbook #menu .menu-bar {
+  background: transparent;
+  border-top: 3px double var(--text);
+  color: var(--text3);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  letter-spacing: .5px;
+  text-transform: none;
+}
+body.theme-roadbook #menu .menu-bar::before { content: '— '; letter-spacing: 0; color: var(--text3); }
+
+/* Street game screen HUD: terminal type */
+body.theme-street .g-stage {
+  font-family: 'VT323', 'IBM Plex Mono', monospace;
+  font-size: 26px;
+  letter-spacing: 1px;
+  color: var(--cyan);
+}
+body.theme-street .g-meta { font-family: 'VT323', 'IBM Plex Mono', monospace; font-size: 15px; }
+body.theme-street .g-sl { font-family: 'Press Start 2P', 'IBM Plex Mono', monospace; font-size: 8px; }
+
+/* Paper game screen: the shader video becomes a faint watercolor under paper */
+body.theme-roadbook #game-bg-video { opacity: .16; filter: sepia(.5) contrast(.85) brightness(1.08); }
+body.theme-roadbook .game-bg-overlay { background: linear-gradient(180deg, rgba(239, 233, 220, .55), rgba(239, 233, 220, .92)); }
+
+/* ============================================================================
+   THEME-DRIVEN BACKDROPS for inner screens
+   ----------------------------------------------------------------------------
+   A .theme-bg div as the FIRST CHILD of major screens. Hidden in Cockpit.
+   ============================================================================ */
+
+.theme-bg {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* keep screen content painting above the backdrop layer */
+.screen > :not(.theme-bg):not(.theme-credits) { position: relative; z-index: 1; }
+
+body.theme-street .theme-bg {
+  display: block;
+  background-image:
+    linear-gradient(180deg, rgba(5, 6, 14, .87), rgba(5, 6, 14, .95)),
+    url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Tokyo_Shibuya_Scramble_Crossing_2018-10-09.jpg/1280px-Tokyo_Shibuya_Scramble_Crossing_2018-10-09.jpg');
+}
+body.theme-roadbook .theme-bg {
+  display: block;
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(178, 200, 168, .2), transparent 42%),
+    linear-gradient(180deg, rgba(246, 239, 227, .97), rgba(243, 234, 219, .99));
+}
+
+/* photo credit line — only when a photo theme is active */
+.theme-credits {
+  display: none;
+  position: absolute;
+  right: 12px;
+  top: 64px;
+  z-index: 6;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .5px;
+  color: var(--text3);
+  opacity: .75;
+  pointer-events: none;
+  max-width: 46ch;
+  text-align: right;
+}
+body.theme-street .theme-credits,
+body.theme-roadbook .theme-credits { display: block; }
+
+/* laptop: menu collapses to ONE column — video pane on top, modes under */
+@media (max-width: 1180px) {
+  .menu-wrap { grid-template-columns: 1fr !important; grid-template-rows: minmax(200px, 34dvh) 1fr; }
+  .menu-left { position: relative; height: auto; min-height: 0; }
+  /* roadbook keeps its masthead/plate/index rows — the generic 2-row collapse
+     would fling the title below the sheet */
+  body.theme-roadbook .menu-wrap { grid-template-rows: auto auto minmax(0, 1fr) !important; }
+  body.theme-roadbook #menu .menu-left { height: 160px; }
+}
+
+/* ============================================================================
+   COCKPIT FIT-PASS — the app must fit short screens too
+   ----------------------------------------------------------------------------
+   Below ~740px of height the menu stops stretching to fill and starts
+   compacting: smaller hero, tighter bars, denser rows. If it still can't
+   fit, only .menu-nav scrolls — never the page.
+   ============================================================================ */
+@media (max-height: 740px) {
+  #menu { overflow-y: hidden; }
+  .menu-wrap { grid-template-rows: minmax(140px, 26dvh) minmax(0, 1fr); }
+  .menu-left { min-height: 0; }
+  .menu-right { min-height: 0; overflow: hidden; }
+  .menu-nav { overflow-y: auto; min-height: 0; scrollbar-width: thin; scrollbar-color: var(--brd2) transparent; }
+  #menu .mnbtn, .menu-nav .mnbtn { padding: .5rem .7rem; font-size: 14px; }
+  .menu-right-top { padding: .4rem 1rem !important; font-size: 16px !important; }
+  .menu-right-top + div { padding: .3rem .8rem !important; }
+  #menu .menu-bar { padding: .12rem 1rem !important; font-size: 9px !important; }
+}
+@media (max-height: 560px) {
+  .menu-wrap { grid-template-rows: minmax(96px, 18dvh) minmax(0, 1fr); }
+  #menu .mnbtn, .menu-nav .mnbtn { padding: .35rem .6rem; font-size: 12px; }
+  .menu-group-title { padding: .3rem 2px .1rem; font-size: 9px; }
+  #menu .menu-bar { display: none; }
+}
+@media (max-width: 640px) {
+  .menu-wrap { grid-template-rows: 150px 1fr !important; }
+  .menu-nav { display: flex !important; flex-direction: column; }
+  .menu-nav .mnbtn { font-size: 16px; padding: .75rem .8rem; width: 100%; }
+}
+
+/* ============================================================================
+   INNER-SCREEN RESPONSIVE PASS — no pointless scrollbars, buttons stay put
+   ----------------------------------------------------------------------------
+   .fields-row / grids collapse on narrow screens; footers stop floating.
+   ============================================================================ */
+
+@media (max-width: 760px) {
+  .fields-row { flex-direction: column; gap: .6rem; }
+  .car-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .era-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* theme dock: fixed, above every screen (screens are z-index-stacked fixed
+   layers, so the dock must live above them, not in normal flow) */
+.theme-dock {
+  position: fixed;
+  left: 14px;
+  bottom: 14px;
+  z-index: 9500;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 6px 8px;
+  background: rgba(10, 10, 12, .82);
+  border: 1px solid var(--brd2, #35354a);
+  border-radius: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  backdrop-filter: blur(6px);
+}
+.theme-dock button {
+  background: transparent;
+  border: 1px solid var(--brd2, #35354a);
+  color: var(--text2, #9090a8);
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 11px;
+  transition: all 140ms ease;
+}
+.theme-dock button:hover { color: var(--text, #f0f0f0); border-color: var(--gold, #f5c518); }
+.theme-dock button.on {
+  background: var(--gold, #f5c518);
+  border-color: var(--gold, #f5c518);
+  color: #0a0a0c;
+  font-weight: 600;
+}
+.theme-dock .theme-dock-label { color: var(--text3, #50506a); letter-spacing: 1px; margin-right: 2px; }
+
+/* small screens: tuck it tighter */
+@media (max-width: 640px) {
+  .theme-dock { left: 8px; bottom: 8px; padding: 4px 6px; }
+  .theme-dock .theme-dock-label { display: none; }
+}
+
+/* reduced motion: no ken burns anywhere */
+@media (prefers-reduced-motion: reduce) {
+  body.theme-street .menu-hero { animation: none !important; }
+}
+
+/* ============================================================================
+   COCKPIT DELUXE — the default theme earns its name
+   ----------------------------------------------------------------------------
+   Not a recolor: the menu gets a proper rally-console treatment (visible
+   gauge ring on the video, angled carbon panel, switch row) and the GAME
+   screen becomes a co-driver cockpit: hazard-stripe progress, gauge chips.
+   Scoped tightly; every rule has a fallback if the element is absent.
+   ============================================================================ */
+
+/* (the old gauge chip was removed in v4 — the poster doesn't need fake telemetry) */
+
+/* side panel: angled carbon + a switch-row top edge */
+body:not(.theme-street):not(.theme-roadbook) .menu-right {
+  background:
+    repeating-linear-gradient(-38deg, rgba(255, 255, 255, .016) 0 3px, transparent 3px 9px),
+    #0e0e12;
+  border-left: 2px solid #3a3a4c;
+  box-shadow: inset 6px 0 18px -12px rgba(0, 0, 0, .9);
+}
+
+/* --- game screen: hazard-stripe progress + gauge top bar ------------------ */
+body:not(.theme-street):not(.theme-roadbook) .g-topbar {
+  background:
+    repeating-linear-gradient(-45deg, rgba(245, 197, 24, .04) 0 12px, transparent 12px 30px),
+    rgba(14, 14, 18, .92);
+  border-bottom: 2px solid var(--mp-red);
+}
+body:not(.theme-street):not(.theme-roadbook) .g-stage::before {
+  content: '▶ ';
+  color: var(--mp-red);
+}
+body:not(.theme-street):not(.theme-roadbook) .g-sv {
+  color: var(--gold);
+  text-shadow: 0 0 12px rgba(245, 197, 24, .35);
+}
+body:not(.theme-street):not(.theme-roadbook) .g-prog-bar {
+  height: 6px;
+  background:
+    repeating-linear-gradient(-45deg, #17171e 0 8px, #101016 8px 16px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
+}
+body:not(.theme-street):not(.theme-roadbook) .g-foot {
+  border-top: 2px solid var(--brd2);
+  background: rgba(12, 12, 16, .94);
+}
+
+/* ============================================================================
+   ROADBOOK DELUXE — push the route-card fantasy further
+   ============================================================================ */
+
+/* paper texture: faint laid-lines + a page-edge shadow on the sheet */
+body.theme-roadbook #menu .menu-right {
+  background:
+    repeating-linear-gradient(0deg, rgba(34, 29, 21, .022) 0 1px, transparent 1px 7px),
+    var(--surf);
+}
+body.theme-roadbook .menu-wrap { padding-top: 1.6rem; }
+
+/* the film window gets a proper caption strip, polaroid-style */
+body.theme-roadbook .menu-left { position: relative; }
+
+/* (v4 board grid retired in v6: the nav is the Street-style chip dock now) */
+body.theme-roadbook #menu .menu-nav { position: relative; }
+/* red editorial stamp across the top-right of the listing */
+body.theme-roadbook #menu .menu-nav::after {
+  content: '2ND PASS';
+  position: absolute;
+  top: -2px;
+  right: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--mp-red);
+  border: 2px solid var(--mp-red);
+  padding: 3px 9px;
+  transform: rotate(3deg);
+  opacity: .7;
+  pointer-events: none;
+}
+/* (v4 board media queries retired with the grid) */
+
+/* the start row gets a corner dog-ear stamp block */
+body.theme-roadbook #menu .mnbtn.pri {
+  background:
+    linear-gradient(135deg, rgba(179, 38, 30, .07) 0 18px, transparent 18px),
+    transparent;
+}
+
+/* (inner screens: pure print texture via the token/theme-bg rules above) */
+
+/* cottagecore game screen: notebook HUD */
+body.theme-roadbook .g-topbar {
+  background: var(--surf);
+  border-bottom: 2px solid var(--brd);
+}
+body.theme-roadbook .g-stage { font-family: 'Cookie', 'Caveat', cursive; font-weight: 400; font-size: 30px; letter-spacing: .5px; color: var(--text); }
+body.theme-roadbook .g-stage::after {
+  content: ' — stage diary';
+  font-family: 'Gochi Hand', 'Caveat', cursive;
+  font-weight: 400;
+  font-size: 17px;
+  color: var(--mp-red);
+}
+body.theme-roadbook .g-topbar, body.theme-roadbook .g-foot, body.theme-roadbook .g-dots {
+  background: var(--surf);
+}
+body.theme-roadbook .g-foot { border-top: 2px dashed var(--brd2); }
+body.theme-roadbook .g-meta, body.theme-roadbook .g-sl { color: var(--text2); }
+body.theme-roadbook .g-prog-bar {
+  height: 5px;
+  background:
+    repeating-linear-gradient(90deg, rgba(194, 99, 110, .35) 0 14px, transparent 14px 18px);
+}
+
+/* ============================================================================
+   COCKPIT v4 — LAYOUT CHANGE: full-bleed ACTION POSTER
+   ----------------------------------------------------------------------------
+   The default theme stops being a website with a photo and becomes the
+   poster itself: Petter Solberg's Subaru Impreza WRC sideways in a wall of
+   Cypriot dust fills the whole screen; the title is set like event
+   typography (red kicker, gold-gradient THE HAIRPIN); your rally video
+   lives on as the pilot-cam inset; the mode console docks below.
+   Default theme only — Street/Roadbook override everything themselves.
+   ============================================================================ */
+
+body:not(.theme-street):not(.theme-roadbook) .menu-wrap {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+}
+/* the cockpit photo: the video pane's own backdrop layer */
+body:not(.theme-street):not(.theme-roadbook) .menu-left {
+  grid-row: 1;
+  grid-column: 1;
+}
+/* cockpit photo backdrop + dark console wash (the hero video itself is the
+   pilot-cam inset below — this ::after carries the interior photo) */
+body:not(.theme-street):not(.theme-roadbook) .menu-left {
+  position: relative;
+  overflow: hidden;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-left::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(10, 10, 12, .88) 0%, rgba(10, 10, 12, .5) 42%, rgba(10, 10, 12, .12) 100%),
+    linear-gradient(0deg, rgba(10, 10, 12, .88) 0%, rgba(10, 10, 12, 0) 45%),
+    url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Petter_Solberg_-_2005_Cyprus_Rally.jpg/1920px-Petter_Solberg_-_2005_Cyprus_Rally.jpg') center 32% / cover no-repeat;
+}
+/* the pilot-cam: the video, small, bottom-left, like a dashcam feed */
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-hero {
+  position: absolute;
+  z-index: 2;
+  top: auto;
+  bottom: 16px;
+  right: 16px;
+  left: auto;
+  width: 26vw;
+  height: 15vw;
+  min-width: 240px;
+  min-height: 135px;
+  max-height: 220px;
+  border: 2px solid var(--gold);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, .65);
+  filter: brightness(1.05) saturate(1.1);
+  object-position: center;
+  animation: none; /* no ken-burns drift on a dashcam feed */
+}
+/* the poster's own gradients replace the base vignette */
+body:not(.theme-street):not(.theme-roadbook) .menu-overlay { background: none; }
+/* title set like event typography over the poster, upper-left */
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-content {
+  position: absolute;
+  top: 9vh;
+  left: 3.5vw;
+  right: 30vw;
+  z-index: 3;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-content::before {
+  content: '/// CO-DRIVER ACADEMY — SEASON 2026';
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--mp-red);
+  margin-bottom: 10px;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-title {
+  font-size: clamp(46px, 7.4vw, 100px);
+  line-height: .92;
+  letter-spacing: 1px;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-title span {
+  background: linear-gradient(92deg, var(--mp-yellow) 0%, var(--mp-orange) 55%, var(--mp-red) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-sub { color: #c9c9d6; }
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-quote {
+  border-left: 3px solid var(--mp-red);
+  padding: 3px 0 3px 14px;
+  color: #a2a2b4;
+  max-width: 46ch;
+}
+/* the console dock */
+body:not(.theme-street):not(.theme-roadbook) .menu-right {
+  grid-row: 2;
+  grid-column: 1;
+  background:
+    repeating-linear-gradient(-38deg, rgba(255, 255, 255, .016) 0 3px, transparent 3px 9px),
+    #0c0c10;
+  border-left: none;
+  border-top: 2px solid var(--mp-red);
+  box-shadow: 0 -14px 34px rgba(0, 0, 0, .6);
+  max-height: 62dvh;
+  overflow-y: auto;
+  min-height: 0;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px 10px;
+  padding: .7rem 1.2rem .9rem;
+}
+body:not(.theme-street):not(.theme-roadbook) .menu-group-title {
+  grid-column: 1 / -1;
+  color: var(--gold);
+  border-bottom-color: #2e2e3c;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn {
+  background: rgba(23, 23, 30, .82);
+  border: 1px solid #2e2e3c;
+  border-left: 3px solid #3c3c50;
+  border-radius: 4px;
+  padding: .6rem .8rem;
+  font-size: 15px;
+  letter-spacing: 1.5px;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn:hover {
+  border-left-color: var(--gold);
+  background: rgba(32, 32, 42, .92);
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn.pri {
+  border-color: var(--mp-red);
+  border-left-width: 3px;
+  background: rgba(232, 41, 28, .14);
+}
+
+/* laptop: photo spans the top two rows so no dead band opens above it */
+@media (max-width: 1180px) {
+  body:not(.theme-street):not(.theme-roadbook) .menu-left { grid-row: 1 / 3; grid-column: 1; }
+  body:not(.theme-street):not(.theme-roadbook) #menu .menu-content { top: 5vh; }
+}
+
+/* narrow: pilot cam shrinks, console single column */
+@media (max-width: 900px) {
+  body:not(.theme-street):not(.theme-roadbook) #menu .menu-nav { grid-template-columns: 1fr 1fr; }
+  body:not(.theme-street):not(.theme-roadbook) .menu-hero { width: 34vw; height: 19vw; }
+}
+@media (max-width: 640px) {
+  body:not(.theme-street):not(.theme-roadbook) #menu .menu-nav { grid-template-columns: 1fr; }
+  body:not(.theme-street):not(.theme-roadbook) .menu-hero { width: 46vw; height: 26vw; min-width: 180px; min-height: 102px; }
+}
+
+/* ============================================================================
+   ROADBOOK v4 — the MAP PLATE: a drawn silhouette profile strip
+   ----------------------------------------------------------------------------
+   The last photo is gone. The plate across the top of the card is now pure
+   print: pale blueprint tint, etched contour lines, a bold red dashed SS
+   route with start/finish squares, road-name label, and the dashcam inset
+   (your video) still running in its corner.
+   ============================================================================ */
+
+body.theme-roadbook .menu-wrap { max-width: 980px; padding: 1.6rem 1.2rem 2.4rem; }
+
+/* the title is the printed MASTHEAD: its own static row above the plate */
+body.theme-roadbook .menu-wrap { grid-template-rows: auto auto minmax(0, 1fr); }
+body.theme-roadbook #menu .menu-content {
+  display: block;
+  position: static;
+  grid-column: 1;
+  padding: 0 0 .9rem;
+}
+body.theme-roadbook #menu .menu-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(30px, 4.2vw, 52px);
+  letter-spacing: .5px;
+  color: var(--text);
+  line-height: 1.02;
+}
+body.theme-roadbook #menu .menu-title span { color: var(--mp-red); font-style: italic; }
+body.theme-roadbook #menu .menu-sub {
+  display: inline-block;
+  margin-top: 6px;
+  border-top: 2px solid var(--text);
+  padding-top: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text2);
+}
+body.theme-roadbook #menu .menu-quote { display: none; }
+
+/* the map plate: a PRINTED silhouette profile strip — no photo, all ink */
+body.theme-roadbook .menu-left {
+  position: relative;
+  height: 190px;
+  background:
+    repeating-linear-gradient(0deg, rgba(34, 29, 21, .028) 0 1px, transparent 1px 10px),
+    linear-gradient(180deg, #eef1ea, #e6ebe2);
+  border: 1.5px solid var(--text);
+  box-shadow: 3px 4px 0 rgba(34, 29, 21, .12);
+  overflow: hidden;
+}
+/* etched contours + the SS route, drawn as one print layer */
+body.theme-roadbook #menu .menu-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120' preserveAspectRatio='none'%3E%3Cpath d='M0 88 Q60 58 120 74 T240 52 T400 30' fill='none' stroke='%239aa89b' stroke-width='1'/%3E%3Cpath d='M0 100 Q70 74 140 86 T260 66 T400 46' fill='none' stroke='%239aa89b' stroke-width='.8'/%3E%3Cpath d='M0 112 Q80 92 160 100 T280 82 T400 64' fill='none' stroke='%239aa89b' stroke-width='.8'/%3E%3Cpath d='M0 76 Q80 44 150 62 T280 40 T400 18' fill='none' stroke='%239aa89b' stroke-width='.7'/%3E%3Cpath d='M8 96 L70 82 L118 90 L182 60 L246 70 L322 34 L392 22' fill='none' stroke='%23b3261e' stroke-width='2.6' stroke-dasharray='8 5'/%3E%3Crect x='3' y='90' width='9' height='9' fill='%23b3261e'/%3E%3Crect x='388' y='16' width='9' height='9' fill='%23104a10'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+/* the video becomes a live dashcam inset, bottom-right of the plate */
+body.theme-roadbook #menu .menu-hero {
+  position: absolute;
+  inset: auto;
+  right: 10px;
+  bottom: 10px;
+  width: 27%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  z-index: 2;
+  border: 1px solid var(--brd2);
+  box-shadow: 2px 3px 0 rgba(34, 29, 21, .25);
+  filter: sepia(.45) contrast(.95) brightness(.92);
+}
+/* the old caption line now annotates the map plate */
+body.theme-roadbook #menu .menu-left .map-ref {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  z-index: 4;
+  font-family: 'Caveat', cursive;
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--text2);
+  text-shadow: 0 1px 0 rgba(239, 233, 220, .9);
+  pointer-events: none;
+}
+
+/* (v4: the title no longer rides the plate — it's the static masthead above) */
+body.theme-roadbook .menu-stripe { display: none; }
+
+/* map-ref annotation: only exists on the roadbook map plate */
+.map-ref { display: none; }
+body.theme-roadbook .map-ref { display: block; }
+
+/* (v3's map-reference D-codes removed: counter() doesn't propagate through
+   the display:contents group wrappers, so the boxes rendered empty) */
+
+/* guard: the street cam element must never render outside the street theme */
+#street-cam { display: none; }
+body.theme-street #street-cam { display: block; }
+
+
+/* ============================================================================
+   ROADBOOK v5 — COTTAGECORE JOURNAL
+   ----------------------------------------------------------------------------
+   "pinterest notebook study aesthetic": warm cream + sage + dusty rose,
+   true cursive everywhere (Cookie for headings, Gochi Hand for pen notes),
+   dot-grid paper, washi tape, sticky-note Quick Stage, highlighter marks.
+   The structural bone (masthead row / plate row / index) stays from v4.
+   ============================================================================ */
+
+/* --- the sheet becomes a dotted notebook page ---------------------------- */
+body.theme-roadbook .menu-wrap {
+  max-width: 980px;
+  height: calc(100dvh - 3.5rem);
+  padding: 1.1rem 1.2rem 1.4rem;
+  background:
+    radial-gradient(rgba(122, 107, 88, .16) 1px, transparent 1.5px),
+    linear-gradient(180deg, var(--surf), var(--surf2));
+  background-size: 22px 22px, auto;
+  border-radius: 10px;
+  border: 1px solid var(--brd);
+  box-shadow: 0 18px 40px rgba(93, 78, 58, .18), 0 2px 6px rgba(93, 78, 58, .08);
+  overflow: hidden;
+}
+body.theme-roadbook .menu-right { border: none; box-shadow: none; max-height: none; overflow-y: auto; min-height: 0; }
+
+/* --- washi tape: sage strip on the study card, rose strip on the masthead - */
+body.theme-roadbook .menu-left::after {
+  content: '';
+  position: absolute;
+  top: -13px; left: 26px;
+  width: 120px; height: 28px;
+  background: rgba(179, 205, 172, .62);
+  transform: rotate(-4deg);
+  border-left: 1px dashed rgba(255, 255, 255, .55);
+  border-right: 1px dashed rgba(255, 255, 255, .55);
+  box-shadow: 0 2px 5px rgba(93, 78, 58, .15);
+  z-index: 5;
+  pointer-events: none;
+}
+body.theme-roadbook #menu .menu-content { position: relative; }
+body.theme-roadbook #menu .menu-content::after {
+  content: '';
+  position: absolute;
+  top: -20px; right: 6%;
+  width: 104px; height: 24px;
+  background: rgba(233, 180, 188, .58);
+  transform: rotate(3deg);
+  border-left: 1px dashed rgba(255, 255, 255, .55);
+  border-right: 1px dashed rgba(255, 255, 255, .55);
+  box-shadow: 0 2px 5px rgba(93, 78, 58, .15);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* --- masthead: true cursive, highlighter sweep ---------------------------- */
+body.theme-roadbook #menu .menu-content { padding: 1rem 2rem .6rem; }
+body.theme-roadbook #menu .menu-title {
+  font-family: 'Cookie', 'Caveat', cursive;
+  font-weight: 400;
+  font-size: clamp(44px, 6vw, 76px);
+  letter-spacing: 1px;
+  line-height: 1;
+  color: var(--text);
+}
+body.theme-roadbook #menu .menu-title span {
+  font-style: normal;
+  color: var(--text);
+  background: linear-gradient(180deg, transparent 56%, rgba(179, 205, 172, .55) 56%, rgba(179, 205, 172, .55) 92%, transparent 92%);
+  padding: 0 .35rem;
+  border-radius: 4px;
+}
+body.theme-roadbook #menu .menu-sub {
+  border-top: none;
+  padding-top: 2px;
+  font-family: 'Gochi Hand', 'Caveat', cursive;
+  font-size: 17px;
+  letter-spacing: 1px;
+  color: var(--text2);
+}
+body.theme-roadbook #menu .menu-sub::before { content: '\273F '; color: var(--mp-red); }
+body.theme-roadbook #menu .menu-quote {
+  display: block;
+  margin-top: 10px;
+  font-family: 'Gochi Hand', 'Caveat', cursive;
+  font-size: 16px;
+  color: var(--text2);
+}
+
+/* --- the plate: sage-tinted study card ------------------------------------ */
+body.theme-roadbook .menu-left {
+  margin: 0 2rem;
+  width: auto;
+  height: 168px;
+  border: 1.5px solid var(--brd2);
+  border-radius: 8px;
+  background:
+    repeating-linear-gradient(0deg, rgba(93, 125, 84, .05) 0 1px, transparent 1px 10px),
+    linear-gradient(180deg, #eef3ea, #e7efe3);
+  box-shadow: 0 6px 16px rgba(93, 78, 58, .12);
+  overflow: visible; /* the washi tape straddles the top edge */
+}
+body.theme-roadbook #menu .menu-left::before {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120' preserveAspectRatio='none'%3E%3Cpath d='M0 88 Q60 58 120 74 T240 52 T400 30' fill='none' stroke='%238ba583' stroke-width='1'/%3E%3Cpath d='M0 100 Q70 74 140 86 T260 66 T400 46' fill='none' stroke='%238ba583' stroke-width='.8'/%3E%3Cpath d='M0 112 Q80 92 160 100 T280 82 T400 64' fill='none' stroke='%238ba583' stroke-width='.8'/%3E%3Cpath d='M0 76 Q80 44 150 62 T280 40 T400 18' fill='none' stroke='%238ba583' stroke-width='.7'/%3E%3Cpath d='M8 96 L70 82 L118 90 L182 60 L246 70 L322 34 L392 22' fill='none' stroke='%23c2636e' stroke-width='2.6' stroke-dasharray='8 5'/%3E%3Crect x='3' y='90' width='9' height='9' fill='%23c2636e'/%3E%3Crect x='388' y='16' width='9' height='9' fill='%235d7d54'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+body.theme-roadbook #menu .menu-hero {
+  border: 2px solid var(--surf);
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(93, 78, 58, .2);
+  filter: saturate(.92) brightness(1.02);
+}
+body.theme-roadbook #menu .menu-left .map-ref {
+  font-family: 'Gochi Hand', 'Caveat', cursive;
+  color: var(--text2);
+  font-size: 18px;
+}
+
+/* --- masthead head: handwritten flag -------------------------------------- */
+body.theme-roadbook #menu .menu-right-top {
+  background: transparent;
+  border-bottom: 2px dashed var(--brd2);
+  font-family: 'Cookie', 'Caveat', cursive;
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 1.5px;
+  padding: 1.2rem 2rem 1.5rem;
+}
+body.theme-roadbook #menu .menu-right-top::after {
+  font-family: 'Gochi Hand', 'Caveat', cursive;
+  color: var(--mp-red);
+  font-size: 18px;
+}
+
+/* --- index: notebook list with washi-tab group headers -------------------- */
+body.theme-roadbook #menu .menu-nav { padding: .6rem 2rem 1.6rem; }
+body.theme-roadbook .menu-group-title {
+  font-family: 'Gochi Hand', 'Caveat', cursive;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: 1.5px;
+  color: #fff;
+  background: rgba(125, 155, 118, .75);
+  display: inline-block;
+  width: fit-content;
+  padding: 2px 16px;
+  border-radius: 3px;
+  transform: rotate(-1.2deg);
+  box-shadow: 0 2px 5px rgba(93, 78, 58, .16);
+  margin: .9rem 0 .3rem;
+}
+body.theme-roadbook .g-learn .menu-group-title { background: rgba(194, 99, 110, .72); transform: rotate(1.1deg); }
+body.theme-roadbook .g-create .menu-group-title { background: rgba(192, 138, 78, .75); transform: rotate(-.8deg); }
+
+/* entries: cursive list, dotted leaders, highlighter on hover */
+body.theme-roadbook #menu .mnbtn {
+  border-bottom: 1px dotted var(--brd2);
+  font-family: 'Cookie', 'Caveat', cursive;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: .5px;
+  border-radius: 6px;
+  padding: .4rem .2rem;
+  transition: background 160ms ease, padding-left 160ms ease;
+}
+body.theme-roadbook #menu .mnbtn span { font-family: 'Gochi Hand', 'Caveat', cursive; font-size: 16px; }
+body.theme-roadbook #menu .mnbtn:hover {
+  padding-left: .7rem;
+  background: linear-gradient(180deg, transparent 20%, rgba(179, 205, 172, .3) 20%, rgba(179, 205, 172, .3) 88%, transparent 88%);
+}
+body.theme-roadbook #menu .mnbtn.pri {
+  background: linear-gradient(180deg, transparent 18%, rgba(233, 180, 188, .38) 18%, rgba(233, 180, 188, .38) 90%, transparent 90%);
+}
+body.theme-roadbook #menu .mnbtn.pri::after {
+  content: '\2605 start here !';
+  font-family: 'Gochi Hand', 'Caveat', cursive;
+  font-size: 18px;
+  color: #fff;
+  background: rgba(194, 99, 110, .85);
+  padding: 2px 12px;
+  border-radius: 12px 4px 12px 4px;
+  transform: rotate(-2deg);
+  box-shadow: 0 2px 5px rgba(93, 78, 58, .18);
+}
+
+/* --- the 2ND PASS stamp becomes a cute round sticker ----------------------- */
+body.theme-roadbook #menu .menu-nav::after {
+  content: '2nd pass \273F';
+  font-family: 'Gochi Hand', 'Caveat', cursive;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: var(--mp-red);
+  border: 2px dashed var(--mp-red);
+  border-radius: 50%;
+  width: 84px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transform: rotate(8deg);
+  opacity: .8;
+  top: -6px;
+  right: 10px;
+  background: rgba(251, 246, 236, .65);
+}
+
+/* --- footnote bar + game screen notebook styling --------------------------- */
+body.theme-roadbook #menu .menu-bar {
+  border-top: 2px dashed var(--brd2);
+  font-family: 'Gochi Hand', 'Caveat', cursive;
+  font-size: 15px;
+  font-style: normal;
+}
+body.theme-roadbook #menu .menu-bar::before { content: '\2615 '; letter-spacing: 0; }
+
+body.theme-roadbook .g-dots { border-bottom: 2px dashed var(--brd2); }
+body.theme-roadbook .note-box { border-radius: 8px; }
+body.theme-roadbook .note-lbl {
+  font-family: 'Gochi Hand', 'Caveat', cursive;
+  font-size: 17px;
+  color: var(--mp-red);
+}
+body.theme-roadbook .note-lbl::after { content: ' \270E'; }
+
+/* --- inner screens: dot-grid backdrop -------------------------------------- */
+body.theme-roadbook .theme-bg {
+  background-image:
+    radial-gradient(rgba(122, 107, 88, .13) 1px, transparent 1.5px),
+    linear-gradient(180deg, var(--surf), var(--surf2));
+  background-size: 22px 22px, auto;
+}
+
+/* ============================================================================
+   ROADBOOK v6 / COCKPIT v5 — THE STREET DOCK LAYOUT, RESKINNED
+   ----------------------------------------------------------------------------
+   User: "roadbook and cockpit should have the same button layout as street."
+   One geometry, three skins: full-bleed theme canvas on top, docked console
+   below (title pinned over the canvas, washi/carbon chip clusters in dock).
+   Street's own rules stay untouched — these selectors must NOT match Street.
+   ============================================================================ */
+
+/* --- shared geometry: canvas row + dock row -------------------------------- */
+body.theme-roadbook .menu-wrap,
+body:not(.theme-street) .menu-wrap {
+  grid-template-columns: 1fr;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+body.theme-roadbook .menu-left,
+body:not(.theme-street) .menu-left {
+  display: block;
+  position: relative;
+  grid-row: 1;
+  grid-column: 1;
+}
+body.theme-roadbook .menu-right,
+body:not(.theme-street) .menu-right {
+  grid-row: 2;
+  grid-column: 1;
+  border-left: none;
+  overflow-y: auto;
+  min-height: 0;
+}
+/* the title pins over the canvas (it's a direct grid child; static would
+   auto-place into the dock) */
+body.theme-roadbook #menu .menu-content,
+body:not(.theme-street) #menu .menu-content {
+  display: block;
+  position: absolute;
+  top: 26px;
+  left: 40px;
+  right: 40px;
+  z-index: 4;
+}
+/* the settings strip wastes dock space in every theme (Street already hides it) */
+body.theme-roadbook .menu-right-top + div,
+body:not(.theme-street) .menu-right-top + div { display: none !important; }
+
+/* --- shared dock skeleton (colors come from each skin below) --------------- */
+body.theme-roadbook #menu .menu-nav,
+body:not(.theme-street) #menu .menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: .45rem 1.2rem .95rem;
+}
+body.theme-roadbook .menu-group,
+body:not(.theme-street) .menu-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+}
+body.theme-roadbook #menu .mnbtn,
+body:not(.theme-street) #menu .mnbtn {
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  text-align: left;
+  animation: none;
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease, box-shadow 140ms ease;
+}
+
+/* --- ROADBOOK skin: washi dock on cream, cursive chips --------------------- */
+body.theme-roadbook .menu-wrap {
+  max-width: none;
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+  background: none;
+}
+body.theme-roadbook #menu .menu-left {
+  overflow: hidden;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+}
+body.theme-roadbook #menu .menu-left::before {
+  background:
+    radial-gradient(circle at 16% 20%, rgba(178, 200, 168, .22), transparent 40%),
+    radial-gradient(circle at 84% 68%, rgba(233, 180, 188, .16), transparent 44%),
+    radial-gradient(rgba(122, 107, 88, .13) 1px, transparent 1.5px) 0 0 / 22px 22px,
+    linear-gradient(180deg, #f6efe3, #f0e7d7);
+}
+body.theme-roadbook .menu-left::after { display: none; }  /* sage washi retired on the dock layout */
+body.theme-roadbook #menu .menu-content { padding: 0; }
+body.theme-roadbook #menu .menu-content::after {
+  top: -26px; right: 9%;
+  background: rgba(233, 180, 188, .58);
+  border-left: 1px dashed rgba(255, 255, 255, .55);
+  border-right: 1px dashed rgba(255, 255, 255, .55);
+  box-shadow: 0 2px 5px rgba(93, 78, 58, .15);
+  transform: rotate(3deg);
+}
+body.theme-roadbook .menu-left .map-ref {
+  position: absolute;
+  right: 18px;
+  bottom: 12px;
+  z-index: 4;
+  font-family: 'Gochi Hand', 'Caveat', cursive;
+  font-size: 18px;
+  color: var(--text2);
+}
+body.theme-roadbook .menu-right {
+  background:
+    radial-gradient(rgba(122, 107, 88, .14) 1px, transparent 1.5px) 0 0 / 22px 22px,
+    var(--surf);
+  border-top: 2px dashed var(--brd2);
+  max-height: 58dvh;
+  backdrop-filter: none;
+}
+body.theme-roadbook #menu .menu-right-top {
+  background: transparent;
+  border-bottom: none;
+  color: var(--text);
+  font-family: 'Gochi Hand', 'Caveat', cursive;
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: 1.5px;
+  padding: .55rem 1.2rem 20px;
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+body.theme-roadbook #menu .menu-right-top::after {
+  content: 'today \2726 feathers \2726 no lift \2726 chickens crossing \2726 tea at the summit \2726 log it in the journal \2726';
+  left: auto; right: 1.2rem; bottom: 3px;
+  color: rgba(194, 99, 110, .55);
+  font-family: 'Gochi Hand', 'Caveat', cursive;
+  font-size: 13px;
+  letter-spacing: 1px;
+  animation: noteTicker 26s linear infinite;
+}
+
+/* dock title tab + cursive chips */
+body.theme-roadbook .menu-group-title {
+  flex: 1 1 100%;
+  width: fit-content;
+  max-width: 130px;
+  text-align: center;
+  margin: .35rem 0 .15rem;
+  font-size: 18px;
+}
+body.theme-roadbook #menu .mnbtn {
+  background: var(--surf2);
+  border: 1px solid var(--brd);
+  border-bottom: 2px solid var(--brd2);
+  border-radius: 4px;
+  padding: .4rem .8rem;
+  font-family: 'Cookie', 'Caveat', cursive;
+  font-size: 21px;
+  letter-spacing: .5px;
+  color: var(--text);
+}
+body.theme-roadbook #menu .mnbtn span { font-family: 'Gochi Hand', 'Caveat', cursive; font-size: 14px; }
+body.theme-roadbook #menu .mnbtn:hover {
+  transform: translateY(-3px);
+  border-bottom-color: var(--green);
+  background: var(--surf3);
+}
+body.theme-roadbook #menu .mnbtn.pri {
+  border-color: var(--mp-red);
+  border-bottom-color: var(--mp-red);
+  background: rgba(194, 99, 110, .14);
+}
+body.theme-roadbook #menu .mnbtn.pri::after { display: none; }  /* start-here pill retired on chips */
+body.theme-roadbook #menu .menu-bar { display: none; }
+body.theme-roadbook #menu .menu-nav::after {
+  top: -30px;
+  right: 8px;
+  transform: rotate(8deg);
+}
+
+/* --- COCKPIT skin: carbon dock, hazard tape on the canvas edge ------------- */
+body:not(.theme-street):not(.theme-roadbook) .menu-wrap {
+  max-width: none;
+  height: auto;
+  padding: 0;
+  border: none;
+  background: none;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-left { overflow: hidden; }
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-content { padding: 0; }
+body:not(.theme-street):not(.theme-roadbook) .menu-right {
+  background:
+    repeating-linear-gradient(-38deg, rgba(255, 255, 255, .016) 0 3px, transparent 3px 9px),
+    #0c0c10;
+  border-top: 2px solid var(--mp-red);
+  box-shadow: 0 -14px 34px rgba(0, 0, 0, .6);
+  max-height: 58dvh;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-right-top {
+  background: transparent;
+  border-bottom: none;
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 4px;
+  padding: .55rem 1.2rem 20px;
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-right-top::after {
+  content: 'FLAT TO CREST \00B7 KEEP THE RPM \00B7 TRUST THE NOTES \00B7 CALL IT EARLY \00B7 ';
+  left: auto; right: 1.2rem; bottom: 3px;
+  color: rgba(245, 197, 24, .4);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  animation: noteTicker 24s linear infinite;
+}
+body:not(.theme-street):not(.theme-roadbook) .menu-group-title {
+  flex: 1 1 100%;
+  border-bottom-color: #2e2e3c;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 3px;
+  margin: .35rem 0 .15rem;
+  padding: .15rem 0 .2rem;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn {
+  background: rgba(23, 23, 30, .85);
+  border: 1px solid #2e2e3c;
+  border-bottom: 2px solid #3c3c50;
+  border-left-width: 1px;
+  border-radius: 4px;
+  padding: .42rem .8rem;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn:hover {
+  transform: translateY(-3px);
+  border-bottom-color: var(--gold);
+  background: rgba(32, 32, 42, .95);
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn.pri {
+  border-color: var(--mp-red);
+  border-bottom-color: var(--mp-red);
+  background: rgba(232, 41, 28, .14);
+}
+
+/* laptop: keep the canvas big enough for the pinned title */
+@media (max-width: 900px) {
+  body.theme-roadbook #menu .menu-content,
+  body:not(.theme-street) #menu .menu-content { top: 18px; left: 22px; right: 22px; }
+}
+
+/* --- conflict cleanup: older rules that fight the dock layout -------------- */
+body.theme-roadbook .menu-wrap { border-radius: 0; box-shadow: none; }
+body.theme-roadbook .menu-left { margin: 0; height: auto; }
+/* the cursive title pins over the canvas like Street's (beats v5's static row) */
+body.theme-roadbook #menu .menu-content {
+  position: absolute;
+  top: 26px;
+  left: 40px;
+  right: 40px;
+  padding: 0;
+}
+
+/* laptop: old collapses must not resurrect rows or span the dock */
+@media (max-width: 1180px) {
+  body.theme-roadbook .menu-wrap { grid-template-rows: minmax(0, 1fr) auto !important; }
+  body.theme-roadbook #menu .menu-left { height: auto; }
+  body:not(.theme-street) .menu-left { grid-row: 1; }
+  body.theme-roadbook #menu .menu-content,
+  body:not(.theme-street) #menu .menu-content { top: 20px; }
+}
+
+/* --- cockpit dock: match v4's triple-prefix specificity so flex wins ------- */
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: .45rem 1.2rem .95rem;
+}
+body:not(.theme-street):not(.theme-roadbook) .menu-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn {
+  width: auto;
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+/* laptop canvas: match v4's triple prefix so the canvas spans only row 1
+   (grid-row: 1/3 made it slide under the dock and the pilot-cam vanished) */
+@media (max-width: 1180px) {
+  body:not(.theme-street):not(.theme-roadbook) .menu-left { grid-row: 1; }
+}
+
+/* ============================================================================
+   ROADBOOK v9→v10 BASE — night ops origin, re-toned desert
+   ----------------------------------------------------------------------------
+   The photo poster itself moved to the v10 DAKAR DESERT section below;
+   these rules survive as the base layer wherever v10 does not re-declare.
+   Same Street dock geometry.
+   ============================================================================ */
+
+/* --- canvas: dark ops paper with scanlines + NVG vignette ------------------ */
+body.theme-roadbook #menu .menu-left::before {
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 216, 160, .05) 0 1px, transparent 1px 4px),
+    radial-gradient(circle at 24% 22%, rgba(255, 140, 26, .13), transparent 42%),
+    radial-gradient(circle at 80% 75%, rgba(255, 139, 61, .07), transparent 46%),
+    linear-gradient(160deg, #2a1d0e, #191106 60%, #221709);
+}
+/* the taped photo becomes a NVG recon frame: stencil tag + corner brackets */
+/* the taped photo is now the in-theme night dashcam: cold moonlight grade */
+body.theme-roadbook #menu .menu-hero {
+  border: 1px solid rgba(255, 140, 26, .35);
+  border-radius: 0;
+  box-shadow: 0 0 0 1px rgba(255, 140, 26, .12), 0 6px 18px rgba(0, 0, 0, .6);
+  filter: saturate(.7) brightness(.95) contrast(1.12) hue-rotate(-6deg);
+}
+/* the rose washi tape becomes an amber intel stamp */
+body.theme-roadbook #menu .menu-content::after {
+  content: 'REC \25CF';
+  width: auto;
+  height: auto;
+  top: -30px;
+  right: 4%;
+  background: none;
+  border: 1px solid rgba(255, 95, 86, .55);
+  box-shadow: none;
+  transform: none;
+  font-family: 'Rubik Mono One', 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--mp-red);
+  padding: 3px 10px;
+  animation: camPulse 1.6s ease-in-out infinite;
+}
+
+/* --- title: stencil brief header ------------------------------------------- */
+body.theme-roadbook #menu .menu-title {
+  font-family: 'Rubik Mono One', 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  font-size: clamp(34px, 4.6vw, 64px);
+  letter-spacing: 3px;
+  line-height: .95;
+  color: var(--text);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, .8), 0 0 26px rgba(255, 140, 26, .18);
+}
+body.theme-roadbook #menu .menu-title span {
+  color: var(--green);
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  text-shadow: 0 0 22px rgba(255, 140, 26, .45);
+}
+body.theme-roadbook #menu .menu-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text2);
+}
+body.theme-roadbook #menu .menu-sub::before { content: '\25B8 '; color: var(--gold); }
+body.theme-roadbook #menu .menu-quote {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--text3);
+}
+body.theme-roadbook #menu .menu-quote::before { content: '// '; color: var(--mp-red); }
+body.theme-roadbook #menu .menu-quote::after { content: ''; }
+
+/* --- the recon map: drawn route in NVG green ------------------------------- */
+body.theme-roadbook #menu .menu-left .map-ref {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text2);
+}
+body.theme-roadbook #menu .menu-left .map-ref::before { content: 'GRID '; color: var(--text3); }
+
+/* --- dock: stencil chip console -------------------------------------------- */
+body.theme-roadbook .menu-right {
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 216, 160, .022) 0 1px, transparent 1px 4px),
+    var(--surf);
+  border-top: 1px solid var(--brd2);
+  box-shadow: 0 -12px 30px rgba(0, 0, 0, .5);
+}
+body.theme-roadbook #menu .menu-right-top {
+  color: var(--green);
+  font-family: 'Rubik Mono One', 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  letter-spacing: 4px;
+}
+body.theme-roadbook #menu .menu-right-top::after {
+  content: 'DAKAR SS7 \00B7 4.2 KM \00B7 DUNES \00B7 FLAT OVER CREST \00B7 CARE LEFT THREE \00B7 TRUST THE BOOK \00B7 DON\'T LIFT \00B7 ';
+  color: rgba(255, 140, 26, .5);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+body.theme-roadbook .menu-group-title {
+  color: var(--gold);
+  background: none;
+  box-shadow: none;
+  transform: none;
+  border-bottom: 1px solid var(--brd);
+  border-radius: 0;
+  font-family: 'Rubik Mono One', 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  max-width: none;
+  padding: .2rem 0 .25rem;
+}
+body.theme-roadbook .g-learn .menu-group-title,
+body.theme-roadbook .g-create .menu-group-title { background: none; transform: none; }
+body.theme-roadbook #menu .mnbtn {
+  background: var(--surf2);
+  border: 1px solid var(--brd);
+  border-bottom: 2px solid var(--brd2);
+  border-radius: 2px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text);
+}
+body.theme-roadbook #menu .mnbtn span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+}
+body.theme-roadbook #menu .mnbtn:hover {
+  transform: translateY(-3px);
+  border-bottom-color: var(--green);
+  background: var(--surf3);
+  box-shadow: 0 0 14px rgba(255, 140, 26, .22);
+}
+body.theme-roadbook #menu .mnbtn.pri {
+  border-color: rgba(255, 95, 86, .8);
+  border-bottom-color: var(--mp-red);
+  background: rgba(255, 95, 86, .1);
+}
+body.theme-roadbook #menu .mnbtn.pri::after {
+  display: block;
+  content: 'PRIMARY';
+  font-family: 'Rubik Mono One', 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--mp-red);
+  background: none;
+  border: 1px solid rgba(255, 95, 86, .5);
+  border-radius: 2px;
+  padding: 1px 6px;
+  transform: none;
+  box-shadow: none;
+}
+/* the round flower sticker becomes a waypoint marker */
+body.theme-roadbook #menu .menu-nav::after {
+  content: 'WP 07';
+  top: -30px;
+  right: 10px;
+  border: 1px dashed rgba(255, 176, 0, .7);
+  border-radius: 50%;
+  color: var(--gold);
+  font-family: 'Rubik Mono One', 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  background: rgba(21, 13, 7, .85);
+  transform: rotate(6deg);
+  opacity: .9;
+}
+
+/* --- game HUD + inner screens: ops terminal --------------------------------- */
+body.theme-roadbook .g-stage {
+  font-family: 'Rubik Mono One', 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 2px;
+  color: var(--text);
+}
+body.theme-roadbook .g-stage::after {
+  content: ' \2014 LIVE';
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--mp-red);
+  animation: camPulse 1.6s ease-in-out infinite;
+}
+body.theme-roadbook .g-foot { border-top: 1px solid var(--brd2); }
+body.theme-roadbook .g-dots { border-bottom: 1px solid var(--brd); }
+body.theme-roadbook .g-prog-bar {
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 140, 26, .35) 0 14px, transparent 14px 18px);
+}
+body.theme-roadbook .note-lbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--gold);
+}
+body.theme-roadbook .note-lbl::after { content: ' \2588'; animation: camPulse 1.2s steps(2) infinite; }
+body.theme-roadbook #game-bg-video { opacity: .3; filter: saturate(.5) brightness(.85) hue-rotate(30deg) contrast(1.1); }
+body.theme-roadbook .game-bg-overlay { background: linear-gradient(180deg, rgba(12, 8, 5, .78), rgba(8, 5, 3, .94)); }
+body.theme-roadbook .theme-bg {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255, 216, 160, .03) 0 1px, transparent 1px 4px),
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 140, 26, .05), transparent 55%),
+    linear-gradient(180deg, rgba(12, 8, 5, .98), rgba(8, 5, 3, .99));
+}
+
+/* GRID ref belongs bottom-right, clear of the REC badge */
+body.theme-roadbook #menu .menu-left .map-ref {
+  top: auto;
+  bottom: 14px;
+  right: 18px;
+  z-index: 4;
+}
+
+/* ============================================================================
+   THEME THE DOCK — the switcher matches the active theme
+   ============================================================================ */
+body.theme-street .theme-dock {
+  background: rgba(7, 8, 18, .88);
+  border-color: rgba(54, 64, 138, .9);
+  box-shadow: 0 0 16px rgba(255, 46, 196, .12);
+  font-family: 'VT323', 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+body.theme-street .theme-dock button { font-family: inherit; font-size: 14px; }
+body.theme-street .theme-dock button:hover { border-color: var(--cyan); color: var(--cyan); }
+body.theme-street .theme-dock button.on {
+  background: linear-gradient(90deg, var(--cyan), var(--mp-red));
+  border-color: transparent;
+  color: #05060e;
+  text-shadow: none;
+}
+body:not(.theme-street):not(.theme-roadbook) .theme-dock {
+  background:
+    repeating-linear-gradient(-38deg, rgba(255, 255, 255, .02) 0 3px, transparent 3px 9px),
+    rgba(12, 12, 16, .9);
+  border-color: #3c3c50;
+  border-bottom: 2px solid var(--mp-red);
+}
+body:not(.theme-street):not(.theme-roadbook) .theme-dock button:hover { border-color: var(--gold); color: var(--gold); }
+body:not(.theme-street):not(.theme-roadbook) .theme-dock button.on {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #0a0a0c;
+}
+body.theme-roadbook .theme-dock {
+  background: rgba(21, 13, 7, .92);
+  border-color: #6d5330;
+  box-shadow: 0 0 16px rgba(255, 140, 26, .14);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+}
+body.theme-roadbook .theme-dock button {
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 10px;
+}
+body.theme-roadbook .theme-dock button:hover { border-color: var(--green); color: #ff8c1a; }
+body.theme-roadbook .theme-dock button.on {
+  background: linear-gradient(180deg, #ffb84d, #e04430);
+  border-color: #ff8c1a;
+  color: #1d1207;
+  box-shadow: 0 0 16px rgba(255, 140, 26, .55);
+  text-shadow: none;
+}
+
+/* ============================================================================
+   BUTTON MICRO-FX — one signature interaction per theme
+   ============================================================================ */
+/* Street: neon flicker on hover */
+@keyframes neonFlicker {
+  0%, 100% { box-shadow: 0 0 6px rgba(0, 240, 255, .35), 0 0 2px rgba(255, 46, 196, .3); }
+  42% { box-shadow: 0 0 2px rgba(0, 240, 255, .12), 0 0 1px rgba(255, 46, 196, .1); }
+  46% { box-shadow: 0 0 10px rgba(0, 240, 255, .55), 0 0 4px rgba(255, 46, 196, .5); }
+  70% { box-shadow: 0 0 4px rgba(0, 240, 255, .2), 0 0 2px rgba(255, 46, 196, .15); }
+}
+body.theme-street #menu .mnbtn:hover { animation: neonFlicker 1.1s ease-in-out infinite; }
+body.theme-street #menu .mnbtn { transition: transform 140ms ease, border-color 140ms ease, background 140ms ease; }
+
+/* Cockpit: amber sweep across the chip */
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn {
+  position: relative;
+  overflow: hidden;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -38%;
+  width: 34%;
+  background: linear-gradient(100deg, transparent, rgba(245, 197, 24, .16), transparent);
+  transform: skewX(-14deg);
+  opacity: 0;
+  pointer-events: none;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn:hover::after {
+  opacity: 1;
+  animation: amberSweep .7s ease forwards;
+}
+@keyframes amberSweep { from { left: -38%; } to { left: 108%; } }
+
+/* Roadbook: NVG glow bloom on hover */
+body.theme-roadbook #menu .mnbtn:hover {
+  animation: nvgBloom 1.4s ease-in-out infinite alternate;
+}
+@keyframes nvgBloom {
+  from { box-shadow: 0 0 8px rgba(255, 140, 26, .18); }
+  to   { box-shadow: 0 0 20px rgba(255, 140, 26, .38); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.theme-street #menu .mnbtn:hover,
+  body.theme-roadbook #menu .mnbtn:hover { animation: none; }
+  body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn:hover::after { animation: none; opacity: 0; }
+}
+
+/* ============================================================================
+   THEME THE RESULTS SCREEN (#result) — same fantasy as the menus
+   Base is a 90s magazine ("Max Power Stage Report"); each theme re-casts it.
+   ============================================================================ */
+
+/* --- Street: underground zine — magenta/cyan on black ---------------------- */
+body.theme-street #result { background: #05060e; color: var(--text); }
+body.theme-street #result .mp-mast { background: #0b0d1a; }
+body.theme-street #result .mp-mast-top {
+  background: linear-gradient(90deg, var(--cyan), var(--mp-red));
+  color: #05060e;
+}
+body.theme-street #result .mp-mast-top span { color: #05060e; }
+body.theme-street #result .mp-title {
+  color: var(--cyan);
+  text-shadow: 3px 3px 0 rgba(255, 46, 196, .85);
+}
+body.theme-street #result .mp-title em { color: var(--mp-red); }
+body.theme-street #result .mp-title span { color: var(--text2); }
+body.theme-street #result .flame-bar { background: linear-gradient(90deg, var(--cyan), var(--mp-red), var(--gold), var(--mp-red), var(--cyan)); }
+body.theme-street #result .mp-headline {
+  color: var(--gold);
+  text-shadow: 2px 2px 0 rgba(255, 46, 196, .5);
+  font-family: 'Press Start 2P', 'Anton', sans-serif;
+  font-size: clamp(16px, 2.4vw, 30px);
+  line-height: 1.5;
+}
+body.theme-street #result .mp-deck { color: var(--text2); }
+body.theme-street #result .mp-hl-block { background: #0b0d1a; }
+body.theme-street #result .mp-pos {
+  background: var(--mp-red);
+  color: #05060e;
+  box-shadow: 0 0 18px rgba(255, 46, 196, .4);
+  font-family: 'Press Start 2P', monospace;
+}
+body.theme-street #result .mp-article { color: var(--text2); font-family: 'VT323', monospace; font-size: 16px; }
+body.theme-street #result .mp-article p:first-child::first-letter { color: var(--mp-red); }
+body.theme-street #result .mp-pull { background: rgba(255, 46, 196, .14); border: 1px solid rgba(255, 46, 196, .5); }
+body.theme-street #result .mp-pull p { color: var(--mp-red); }
+body.theme-street #result .mp-pull cite { color: var(--text3); }
+body.theme-street #result .mp-box { background: #0b0d1a; border: 1px solid var(--brd); }
+body.theme-street #result .mp-box h3 { color: var(--cyan); font-family: 'Press Start 2P', monospace; font-size: 10px; letter-spacing: 1px; }
+body.theme-street #result .rs-l { color: var(--text2); font-family: 'VT323', monospace; font-size: 15px; }
+body.theme-street #result .rs-v { font-family: 'VT323', monospace; }
+body.theme-street #result .rs-v.gld { color: var(--gold); }
+body.theme-street #result .rs-v.red { color: var(--mp-red); }
+body.theme-street #result .mp-babe-txt { color: var(--text); font-family: 'VT323', monospace; }
+body.theme-street #result .mp-advert { border: 1px dashed var(--brd2); background: rgba(11, 13, 26, .8); }
+body.theme-street #result .mp-advert p { color: var(--text3); }
+
+/* --- Roadbook: after-action report — stencil on charred black ---------------- */
+body.theme-roadbook #result { background: #191106; color: var(--text); }
+body.theme-roadbook #result .mp-mast { background: #221709; }
+body.theme-roadbook #result .mp-mast-top { background: #332412; }
+body.theme-roadbook #result .mp-mast-top span { color: var(--text2); font-family: 'IBM Plex Mono', monospace; letter-spacing: 2px; }
+body.theme-roadbook #result .mp-title {
+  font-family: 'Rubik Mono One', 'Anton', sans-serif;
+  color: #f3e6c8;
+  letter-spacing: 2px;
+  text-shadow: 0 0 24px rgba(255, 140, 26, .45), 0 -2px 0 rgba(74, 41, 10, .85);
+}
+body.theme-roadbook #result .mp-title em { color: var(--green); font-style: normal; }
+body.theme-roadbook #result .mp-title span { color: var(--text3); }
+body.theme-roadbook #result .flame-bar { background: linear-gradient(90deg, #6d5330, #ff8c1a, #ffd9a0, #ff8c1a, #6d5330); box-shadow: 0 0 14px rgba(255, 140, 26, .4); }
+body.theme-roadbook #result .mp-headline {
+  font-family: 'Rubik Mono One', 'Anton', sans-serif;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-shadow: none;
+}
+body.theme-roadbook #result .mp-headline span { color: var(--green); }
+body.theme-roadbook #result .mp-hl-block { background: #221709; }
+body.theme-roadbook #result .mp-pos {
+  background: none;
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  font-family: 'Rubik Mono One', 'IBM Plex Mono', monospace;
+  box-shadow: none;
+}
+body.theme-roadbook #result .mp-article { color: var(--text2); }
+body.theme-roadbook #result .mp-article p:first-child::first-letter { color: var(--green); }
+body.theme-roadbook #result .mp-pull {
+  background: rgba(255, 140, 26, .08);
+  border: 1px solid #6d5330;
+  border-left: 3px solid #ff8c1a;
+}
+body.theme-roadbook #result .mp-pull p { color: var(--text); text-transform: none; }
+body.theme-roadbook #result .mp-pull cite { color: var(--text3); }
+body.theme-roadbook #result .mp-box {
+  background: #221709;
+  border: 1px solid var(--brd);
+  border-top: 2px solid #6d5330;
+}
+body.theme-roadbook #result .mp-box h3 {
+  color: var(--gold);
+  font-family: 'Rubik Mono One', 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+}
+body.theme-roadbook #result .rs-l { color: var(--text2); font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+body.theme-roadbook #result .rs-v { font-family: 'IBM Plex Mono', monospace; }
+body.theme-roadbook #result .rs-v.gld { color: var(--gold); }
+body.theme-roadbook #result .rs-v.red { color: var(--mp-red); }
+body.theme-roadbook #result .mp-babe-txt { color: var(--text); font-family: 'IBM Plex Mono', monospace; }
+body.theme-roadbook #result .mp-babe-sub { color: var(--text3); }
+body.theme-roadbook #result .mp-advert { border: 1px dashed var(--brd2); background: rgba(21, 13, 7, .7); }
+body.theme-roadbook #result .mp-advert p { color: var(--text3); }
+
+/* ============================================================================
+   RESPONSIVE AUDIT — chips reflow at every width, no horizontal overflow
+   ============================================================================ */
+/* laptop: two chip clusters per visual row is fine — flex handles it. Key
+   fixes: dock padding shrinks, chips stay tappable, canvas keeps min height. */
+@media (max-width: 900px) {
+  body.theme-street #menu .menu-nav,
+  body.theme-roadbook #menu .menu-nav,
+  body:not(.theme-street):not(.theme-roadbook) #menu .menu-nav {
+    padding: .4rem .7rem .7rem;
+    gap: 2px;
+  }
+  body.theme-street #menu .mnbtn,
+  body.theme-roadbook #menu .mnbtn,
+  body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn {
+    padding: .38rem .55rem;
+    font-size: 12px;
+  }
+  body.theme-roadbook #menu .mnbtn { font-size: 11px; }
+  body.theme-street #menu .mnbtn { font-size: 16px; }
+  body.theme-street .menu-group,
+  body.theme-roadbook .menu-group,
+  body:not(.theme-street):not(.theme-roadbook) .menu-group { gap: 5px; }
+  body.theme-street .menu-group-title,
+  body.theme-roadbook .menu-group-title,
+  body:not(.theme-street):not(.theme-roadbook) .menu-group-title {
+    flex: 1 1 100%;
+    padding: .1rem 0 .15rem;
+  }
+  body.theme-street .menu-right,
+  body.theme-roadbook .menu-right,
+  body:not(.theme-street):not(.theme-roadbook) .menu-right { max-height: 66dvh; }
+  /* title stays readable over the canvas */
+  body.theme-street #menu .menu-content,
+  body.theme-roadbook #menu .menu-content,
+  body:not(.theme-street):not(.theme-roadbook) #menu .menu-content { right: 12px; left: 16px; }
+}
+@media (max-width: 560px) {
+  body.theme-street #menu .mnbtn { font-size: 14px; padding: .32rem .45rem; }
+  body.theme-roadbook #menu .mnbtn { font-size: 10px; padding: .3rem .45rem; }
+  body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn { font-size: 11px; padding: .3rem .5rem; }
+  /* chips can wrap mid-label on tiny screens — allow it */
+  body.theme-street #menu .mnbtn,
+  body.theme-roadbook #menu .mnbtn,
+  body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn { white-space: normal; }
+  body.theme-roadbook #menu .menu-nav::after,
+  body.theme-street #menu .menu-nav::after { display: none; }  /* roundel/ticker junk on tiny screens */
+  body.theme-roadbook #menu .menu-content::after { display: none; }  /* REC badge crowds the title */
+}
+/* short viewports: keep the canvas a banner, let the dock scroll */
+@media (max-height: 620px) {
+  body.theme-street .menu-wrap,
+  body.theme-roadbook .menu-wrap,
+  body:not(.theme-street):not(.theme-roadbook) .menu-wrap { grid-template-rows: minmax(120px, 30dvh) minmax(0, 1fr); }
+  body.theme-street .menu-right,
+  body.theme-roadbook .menu-right,
+  body:not(.theme-street):not(.theme-roadbook) .menu-right { max-height: none; }
+  body.theme-street #menu .menu-content,
+  body.theme-roadbook #menu .menu-content,
+  body:not(.theme-street):not(.theme-roadbook) #menu .menu-content { top: 12px; }
+  body.theme-street #menu .menu-title { font-size: clamp(14px, 2vw, 22px); }
+  body.theme-roadbook #menu .menu-title { font-size: clamp(22px, 3vw, 34px); }
+}
+
+/* sidebar column base was cream magazine paper — dark in themed results */
+body.theme-street #result .mp-side { background: #0b0d1a; border-left: 1px solid var(--brd); }
+body.theme-street #result .mp-main { border-right-color: var(--brd); }
+body.theme-roadbook #result .mp-side { background: #221709; border-left: 1px solid var(--brd); }
+body.theme-roadbook #result .mp-main { border-right-color: var(--brd); }
+body:not(.theme-street):not(.theme-roadbook) #result { background: #0e0d0b; color: #e8e0d0; }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-side { background: #0d0d0d; border-left: 1px solid #2b2b2b; }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-main { border-right-color: #2b2b2b; }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-mast { background: linear-gradient(180deg, #141414, #0a0a0a); border-color: #2b2b2b; }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-hl-block { background: #111111; }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-pos { background: linear-gradient(180deg, #f0b429, #b98314); color: #141414; border-color: #2b2b2b; }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-article { color: #cfc6b8; font-family: 'IBM Plex Mono', monospace; }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-pull { background: rgba(240, 180, 41, .08); border: 1px solid rgba(240, 180, 41, .4); }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-pull p { color: var(--gold); }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-box { background: #101010; border: 1px solid #2b2b2b; }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-box h3 { color: var(--gold); }
+body:not(.theme-street):not(.theme-roadbook) #result .rs-l { color: #9c927f; }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-babe-txt { color: #e8e0d0; }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-advert { border: 1px dashed #2b2b2b; background: rgba(16, 16, 16, .8); }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-advert p { color: #9c927f; }
+body:not(.theme-street):not(.theme-roadbook) #result .flame-bar { background: linear-gradient(90deg, #2b2b2b, var(--gold), #2b2b2b); }
+body:not(.theme-street):not(.theme-roadbook) #result .mp-deck { color: #b8ad99; }
+
+/* ============================================================================
+   RESPONSIVE AUDIT — results screens + inner-theme screens at real sizes
+   ============================================================================ */
+
+/* --- tablets: sidebar tucks below the article ----------------------------- */
+@media (max-width: 900px) {
+  #result .mp-body-wrap { grid-template-columns: 1fr; }
+  #result .mp-main { border-right: none; border-bottom: 2px solid #1a1a1a; overflow-y: visible; }
+  #result .mp-side { border-left: none; border-top: 1px solid #2b2b2b; overflow-y: visible; }
+  #result .mp-article { columns: 1; }
+  body.theme-roadbook #result .mp-main { border-bottom-color: var(--brd2); }
+}
+
+/* --- phones: mast + rails compact, full-width buttons --------------------- */
+@media (max-width: 560px) {
+  #result .mp-mast-top { padding: .3rem .9rem; }
+  #result .mp-name-row { padding: .4rem .9rem 0; }
+  #result .mp-mast-bottom { padding: .3rem .9rem; }
+  #result .mp-hl-block { padding: .7rem .9rem; }
+  #result .mp-title { font-size: clamp(30px, 9vw, 44px); }
+  #result .mp-headline { font-size: clamp(19px, 5.5vw, 28px); }
+  #result .mp-main, #result .mp-side { padding: .9rem; }
+  #result .mp-article { font-size: 13px; line-height: 1.7; }
+  #result .mp-article p:first-child::first-letter { font-size: 38px; }
+  #result .mp-foot { padding: .6rem .9rem; gap: 6px; }
+  #result .mpbtn { flex: 1 1 40%; text-align: center; padding: 8px 10px; font-size: 15px; letter-spacing: 1px; }
+}
+
+/* --- short laptops: slimmer chrome so the debrief fits --------------------- */
+@media (max-height: 768px) {
+  #result .mp-mast-top { padding: .25rem 1.5rem; }
+  #result .mp-name-row { padding: .35rem 1.5rem 0; }
+  #result .mp-title { font-size: clamp(30px, 4.2vw, 48px); }
+  #result .mp-hl-block { padding: .7rem 1.5rem; }
+  #result .mp-headline { font-size: clamp(18px, 3vw, 32px); }
+  #result .mp-foot { padding: .55rem 1.5rem; border-top-width: 3px; }
+  #result .mpbtn { padding: 6px 14px; font-size: 15px; }
+  #result .mp-babe-bar img { height: 56px; width: 42px; }
+  #result .mp-babe-bar { padding: .35rem 1.5rem; margin-bottom: .8rem; }
+}
+
+/* --- very short: kill the mast fat, article scrolls ------------------------ */
+@media (max-height: 620px) {
+  #result .mp-babe-bar { display: none; }
+  #result .mp-mast-bottom { padding: .2rem 1.5rem; }
+  #result .mp-hl-block { padding: .5rem 1.5rem; }
+  #result .mp-main { overflow-y: auto; }
+}
+
+/* ============================================================================
+/* ============================================================================
+   ROADBOOK v10 — DAKAR DESERT — the photo is the theme
+   ----------------------------------------------------------------------------
+   The 2014 Dakar's Atacama leg: a works truck throwing dust off the dune
+   crests (Sports Cars Fan, CC BY 2.0, via Wikimedia Commons). Full-bleed
+   like Cockpit's poster; bone-white type, dakar-orange accents, heat chrome.
+   ============================================================================ */
+
+/* --- canvas: the desert photo, full-bleed ---------------------------------- */
+body.theme-roadbook #menu .menu-left::before {
+  background:
+    linear-gradient(180deg, rgba(25, 17, 6, .30) 0%, rgba(25, 17, 6, .10) 34%, rgba(25, 17, 6, .06) 58%, rgba(15, 10, 3, .82) 100%),
+    url("https://upload.wikimedia.org/wikipedia/commons/0/0b/Gianni_Lora_Lamia_Paris-Dakar-Cairo_2000.jpg") center / cover no-repeat,
+    #191106;
+}
+/* fallback while the photo loads (and offline): scorched gradient */
+body.theme-roadbook #menu .menu-left { background: linear-gradient(180deg, #241609, #191106 55%, #1d1207); }
+
+/* --- heat shimmer: slow rising haze over the whole canvas ------------------- */
+@keyframes heatShimmer {
+  0%, 100% { opacity: .55; }
+  50%      { opacity: .8; }
+}
+body.theme-roadbook #menu .menu-content::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10%;
+  width: 84%;
+  height: 92%;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 55% at 50% 100%, rgba(255, 200, 120, .28), rgba(255, 140, 26, .10) 50%, transparent 76%);
+  filter: blur(16px);
+  animation: heatShimmer 4.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+body.theme-roadbook #menu .menu-title { position: relative; z-index: 1; }
+
+/* --- title: bleached bone-white with burnt edge ------------------------------ */
+body.theme-roadbook #menu .menu-title {
+  color: #fdf4dd;
+  text-shadow:
+    0 1px 0 rgba(255, 244, 210, .55),
+    0 -1px 0 rgba(74, 41, 10, .9),
+    0 0 24px rgba(255, 140, 26, .5),
+    0 0 60px rgba(255, 140, 26, .28),
+    0 2px 10px rgba(0, 0, 0, .8);
+}
+body.theme-roadbook #menu .menu-title span {
+  color: #ffd9a0;
+  text-shadow:
+    0 0 8px rgba(255, 176, 0, .85),
+    0 0 26px rgba(255, 140, 26, .5),
+    0 -2px 0 rgba(74, 41, 10, .9);
+}
+
+/* --- REC badge: live-stage alert ---------------------------------------------- */
+body.theme-roadbook #menu .menu-content::after {
+  top: 8px;
+  right: 2%;
+  border-color: rgba(224, 68, 48, .8);
+  box-shadow: 0 0 12px rgba(224, 68, 48, .4);
+}
+/* quote + strap need shadow to survive the bright sand */
+body.theme-roadbook #menu .menu-quote {
+  color: #fdf4dd;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, .9), 0 0 14px rgba(0, 0, 0, .65);
+}
+body.theme-roadbook #menu .menu-quote::before { color: #ff8c1a; text-shadow: 0 1px 4px rgba(0, 0, 0, .9); }
+body.theme-roadbook #menu .menu-sub {
+  color: #f3e6c8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, .9), 0 0 12px rgba(0, 0, 0, .55);
+}
+/* --- WP roundel: hidden in the dock layout — its top-right slot collides
+   with the Game Mode chip; the GRID ref already carries the org-plate vibe -- */
+body.theme-roadbook #menu .menu-nav::after { display: none; }
+
+/* --- dock: sun-bleached console ---------------------------------------------- */
+body.theme-roadbook .menu-right {
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 216, 160, .018) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, #221709, #191106);
+  border-top: 1px solid #6d5330;
+  box-shadow: 0 -10px 34px rgba(10, 6, 2, .8), 0 -2px 18px rgba(255, 140, 26, .14);
+}
+body.theme-roadbook #menu .mnbtn { border-bottom: 2px solid #6d5330; }
+body.theme-roadbook #menu .mnbtn:hover {
+  background: linear-gradient(180deg, #332412, #221709);
+  border-bottom-color: #ff8c1a;
+  box-shadow: 0 0 18px rgba(255, 140, 26, .25);
+}
+/* micro-FX: dust devil — a hot wisp blows across the chip on hover */
+body.theme-roadbook #menu .mnbtn { position: relative; overflow: hidden; }
+body.theme-roadbook #menu .mnbtn::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -40%;
+  width: 36%;
+  background: linear-gradient(100deg, transparent, rgba(255, 216, 160, .22), transparent);
+  transform: skewX(-14deg);
+  opacity: 0;
+  pointer-events: none;
+}
+body.theme-roadbook #menu .mnbtn:hover::after { opacity: 1; animation: beamSweep .8s ease forwards; }
+body.theme-roadbook #menu .mnbtn.pri {
+  border-color: rgba(224, 68, 48, .8);
+  border-bottom-color: #e04430;
+  background: rgba(224, 68, 48, .1);
+}
+body.theme-roadbook #menu .mnbtn.pri::after { color: #ff6a55; border-color: rgba(224, 68, 48, .55); }
+
+/* --- game HUD: desert service terminal ------------------------------------------ */
+body.theme-roadbook .g-stage {
+  color: #f3e6c8;
+  text-shadow: 0 0 18px rgba(255, 140, 26, .45);
+}
+body.theme-roadbook .g-stage::after {
+  color: #e04430;
+  text-shadow: 0 0 10px rgba(224, 68, 48, .55);
+}
+body.theme-roadbook .note-lbl { color: #ffd9a0; text-shadow: 0 0 10px rgba(255, 176, 0, .35); }
+body.theme-roadbook .g-prog-bar {
+  background: repeating-linear-gradient(90deg, rgba(255, 176, 0, .55) 0 14px, rgba(109, 83, 48, .3) 14px 18px);
+  box-shadow: 0 0 12px rgba(255, 140, 26, .2);
+}
+body.theme-roadbook #game-bg-video { filter: sepia(.35) saturate(1.15) brightness(.9) contrast(1.12) hue-rotate(-8deg); }
+body.theme-roadbook .game-bg-overlay { background: linear-gradient(180deg, rgba(25, 17, 6, .68), rgba(15, 10, 3, .92) 78%); }
+
+/* --- inner screens: desert backdrop --------------------------------------------- */
+body.theme-roadbook .theme-bg {
+  background-image:
+    radial-gradient(120% 100% at 50% 115%, rgba(255, 140, 26, .16), transparent 60%),
+    linear-gradient(180deg, rgba(25, 17, 6, .97), rgba(15, 10, 3, .99));
+}
+   COCKPIT v6 — THE PIT WALL: live telemetry dressing for the poster theme
+   ----------------------------------------------------------------------------
+   Street got this love first; now the default theme earns it too. Everything
+   here is default-theme-only (the :not():not() guard). No new DOM except
+   what theme-switcher.js injects (ensurePilotCam — mirrors ensureStreetCam).
+   ============================================================================ */
+
+/* --- 1. LIVE PILOT-CAM BADGE — JS clock, REC pulse, speed readout --------- */
+/* the cam's rendered height incl. its min/max clamps, shared by badge + brackets */
+body:not(.theme-street):not(.theme-roadbook) .menu-left { --camh: min(220px, max(15vw, 135px)); }
+.pilot-cam-live {
+  position: absolute;
+  right: 14px;
+  bottom: calc(var(--camh, 15vw) + 26px);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold);
+  background: rgba(8, 8, 10, .78);
+  border: 1px solid rgba(245, 197, 24, .5);
+  padding: 4px 9px;
+  border-radius: 3px;
+  pointer-events: none;
+  animation: recPulse 2.2s ease-in-out infinite;
+}
+.pilot-cam-live .rec-dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #ff3b30;
+  box-shadow: 0 0 6px rgba(255, 59, 48, .9);
+  animation: recBlink 1.1s steps(2, start) infinite;
+}
+.pilot-cam-live .pilot-clock { color: #e8e8f0; }
+.pilot-cam-live .pilot-speed { color: var(--mp-orange); }
+@keyframes recBlink { 0%, 100% { opacity: 1; } 50% { opacity: .15; } }
+@keyframes recPulse { 0%, 100% { opacity: .88; } 50% { opacity: 1; } }
+
+/* --- 2. THE CAM GETS DRESSED: corner brackets + scanline glass ------------ */
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-hero {
+  transition: box-shadow 200ms ease, border-color 200ms ease;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-hero:hover {
+  border-color: #ffe37a;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, .65), 0 0 18px rgba(245, 197, 24, .28);
+}
+.menu-left::before {
+  content: '';
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  pointer-events: none;
+}
+body:not(.theme-street):not(.theme-roadbook) .menu-left::before {
+  /* viewfinder corner brackets tracking the pilot-cam's real size */
+  background:
+    linear-gradient(var(--gold), var(--gold)) right 10px bottom calc(var(--camh, 15vw) + 14px) / 26px 2px,
+    linear-gradient(var(--gold), var(--gold)) right 10px bottom 10px / 2px calc(var(--camh, 15vw) + 8px),
+    linear-gradient(rgba(255, 255, 255, .045), rgba(255, 255, 255, .045)) 0 0 / 100% 3px,
+    linear-gradient(rgba(255, 255, 255, .028), rgba(255, 255, 255, .028)) 0 0 / 100% 2px;
+  background-repeat: no-repeat, no-repeat, repeat-y, repeat-y;
+  background-size: 26px 2px, 2px calc(var(--camh, 15vw) + 8px), 100% 7px, 100% 11px;
+  opacity: .8;
+}
+
+/* --- 3. AMBIENT MOTION on the poster itself -------------------------------- */
+@keyframes posterDrift {
+  from { transform: scale(1.015) translateX(-.6%); }
+  to   { transform: scale(1.085) translateX(.7%); }
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-left::after {
+  animation: posterDrift 46s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes dustDrift {
+  from { transform: translate3d(-2%, 0, 0); }
+  to   { transform: translate3d(2%, -1.5%, 0); }
+}
+body:not(.theme-street):not(.theme-roadbook) .menu-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(1.5px 1.5px at 12% 30%, rgba(232, 215, 170, .5), transparent 60%),
+    radial-gradient(1px 1px at 34% 58%, rgba(232, 215, 170, .38), transparent 60%),
+    radial-gradient(2px 2px at 57% 24%, rgba(232, 215, 170, .3), transparent 60%),
+    radial-gradient(1px 1px at 72% 44%, rgba(232, 215, 170, .42), transparent 60%),
+    radial-gradient(1.5px 1.5px at 87% 66%, rgba(232, 215, 170, .3), transparent 60%),
+    radial-gradient(1px 1px at 22% 78%, rgba(232, 215, 170, .34), transparent 60%),
+    radial-gradient(1.5px 1.5px at 64% 82%, rgba(232, 215, 170, .26), transparent 60%);
+  animation: dustDrift 19s linear infinite alternate;
+  opacity: .5;
+  mix-blend-mode: screen;
+}
+
+/* --- 4. SPEED RULER along the right edge ---------------------------------- */
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-stripe {
+  right: auto;
+  left: 0;
+  top: 0;
+  bottom: auto;
+  width: 30px;
+  height: 58dvh;
+  z-index: 5;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 9px, rgba(255, 255, 255, .3) 9px 10px),
+    repeating-linear-gradient(180deg, transparent 0 45px, rgba(255, 255, 255, .62) 45px 46px);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+  opacity: .8;
+  pointer-events: none;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-stripe::after {
+  content: 'IP12 ▸ LARIAT';
+  position: absolute;
+  right: 3px;
+  bottom: 34%;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, .55);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* --- 5. SOFT DANGER: hazard tape on the console top edge ------------------ */
+body:not(.theme-street):not(.theme-roadbook) .menu-right {
+  position: relative;
+}
+body:not(.theme-street):not(.theme-roadbook) .menu-right::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: 0; right: 0;
+  height: 4px;
+  z-index: 1;
+  background: repeating-linear-gradient(-55deg,
+    var(--mp-yellow) 0 12px, #1c1c22 12px 24px);
+  opacity: .8;
+}
+
+/* --- 6. CHIP HARDWARE: count prefix + corner notch ------------------------ */
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn { counter-increment: pitbtn; }
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn::before {
+  content: counter(pitbtn, decimal-leading-zero);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: rgba(245, 197, 24, .55);
+  border: 1px solid rgba(245, 197, 24, .28);
+  padding: 1px 4px;
+  margin-right: 8px;
+  align-self: center;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn:hover {
+  transform: translateY(-2px);
+  border-left-color: var(--gold);
+  background: rgba(36, 36, 47, .95);
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn.pri::before {
+  color: #ffd7d3;
+  border-color: rgba(232, 41, 28, .55);
+}
+/* corner notch: 6px clip on the top-right of every chip */
+@supports (clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)) {
+  body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn {
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  }
+}
+/* gold edge-light sweeps across the console when the pointer enters the dock */
+@keyframes edgeSweep {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(260%); }
+}
+body:not(.theme-street):not(.theme-roadbook) .menu-right::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -20%;
+  width: 34%;
+  height: 2px;
+  z-index: 2;
+  background: linear-gradient(90deg, transparent, rgba(245, 197, 24, .75), transparent);
+  opacity: 0;
+  pointer-events: none;
+}
+body:not(.theme-street):not(.theme-roadbook) .menu-right:hover::after {
+  opacity: 1;
+  animation: edgeSweep 1.1s ease forwards;
+}
+
+/* --- 7. GAME SCREEN: HUD chrome matches the pit-wall language ------------- */
+body:not(.theme-street):not(.theme-roadbook) #game .menu-stripe { display: none; }
+
+/* --- 8. RESULTS: telemetry frame on the debrief --------------------------- */
+body:not(.theme-street):not(.theme-roadbook) #result {
+  position: relative;
+}
+body:not(.theme-street):not(.theme-roadbook) #result::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background:
+    linear-gradient(var(--gold), var(--gold)) top 10px left 10px / 34px 2px,
+    linear-gradient(var(--gold), var(--gold)) top 10px left 10px / 2px 34px,
+    linear-gradient(var(--gold), var(--gold)) top 10px right 10px / 34px 2px,
+    linear-gradient(var(--gold), var(--gold)) top 10px right 10px / 2px 34px,
+    linear-gradient(var(--gold), var(--gold)) bottom 10px left 10px / 34px 2px,
+    linear-gradient(var(--gold), var(--gold)) bottom 10px left 10px / 34px 2px,
+    linear-gradient(var(--gold), var(--gold)) bottom 10px left 10px / 2px 34px,
+    linear-gradient(var(--gold), var(--gold)) bottom 10px right 10px / 34px 2px,
+    linear-gradient(var(--gold), var(--gold)) bottom 10px right 10px / 2px 34px;
+  background-repeat: no-repeat;
+  opacity: .8;
+}
+body:not(.theme-street):not(.theme-roadbook) #result::after {
+  content: '▲ TELEMETRY LINK ACTIVE';
+  position: absolute;
+  top: 6px;
+  right: 56px;
+  z-index: 6;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--gold);
+  background: rgba(8, 8, 10, .72);
+  border: 1px solid rgba(245, 197, 24, .4);
+  padding: 3px 8px;
+  pointer-events: none;
+  animation: recPulse 2.2s ease-in-out infinite;
+}
+/* --- guard: pilot-cam badge can never leak outside Cockpit ---------------- */
+.theme-street .pilot-cam-live,
+.theme-roadbook .pilot-cam-live { display: none !important; }
+/* --- 9. FIT: keep every new layer out of trouble on small screens --------- */
+@media (max-width: 1180px) {
+  body:not(.theme-street):not(.theme-roadbook) #menu .menu-stripe { height: 100%; }
+}
+@media (max-width: 900px) {
+  body:not(.theme-street):not(.theme-roadbook) .menu-left { --camh: 19vw; }
+  body:not(.theme-street):not(.theme-roadbook) #menu .menu-stripe { display: none; }
+  body:not(.theme-street):not(.theme-roadbook) #menu .mnbtn::before { display: none; }
+}
+@media (max-width: 640px) {
+  body:not(.theme-street):not(.theme-roadbook) .menu-left { --camh: 26vw; }
+  body:not(.theme-street):not(.theme-roadbook) .menu-wrap::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body:not(.theme-street):not(.theme-roadbook) #menu .menu-left::after { animation: none; }
+  body:not(.theme-street):not(.theme-roadbook) .menu-wrap::after { animation: none; }
+  body:not(.theme-street):not(.theme-roadbook) .menu-right:hover::after { animation: none; opacity: 0; }
+  .pilot-cam-live { animation: none; }
+  .pilot-cam-live .rec-dot { animation: none; }
+}
+
+/* ============================================================================
+   GAMEPLAY NODES — Wangan Run (Street) + Night Recon (Roadbook)
+   ============================================================================ */
+
+/* --- theme-scoped menu buttons: each node lives only in its home theme ---- */
+body:not(.theme-street) .street-only { display: none !important; }
+body:not(.theme-roadbook) .roadbook-only { display: none !important; }
+
+/* --- Wangan planner: branch cards ----------------------------------------- */
+.wangan-branches {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.wangan-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  text-align: left;
+  background: var(--surf2);
+  border: 1px solid var(--brd);
+  border-radius: 4px;
+  padding: .8rem .9rem;
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 140ms ease, background 140ms ease, transform 140ms ease;
+}
+.wangan-branch:hover { border-color: var(--cyan); background: var(--surf3); transform: translateY(-2px); }
+.wangan-branch.chosen {
+  border-color: var(--cyan);
+  background: rgba(0, 240, 255, .07);
+  box-shadow: 0 0 14px rgba(0, 240, 255, .18);
+}
+.wangan-branch .wb-tag {
+  font-family: 'Press Start 2P', 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--cyan);
+  border: 1px solid rgba(0, 240, 255, .5);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.wangan-branch .wb-label { font-size: 13px; font-weight: 600; letter-spacing: .5px; }
+.wangan-branch .wb-desc { font-size: 11px; color: var(--text2); line-height: 1.45; }
+.wangan-branch .wb-hazard,
+.wangan-branch .wb-bonus {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.wangan-branch .wb-hazard { color: #ff2ec4; border: 1px solid rgba(255, 46, 196, .5); }
+.wangan-branch .wb-bonus { color: var(--gold); border: 1px solid rgba(245, 197, 24, .4); }
+@media (max-width: 720px) { .wangan-branches { grid-template-columns: 1fr; } }
+
+/* --- in-game HUD strips (both nodes) --------------------------------------- */
+.wangan-hud, .recon-hud {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 6px 0 0;
+  padding: 4px 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  border: 1px solid var(--brd2);
+  background: rgba(7, 8, 18, .78);
+  border-radius: 3px;
+  width: fit-content;
+}
+.wangan-hud .wh-route { color: var(--cyan); font-weight: 700; }
+.wangan-hud .wh-esc { color: var(--green); }
+.wangan-hud .wh-bust { color: #ff2ec4; }
+.wangan-hud .wh-cops { color: #ff2ec4; font-weight: 700; animation: whCopPulse 1s steps(2, start) infinite; }
+.wangan-hud .wh-clear { color: var(--text3); }
+.wangan-hud .wh-sep, .recon-hud .rh-label { color: var(--text3); }
+@keyframes whCopPulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .wangan-hud .wh-cops { animation: none; } }
+
+.recon-hud { border-color: rgba(255, 122, 26, .4); background: rgba(10, 7, 4, .82); }
+.recon-hud .rh-bar {
+  position: relative;
+  width: 130px; height: 8px;
+  background: #1c130a;
+  border: 1px solid rgba(255, 122, 26, .35);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.recon-hud .rh-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #7e2010, #ff7a18, #ffc233);
+  transition: width .3s ease;
+}
+.recon-hud .rh-pct { color: #ffc233; font-weight: 700; }
+.recon-hud .rh-mode { color: var(--text2); }
+.recon-hud .rh-mode.rh-burn { color: #ff7a18; font-weight: 700; animation: whCopPulse .9s steps(2, start) infinite; }
+.recon-hud .rh-mode.rh-res { color: #ff4530; }
+
+/* --- Night Recon: the fire choice overlay ---------------------------------- */
+.recon-pick {
+  display: none;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 7100;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(8, 5, 3, .94);
+  border: 1px solid rgba(255, 122, 26, .5);
+  box-shadow: 0 0 30px rgba(255, 122, 26, .22);
+  border-radius: 4px;
+}
+.recon-pick .rp-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text3);
+  margin-right: 4px;
+}
+.recon-pick .rp-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: .5rem .9rem;
+  cursor: pointer;
+  border-radius: 3px;
+  background: transparent;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.recon-pick .rp-btn:hover:not(:disabled) { transform: translateY(-2px); }
+.recon-pick .rp-conserve { color: #ffc233; border: 1px solid rgba(255, 194, 51, .55); }
+.recon-pick .rp-conserve:hover:not(:disabled) { box-shadow: 0 0 14px rgba(255, 194, 51, .3); }
+.recon-pick .rp-burn { color: #ff7a18; border: 1px solid rgba(255, 122, 26, .7); background: rgba(255, 122, 26, .08); }
+.recon-pick .rp-burn:hover:not(:disabled) { box-shadow: 0 0 18px rgba(255, 122, 26, .45); }
+.recon-pick .rp-burn:disabled { opacity: .35; cursor: not-allowed; }
+
+/* --- theme skins ------------------------------------------------------------ */
+body.theme-roadbook .recon-pick {
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+}
+body.theme-roadbook .recon-hud { letter-spacing: 2px; }
+body.theme-street .wangan-branch { border-radius: 3px; }
+body.theme-street .wangan-branch .wb-label { font-family: 'VT323', 'IBM Plex Mono', monospace; font-size: 19px; letter-spacing: 1px; }
+body.theme-street .wangan-branch .wb-desc { font-family: 'VT323', 'IBM Plex Mono', monospace; font-size: 15px; color: var(--text2); }
+
+/* ============================================================================
+   KILLER B — Cockpit's survival node: strain HUD + guards
+   ============================================================================ */
+/* cockpit-only button: hidden in Street/Roadbook; visible in Cockpit by
+   the base .mnbtn display rules — no extra show rule needed */
+body.theme-street .cockpit-only,
+body.theme-roadbook .cockpit-only { display: none !important; }
+
+.survival-hud {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 6px 0 0;
+  padding: 4px 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  border: 1px solid rgba(232, 41, 28, .4);
+  background: rgba(10, 8, 6, .82);
+  border-radius: 3px;
+  width: fit-content;
+}
+.survival-hud .sh-label { color: var(--text3); }
+.survival-hud .sh-bar {
+  position: relative;
+  width: 130px; height: 8px;
+  background: #1a0e0c;
+  border: 1px solid rgba(232, 41, 28, .35);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.survival-hud .sh-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #5c3315, #e8291c);
+  transition: width .3s ease;
+}
+.survival-hud .sh-fill.sh-warn { background: linear-gradient(90deg, #b93312, #ff5a1f); }
+.survival-hud .sh-fill.sh-crit { background: linear-gradient(90deg, #e8291c, #ff2e2e); animation: whCopPulse .7s steps(2, start) infinite; }
+.survival-hud .sh-pct { color: #ff7a5c; font-weight: 700; }
+.survival-hud .sh-state { color: var(--text2); }
+.survival-hud .sh-state.sh-crit-txt { color: #ff2e2e; font-weight: 700; animation: whCopPulse .7s steps(2, start) infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .survival-hud .sh-fill.sh-crit,
+  .survival-hud .sh-state.sh-crit-txt { animation: none; }
+}
+
+/* ============================================================================
+   ROAD CALL — Roadbook's blind roadbook-reading node
+   ============================================================================ */
+/* blind mode: the shorthand is replaced by the raw row (handled in JS);
+   the class blocks the answer leaking via any other display path and lets
+   the row styling hit harder */
+#g-note.rb-blind {
+  font-size: 44px !important;
+  letter-spacing: 6px !important;
+  color: var(--gold) !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+}
+#g-tulip.rb-blind svg { transform: scale(1.35); transform-origin: left center; }
+
+/* hover sweep keyframe (was defined in the old v9 block) */
+@keyframes beamSweep { from { left: -40%; } to { left: 110%; } }
+
+/* ============================================================================
+   RESULTS PHOTO — the debrief carries the theme's photograph
+   ----------------------------------------------------------------------------
+   Street already paints Shibuya on every inner screen; here Cockpit and
+   Roadbook get their poster photos on #result (scoped, so the other inner
+   screens keep their clean backdrops). Overlays stay heavy: the photo reads
+   as texture, the article stays readable.
+   ============================================================================ */
+body:not(.theme-street):not(.theme-roadbook) #result .theme-bg {
+  display: block;
+  background-image:
+    linear-gradient(180deg, rgba(10, 10, 14, .93), rgba(10, 10, 14, .97)),
+    url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Petter_Solberg_-_2005_Cyprus_Rally.jpg/1920px-Petter_Solberg_-_2005_Cyprus_Rally.jpg');
+  background-blend-mode: multiply, normal;
+}
+body.theme-roadbook #result .theme-bg {
+  display: block;
+  background-image:
+    linear-gradient(180deg, rgba(25, 17, 6, .92), rgba(15, 10, 3, .97)),
+    url('https://upload.wikimedia.org/wikipedia/commons/0/0b/Gianni_Lora_Lamia_Paris-Dakar-Cairo_2000.jpg');
+  background-blend-mode: multiply, normal;
+}
+
+/* ============================================================================
+   COCKPIT TYPE — Orbitron: squared instrument-panel letterforms
+   The default/cockpit theme earns its own display font, like Street's
+   VT323 and Roadbook's Rubik Mono One.
+   ============================================================================ */
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-title {
+  font-family: 'Orbitron', 'Bebas Neue', sans-serif;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+body:not(.theme-street):not(.theme-roadbook) #menu .menu-right-top {
+  font-family: 'Orbitron', 'Bebas Neue', sans-serif;
+  letter-spacing: 3px;
+}
+body:not(.theme-street):not(.theme-roadbook) .g-stage {
+  font-family: 'Orbitron', 'Bebas Neue', sans-serif;
+  letter-spacing: 2px;
+}
+body:not(.theme-street):not(.theme-roadbook) #result .mp-title {
+  font-family: 'Orbitron', 'Anton', sans-serif;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+body:not(.theme-street):not(.theme-roadbook) #result .mp-headline {
+  font-family: 'Orbitron', 'Anton', sans-serif;
+}
+body:not(.theme-street):not(.theme-roadbook) .theme-dock {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* ============================================================================
+   KILLER B CRITICAL ZONE — the intercom breaks up above 75 strain
+   Notes arrive keyboard-garbled (decodable by eye); this is the look.
+   ============================================================================ */
+@keyframes gbStatic {
+  0%, 100% { text-shadow: 0 0 6px rgba(255, 46, 46, .45), 2px 0 0 rgba(0, 255, 255, .18), -2px 0 0 rgba(255, 46, 46, .18); }
+  25%      { text-shadow: 0 0 6px rgba(255, 46, 46, .45), -2px 1px 0 rgba(0, 255, 255, .18), 2px -1px 0 rgba(255, 46, 46, .18); }
+  50%      { text-shadow: 0 0 6px rgba(255, 46, 46, .45), 1px -1px 0 rgba(0, 255, 255, .22), -1px 1px 0 rgba(255, 46, 46, .22); }
+  75%      { text-shadow: 0 0 6px rgba(255, 46, 46, .45), -1px 0 0 rgba(0, 255, 255, .18), 1px 0 0 rgba(255, 46, 46, .18); }
+}
+#g-note.gb-garble {
+  animation: gbStatic .34s steps(2) infinite;
+  letter-spacing: .5px;
+  filter: contrast(1.08);
+}
+@media (prefers-reduced-motion: reduce) {
+  #g-note.gb-garble { animation: none; text-shadow: 0 0 6px rgba(255, 46, 46, .4); }
+}
+
+/* ============================================================================
+   LAUNCH SPLASH — theme skins. Each theme fronts the gate with its own
+   photograph, lettering and palette (loaded after styles.css).
+   ============================================================================ */
+
+/* ---- STREET: night city gate — Shibuya neon, Press Start 2P ---------- */
+body.theme-street #splash{background:#05060a}
+body.theme-street #splash::before{background:
+  radial-gradient(ellipse at 25% 8%,rgba(64,140,255,.20),transparent 55%),
+  radial-gradient(ellipse at 80% 92%,rgba(255,46,99,.14),transparent 55%),
+  repeating-linear-gradient(0deg,transparent 0 46px,rgba(90,140,255,.045) 46px 47px)}
+body.theme-street .splash-inner{background:rgba(8,10,18,.88);border:1px solid rgba(80,140,255,.35);box-shadow:0 0 80px rgba(50,110,255,.25),inset 0 0 60px rgba(20,40,90,.35)}
+body.theme-street .splash-stripe{background:repeating-linear-gradient(-45deg,#408cff 0 14px,#05060a 14px 28px)}
+body.theme-street .splash-title{font-family:'Press Start 2P',monospace;font-size:clamp(1.6rem,5.4vw,2.9rem);line-height:1.25;color:#eaf4ff;text-shadow:0 0 18px rgba(64,140,255,.9),3px 3px 0 #0a1830}
+body.theme-street .splash-title span{color:#ff2e63;text-shadow:0 0 18px rgba(255,46,99,.9),3px 3px 0 #30040e}
+body.theme-street .splash-kicker{color:#7fa8e8}
+body.theme-street .splash-credit span{color:#eaf4ff;border-bottom-color:#ff2e63}
+body.theme-street .splash-btn{background:linear-gradient(135deg,#408cff,#2b5fd0);font-family:'Press Start 2P',monospace;font-size:11px;padding:1rem 2.2rem}
+body.theme-street .splash-theme{background:rgba(10,14,26,.9);border-left-color:#408cff}
+body.theme-street .splash-theme i{color:#7fd0ff}
+body.theme-street .splash-theme b{color:#eaf4ff}
+body.theme-street .splash-theme span{color:#8fa8cc}
+
+/* ---- COCKPIT (default): re-affirmed so themes cascade cleanly ------- */
+body:not(.theme-street):not(.theme-roadbook) .splash-title{font-family:'Bebas Neue','Anton',sans-serif}
+body:not(.theme-street):not(.theme-roadbook) .splash-btn{font-family:'IBM Plex Mono',monospace}
+
+/* ---- ROADBOOK: desert expedition gate — Rubik Mono One, sand ------ */
+body.theme-roadbook #splash{background:#161009}
+body.theme-roadbook #splash::before{background:
+  radial-gradient(ellipse at 22% 12%,rgba(255,170,60,.14),transparent 55%),
+  radial-gradient(ellipse at 85% 85%,rgba(150,80,20,.16),transparent 55%)}
+body.theme-roadbook .splash-inner{background:#1d150c;border:1px solid #4a3620;box-shadow:0 40px 120px rgba(0,0,0,.8),inset 0 0 90px rgba(60,35,10,.5)}
+body.theme-roadbook .splash-rivet{background:#332617;box-shadow:inset 0 1px 2px rgba(0,0,0,.9)}
+body.theme-roadbook .splash-stripe{background:repeating-linear-gradient(-45deg,#e8a13a 0 14px,#161009 14px 28px)}
+body.theme-roadbook .splash-title{font-family:'Rubik Mono One',sans-serif;font-size:clamp(1.7rem,5.6vw,3rem);line-height:1.2;color:#f5e9d5;text-shadow:0 3px 0 #8a5a1e,0 6px 14px rgba(0,0,0,.6)}
+body.theme-roadbook .splash-title span{color:#e8a13a}
+body.theme-roadbook .splash-kicker{color:#b99a6b}
+body.theme-roadbook .splash-credit{color:#cbb795}
+body.theme-roadbook .splash-credit span{color:#fff;border-bottom-color:#e8a13a}
+body.theme-roadbook .splash-rights{color:#8a7454}
+body.theme-roadbook .splash-btn{background:#e8a13a;color:#1d150c;font-family:'Rubik Mono One',sans-serif;font-size:12px;padding:1rem 2.4rem}
+body.theme-roadbook .splash-btn:hover{filter:brightness(1.1)}
+body.theme-roadbook .splash-themes{gap:8px}
+body.theme-roadbook .splash-theme{background:rgba(35,25,14,.9);border-left-color:#e8a13a}
+body.theme-roadbook .splash-theme i{color:#e8a13a}
+body.theme-roadbook .splash-theme b{color:#f5e9d5}
+body.theme-roadbook .splash-theme span{color:#a98d63}
+body.theme-roadbook .splash-foot{color:#8a7454}
+
+/* ---- GIMMICK BANNER accents per theme ------------------------------ */
+body.theme-street .theme-gimmick-banner{border-left-color:#408cff;background:rgba(10,14,26,.9)}
+body.theme-street .theme-gimmick-banner>i{color:#7fd0ff}
+body.theme-roadbook .theme-gimmick-banner{border-left-color:#e8a13a;background:rgba(35,25,14,.9)}
+body.theme-roadbook .theme-gimmick-banner>i{color:#e8a13a}
+
+/* ---- SPLASH v2: boot card + walkthrough per theme -------------------- */
+body.theme-street .boot-title .bt-l1{font-family:'Press Start 2P',monospace;font-size:clamp(1.2rem,4vw,2.1rem);letter-spacing:.3em;text-shadow:0 0 16px rgba(64,140,255,.9)}
+body.theme-street .boot-title .bt-l2{font-family:'Press Start 2P',monospace;font-size:clamp(1.2rem,4vw,2.1rem);letter-spacing:.3em;color:transparent;-webkit-text-stroke:1px #408cff;-webkit-text-stroke-width:1px;text-shadow:none}
+body.theme-street .boot-name{font-family:'Press Start 2P',monospace;font-size:8px;letter-spacing:.2em;text-indent:.2em;color:#5f7db4}
+body.theme-street .boot-name .bn-dot{background:#408cff}
+body.theme-street .boot-rule{background:linear-gradient(90deg,transparent,#408cff,transparent)}
+body.theme-street .boot-tulip path{stroke:#408cff}
+body.theme-street .boot-tulip .bt-arrow{fill:#408cff}
+body.theme-street .walk-step{background:rgba(10,14,26,.9);border-color:#23264a}
+body.theme-street .walk-step.on{border-color:#408cff}
+body.theme-street .walk-step.on i{color:#7fd0ff}
+body.theme-street #splash.live .walk-step.on{box-shadow:0 0 24px rgba(64,140,255,.25)}
+
+body.theme-roadbook .boot-title .bt-l1{font-family:'Rubik Mono One',sans-serif;text-shadow:0 3px 0 #8a5a1e}
+body.theme-roadbook .boot-title .bt-l2{font-family:'Rubik Mono One',sans-serif;color:transparent;-webkit-text-stroke:1.5px #e8a13a;text-shadow:none}
+body.theme-roadbook .boot-name{color:#a98c5f}
+body.theme-roadbook .boot-name .bn-dot{background:#e8a13a}
+body.theme-roadbook .boot-rule{background:linear-gradient(90deg,transparent,#e8a13a,transparent)}
+body.theme-roadbook .boot-tulip path{stroke:#e8a13a}
+body.theme-roadbook .boot-tulip .bt-arrow{fill:#e8a13a}
+body.theme-roadbook #splash-boot{background:#161009}
+body.theme-roadbook .walk-step{background:rgba(35,25,14,.9);border-color:#4a3620}
+body.theme-roadbook .walk-step b{color:#f5e9d5}
+body.theme-roadbook .walk-step.on{border-color:#e8a13a}
+body.theme-roadbook .walk-step.on i{color:#e8a13a}
+
+/* ---- SPLASH v3: photo panel accent + boot roundel per theme ---------- */
+body.theme-street .sp-cyprus,body.theme-street .sp-giza{opacity:.25}
+body.theme-street .sp-wangan{opacity:1}
+body.theme-street .splash-gh{border-color:#23264a;color:#7fd0ff}
+body.theme-street .splash-gh:hover{border-color:#408cff}
+body.theme-street .walk-step.on{box-shadow:none}
+
+body.theme-roadbook .sp-cyprus,body.theme-roadbook .sp-wangan{opacity:.25}
+body.theme-roadbook .sp-giza{opacity:1}
+body.theme-roadbook .boot-tag{color:#e8a13a}
+body.theme-roadbook .splash-gh{border-color:#4a3620;color:#e8a13a}
+body.theme-roadbook .splash-gh:hover{border-color:#e8a13a}
+
+/* --- Wangan planner: alive guidance states -------------------------------- */
+/* chosen cards are unmistakable + carry a CHOSEN stamp */
+.wangan-branch { position: relative; }
+.wangan-branch.chosen::after {
+  content: 'CHOSEN';
+  position: absolute; top: 8px; right: 8px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 1.5px;
+  color: #0a0a0c; background: var(--cyan, #00f0ff);
+  padding: 2px 6px; border-radius: 3px; font-weight: 700;
+}
+.wangan-branch:not(.chosen) { opacity: .78; }
+.wangan-branch.chosen { opacity: 1; }
+
+/* the planner button before the route is complete: a guide, not a dead end */
+.wangan-start-guide {
+  background: var(--surf3, #16161e) !important;
+  border: 1px dashed var(--cyan, #00f0ff) !important;
+  color: var(--cyan, #00f0ff) !important;
+  cursor: pointer;
+  animation: wanganGuidePulse 2.4s ease-in-out infinite;
+}
+@keyframes wanganGuidePulse { 0%,100% { box-shadow: 0 0 0 rgba(0,240,255,0); } 50% { box-shadow: 0 0 14px rgba(0,240,255,.28); } }
+
+/* pick flash + missing-segment nudge */
+.wangan-branch.flashpick { animation: wbFlash .45s ease; }
+@keyframes wbFlash { 0% { background: rgba(0,240,255,.28); transform: scale(.985); } 100% { background: rgba(0,240,255,.07); } }
+.wangan-branch.nudge { animation: wbNudge .55s ease; }
+@keyframes wbNudge { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 60% { transform: translateX(4px); } }
+@media (prefers-reduced-motion: reduce) {
+  .wangan-start-guide, .wangan-branch.flashpick, .wangan-branch.nudge { animation: none; }
+}
+
+/* ============================================================================
+   PIXEL CURSORS — one sprite set per theme
+   ----------------------------------------------------------------------------
+   Arrows are 24x36 (hotspot 2,2 at the tip), pointer hands 28x36 (hotspot
+   10,0 at the fingertip). `image-rendering: pixelated` keeps the pixels
+   square. Fallback chain ends in crosshair/pointer so a missing PNG never
+   breaks input. Elements declaring their own cursor (text, resize, etc.)
+   keep theirs; pointer/interactive elements get the themed hand.
+   ========================================================================== */
+
+/* --- STREET: neon-cyan arrow, pink-cuffed hand -------------------------- */
+body.theme-street {
+  cursor: url('cursor-street.png') 2 2, crosshair;
+}
+body.theme-street a,
+body.theme-street button,
+body.theme-street [role='button'],
+body.theme-street label,
+body.theme-street select,
+body.theme-street summary,
+body.theme-street .car-btn,
+body.theme-street .era-card {
+  cursor: url('cursor-street-point.png') 10 0, pointer;
+}
+
+/* --- ROADBOOK: ink-on-paper arrow, brass-cuffed hand -------------------- */
+body.theme-roadbook {
+  cursor: url('cursor-roadbook.png') 2 2, crosshair;
+}
+body.theme-roadbook a,
+body.theme-roadbook button,
+body.theme-roadbook [role='button'],
+body.theme-roadbook label,
+body.theme-roadbook select,
+body.theme-roadbook summary,
+body.theme-roadbook .car-btn,
+body.theme-roadbook .era-card {
+  cursor: url('cursor-roadbook-point.png') 10 0, pointer;
+}
+
+/* --- COCKPIT (default, no body class): chalk-white arrow, red cuff ------ */
+body:not(.theme-street):not(.theme-roadbook) {
+  cursor: url('cursor-cockpit.png') 2 2, crosshair;
+}
+body:not(.theme-street):not(.theme-roadbook) a,
+body:not(.theme-street):not(.theme-roadbook) button,
+body:not(.theme-street):not(.theme-roadbook) [role='button'],
+body:not(.theme-street):not(.theme-roadbook) label,
+body:not(.theme-street):not(.theme-roadbook) select,
+body:not(.theme-street):not(.theme-roadbook) summary,
+body:not(.theme-street):not(.theme-roadbook) .car-btn,
+body:not(.theme-street):not(.theme-roadbook) .era-card {
+  cursor: url('cursor-cockpit-point.png') 10 0, pointer;
+}
+
+/* Pixel cursors must render as crisp squares in every engine that supports
+   zoomed cursors. Applied globally — it only affects cursor rasterization. */
+* { cursor-image-zoom: reset; }
+
+/* ============================================================================
+   AUDIO DOCK — persistent mixer, every screen (audio-mixer.js)
+   ----------------------------------------------------------------------------
+   Bottom-right mirror of the theme dock. Collapsed: one round speaker
+   button. Expanded: MUSIC / SFX / VOICE faders + master mute. Uses the
+   theme's own tokens, so it re-skins for free in all three worlds.
+   ========================================================================== */
+.audio-dock {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 9500;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+#audio-dock-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--brd2, #35354a);
+  background: rgba(10, 10, 12, .82);
+  color: var(--text, #f0f0f0);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color .15s, color .15s, transform .15s;
+}
+#audio-dock-toggle:hover {
+  border-color: var(--gold, #f5c518);
+  color: var(--gold, #f5c518);
+  transform: scale(1.06);
+}
+.audio-dock.muted #audio-dock-toggle {
+  color: #e8291c;
+  border-color: #e8291c;
+  border-style: dashed;
+}
+.audio-dock-panel {
+  display: none;
+  min-width: 200px;
+  padding: 10px 12px 12px;
+  background: rgba(10, 10, 12, .92);
+  border: 1px solid var(--brd2, #35354a);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .45);
+}
+.audio-dock.expanded .audio-dock-panel { display: block; }
+.audio-dock .ad-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text3, #50506a);
+}
+.audio-dock .ad-head button {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--text2, #9a9ab0);
+  font-size: 13px;
+  padding: 2px 6px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.audio-dock .ad-head button:hover { color: #e8291c; border-color: #e8291c; }
+.audio-dock.muted .ad-head button { color: #e8291c; }
+.audio-dock .ad-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 7px 0;
+  font-size: 11px;
+  color: var(--text2, #9a9ab0);
+}
+.audio-dock .ad-row i { width: 14px; text-align: center; }
+.audio-dock .ad-row input[type='range'] {
+  flex: 1;
+  width: 90px;
+  height: 3px;
+  accent-color: var(--gold, #f5c518);
+  cursor: pointer;
+}
+.audio-dock .ad-val {
+  min-width: 34px;
+  text-align: right;
+  font-size: 9px;
+  color: var(--text3, #50506a);
+}
+@media (max-width: 640px) {
+  .audio-dock-panel { min-width: 170px; }
+  .audio-dock .ad-row input[type='range'] { width: 64px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #audio-dock-toggle { transition: none; }
+}
