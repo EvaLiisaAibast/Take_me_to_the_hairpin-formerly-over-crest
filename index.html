@@ -13,8 +13,16 @@
 <title>TAKE ME TO THE HAIRPIN</title>
 <link rel="icon" href="data:,"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap"/>
-<link rel="stylesheet" href="styles.css"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Caveat:wght@500;600;700&family=Press+Start+2P&family=VT323&family=Cookie&family=Gochi+Hand&family=Orbitron:wght@500;700;900&family=Rubik+Mono+One&family=Black+Ops+One&display=swap"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"/>
+<link rel="stylesheet" href="styles.css?v=16"/>
+<link rel="stylesheet" href="themes.css?v=36"/>
+<script src="theme-switcher.js?v=6"></script>
+<script src="wangan-modes.js?v=5"></script>
+<script src="night-recon.js?v=3"></script>
+<script src="groupb-survival.js?v=3"></script>
+<script src="roadbook-call.js?v=3"></script>
+<script src="audio-mixer.js?v=4"></script>
 
 <script>
   !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags updateEarlyAccessFeatureFlag setEarlyAccessFeatureFlag getEarlyAccessFeatureFlag getEarlyAccessFeatureFlagPayload".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
@@ -218,1067 +226,289 @@
 </head>
 <body>
 
-<div class="screen active" id="menu">
-
-<div id="lobby-info-bar" style="position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,12,0.95);border-bottom:1px solid var(--brd2);padding:8px 16px;display:none;align-items:center;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;">
-  <div style="display:flex;align-items:center;gap:12px;">
-    <span style="color:var(--gold);font-weight:600;">🎮 LOBBY: <span id="lobby-display-id">—</span></span>
-    <span style="color:var(--text3);">|</span>
-    <span style="color:var(--text3);">Server: <span id="lobby-display-server">—</span></span>
+<!-- Launch splash: studio boot -> title -> walkthrough. Click/key to start (also unlocks the intro sting). -->
+<div id="splash">
+  <div class="splash-photos" aria-hidden="true">
+    <div class="sp-ph sp-cyprus"></div>
+    <div class="sp-ph sp-giza"></div>
+    <div class="sp-ph sp-wangan"></div>
+    <div class="splash-photo-veil"></div>
   </div>
-  <button onclick="Multiplayer.leaveLobby();hideLobbyInfo();" style="background:none;border:none;color:#e8291c;cursor:pointer;font-size:11px;font-family:inherit;">✕ Leave</button>
-</div>
-<div class="menu-wrap" id="menu-wrap">
-  <div class="menu-left">
-    <video class="menu-hero" autoplay muted loop playsinline>
-      <source src="1000216126.mp4" type="video/mp4"/>
-    </video>
-    <div class="menu-overlay"></div>
-    <div class="menu-stripe"></div>
-    <div class="menu-content">
-      <div class="menu-title">TAKE ME TO<br>THE HAIRPIN</div>
-      <div class="menu-sub">Co-Driver Academy &amp; Career Mode</div>
-      <div class="menu-quote">"The notes are the truth. Trust them completely."</div>
+  <div class="splash-convoy" aria-hidden="true">
+    <!-- the whole garage rolls by: WRC / Group B / street / Dakar, mixed -->
+    <img src="ford_escort_WRC.png" alt="" class="convoy-car c1">
+    <img src="wangan_r34.png" alt="" class="convoy-car c2">
+    <img src="dakar_hilux.png" alt="" class="convoy-car c3">
+    <img src="audi-sport_quattro.png" alt="" class="convoy-car c4">
+    <img src="wangan_rx7.png" alt="" class="convoy-car c5">
+    <img src="dakar_kamaz.png" alt="" class="convoy-car c6">
+    <img src="toyota_GR_Yaris_Rally1.png" alt="" class="convoy-car c7">
+    <img src="wangan_supra.png" alt="" class="convoy-car c8">
+    <img src="dakar_mini.png" alt="" class="convoy-car c9">
+  </div>
+  <div id="splash-boot">
+    <svg class="boot-tulip" viewBox="0 0 96 96" aria-hidden="true">
+      <path class="bt-entry" d="M 8 84 L 48 84" />
+      <path class="bt-bend" d="M 48 84 C 48 60, 48 44, 48 34 C 48 16, 76 16, 76 34 L 76 44" />
+      <path class="bt-arrow" d="M 70 38 L 76 46 L 82 38" />
+    </svg>
+    <div class="boot-title"><span class="bt-l1">PRESSURE</span><span class="bt-l2">REALITY</span></div>
+    <div class="boot-tag">UNTIL IT COMPILES</div>
+    <div class="boot-rule"></div>
+    <div class="boot-name"><span class="bn-l1">EVA-LIISA</span><span class="bn-dot"></span><span class="bn-l2">AIBAST</span></div>
+    <div class="boot-year">&copy; 2026 &middot; ALL RIGHTS RESERVED</div>
+    <div class="boot-sub">CLICK OR PRESS ANY KEY</div>
+  </div>
+  <div class="splash-inner">
+    <div class="splash-rivet tl"></div><div class="splash-rivet tr"></div>
+    <div class="splash-rivet bl"></div><div class="splash-rivet br"></div>
+    <div class="splash-stripe"></div>
+    <div class="splash-kicker">CO-DRIVER ACADEMY</div>
+    <div class="splash-title">TAKE ME TO<br><span>THE HAIRPIN</span></div>
+    <div class="splash-credit">GAME MADE BY <span>EVA-LIISA&nbsp;AIBAST</span> <a class="splash-gh" href="https://github.com/EvaLiisaAibast?tab=repositories" target="_blank" rel="noopener"><i class="bi bi-github"></i> WORK WITH ME</a></div>
+    <div class="splash-rights">© 2026 EVA-LIISA AIBAST. ALL RIGHTS RESERVED. PERSONAL / NON-COMMERCIAL USE ONLY.<br>Want to use it another way — or work on it together? <a class="rights-link" href="https://github.com/EvaLiisaAibast?tab=repositories" target="_blank" rel="noopener">Message me on GitHub</a>.</div>
+    <button class="splash-btn" id="splash-enter" onclick="dismissSplash()"><i class="bi bi-lightning-charge-fill"></i> START ENGINE</button>
+    <div class="splash-walk" id="splash-walk">
+      <div class="walk-step"><i class="bi bi-eye"></i><div><b>1 &middot; READ</b><span>The co-driver shorthand appears with its diagram</span></div></div>
+      <div class="walk-step"><i class="bi bi-keyboard"></i><div><b>2 &middot; CALL</b><span>Type its meaning in plain English — phrasing is forgiven</span></div></div>
+      <div class="walk-step"><i class="bi bi-stopwatch"></i><div><b>3 &middot; BEAT THE CLOCK</b><span>Too early or too late both cost the stage time</span></div></div>
     </div>
-  </div>
-  <div class="menu-right">
-    <div class="menu-right-top" style="display:flex;align-items:center;justify-content:space-between">
-  <span>SELECT MODE</span>
-  <button id="mode-toggle-btn" title="Toggle Game/Training mode">🎮 Game Mode</button>
-</div>
-<div style="padding:.6rem 1.5rem;background:#0a0a0c;border-bottom:1px solid #252530;font-size:12px;color:#5a5a70;font-family:'IBM Plex Mono',monospace;line-height:1.5;display:flex;justify-content:space-between;align-items:center;">
-  <div>Read the notes. Keep the driver alive.<br>
-  <span style="color:#f5c518">Training Mode</span> = lessons & telemetry. <span style="color:#39ff14">Game Mode</span> = full rally simulation.</div>
-  <div style="display:flex;gap:8px;align-items:center;">
-    <div style="display:flex;align-items:center;gap:8px;padding:4px 8px;background:var(--surf);border:1px solid var(--brd2);border-radius:4px;">
-      <span style="font-size:10px;color:var(--text2)">🎵</span>
-      <input type="range" id="music-volume-slider" min="0" max="1" step="0.05" value="0.5" style="width:60px;height:4px;cursor:pointer" onchange="updateMusicVolume(this.value)">
-      <span style="font-size:10px;color:var(--text2)">🎤</span>
-      <input type="range" id="voice-volume-slider" min="0" max="1" step="0.05" value="1.0" style="width:60px;height:4px;cursor:pointer" onchange="updateVoiceVolume(this.value)">
+    <div class="splash-themes" id="splash-themes">
+      <div class="splash-theme" data-theme="theme-street" role="button" tabindex="0"><i class="bi bi-lightning-charge"></i><b>STREET</b><span>Wangan legends · plan your route · the cops can come</span></div>
+      <div class="splash-theme" data-theme="" role="button" tabindex="0"><i class="bi bi-camera-reels"></i><b>COCKPIT</b><span>Classic WRC eras · Jemba notes · Killer B survival</span></div>
+      <div class="splash-theme" data-theme="theme-roadbook" role="button" tabindex="0"><i class="bi bi-journal-bookmark"></i><b>ROADBOOK</b><span>Dakar machinery · Night Recon · Road Call</span></div>
     </div>
-    <button id="recording-toggle-btn" class="gbtn" onclick="RecordingMode.toggle()" style="font-size:11px;padding:4px 10px;">⚪ Recording OFF</button>
-    <button class="gbtn" onclick="LanParty.quickHost()" style="font-size:11px;padding:4px 10px;background:#39ff14;color:#0a0a0c;border-color:#39ff14;">🎮 Host LAN</button>
+    <div class="splash-foot">The theme you pick in the dock changes your garage, your stages and your gimmicks</div>
   </div>
 </div>
-    <div class="menu-nav">
-      <button class="mnbtn pri" onclick="openSetup()" style="background:var(--green);color:#0a0a0c;border-color:var(--green)">⚡ Quick Stage <span style="font-size:14px">★</span></button>
-      <button class="mnbtn" onclick="openCareer()">Career Mode <span>→</span></button>
-      <button class="mnbtn" onclick="openTraining()">Training School <span>→</span></button>
-      <button class="mnbtn" onclick="openTutorial()" style="border-color:var(--gold);color:var(--gold)">Interactive Tutorial <span style="font-size:14px">★</span></button>
-      <button class="mnbtn" onclick="openSignatureStages()" style="border-color:var(--red);color:var(--red)">🏆 Signature Stages <span style="font-size:12px">★</span></button>
-      <button class="mnbtn" onclick="openDailyChallenge()" style="border-color:var(--cyan);color:var(--cyan)">📅 Daily Challenge <span style="font-size:12px">NEW</span></button>
-      <button class="mnbtn" onclick="openWeeklyChallenge()" style="border-color:var(--mp-orange);color:var(--mp-orange)">🏆 Weekly Rally <span style="font-size:12px">HOT</span></button>
-      <button class="mnbtn" onclick="openTuningStandalone()">Tuning Garage <span>→</span></button>
-      <button class="mnbtn" id="menu-analytics-btn" onclick="openAnalytics()" style="display:none">Analytics Dashboard <span>→</span></button>
-      <button class="mnbtn" id="menu-programs-btn" onclick="openPrograms()" style="display:none">Training Programs <span>→</span></button>
-      <button class="mnbtn" onclick="openEditor()">Note Editor <span>→</span></button>
-      <button class="mnbtn" onclick="openAchievements()">Achievements <span>→</span></button>
-      <button class="mnbtn" onclick="openAccessibility()">Settings <span>→</span></button>
-    </div>
-    <div class="menu-bar">TAKE ME TO THE HAIRPIN — Stage Report Edition</div>
-    <div class="menu-foot">Group B · WRC 90s · Modern WRC<br>v2.0 — Three eras, one career</div>
-  </div>
-</div>
-</div>
-
-<div class="screen" id="setup">
-<div class="page-hdr">
-  <button class="bk" onclick="showMenu()">← Menu</button>
-  <div class="page-hdr-title">Stage Setup</div>
-</div>
-<div class="setup-scroll">
-  <div class="ss-sec"><h3>Era</h3><div class="era-grid" id="era-grid"></div></div>
-  <div class="ss-sec">
-    <h3>Crew</h3>
-    <div class="fields-row">
-      <div class="field"><label>Driver Name</label><input id="inp-drv" type="text" placeholder="e.g. Mikko Lahti"/></div>
-      <div class="field"><label>Co-Driver Name</label><input id="inp-cod" type="text" placeholder="e.g. Janne Salo"/></div>
-    </div>
-  </div>
-  <div class="ss-sec"><h3>Difficulty</h3><div class="diff-row" id="diff-row"></div></div>
-  <div class="ss-sec"><h3>Car</h3><div class="car-grid" id="car-grid"></div></div>
-</div>
-<div class="start-bar">
-  <button class="gbtn" onclick="showMenu()">← Menu</button>
-  <button class="gbtn sec2" onclick="openTuningFromSetup()">Tuning Garage</button>
-  <button class="gbtn pri" onclick="startStageFromSetup()">Start Stage</button>
-</div>
-</div>
-
-<div class="screen" id="tuning">
-<div class="page-hdr" style="flex-wrap:wrap;gap:.5rem">
-  <button class="bk" id="tun-back-btn" onclick="tunBack()">← Back</button>
-  <div class="page-hdr-title" id="tun-title">Tuning Garage</div>
-  <div style="margin-left:auto;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
-    <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text3)" id="tun-car-badge">No car selected</span>
-    <button class="gbtn sec2" onclick="openTuningEraSelect()" id="tun-era-select-btn">Change car/era</button>
-    <button class="gbtn pri" onclick="applyTuning()">Apply &amp; Continue →</button>
-  </div>
-</div>
-<div id="tun-era-picker" style="display:none;background:var(--surf2);border-bottom:1px solid var(--brd2);padding:.75rem 1.5rem">
-  <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text2);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.08em">Select era and car to tune</div>
-  <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:center">
-    <div>
-      <div style="font-size:11px;color:var(--text3);margin-bottom:3px;font-family:'IBM Plex Mono',monospace">Era</div>
-      <select id="tun-era-drop" style="background:var(--surf);border:1px solid var(--brd2);color:var(--text);padding:6px 10px;font-size:13px;font-family:'IBM Plex Mono',monospace" onchange="tunEraChanged()">
-        <option value="grpb">Group B (1982–1986)</option>
-        <option value="w90">WRC 90s (1990–2001)</option>
-        <option value="w24">Modern WRC (2022–present)</option>
-      </select>
-    </div>
-    <div>
-      <div style="font-size:11px;color:var(--text3);margin-bottom:3px;font-family:'IBM Plex Mono',monospace">Car</div>
-      <select id="tun-car-drop" style="background:var(--surf);border:1px solid var(--brd2);color:var(--text);padding:6px 10px;font-size:13px;font-family:'IBM Plex Mono',monospace" onchange="tunCarChanged()"></select>
-    </div>
-    <button class="gbtn pri" style="margin-top:18px" onclick="confirmTunEra()">Confirm</button>
-    <button class="gbtn" style="margin-top:18px" onclick="document.getElementById('tun-era-picker').style.display='none'">Cancel</button>
-  </div>
-</div>
-<div id="tun-body" style="flex:1;display:grid;grid-template-columns:200px 1fr;overflow:hidden;min-height:0">
-  <div id="tun-nav" style="background:var(--surf);border-right:1px solid var(--brd2);overflow-y:auto;padding:.5rem"></div>
-  <div id="tun-main" style="overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1.5rem"></div>
-</div>
-<div style="background:var(--surf);border-top:1px solid var(--brd2);padding:.6rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-shrink:0;flex-wrap:wrap">
-  <span style="font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace">Setup affects crash probability, damage resilience, and stage time</span>
-  <div style="margin-left:auto;display:flex;gap:6px;flex-wrap:wrap">
-    <button class="gbtn" onclick="resetTuning()" style="font-size:14px;padding:7px 14px">Reset defaults</button>
-    <button class="gbtn" onclick="loadPreset('safe')" style="font-size:14px;padding:7px 14px;border-color:var(--cyan);color:var(--cyan)">Safe setup</button>
-    <button class="gbtn" onclick="loadPreset('attack')" style="font-size:14px;padding:7px 14px;border-color:var(--red);color:var(--red)">Attack setup</button>
-  </div>
-</div>
-</div>
-
-<div class="screen" id="training">
-<div class="school-top">
-  <div class="school-logo">RPA Academy</div>
-  <div class="school-tabs">
-    <button class="st-tab on" onclick="switchLesson('intro',this)">Basics</button>
-    <button class="st-tab" onclick="switchLesson('corners',this)">Corners</button>
-    <button class="st-tab" onclick="switchLesson('hazards',this)">Hazards</button>
-    <button class="st-tab" onclick="switchLesson('era',this)">Era Guide</button>
-    <button class="st-tab" onclick="switchLesson('quiz',this)">Practice Quiz</button>
-  </div>
-  <button class="bk" style="border-color:#555;color:#888;margin-left:auto" onclick="showMenu()">← Menu</button>
-</div>
-<div class="school-title"><h1>TAKE ME TO THE HAIRPIN Academy</h1><span>Learn to read the road before the stage goes live</span></div>
-<div class="school-body">
-  <div class="school-sidebar">
-    <div id="lesson-list"></div>
-    <div style="margin-top:auto;padding-top:.75rem">
-      <div class="clbl" style="margin-bottom:4px">Progress</div>
-      <div class="cbar-wrap"><div class="cbar" id="cbar1" style="width:0%"></div></div>
-      <div class="clbl" style="margin-top:3px" id="clbl1">0 / 0</div>
-    </div>
-  </div>
-  <div class="school-main" id="school-main"></div>
-</div>
-<div class="school-foot">
-  <div class="clbl">Completed:</div>
-  <div class="cbar-wrap"><div class="cbar" id="cbar2" style="width:0%"></div></div>
-  <div class="clbl" id="clbl2">0 / 0</div>
-</div>
-</div>
-
-<div class="screen" id="game">
-<video class="game-bg-video" id="game-bg-video" autoplay muted loop playsinline preload="auto">
-  <source src="pixelShader_8_28_2026_8_59_24 PM.mp4" type="video/mp4"/>
-</video>
-<div class="game-bg-overlay"></div>
-<div class="game-flash" id="game-flash"></div>
-<div class="g-topbar">
-  <div>
-    <div class="g-stage" id="g-stage">—</div>
-    <div class="g-meta" id="g-meta">—</div>
-  </div>
-  <div style="display:flex;align-items:center;gap:12px;">
-    <div style="display:flex;align-items:center;gap:6px;padding:4px 8px;background:var(--surf);border:1px solid var(--brd2);border-radius:4px;">
-      <span style="font-size:9px;color:var(--text2)">🎵</span>
-      <input type="range" id="game-music-volume-slider" min="0" max="1" step="0.05" value="0.5" style="width:40px;height:3px;cursor:pointer" onchange="updateMusicVolume(this.value)">
-      <span style="font-size:9px;color:var(--text2)">🎤</span>
-      <input type="range" id="game-voice-volume-slider" min="0" max="1" step="0.05" value="1.0" style="width:40px;height:3px;cursor:pointer" onchange="updateVoiceVolume(this.value)">
-    </div>
-    <div class="g-scores">
-      <div><div class="g-sv" id="g-corr">0</div><div class="g-sl">Correct</div></div>
-      <div><div class="g-sv" id="g-of">/ 8</div><div class="g-sl">Notes</div></div>
-    </div>
-  </div>
-</div>
-<div class="g-prog-bar"><div class="g-prog-fill" id="g-prog" style="width:0%"></div></div>
-<div class="g-dots" id="g-dots"></div>
-<div class="g-body">
-  <div class="g-main">
-    <div class="note-box">
-      <div class="note-lbl" id="g-colbl">Co-driver calls</div>
-      <div id="g-tulip" style="display:flex;gap:4px;flex-wrap:wrap;min-height:92px;margin-bottom:0.75rem;align-items:flex-start;padding:4px;background:rgba(255,255,255,0.02);border-radius:4px;"></div>
-      <div class="note-raw" id="g-note">—</div>
-      <div class="note-audio-row">
-        <button class="abtn" onclick="speakNote()" id="btn-hear-note">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-          Hear co-driver call
-        </button>
-        <button class="abtn" id="btn-hear-trans" style="display:none" onclick="speakTranslation()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          Hear translation
-        </button>
-      </div>
-    </div>
-    <div class="narr-strip" id="g-narr"><div class="narr-txt" id="g-narr-txt"></div></div>
-    <div id="tuning-warnings" style="display:none;background:#1a1400;border:1px solid #f5c518;padding:0.5rem;margin-bottom:0.5rem;font-size:11px;font-family:'IBM Plex Mono',monospace;"></div>
-    <div class="inp-block">
-      <div class="inp-lbl">Translate the note — type what it means <span style="color:var(--text3);font-size:10px">(Enter to submit)</span></div>
-      <div style="display:flex;gap:8px;margin-bottom:8px;">
-        <input class="big-in" id="g-input" type="text" placeholder="e.g. left medium — 150 metres — right tight" autocomplete="off" style="flex:1"/>
-        <button class="gbtn" id="input-mode-toggle" onclick="INPUT_MODE.toggle();updateInputModeUI()" style="padding:0 12px;min-width:80px;">⌨️ Type</button>
-        <div id="mic-indicator" style="display:none;align-items:center;justify-content:center;width:32px;height:32px;background:#39ff14;border-radius:50%;animation:pulse 1s infinite;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0c" stroke-width="2" style="width:16px;height:16px;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-        </div>
-      </div>
-      <div class="btn-row">
-        <button class="gbtn" onclick="skipNote()">Skip</button>
-        <button class="gbtn pri" id="g-sub" onclick="submitAnswer()">Submit (Enter)</button>
-      </div>
-    </div>
-    <div class="fb-box" id="g-fb"><div id="g-fb-txt"></div><div class="fb-ans" id="g-fb-ans"></div></div>
-  </div>
-  <div class="g-side">
-    <div class="timer-wrap">
-      <svg class="timer-svg" viewBox="0 0 86 86">
-        <circle cx="43" cy="43" r="36" fill="none" stroke="#1e1e28" stroke-width="5"/>
-        <circle cx="43" cy="43" r="36" fill="none" stroke="#39ff14" stroke-width="5"
-          stroke-dasharray="226.2" stroke-dashoffset="0" stroke-linecap="round"
-          transform="rotate(-90 43 43)" id="t-arc"/>
-      </svg>
-      <div class="timer-num" id="g-timer">12</div>
-      <div class="timer-lbl">stage clock</div>
-    </div>
-    <div class="s-section">
-      <h4>Commentator</h4>
-      <div class="comm-wrap" id="g-comm" style="display:none">
-        <div class="comm-av" id="g-comm-av">CV</div>
-        <div class="comm-bub" id="g-comm-txt"></div>
-      </div>
-      <div id="g-comm-ph" style="font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace">Awaiting call…</div>
-    </div>
-    <div class="hint-box">
-      <div class="hint-title">Vocabulary</div>
-      <div id="g-vocab"></div>
-    </div>
-    <div class="s-section">
-      <h4>Stage conditions</h4>
-      <div class="cond-txt" id="g-cond">—</div>
-    </div>
-    <div class="s-section">
-      <h4>Car status</h4>
-      <div id="dmg-hud">
-        <svg viewBox="0 0 100 170" width="100%" style="max-height:130px;margin-bottom:6px" id="dmg-car-svg">
-          <rect x="12" y="35" width="76" height="90" rx="7" fill="#1e1e28" stroke="#3a3a50" stroke-width="2" id="svg-body"/>
-          <rect x="22" y="16" width="56" height="28" rx="5" fill="#16161e" stroke="#3a3a50" stroke-width="1.5" id="svg-roof"/>
-          <rect x="25" y="18" width="50" height="22" rx="3" fill="#0a2535" opacity="0.85" id="svg-screen"/>
-          <rect x="4" y="42" width="14" height="22" rx="4" fill="#252535" stroke="#404055" stroke-width="1" id="svg-wfl"/>
-          <rect x="82" y="42" width="14" height="22" rx="4" fill="#252535" stroke="#404055" stroke-width="1" id="svg-wfr"/>
-          <rect x="4" y="105" width="14" height="22" rx="4" fill="#252535" stroke="#404055" stroke-width="1" id="svg-wrl"/>
-          <rect x="82" y="105" width="14" height="22" rx="4" fill="#252535" stroke="#404055" stroke-width="1" id="svg-wrr"/>
-          <rect x="12" y="28" width="76" height="9" rx="3" fill="#1e1e28" stroke="#3a3a50" stroke-width="1" id="svg-front"/>
-          <rect x="12" y="124" width="76" height="9" rx="3" fill="#1e1e28" stroke="#3a3a50" stroke-width="1" id="svg-rear"/>
-          
-          <rect x="12" y="28" width="76" height="9" rx="3" fill="#e8291c" opacity="0" id="hit-front"/>
-          <rect x="12" y="124" width="76" height="9" rx="3" fill="#e8291c" opacity="0" id="hit-rear"/>
-          <rect x="4" y="42" width="14" height="22" rx="4" fill="#e8291c" opacity="0" id="hit-wfl"/>
-          <rect x="82" y="42" width="14" height="22" rx="4" fill="#e8291c" opacity="0" id="hit-wfr"/>
-          <rect x="4" y="105" width="14" height="22" rx="4" fill="#e8291c" opacity="0" id="hit-wrl"/>
-          <rect x="82" y="105" width="14" height="22" rx="4" fill="#e8291c" opacity="0" id="hit-wrr"/>
-          <rect x="22" y="16" width="56" height="28" rx="5" fill="#e8291c" opacity="0" id="hit-roof"/>
-          <rect x="12" y="35" width="76" height="90" rx="7" fill="#e8291c" opacity="0" id="hit-body"/>
-        </svg>
-        <div class="dmg-bars">
-          <div class="dbr"><span class="dbl">Engine</span><div class="dbw"><div class="dbi" id="db-eng" style="width:100%"></div></div><span class="dbv" id="dv-eng">100</span></div>
-          <div class="dbr"><span class="dbl">Susp</span><div class="dbw"><div class="dbi" id="db-sus" style="width:100%"></div></div><span class="dbv" id="dv-sus">100</span></div>
-          <div class="dbr"><span class="dbl">Tyres</span><div class="dbw"><div class="dbi" id="db-tyr" style="width:100%"></div></div><span class="dbv" id="dv-tyr">100</span></div>
-          <div class="dbr"><span class="dbl">Body</span><div class="dbw"><div class="dbi" id="db-bod" style="width:100%"></div></div><span class="dbv" id="dv-bod">100</span></div>
-        </div>
-        <div class="dmg-status-txt" id="dmg-status">All systems nominal</div>
-      </div>
-    </div>
-  </div>
-</div>
-<div id="adaptive-bar" style="display:none;background:#001a1a;border-top:1px solid var(--cyan);padding:.25rem 1.5rem;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--cyan);letter-spacing:.1em;flex-shrink:0">
-  <span id="adaptive-indicator">ADAPTIVE DIFFICULTY ACTIVE</span>
-  <span id="adaptive-time" style="margin-left:1rem;color:var(--text2)"></span>
-</div>
-<div class="g-foot">
-  <button class="aband" onclick="abandonStage()">Retire from stage</button>
-  <span style="font-size:12px;color:var(--text2);font-family:'IBM Plex Mono',monospace;background:var(--surf2);padding:4px 10px;border:1px solid var(--brd2)" id="g-foot-note">Note 1 of 8</span>
-</div>
-</div>
-
-<div class="screen" id="daily-challenge">
-<div class="page-hdr">
-  <button class="bk" onclick="showMenu()">← Menu</button>
-  <div class="page-hdr-title">Daily Challenge</div>
-</div>
-<div class="setup-scroll">
-  <div class="ss-sec">
-    <h3>Today's Stage</h3>
-    <div id="daily-stage-info" style="background:var(--surf2);padding:1rem;border-radius:4px;margin-bottom:1rem">
-      <div style="font-size:14px;color:var(--text3);margin-bottom:0.5rem">Loading...</div>
-    </div>
-  </div>
-  <div class="ss-sec">
-    <h3>Your Best Today</h3>
-    <div id="daily-best-score" style="font-family:'IBM Plex Mono',monospace;font-size:24px;color:var(--gold)">No runs yet</div>
-  </div>
-  <div class="ss-sec">
-    <h3>Global Leaderboard</h3>
-    <div id="daily-leaderboard" style="font-family:'IBM Plex Mono',monospace;font-size:12px">Loading...</div>
-  </div>
-</div>
-<div class="start-bar">
-  <button class="gbtn" onclick="showMenu()">← Menu</button>
-  <button class="gbtn pri" onclick="startDailyChallenge()">Start Daily Challenge</button>
-</div>
-</div>
-
-<div class="screen" id="signature-stages">
-<div class="page-hdr">
-  <button class="bk" onclick="showMenu()">← Menu</button>
-  <div class="page-hdr-title">Signature Stages</div>
-</div>
-<div class="setup-scroll">
-  <div class="ss-sec">
-    <h3>Legendary Stages</h3>
-    <div style="background:var(--surf2);padding:1rem;border-radius:4px;margin-bottom:1rem;border:1px solid var(--red)">
-      <div style="font-size:14px;color:var(--red);margin-bottom:0.5rem;font-weight:600">HAND-TUNED PACENOTES</div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.4">These stages feature specially crafted pacenote sequences that test specific skills. Each is inspired by real rally stages that made history. Beat the record times to earn your place among the legends.</div>
-    </div>
-  </div>
-  <div class="ss-sec">
-    <h3>Your Personal Bests</h3>
-    <div id="signature-personal-bests" style="font-family:'IBM Plex Mono',monospace;font-size:12px">Loading...</div>
-  </div>
-  <div class="ss-sec">
-    <h3>Select Stage</h3>
-    <div id="signature-stages-list">Loading...</div>
-  </div>
-</div>
-<div class="start-bar">
-  <button class="gbtn" onclick="showMenu()">← Menu</button>
-</div>
-</div>
-
-<div class="screen" id="daily-challenge">
-<div class="page-hdr">
-  <button class="bk" onclick="showMenu()">← Menu</button>
-  <div class="page-hdr-title">Daily Challenge</div>
-</div>
-<div class="setup-scroll">
-  <div class="ss-sec">
-    <h3>Today's Stage</h3>
-    <div id="daily-stage-info" style="background:var(--surf2);padding:1rem;border-radius:4px;margin-bottom:1rem">
-      <div style="font-size:14px;color:var(--text3);margin-bottom:0.5rem">Loading...</div>
-    </div>
-  </div>
-  <div class="ss-sec">
-    <h3>Your Best Today</h3>
-    <div id="daily-best-score" style="font-family:'IBM Plex Mono',monospace;font-size:24px;color:var(--gold)">No runs yet</div>
-  </div>
-  <div class="ss-sec">
-    <h3>Daily Leaderboard</h3>
-    <div id="daily-leaderboard" style="font-family:'IBM Plex Mono',monospace;font-size:12px">Loading...</div>
-  </div>
-</div>
-<div class="start-bar">
-  <button class="gbtn" onclick="showMenu()">← Menu</button>
-  <button class="gbtn pri" onclick="startDailyChallenge()">Start Daily Challenge</button>
-</div>
-</div>
-
-<div class="screen" id="weekly-challenge">
-<div class="page-hdr">
-  <button class="bk" onclick="showMenu()">← Menu</button>
-  <div class="page-hdr-title">Weekly Rally</div>
-</div>
-<div class="setup-scroll">
-  <div class="ss-sec">
-    <h3>This Week's Stage</h3>
-    <div id="weekly-stage-info" style="background:var(--surf2);padding:1rem;border-radius:4px;margin-bottom:1rem">
-      <div style="font-size:14px;color:var(--text3);margin-bottom:0.5rem">Loading...</div>
-    </div>
-  </div>
-  <div class="ss-sec">
-    <h3>Your Best This Week</h3>
-    <div id="weekly-best-score" style="font-family:'IBM Plex Mono',monospace;font-size:24px;color:var(--gold)">No runs yet</div>
-  </div>
-  <div class="ss-sec">
-    <h3>Weekly Leaderboard</h3>
-    <div id="weekly-leaderboard" style="font-family:'IBM Plex Mono',monospace;font-size:12px">Loading...</div>
-  </div>
-</div>
-<div class="start-bar">
-  <button class="gbtn" onclick="showMenu()">← Menu</button>
-  <button class="gbtn pri" onclick="startWeeklyChallenge()">Start Weekly Rally</button>
-</div>
-</div>
-
-<div class="screen" id="result">
-<div class="mp-mast">
-  <div class="mp-mast-top">
-    <span id="r-era-tag">Group B Special</span>
-    <span id="r-date">—</span>
-  </div>
-  <div class="mp-name-row">
-    <div class="mp-title">MAX<em>POWER</em><br><span style="font-size:.55em;letter-spacing:2px">STAGE REPORT</span></div>
-    
-  </div>
-  <div class="mp-mast-bottom">
-    <div class="mp-strap" id="r-outlet">Rallye Mondiale</div>
-    <div class="mp-issue" id="r-issue">—</div>
-  </div>
-</div>
-<div class="flame-bar"></div>
-<div class="mp-hl-block">
-  <div class="mp-pos" id="r-pos-badge">P1</div>
-  <div class="mp-headline" id="r-headline">—</div>
-  <div class="mp-deck" id="r-deck">—</div>
-</div>
-<div class="mp-body-wrap">
-  <div class="mp-main">
-    <div class="mp-babe-bar">
-      
-      <div>
-        <div class="mp-babe-txt">Max Power Stage Report</div>
-        <div class="mp-babe-sub">The fastest stage debrief in rallying</div>
-      </div>
-    </div>
-    <div class="mp-article" id="r-article">—</div>
-<div id="pro-summary"></div>
-    <div class="mp-pull"><p id="r-quote">—</p><cite id="r-quote-attr">—</cite></div>
-  </div>
-  <div class="mp-side">
-    <div class="mp-box">
-      <h3>Stage Result</h3>
-      <div class="rs"><span class="rs-l">Position</span><span class="rs-v gld" id="r-pos">—</span></div>
-      <div class="rs"><span class="rs-l">Stage time</span><span class="rs-v gld" id="r-time">—</span></div>
-      <div class="rs"><span class="rs-l">Accuracy</span><span class="rs-v" id="r-acc">—</span></div>
-      <div class="rs"><span class="rs-l">Notes correct</span><span class="rs-v" id="r-correct">—</span></div>
-      <div class="rs"><span class="rs-l">Time penalty</span><span class="rs-v red" id="r-pen">—</span></div>
-    </div>
-    <div class="mp-box">
-      <h3>Note Breakdown</h3>
-      <div id="r-breakdown">—</div>
-    </div>
-    <div class="mp-box">
-      <h3>Performance Timeline</h3>
-      <div id="r-timeline">—</div>
-    </div>
-    <div class="mp-standings" id="r-std-box" style="display:none">
-      <h3>Championship</h3>
-      <div id="r-standings">—</div>
-    </div>
-    <div class="mp-advert">
-      <div class="mp-advert-logo">PIRELLI</div>
-      <p>The tyre that wins rallies — and makes babes smile</p>
-    </div>
-  </div>
-</div>
-<div class="mp-foot">
-  <button class="mpbtn" onclick="showMenu()">← Menu</button>
-  <button class="mpbtn" onclick="openSetup()">Quick Stage</button>
-  <button class="mpbtn" onclick="generateShareableCard()">📸 Share Result</button>
-  <button class="mpbtn pri" id="r-career-btn" style="display:none" onclick="continueCareer()">Next Stage →</button>
-</div>
-</div>
-
-<div class="screen" id="career">
-<div class="career-hdr">
-  <div class="career-hdr-top">
-    <h1>Career Mode</h1>
-    <div style="display:flex;gap:8px">
-      <button class="gbtn" onclick="openTeamManagement()" style="font-size:12px;padding:5px 12px">🔧 Team &amp; Garage</button>
-      <button class="gbtn" onclick="resetCareer()" style="font-size:12px;padding:5px 12px">Reset</button>
-      <button class="gbtn" onclick="showMenu()">← Menu</button>
-    </div>
-  </div>
-  <div class="career-banner">
-    <div class="career-driver"><div class="cd-name" id="c-driver-name">Driver</div><div class="cd-sub" id="c-driver-sub">Co-driver: —</div></div>
-    <div class="career-pts"><div class="cp-val" id="c-pts">0</div><div class="cp-lbl">Championship Points</div></div>
-    <div class="career-round" id="c-round">Round 0 / 6</div>
-  </div>
-</div>
-<div class="career-ticker"><div class="ticker-inner" id="ticker-txt">RALLY SEASON UNDERWAY — THREE ERAS — SIX ROUNDS — CHAMPIONSHIP ON THE LINE</div></div>
-<div class="career-body">
-  <div class="career-list">
-    <div class="cl-hdr">Season Calendar</div>
-    <div id="career-stage-list"></div>
-  </div>
-  <div class="career-main">
-    <div class="c-section">
-      <div class="c-sec-hdr"><h3>Championship Standings</h3></div>
-      <div class="c-sec-body"><table class="std-tbl" id="c-standings"></table></div>
-    </div>
-    <div class="c-section">
-      <div class="c-sec-hdr"><h3>Season Stats</h3></div>
-      <div class="c-sec-body"><div class="stats-grid" id="c-stats"></div></div>
-    </div>
-    <div class="c-section">
-      <div class="c-sec-hdr"><h3>Trophy Cabinet</h3></div>
-      <div class="c-sec-body"><div class="trophy-wrap" id="c-trophies"></div></div>
-    </div>
-  </div>
-</div>
-</div>
-
-<div id="tut-overlay" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.96);align-items:center;justify-content:center;flex-direction:column;padding:1.5rem">
-  <div id="tut-box" style="max-width:560px;width:100%;background:#111116;border:1px solid #252530;overflow:hidden">
-    <div id="tut-progress-bar" style="height:3px;background:#252530"><div id="tut-prog-fill" style="height:100%;background:#f5c518;transition:width .4s;width:0%"></div></div>
-    <div style="padding:1.5rem">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.15em;color:#5a5a70;text-transform:uppercase;margin-bottom:.5rem" id="tut-step-label">Tutorial · Step 1 of 6</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#f5c518;margin-bottom:.75rem" id="tut-title">Read the notes. Keep the driver alive.</div>
-      <div style="font-size:14px;line-height:1.7;color:#9090a8;margin-bottom:1.25rem" id="tut-body"></div>
-      <div id="tut-note-display" style="display:none;background:#17171e;border:1px solid #252530;padding:.85rem 1.1rem;font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:#f5c518;letter-spacing:.06em;margin-bottom:1rem"></div>
-      <div id="tut-input-wrap" style="display:none;margin-bottom:1rem">
-        <div style="font-size:11px;font-family:'IBM Plex Mono',monospace;color:#5a5a70;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem">Type your translation:</div>
-        <input id="tut-input" type="text" placeholder="e.g. left tight" autocomplete="off" style="width:100%;background:#17171e;border:1px solid #252530;color:#f0f0f0;padding:10px 12px;font-size:14px;font-family:'IBM Plex Mono',monospace"/>
-        <div id="tut-input-hint" style="font-size:11px;color:#5a5a70;font-family:'IBM Plex Mono',monospace;margin-top:.35rem"></div>
-        <div id="tut-feedback-line" style="font-size:13px;font-family:'IBM Plex Mono',monospace;margin-top:.5rem;min-height:20px"></div>
-      </div>
-      <div id="tut-highlight-box" style="display:none;background:#1a1400;border:1px solid #f5c518;padding:.75rem 1rem;font-size:13px;color:#f5c518;margin-bottom:1rem;font-family:'IBM Plex Mono',monospace"></div>
-      <div style="display:flex;gap:8px;justify-content:space-between;align-items:center;margin-top:.5rem">
-        <button id="tut-skip" onclick="skipTutorial()" style="padding:6px 14px;border:1px solid #252530;background:none;color:#5a5a70;font-size:12px;font-family:'IBM Plex Mono',monospace;cursor:pointer">Skip tutorial</button>
-        <button id="tut-next" onclick="tutNext()" style="padding:10px 24px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;background:#e8000a;border:1px solid #e8000a;color:#fff;cursor:pointer">Continue</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="crash-flash-overlay" style="display:none;position:fixed;inset:0;z-index:8000;pointer-events:none;background:rgba(232,41,28,.45)"></div>
-
-<div id="crash-big-msg" style="display:none;position:fixed;inset:0;z-index:8001;pointer-events:none;align-items:center;justify-content:center;flex-direction:column;gap:.5rem">
-  <div id="crash-big-title" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,8vw,90px);letter-spacing:4px;color:#e8291c;text-shadow:0 0 30px rgba(232,41,28,.8);line-height:1">HEAVY CONTACT</div>
-  <div id="crash-big-sub" style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#ff9090;letter-spacing:.1em"></div>
-</div>
-
-<div id="correct-flash" style="display:none;position:fixed;top:1.5rem;right:1.5rem;z-index:7000;pointer-events:none;padding:.5rem 1.1rem;background:rgba(57,255,20,.15);border:1px solid #39ff14;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#39ff14"></div>
-
-<div id="split-ticker" style="display:none;position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);z-index:7000;pointer-events:none;padding:.4rem 1rem;background:#000;border:1px solid #f5c518;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#f5c518"></div>
-
-<div id="car-detail-modal" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.9);align-items:center;justify-content:center;padding:2rem">
-  <div style="background:linear-gradient(135deg,#1a1a1a 0%,#252530 100%);border-radius:12px;border:3px solid var(--rally-red);max-width:900px;width:100%;max-height:90vh;overflow-y:auto;position:relative">
-    <div style="position:absolute;top:1rem;right:1rem;z-index:10">
-      <button onclick="closeCarDetail()" style="background:none;border:none;color:#f0f0f0;font-size:24px;cursor:pointer;padding:0.5rem">✕</button>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:2rem">
-      <div style="background:linear-gradient(135deg,#0a0a0c 0%,#1a1a1a 100%);border-radius:12px;border:3px solid var(--rally-red);padding:2rem;display:flex;align-items:center;justify-content:center">
-        <img id="modal-car-image" src="" alt="" style="max-width:100%;height:auto">
-      </div>
-      <div>
-        <h1 id="modal-car-name" style="font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:3px">Car Name</h1>
-        <span id="modal-car-era" style="display:inline-block;background:var(--red);color:#fff;padding:0.5rem 1.5rem;border-radius:30px;font-family:'IBM Plex Mono',monospace;font-size:0.875rem;letter-spacing:2px;margin-bottom:2rem">Era</span>
-        
-        <div style="background:linear-gradient(135deg,#1a1a1a 0%,#252530 100%);border-radius:12px;border:2px solid var(--gold);padding:2rem;margin-bottom:2rem">
-          <h3 style="font-family:'IBM Plex Mono',monospace;color:var(--gold);margin-bottom:1rem;font-size:1.25rem">Specifications</h3>
-          <div style="display:flex;justify-content:space-between;padding:0.75rem 0;border-bottom:1px solid var(--brd2)">
-            <span style="color:var(--text3);font-family:'IBM Plex Mono',monospace">Engine</span>
-            <span id="modal-car-engine" style="color:#fff;font-weight:600">-</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;padding:0.75rem 0;border-bottom:1px solid var(--brd2)">
-            <span style="color:var(--text3);font-family:'IBM Plex Mono',monospace">Power</span>
-            <span id="modal-car-power" style="color:#fff;font-weight:600">-</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;padding:0.75rem 0;border-bottom:1px solid var(--brd2)">
-            <span style="color:var(--text3);font-family:'IBM Plex Mono',monospace">Drive</span>
-            <span id="modal-car-drive" style="color:#fff;font-weight:600">-</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;padding:0.75rem 0">
-            <span style="color:var(--text3);font-family:'IBM Plex Mono',monospace">Years Active</span>
-            <span id="modal-car-years" style="color:#fff;font-weight:600">-</span>
-          </div>
-        </div>
-
-        <div style="background:linear-gradient(135deg,#1a1a1a 0%,#252530 100%);border-radius:12px;border:2px solid var(--red);padding:2rem">
-          <h3 style="font-family:'IBM Plex Mono',monospace;color:var(--red);margin-bottom:1rem;font-size:1.25rem">Racing History</h3>
-          <p id="modal-car-story" style="color:var(--text3);line-height:1.7">Loading...</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="screen" id="achievements">
-<div class="page-hdr">
-  <button class="bk" onclick="showMenu()">← Menu</button>
-  <div class="page-hdr-title">Achievements</div>
-</div>
-<div class="achievements-body">
-  <div class="achievements-header">
-    <h2>Your Trophy Cabinet</h2>
-    <p style="color:var(--text3);font-size:13px;margin-top:0.5rem">Unlock milestones by mastering the co-driver role</p>
-  </div>
-  <div class="achievements-grid" id="achievements-grid"></div>
-</div>
-<div class="start-bar">
-  <button class="gbtn" onclick="showMenu()">← Menu</button>
-</div>
-</div>
-
-<script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
-<script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="rally_systems.js?v=6"></script>
-<script src="pacenote-matcher.js?v=6"></script>
-<script src="rally.js?v=6"></script>
-<script src="voice-engine.js?v=6"></script>
-<script src="multiplayer-p2p.js?v=6"></script>
-<script src="custom-track-editor.js?v=7"></script>
-<script src="story_data.js?v=6"></script>
-<script src="story_system.js?v=6"></script>
-
-<div class="screen" id="tuning">
-<div class="tun-header">
-  <div class="tun-hdr-top">
-    <h1>Tuning Garage</h1>
-    <div style="display:flex;gap:8px">
-      <button class="gbtn" onclick="resetTuning()" style="font-size:11px;padding:5px 12px">Reset defaults</button>
-      <button class="gbtn" onclick="returnFromTuning()">← Back</button>
-    </div>
-  </div>
-  <div class="tun-car-strip">
-    <div><div class="tun-car-name" id="tun-car-name">—</div><div class="tun-car-spec" id="tun-car-spec">—</div></div>
-    <div style="margin-left:auto;display:flex;gap:6px" id="tun-preset-row">
-      <button class="preset-btn" onclick="applyPreset('gravel')">Gravel setup</button>
-      <button class="preset-btn" onclick="applyPreset('tarmac')">Tarmac setup</button>
-      <button class="preset-btn" onclick="applyPreset('snow')">Snow/Ice setup</button>
-      <button class="preset-btn" onclick="applyPreset('attack')">Full attack</button>
-    </div>
-  </div>
-</div>
-<div class="tun-body">
-  <div class="tun-nav">
-    <div class="tun-nav-section">Powertrain</div>
-    <button class="tun-nav-btn on" onclick="showTunSection('engine',this)"><span class="tnb-icon">🔧</span><span class="tnb-text">Engine<span class="tnb-sub">Internals, mapping, boost</span></span></button>
-    <button class="tun-nav-btn" onclick="showTunSection('transmission',this)"><span class="tnb-icon">⚙️</span><span class="tnb-text">Transmission<span class="tnb-sub">Diffs, ratios, clutch</span></span></button>
-    <div class="tun-nav-section">Chassis</div>
-    <button class="tun-nav-btn" onclick="showTunSection('suspension',this)"><span class="tnb-icon">🏎️</span><span class="tnb-text">Suspension<span class="tnb-sub">Springs, dampers, geometry</span></span></button>
-    <button class="tun-nav-btn" onclick="showTunSection('brakes',this)"><span class="tnb-icon">🛑</span><span class="tnb-text">Brakes<span class="tnb-sub">Bias, pads, cooling</span></span></button>
-    <button class="tun-nav-btn" onclick="showTunSection('steering',this)"><span class="tnb-icon">🔄</span><span class="tnb-text">Steering<span class="tnb-sub">Rack, lock, weight</span></span></button>
-    <div class="tun-nav-section">Aero & Weight</div>
-    <button class="tun-nav-btn" onclick="showTunSection('aero',this)"><span class="tnb-icon">💨</span><span class="tnb-text">Aerodynamics<span class="tnb-sub">Wing, splitter, diffuser</span></span></button>
-    <button class="tun-nav-btn" onclick="showTunSection('weight',this)"><span class="tnb-icon">⚖️</span><span class="tnb-text">Weight & Balance<span class="tnb-sub">Ballast, distribution</span></span></button>
-    <div class="tun-nav-section">Tyres</div>
-    <button class="tun-nav-btn" onclick="showTunSection('tyres',this)"><span class="tnb-icon">🔘</span><span class="tnb-text">Tyres<span class="tnb-sub">Compound, pressure, width</span></span></button>
-    <div class="tun-nav-section">Electronics</div>
-    <button class="tun-nav-btn" onclick="showTunSection('electronics',this)"><span class="tnb-icon">💻</span><span class="tnb-text">Electronics<span class="tnb-sub">ABS, TC, maps, launch</span></span></button>
-  </div>
-  <div class="tun-main" id="tun-main"></div>
-  <div class="tun-stats">
-    <h3>Performance</h3>
-    <div id="tun-gauges"></div>
-    <div style="margin-top:.5rem">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem">Setup summary</div>
-      <div class="setup-summary" id="tun-summary">—</div>
-    </div>
-    <div class="tun-car-facts" id="tun-car-facts">—</div>
-    <div class="tun-warning" id="tun-warning" style="display:none">—</div>
-  </div>
-</div>
-<div class="tun-footer">
-  <button class="gbtn" onclick="returnFromTuning()">Cancel</button>
-  <button class="gbtn pri" onclick="confirmTuning()">Save & Continue</button>
-</div>
-</div>
-
-<div class="screen" id="editor">
-  <div class="page-hdr">
-    <button class="bk" onclick="showMenu()">← Menu</button>
-    <div class="page-hdr-title">Custom Track Editor</div>
-    <div style="margin-left:auto;display:flex;gap:8px">
-      <button class="gbtn sec2" onclick="clearCustomTrack()">Clear Track</button>
-      <button class="gbtn sec2" onclick="ExportSystem.exportStage()">Export</button>
-      <button class="gbtn pri" onclick="playCustomStage()">Play Stage</button>
-    </div>
-  </div>
-  <div style="flex:1;display:grid;grid-template-columns:1fr 380px;overflow:hidden;min-height:0">
-    <div style="display:flex;flex-direction:column;min-height:0">
-      <div style="padding:.75rem;background:var(--surf);border-bottom:1px solid var(--brd2);display:flex;gap:8px;align-items:center">
-        <input id="editor-stage-name" type="text" placeholder="Stage name..." style="flex:1;background:var(--surf2);border:1px solid var(--brd2);color:var(--text);padding:7px 10px;font-size:13px;font-family:'IBM Plex Mono',monospace"/>
-        <button class="gbtn" onclick="toggleDrawMode()" id="draw-mode-btn" style="padding:6px 12px;font-size:12px">✏️ Draw Route</button>
-        <button class="gbtn" onclick="addMarkerMode()" id="marker-mode-btn" style="padding:6px 12px;font-size:12px">📍 Add Note</button>
-      </div>
-      <div id="editor-map" style="flex:1;min-height:400px;background:var(--surf2)"></div>
-    </div>
-    <div style="background:var(--surf);border-left:1px solid var(--brd2);display:flex;flex-direction:column;overflow:hidden">
-      <div style="padding:1rem;border-bottom:1px solid var(--brd2)">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;color:var(--text2);margin-bottom:.5rem">Add Pacenote</div>
-        <textarea id="editor-note-input" placeholder="Type note (e.g. L3 INTO R4!)" style="width:100%;height:50px;background:var(--surf2);border:1px solid var(--brd2);color:var(--gold);padding:8px;font-size:13px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;resize:vertical"></textarea>
-        <button class="gbtn pri" onclick="editorAddNote()" style="width:100%;margin-top:6px;padding:8px;font-size:13px">Add Note to Map</button>
-      </div>
-      <div style="flex:1;overflow-y:auto;padding:1rem">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;color:var(--text2);margin-bottom:.5rem;padding-bottom:.4rem;border-bottom:1px solid var(--brd)">Route Notes</div>
-        <div id="editor-note-list" style="display:flex;flex-direction:column;gap:4px">
-          <div style="font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace">Draw a route on the map, then click "Add Note" to place pacenotes along the route.</div>
-        </div>
-      </div>
-      <div style="padding:1rem;border-top:1px solid var(--brd2)">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;color:var(--text2);margin-bottom:.5rem">Import Stage</div>
-        <textarea id="editor-import-json" placeholder="Paste exported stage JSON here..." style="width:100%;height:60px;background:var(--surf2);border:1px solid var(--brd2);color:var(--text2);padding:8px;font-size:11px;font-family:'IBM Plex Mono',monospace;resize:vertical"></textarea>
-        <button class="gbtn" onclick="editorImport()" style="width:100%;margin-top:6px">Import</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="screen" id="analytics">
-  <div class="page-hdr">
-    <button class="bk" onclick="showMenu()">← Menu</button>
-    <div class="page-hdr-title">Analytics Dashboard</div>
-    <div style="margin-left:auto;display:flex;gap:8px">
-      <button class="gbtn sec2" onclick="ExportSystem.exportAnalyticsCSV()">Export CSV</button>
-      <button class="gbtn sec2" onclick="ExportSystem.exportAnalyticsJSON()">Export JSON</button>
-      <button class="gbtn" onclick="ExportSystem.exportTrainingReport()">Full Report</button>
-    </div>
-  </div>
-  <div style="flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1.25rem" id="analytics-body">
-    
-  </div>
-</div>
-
-<div class="screen" id="programs">
-  <div class="page-hdr">
-    <button class="bk" onclick="showMenu()">← Menu</button>
-    <div class="page-hdr-title">Training Programs</div>
-  </div>
-  <div style="flex:1;overflow-y:auto;padding:1.5rem;max-width:700px;margin:0 auto;width:100%" id="programs-body">
-    
-  </div>
-</div>
-
-<div class="screen" id="accessibility">
-  <div class="page-hdr">
-    <button class="bk" onclick="showMenu()">← Menu</button>
-    <div class="page-hdr-title">Accessibility & Settings</div>
-  </div>
-  <div style="flex:1;overflow-y:auto;padding:1.5rem;max-width:600px;margin:0 auto;width:100%" id="accessibility-body">
-    
-  </div>
-</div>
-
-<div id="crash-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.96);align-items:center;justify-content:center;flex-direction:column;padding:2rem">
-<div style="background:#0e0e12;border:2px solid #e8291c;max-width:500px;width:100%;padding:0;overflow:hidden">
-  <div style="background:#e8291c;padding:.6rem 1.25rem;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:#fff" id="crash-hdr-bar">INCIDENT</div>
-  <div style="padding:1.5rem;display:flex;flex-direction:column;gap:1rem">
-    <div id="stick-anim-container" style="width:100%;height:120px;background:#0a0a0c;border:1px solid #252530;position:relative;overflow:hidden;margin-bottom:0.5rem">
-      <canvas id="stick-canvas" width="460" height="120" style="display:block"></canvas>
-    </div>
-    <div style="display:flex;align-items:center;gap:1rem">
-      <div style="font-size:48px;line-height:1" id="crash-emoji">💥</div>
-      <div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:#e8291c;line-height:1" id="crash-title">OFF THE ROAD!</div>
-        <div style="font-size:13px;color:#9090a8;margin-top:4px;font-family:'IBM Plex Mono',monospace" id="crash-desc">The car left the road at this corner.</div>
-      </div>
-    </div>
-    <div style="font-size:13px;line-height:1.7;color:#c0c0d0;font-style:italic;background:#16161a;padding:.75rem 1rem;border-left:3px solid #e8291c" id="crash-narr">The car slides wide, fighting for grip that isn't there.</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px" id="crash-dmg-grid"></div>
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#f5c518" id="crash-time-lost"></div>
-    <div id="crash-repair-wrap" style="display:none">
-      <div style="height:4px;background:#1e1e28;border-radius:2px;overflow:hidden;margin-bottom:4px">
-        <div id="crash-repair-bar" style="height:100%;background:#39ff14;width:0%;transition:width .1s linear"></div>
-      </div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9090a8" id="crash-repair-txt">Recovery crew working…</div>
-    </div>
-    <div style="display:flex;gap:8px">
-      <button id="crash-ok-btn" onclick="dismissCrash()" style="display:none;flex:1;padding:10px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;background:#1e1e28;border:1px solid #39ff14;color:#39ff14;cursor:pointer">Continue</button>
-      <button id="crash-dnf-btn" onclick="crashDNF()" style="display:none;padding:10px 16px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;background:none;border:1px solid #e8291c;color:#e8291c;cursor:pointer">Retire (DNF)</button>
-    </div>
-  </div>
-</div>
-</div>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-<style>
-  html, body {
-    overflow-x: hidden;
-    min-height: 100%;
-    width: 100%;
-  }
-</style>
-<title>TAKE ME TO THE HAIRPIN</title>
-<link rel="icon" href="data:,"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap"/>
-<link rel="stylesheet" href="styles.css"/>
-
 <script>
-  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags updateEarlyAccessFeatureFlag setEarlyAccessFeatureFlag getEarlyAccessFeatureFlag getEarlyAccessFeatureFlagPayload".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-  posthog.init('phc_YOUR_PROJECT_KEY', {api_host: 'https://app.posthog.com'});
+(function(){
+  var stingPlayed=false, walkTimer=null;
+  /* Custom open sting, synthesised in WebAudio — no audio assets: a starter-
+     motor noise burst, an engine rev that sweeps up and settles, and a ping
+     timed to the title slam. Created inside the click handler so autoplay
+     policy is satisfied. */
+  function playBootSting(){
+    try{
+      var AC=window.AudioContext||window.webkitAudioContext; if(!AC)return;
+      var ctx=new AC(); if(ctx.state==='suspended')ctx.resume();
+      var t=ctx.currentTime;
+      var master=ctx.createGain(); master.gain.value=0.35; master.connect(ctx.destination);
+      // starter motor: short filtered noise burst
+      var buf=ctx.createBuffer(1,Math.floor(ctx.sampleRate*0.28),ctx.sampleRate);
+      var d=buf.getChannelData(0); for(var i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length);
+      var noise=ctx.createBufferSource(); noise.buffer=buf;
+      var nFilt=ctx.createBiquadFilter(); nFilt.type='bandpass'; nFilt.frequency.value=320; nFilt.Q.value=0.8;
+      var nGain=ctx.createGain(); nGain.gain.setValueAtTime(0.5,t); nGain.gain.exponentialRampToValueAtTime(0.01,t+0.32);
+      noise.connect(nFilt); nFilt.connect(nGain); nGain.connect(master); noise.start(t);
+      // engine rev: sawtooth sweep with a lowpass opening
+      var osc=ctx.createOscillator(); osc.type='sawtooth';
+      osc.frequency.setValueAtTime(45,t+0.2);
+      osc.frequency.exponentialRampToValueAtTime(70,t+0.55);
+      osc.frequency.exponentialRampToValueAtTime(165,t+1.0);
+      osc.frequency.exponentialRampToValueAtTime(95,t+1.5);
+      var oFilt=ctx.createBiquadFilter(); oFilt.type='lowpass';
+      oFilt.frequency.setValueAtTime(220,t+0.2); oFilt.frequency.exponentialRampToValueAtTime(1300,t+1.0);
+      var oGain=ctx.createGain(); oGain.gain.setValueAtTime(0.0001,t+0.2);
+      oGain.gain.exponentialRampToValueAtTime(0.55,t+0.55);
+      oGain.gain.exponentialRampToValueAtTime(0.0001,t+1.65);
+      osc.connect(oFilt); oFilt.connect(oGain); oGain.connect(master); osc.start(t+0.2); osc.stop(t+1.75);
+      // title ping, timed to the slam (~0.55s in)
+      var ping=ctx.createOscillator(); ping.type='sine'; ping.frequency.setValueAtTime(880,t+0.55);
+      var pGain=ctx.createGain(); pGain.gain.setValueAtTime(0.14,t+0.55); pGain.gain.exponentialRampToValueAtTime(0.0001,t+1.25);
+      ping.connect(pGain); pGain.connect(master); ping.start(t+0.55); ping.stop(t+1.3);
+      setTimeout(function(){try{ctx.close();}catch(e){}},2600);
+    }catch(e){}
+  }
+  function startWalk(){
+    var steps=document.querySelectorAll('#splash .walk-step');
+    if(!steps.length)return;
+    var i=0;
+    steps[0].classList.add('on');
+    walkTimer=setInterval(function(){
+      for(var k=0;k<steps.length;k++)steps[k].classList.remove('on');
+      steps[i].classList.add('on');
+      i=(i+1)%steps.length;
+    },1500);
+  }
+  window.enterBoot=function(){
+    var boot=document.getElementById('splash-boot');
+    if(!boot||boot.classList.contains('gone'))return;
+    if(!stepGate())return;
+    boot.classList.add('gone');
+    if(!stingPlayed){playBootSting();stingPlayed=true;}
+    document.getElementById('splash').classList.add('live');
+    setTimeout(startWalk,900);
+  };
+  window.dismissSplash=function(){
+    if(walkTimer)clearInterval(walkTimer);
+    var s=document.getElementById('splash'); if(!s)return;
+    if(!stepGate())return;
+    s.classList.add('bye');
+    setTimeout(function(){ if(s.parentNode)s.parentNode.removeChild(s); }, 650);
+    try{localStorage.setItem('rpa.splash.seen','1');sessionStorage.setItem('rpa.splash.session','1');}catch(e){}
+  };
+  /* One press = one step. The 450ms gate lives INSIDE the two step functions
+     so every path (key press, click, bubbled click) is safe from double-skips. */
+  var lastStepAt=0;
+  function stepGate(){
+    var now=Date.now();
+    if(now-lastStepAt<450)return false;
+    lastStepAt=now; return true;
+  }
+  function splashAdvance(e){
+    if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+    var b=document.getElementById('splash-boot');
+    if(b&&!b.classList.contains('gone'))enterBoot();
+    else dismissSplash();
+  }
+  document.addEventListener('keydown',splashAdvance);
+  var boot=document.getElementById('splash-boot');
+  if(boot)boot.addEventListener('click',function(e){
+    /* the ident card covers the whole screen — clicks here are “forward” */
+    e.stopPropagation();
+    enterBoot();
+  });
+  var splashCard=document.getElementById('splash');
+  if(splashCard)splashCard.addEventListener('click',function(e){
+    /* title card clicks dismiss, except on the interactive bits */
+    if(e.target.closest('.walk-step,#splash-themes,#splash-enter,.splash-gh,.rights-link'))return;
+    dismissSplash();
+  });
+
+  /* ---- returning visitors: skip the ceremony, keep the choice ----------
+     The full ident plays ONCE PER BROWSER SESSION (sessionStorage). Within
+     the same session, a returning visitor lands on the title card directly
+     (no boot ident, no sting, walkthrough armed immediately); across
+     sessions they still get the boot, but any key/click now forwards them
+     straight to the title card — one press to the game, not a guided tour. */
+  (function(){
+    var seenSession=false;
+    try{seenSession=!!sessionStorage.getItem('rpa.splash.session');}catch(e){}
+    if(seenSession && boot){
+      boot.classList.add('gone');
+      document.getElementById('splash').classList.add('live');
+      startWalk();
+    }
+  })();
+
+  /* splash theme cards: real selectors, not just decoration.
+     Clicking one applies the theme immediately (same store the dock uses),
+     highlights the picked card, and swaps the splash skin to match. */
+  (function(){
+    var cards=document.querySelectorAll('#splash-themes .splash-theme');
+    function syncCards(){
+      var cur=document.documentElement.getAttribute('data-theme')||'';
+      cards.forEach(function(c){ c.classList.toggle('sel', (c.getAttribute('data-theme')||'')===cur); });
+    }
+    function pick(e){
+      var t=e.currentTarget.getAttribute('data-theme')||'';
+      var dockBtn=document.querySelector('#theme-dock button[data-theme="'+t+'"]');
+      if(dockBtn){ dockBtn.click(); }
+      else {
+        document.body.classList.remove('theme-street','theme-roadbook');
+        if(t)document.body.classList.add(t);
+        document.documentElement.setAttribute('data-theme',t);
+        try{localStorage.setItem('rpa.theme',t);}catch(err){}
+        if(typeof window.rpaOnThemeChanged==='function'){try{window.rpaOnThemeChanged();}catch(err){}}
+      }
+      syncCards();
+    }
+    cards.forEach(function(c){
+      c.setAttribute('title','Click to start with this theme');
+      c.addEventListener('click',pick);
+      c.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pick(e); } });
+    });
+    syncCards();
+    /* theme-switcher applies the saved theme on its own DOMContentLoaded tick —
+       watch body class so the highlighted card always matches reality */
+    new MutationObserver(syncCards).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  })();
+})();
 </script>
 
-<audio id="bg-music" loop>
-  <source src="https://raw.githubusercontent.com/EvaLiisaAibast/Over_Crest/game/Blind%20Crest.mp3" type="audio/mpeg">
-</audio>
-
-<style>
-/* Glow Effects */
-.username-glow {
-  text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 20px currentColor;
-  animation: glow-pulse 2s ease-in-out infinite alternate;
-}
-
-.username-glow-strong {
-  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor, 0 0 40px currentColor;
-  animation: glow-pulse 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes glow-pulse {
-  from { text-shadow: 0 0 5px currentColor, 0 0 10px currentColor; }
-  to { text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor; }
-}
-
-/* Fire Effect */
-.username-fire {
-  background: linear-gradient(180deg, #ff4400 0%, #ff8800 50%, #ffaa00 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 5px #ff4400) drop-shadow(0 0 10px #ff8800);
-  animation: fire-flicker 0.5s ease-in-out infinite alternate;
-}
-
-@keyframes fire-flicker {
-  0% { filter: drop-shadow(0 0 5px #ff4400) drop-shadow(0 0 10px #ff8800); }
-  100% { filter: drop-shadow(0 0 8px #ff6600) drop-shadow(0 0 15px #ffaa00) drop-shadow(0 0 20px #ffcc00); }
-}
-
-/* Rainbow Effect */
-.username-rainbow {
-  background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: rainbow-shift 3s linear infinite;
-}
-
-@keyframes rainbow-shift {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
-}
-
-/* Neon Effect */
-.username-neon {
-  color: #fff;
-  text-shadow: 
-    0 0 5px #fff,
-    0 0 10px #fff,
-    0 0 20px var(--neon-color, #f5c518),
-    0 0 40px var(--neon-color, #f5c518),
-    0 0 80px var(--neon-color, #f5c518);
-  animation: neon-flicker 1.5s infinite alternate;
-}
-
-@keyframes neon-flicker {
-  0%, 18%, 22%, 25%, 53%, 57%, 100% {
-    text-shadow: 
-      0 0 5px #fff,
-      0 0 10px #fff,
-      0 0 20px var(--neon-color, #f5c518),
-      0 0 40px var(--neon-color, #f5c518);
-  }
-  20%, 24%, 55% {
-    text-shadow: none;
-  }
-}
-
-/* Glitch Effect */
-.username-glitch {
-  position: relative;
-  animation: glitch-skew 1s infinite linear alternate-reverse;
-}
-
-.username-glitch::before,
-.username-glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.username-glitch::before {
-  left: 2px;
-  text-shadow: -2px 0 #00fff9;
-  clip: rect(44px, 450px, 56px, 0);
-  animation: glitch-anim 5s infinite linear alternate-reverse;
-}
-
-.username-glitch::after {
-  left: -2px;
-  text-shadow: -2px 0 #ff00c1;
-  clip: rect(44px, 450px, 56px, 0);
-  animation: glitch-anim2 5s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-anim {
-  0% { clip: rect(12px, 9999px, 52px, 0); }
-  20% { clip: rect(65px, 9999px, 99px, 0); }
-  40% { clip: rect(29px, 9999px, 75px, 0); }
-  60% { clip: rect(82px, 9999px, 8px, 0); }
-  80% { clip: rect(44px, 9999px, 13px, 0); }
-  100% { clip: rect(58px, 9999px, 89px, 0); }
-}
-
-@keyframes glitch-anim2 {
-  0% { clip: rect(65px, 9999px, 99px, 0); }
-  20% { clip: rect(12px, 9999px, 52px, 0); }
-  40% { clip: rect(82px, 9999px, 8px, 0); }
-  60% { clip: rect(29px, 9999px, 75px, 0); }
-  80% { clip: rect(58px, 9999px, 89px, 0); }
-  100% { clip: rect(44px, 9999px, 13px, 0); }
-}
-
-@keyframes glitch-skew {
-  0% { transform: skew(0deg); }
-  10% { transform: skew(-2deg); }
-  20% { transform: skew(2deg); }
-  30% { transform: skew(0deg); }
-  100% { transform: skew(0deg); }
-}
-
-/* Pulse Effect */
-.username-pulse {
-  animation: pulse-scale 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse-scale {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
-/* Shimmer Effect */
-.username-shimmer {
-  background: linear-gradient(90deg, var(--text-color, #f5c518) 0%, #fff 50%, var(--text-color, #f5c518) 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 2s linear infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: 200% center; }
-  100% { background-position: -200% center; }
-}
-
-/* Profile Picture Upload */
-.profile-upload-area {
-  border: 2px dashed var(--brd);
-  border-radius: 8px;
-  padding: 2rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.profile-upload-area:hover {
-  border-color: var(--gold);
-  background: rgba(245, 197, 24, 0.05);
-}
-
-.profile-upload-area.dragover {
-  border-color: var(--gold);
-  background: rgba(245, 197, 24, 0.1);
-}
-
-.profile-preview {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--gold);
-}
-
-.banner-preview {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 2px solid var(--brd2);
-}
-</style>
-
-</head>
-<body>
-
 <div class="screen active" id="menu">
 
 <div id="lobby-info-bar" style="position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,12,0.95);border-bottom:1px solid var(--brd2);padding:8px 16px;display:none;align-items:center;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;">
-  <div style="display:flex;align-items:center;gap:12px;">
-    <span style="color:var(--gold);font-weight:600;">🎮 LOBBY: <span id="lobby-display-id">—</span></span>
+  <div style="display:flex;align-items:center;gap:12px;">     <span style="color:var(--gold);font-weight:600;"><i class="bi bi-broadcast"></i> LOBBY: <span id="lobby-display-id">—</span></span>
     <span style="color:var(--text3);">|</span>
     <span style="color:var(--text3);">Server: <span id="lobby-display-server">—</span></span>
   </div>
-  <button onclick="Multiplayer.leaveLobby();hideLobbyInfo();" style="background:none;border:none;color:#e8291c;cursor:pointer;font-size:11px;font-family:inherit;">✕ Leave</button>
+  <button onclick="Multiplayer.leaveLobby();hideLobbyInfo();" style="background:none;border:none;color:#e8291c;cursor:pointer;font-size:11px;font-family:inherit;"><i class="bi bi-x-lg"></i> Leave</button>
 </div>
 <div class="menu-wrap" id="menu-wrap">
+  <div class="menu-content">
+    <div class="menu-title">TAKE ME TO<br><span>THE HAIRPIN</span></div>
+    <div class="menu-sub">Co-Driver Academy &amp; Career Mode</div>
+    <div class="menu-quote">"The notes are the truth. Trust them completely."</div>
+  </div>
   <div class="menu-left">
-    <video class="menu-hero" autoplay muted loop playsinline>
-      <source src="1000216126.mp4" type="video/mp4"/>
-    </video>
+      <video class="menu-hero" autoplay muted loop playsinline>
+        <source src="1000216126.mp4" type="video/mp4"/>
+      </video>
+      <div class="map-ref" aria-hidden="true">SS7 → SS12 · 1:250 000</div>
     <div class="menu-overlay"></div>
     <div class="menu-stripe"></div>
-    <div class="menu-content">
-      <div class="menu-title">TAKE ME TO<br>THE HAIRPIN</div>
-      <div class="menu-sub">Co-Driver Academy &amp; Career Mode</div>
-      <div class="menu-quote">"The notes are the truth. Trust them completely."</div>
-    </div>
+  </div>
+  <div class="street-boxart" aria-hidden="true">
+    <figure><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/Shuto_Expressway_01.JPG/500px-Shuto_Expressway_01.JPG" alt="Shuto Expressway — the Wangan, Tokyo" loading="lazy"><figcaption>THE WANGAN · TOKYO</figcaption></figure>
   </div>
   <div class="menu-right">
     <div class="menu-right-top" style="display:flex;align-items:center;justify-content:space-between">
-  <span>SELECT MODE</span>
-  <button id="mode-toggle-btn" title="Toggle Game/Training mode">🎮 Game Mode</button>
+  <span>SELECT MODE</span>   <button id="mode-toggle-btn" title="Toggle Game/Training mode"><i class="bi bi-controller"></i> Game Mode</button>
 </div>
 <div style="padding:.6rem 1.5rem;background:#0a0a0c;border-bottom:1px solid #252530;font-size:12px;color:#5a5a70;font-family:'IBM Plex Mono',monospace;line-height:1.5;display:flex;justify-content:space-between;align-items:center;">
-  <div>Read the notes. Keep the driver alive.<br>
+  <div>Read the notes. Keep the driver alive. <b>You are the co-driver:</b> each note appears, you call its meaning before the clock dies.<br>
   <span style="color:#f5c518">Training Mode</span> = lessons & telemetry. <span style="color:#39ff14">Game Mode</span> = full rally simulation.</div>
   <div style="display:flex;gap:8px;align-items:center;">
     <div style="display:flex;align-items:center;gap:8px;padding:4px 8px;background:var(--surf);border:1px solid var(--brd2);border-radius:4px;">
-      <span style="font-size:10px;color:var(--text2)">🎵</span>
+      <span style="font-size:10px;color:var(--text2)"><i class="bi bi-music-note-beamed"></i></span>
       <input type="range" id="music-volume-slider" min="0" max="1" step="0.05" value="0.5" style="width:60px;height:4px;cursor:pointer" onchange="updateMusicVolume(this.value)">
-      <span style="font-size:10px;color:var(--text2)">🎤</span>
+      <span style="font-size:10px;color:var(--text2)"><i class="bi bi-mic"></i></span>
       <input type="range" id="voice-volume-slider" min="0" max="1" step="0.05" value="1.0" style="width:60px;height:4px;cursor:pointer" onchange="updateVoiceVolume(this.value)">
     </div>
-    <button id="recording-toggle-btn" class="gbtn" onclick="RecordingMode.toggle()" style="font-size:11px;padding:4px 10px;">⚪ Recording OFF</button>
-    <button class="gbtn" onclick="LanParty.quickHost()" style="font-size:11px;padding:4px 10px;background:#39ff14;color:#0a0a0c;border-color:#39ff14;">🎮 Host LAN</button>
+    <button id="recording-toggle-btn" class="gbtn" onclick="RecordingMode.toggle()" style="font-size:11px;padding:4px 10px;"><i class="bi bi-record-circle"></i> Recording OFF</button>
+    <button class="gbtn" onclick="LanParty.quickHost()" style="font-size:11px;padding:4px 10px;background:#39ff14;color:#0a0a0c;border-color:#39ff14;"><i class="bi bi-ethernet"></i> Host LAN</button>
   </div>
 </div>
     <div class="menu-nav">
-      <button class="mnbtn pri" onclick="openSetup()" style="background:var(--green);color:#0a0a0c;border-color:var(--green)">⚡ Quick Stage <span style="font-size:14px">★</span></button>
-      <button class="mnbtn" onclick="openCareer()">Career Mode <span>→</span></button>
-      <button class="mnbtn" onclick="openTraining()">Training School <span>→</span></button>
-      <button class="mnbtn" onclick="openTutorial()" style="border-color:var(--gold);color:var(--gold)">Interactive Tutorial <span style="font-size:14px">★</span></button>
-      <button class="mnbtn" onclick="openSignatureStages()" style="border-color:var(--red);color:var(--red)">🏆 Signature Stages <span style="font-size:12px">★</span></button>
-      <button class="mnbtn" onclick="openDailyChallenge()" style="border-color:var(--cyan);color:var(--cyan)">📅 Daily Challenge <span style="font-size:12px">NEW</span></button>
-      <button class="mnbtn" onclick="openWeeklyChallenge()" style="border-color:var(--mp-orange);color:var(--mp-orange)">🏆 Weekly Rally <span style="font-size:12px">HOT</span></button>
-      <button class="mnbtn" onclick="openTuningStandalone()">Tuning Garage <span>→</span></button>
-      <button class="mnbtn" id="menu-analytics-btn" onclick="openAnalytics()" style="display:none">Analytics Dashboard <span>→</span></button>
-      <button class="mnbtn" id="menu-programs-btn" onclick="openPrograms()" style="display:none">Training Programs <span>→</span></button>
-      <button class="mnbtn" onclick="openEditor()">Note Editor <span>→</span></button>
-      <button class="mnbtn" onclick="openAchievements()">Achievements <span>→</span></button>
-      <button class="mnbtn" onclick="openAccessibility()">Settings <span>→</span></button>
+      <div class="menu-group g-play">
+        <div class="menu-group-title">DRIVE</div>
+        <button class="mnbtn pri" onclick="openSetup()"><i class="bi bi-lightning-charge-fill"></i> Quick Stage <span style="font-size:14px"><i class="bi bi-star-fill"></i></span></button>
+        <button class="mnbtn" onclick="openCareer()">Career Mode <span>→</span></button>
+        <button class="mnbtn" onclick="openDailyChallenge()" style="border-color:var(--cyan);color:var(--cyan)"><i class="bi bi-calendar-event"></i> Daily Challenge <span style="font-size:12px">NEW</span></button>
+        <button class="mnbtn" onclick="openWeeklyChallenge()" style="border-color:var(--mp-orange);color:var(--mp-orange)"><i class="bi bi-trophy"></i> Weekly Rally <span style="font-size:12px">HOT</span></button>
+        <button class="mnbtn street-only" onclick="WanganModes.openPlanner()" style="border-color:var(--cyan);color:var(--cyan)"><i class="bi bi-signpost-split"></i> Wangan Run <span style="font-size:12px">PLAN YOUR ROUTE</span></button>
+      </div>
+      <div class="menu-group g-learn">
+        <div class="menu-group-title">LEARN</div>
+        <button class="mnbtn" onclick="openTraining()">Training School <span>→</span></button>
+        <button class="mnbtn" onclick="openTutorial()" style="border-color:var(--gold);color:var(--gold)">Interactive Tutorial <span style="font-size:14px"><i class="bi bi-star-half"></i></span></button>
+        <button class="mnbtn" onclick="openRecce()" style="border-color:var(--cyan);color:var(--cyan)">Recce & Call-Back <span style="font-size:12px">NEW</span></button>
+        <button class="mnbtn roadbook-only" onclick="NightRecon.openRecon()" style="border-color:var(--mp-orange);color:var(--mp-orange)"><i class="bi bi-fire"></i> Night Recon <span style="font-size:12px">FEED THE FIRE</span></button>
+        <button class="mnbtn roadbook-only" onclick="RoadCall.openCall()" style="border-color:var(--gold);color:var(--gold)"><i class="bi bi-journal-bookmark"></i> Road Call <span style="font-size:12px">READ THE BOOK</span></button>
+        <button class="mnbtn cockpit-only" onclick="GroupBSurvival.openSurvival()" style="border-color:var(--mp-red);color:var(--mp-red)"><i class="bi bi-heartbreak-fill"></i> Killer B <span style="font-size:12px">SURVIVE</span></button>
+        <button class="mnbtn" id="menu-programs-btn" onclick="openPrograms()" style="display:none">Training Programs <span>→</span></button>
+      </div>
+      <div class="menu-group g-create">
+        <div class="menu-group-title">GARAGE & DATA</div>
+        <button class="mnbtn" onclick="openTuningStandalone()">Tuning Garage <span>→</span></button>
+        <button class="mnbtn" onclick="openEditor()">Note Editor <span>→</span></button>
+        <button class="mnbtn" onclick="openSignatureStages()" style="border-color:var(--red);color:var(--red)"><i class="bi bi-star"></i> Signature Stages <span style="font-size:12px"><i class="bi bi-star-fill"></i></span></button>
+        <button class="mnbtn" onclick="openAchievements()">Achievements <span>→</span></button>
+        <button class="mnbtn" id="menu-analytics-btn" onclick="openAnalytics()" style="display:none">Analytics Dashboard <span>→</span></button>
+        <button class="mnbtn" onclick="openAccessibility()">Settings <span>→</span></button>
+      </div>
     </div>
     <div class="menu-bar">TAKE ME TO THE HAIRPIN — Stage Report Edition</div>
-    <div class="menu-foot">Group B · WRC 90s · Modern WRC<br>v2.0 — Three eras, one career</div>
+    <div class="menu-foot">Group B · WRC 90s · Modern WRC<br>v2.0 — Three eras, one career · <a href="manual.html" style="color:var(--gold);text-decoration:none" target="_blank"><i class="bi bi-book"></i> MANUAL</a></div>
   </div>
 </div>
 </div>
 
 <div class="screen" id="setup">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="theme-credits">Photos: Leonid Mamchenkov (CC BY 2.0) · Fastestkid (CC BY-SA 4.0) · Benh LIEU SONG (CC BY-SA 2.0) · Ystokyo (PD) — via Wikimedia Commons</div>
 <div class="page-hdr">
   <button class="bk" onclick="showMenu()">← Menu</button>
   <div class="page-hdr-title">Stage Setup</div>
@@ -1292,6 +522,7 @@
       <div class="field"><label>Co-Driver Name</label><input id="inp-cod" type="text" placeholder="e.g. Janne Salo"/></div>
     </div>
   </div>
+  <div class="ss-sec"><div class="theme-gimmick-banner" id="gimmick-banner" style="display:none"></div></div>
   <div class="ss-sec"><h3>Difficulty</h3><div class="diff-row" id="diff-row"></div></div>
   <div class="ss-sec"><h3>Car</h3><div class="car-grid" id="car-grid"></div></div>
 </div>
@@ -1303,6 +534,8 @@
 </div>
 
 <div class="screen" id="tuning">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="theme-credits">Photos: Leonid Mamchenkov (CC BY 2.0) · Fastestkid (CC BY-SA 4.0) · Benh LIEU SONG (CC BY-SA 2.0) · Ystokyo (PD) — via Wikimedia Commons</div>
 <div class="page-hdr" style="flex-wrap:wrap;gap:.5rem">
   <button class="bk" id="tun-back-btn" onclick="tunBack()">← Back</button>
   <div class="page-hdr-title" id="tun-title">Tuning Garage</div>
@@ -1346,6 +579,8 @@
 </div>
 
 <div class="screen" id="training">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="theme-credits">Photos: Leonid Mamchenkov (CC BY 2.0) · Fastestkid (CC BY-SA 4.0) · Benh LIEU SONG (CC BY-SA 2.0) · Ystokyo (PD) — via Wikimedia Commons</div>
 <div class="school-top">
   <div class="school-logo">RPA Academy</div>
   <div class="school-tabs">
@@ -1381,6 +616,9 @@
   <source src="pixelShader_8_28_2026_8_59_24 PM.mp4" type="video/mp4"/>
 </video>
 <div class="game-bg-overlay"></div>
+<div class="street-boxart" aria-hidden="true">
+  <figure><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/Shuto_Expressway_01.JPG/500px-Shuto_Expressway_01.JPG" alt="" loading="lazy"></figure>
+</div>
 <div class="game-flash" id="game-flash"></div>
 <div class="g-topbar">
   <div>
@@ -1389,9 +627,9 @@
   </div>
   <div style="display:flex;align-items:center;gap:12px;">
     <div style="display:flex;align-items:center;gap:6px;padding:4px 8px;background:var(--surf);border:1px solid var(--brd2);border-radius:4px;">
-      <span style="font-size:9px;color:var(--text2)">🎵</span>
+      <span style="font-size:9px;color:var(--text2)"><i class="bi bi-music-note-beamed"></i></span>
       <input type="range" id="game-music-volume-slider" min="0" max="1" step="0.05" value="0.5" style="width:40px;height:3px;cursor:pointer" onchange="updateMusicVolume(this.value)">
-      <span style="font-size:9px;color:var(--text2)">🎤</span>
+      <span style="font-size:9px;color:var(--text2)"><i class="bi bi-mic"></i></span>
       <input type="range" id="game-voice-volume-slider" min="0" max="1" step="0.05" value="1.0" style="width:40px;height:3px;cursor:pointer" onchange="updateVoiceVolume(this.value)">
     </div>
     <div class="g-scores">
@@ -1421,13 +659,23 @@
     </div>
     <div class="narr-strip" id="g-narr"><div class="narr-txt" id="g-narr-txt"></div></div>
     <div id="tuning-warnings" style="display:none;background:#1a1400;border:1px solid #f5c518;padding:0.5rem;margin-bottom:0.5rem;font-size:11px;font-family:'IBM Plex Mono',monospace;"></div>
+    <div id="howto-hint" style="display:none;margin-bottom:0.75rem;padding:0.8rem 1rem;background:#141a10;border:1px solid #39ff14;font-family:'IBM Plex Mono',monospace;">
+      <div style="font-size:11px;letter-spacing:.15em;color:#39ff14;margin-bottom:6px"><i class="bi bi-signpost-2"></i> HOW TO CALL A NOTE</div>
+      <div style="font-size:12px;line-height:1.7;color:var(--text2)">
+        You are the <b style="color:#fff">co-driver</b>. The shorthand is your pace note — say it in plain English before the clock runs out.<br>
+        <b style="color:#fff">R4 100 L2!</b> means <i>"right medium, then in 100 metres, left very tight — caution"</i>.<br>
+        Match the <b style="color:#fff">meaning</b> — phrasing is forgiven. Calling <b style="color:#f5c518">early</b> or <b style="color:#f5c518">late</b> both cost you.
+        <span id="howto-dismiss" style="display:block;margin-top:6px;font-size:10px;color:var(--text3)">Press H anytime for shortcuts. This hint shows on your first two stages only.</span>
+      </div>
+    </div>
     <div class="inp-block">
       <div class="inp-lbl">Translate the note — type what it means <span style="color:var(--text3);font-size:10px">(Enter to submit)</span></div>
       <div style="display:flex;gap:8px;margin-bottom:8px;">
         <input class="big-in" id="g-input" type="text" placeholder="e.g. left medium — 150 metres — right tight" autocomplete="off" style="flex:1"/>
-        <button class="gbtn" id="input-mode-toggle" onclick="INPUT_MODE.toggle();updateInputModeUI()" style="padding:0 12px;min-width:80px;">⌨️ Type</button>
-        <div id="mic-indicator" style="display:none;align-items:center;justify-content:center;width:32px;height:32px;background:#39ff14;border-radius:50%;animation:pulse 1s infinite;">
+        <button class="gbtn" id="input-mode-toggle" onclick="INPUT_MODE.toggle();updateInputModeUI()" style="padding:0 12px;min-width:80px;"><i class="bi bi-keyboard"></i> Type</button>
+        <div id="mic-indicator" style="display:none;align-items:center;gap:8px;justify-content:center;height:32px;padding:0 12px;background:#39ff14;border-radius:16px;animation:pulse 1s infinite;">
           <svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0c" stroke-width="2" style="width:16px;height:16px;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          <span class="mic-label" style="font-size:11px;font-weight:600;color:#0a0a0c;font-family:'IBM Plex Mono',monospace;white-space:nowrap">LISTENING — say the call</span>
         </div>
       </div>
       <div class="btn-row">
@@ -1509,6 +757,8 @@
 </div>
 
 <div class="screen" id="daily-challenge">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="theme-credits">Photos: Leonid Mamchenkov (CC BY 2.0) · Fastestkid (CC BY-SA 4.0) · Benh LIEU SONG (CC BY-SA 2.0) · Ystokyo (PD) — via Wikimedia Commons</div>
 <div class="page-hdr">
   <button class="bk" onclick="showMenu()">← Menu</button>
   <div class="page-hdr-title">Daily Challenge</div>
@@ -1535,7 +785,106 @@
 </div>
 </div>
 
+<div class="screen" id="recce">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="theme-credits">Photos: Leonid Mamchenkov (CC BY 2.0) · Fastestkid (CC BY-SA 4.0) · Benh LIEU SONG (CC BY-SA 2.0) · Ystokyo (PD) — via Wikimedia Commons</div>
+<div class="page-hdr">
+  <button class="bk" onclick="showMenu()">← Menu</button>
+  <div class="page-hdr-title">Recce & Call-Back</div>
+</div>
+
+<!-- Phase: pick a stage to recce -->
+<div id="recce-pick" class="setup-scroll">
+  <div class="ss-sec">
+    <p style="color:var(--text2);font-size:13px;line-height:1.5">
+      Real co-drivers don't read notes — <b style="color:var(--gold)">they write them</b>. Drive the stage once
+      (the car does not wait for you), scribble your own shorthand for every corner, then call YOUR notes back
+      on the second pass.
+    </p>
+    <div id="recce-stage-list" style="display:flex;flex-direction:column;gap:6px"></div>
+    <div id="recce-resume-row" style="margin-top:10px;display:none">
+      <button class="gbtn pri" onclick="recceResume()">Resume saved recce</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase: recce pass (write your shorthand) -->
+<div id="recce-recce" style="display:none">
+  <div style="display:flex;gap:10px;align-items:center;padding:0.75rem 1rem;border-bottom:1px solid var(--brd2)">
+    <div id="recce-progress">Note 1 / 8</div>
+    <div id="recce-countdown"></div>
+    <div style="margin-left:auto;font-size:11px;color:var(--text3)">the car does not stop — scribble fast</div>
+  </div>
+  <div class="setup-scroll">
+  <div class="ss-sec">
+    <h3>THE ROAD SAYS</h3>
+    <div id="recce-canon-note" style="font-size:26px;font-weight:bold;color:var(--gold);font-family:'IBM Plex Mono',monospace;min-height:34px">—</div>
+    <div id="recce-tulip" style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap"></div>
+    <h3 style="margin-top:10px">YOUR SHORTHAND (pass 1)</h3>
+    <textarea id="recce-scribble" rows="2" maxlength="120" placeholder="your own symbols — e.g. R3→L1! or △5 …anything YOU will read back"
+      style="width:100%;background:var(--surf2);border:1px solid var(--brd2);color:var(--text);padding:10px;font-size:15px;font-family:'IBM Plex Mono',monospace;resize:vertical"></textarea>
+    <div style="margin-top:8px;display:flex;gap:8px">
+      <button class="gbtn" onclick="recceAbortPass()">Abort run</button>
+      <button class="gbtn pri" onclick="recceFinishRecce()">End recce early → review</button>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- Phase: lint review between passes -->
+<div id="recce-lint" style="display:none">
+  <div class="setup-scroll">
+  <div class="ss-sec">
+    <h3>REVIEW BEFORE THE RUN — blanks and ambiguities</h3>
+    <div id="recce-lint-list" style="display:flex;flex-direction:column;gap:4px"></div>
+    <div style="margin-top:12px;display:flex;gap:8px">
+      <button class="gbtn" onclick="recceBackToRecce()">← Fix my scribbles</button>
+      <button class="gbtn pri" onclick="recceStartCallback()">Start the run — call MY notes →</button>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- Phase: call-back pass -->
+<div id="recce-callback" style="display:none">
+  <div style="display:flex;gap:10px;align-items:center;padding:0.75rem 1rem;border-bottom:1px solid var(--brd2)">
+    <div id="cb-progress">Note 1 / 8</div>
+    <div id="cb-timer" style="margin-left:auto"></div>
+  </div>
+  <div class="setup-scroll">
+  <div class="ss-sec">
+    <h3>YOUR SHORTHAND FROM RECCE</h3>
+    <div id="cb-scribble" style="font-size:26px;font-weight:bold;color:var(--cyan);font-family:'IBM Plex Mono',monospace;min-height:34px;white-space:pre-wrap">—</div>
+    <h3 style="margin-top:10px">CALL IT (pass 2 — read your own note aloud)</h3>
+    <input id="cb-input" autocomplete="off" placeholder="call the corner the way you'd say it in the car"
+      style="width:100%;background:var(--surf2);border:1px solid var(--brd2);color:var(--text);padding:12px;font-size:16px;font-family:'IBM Plex Mono',monospace"/>
+    <div id="cb-fb" style="margin-top:10px;font-size:13px;min-height:20px"></div>
+    <div style="margin-top:8px">
+      <button class="gbtn" onclick="recceAbortPass()">Abort run</button>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- Phase: summary -->
+<div id="recce-summary" style="display:none">
+  <div class="setup-scroll">
+  <div class="ss-sec">
+    <h3>STAGE REPORT — YOUR OWN NOTES</h3>
+    <div id="recce-summary-stats" style="margin-bottom:12px"></div>
+    <div id="recce-summary-table" style="display:flex;flex-direction:column;gap:4px"></div>
+    <div style="margin-top:12px;display:flex;gap:8px">
+      <button class="gbtn" onclick="openRecce()">Recce another stage</button>
+      <button class="gbtn pri" onclick="showMenu()">← Menu</button>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+
 <div class="screen" id="signature-stages">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="theme-credits">Photos: Leonid Mamchenkov (CC BY 2.0) · Fastestkid (CC BY-SA 4.0) · Benh LIEU SONG (CC BY-SA 2.0) · Ystokyo (PD) — via Wikimedia Commons</div>
 <div class="page-hdr">
   <button class="bk" onclick="showMenu()">← Menu</button>
   <div class="page-hdr-title">Signature Stages</div>
@@ -1562,34 +911,9 @@
 </div>
 </div>
 
-<div class="screen" id="daily-challenge">
-<div class="page-hdr">
-  <button class="bk" onclick="showMenu()">← Menu</button>
-  <div class="page-hdr-title">Daily Challenge</div>
-</div>
-<div class="setup-scroll">
-  <div class="ss-sec">
-    <h3>Today's Stage</h3>
-    <div id="daily-stage-info" style="background:var(--surf2);padding:1rem;border-radius:4px;margin-bottom:1rem">
-      <div style="font-size:14px;color:var(--text3);margin-bottom:0.5rem">Loading...</div>
-    </div>
-  </div>
-  <div class="ss-sec">
-    <h3>Your Best Today</h3>
-    <div id="daily-best-score" style="font-family:'IBM Plex Mono',monospace;font-size:24px;color:var(--gold)">No runs yet</div>
-  </div>
-  <div class="ss-sec">
-    <h3>Daily Leaderboard</h3>
-    <div id="daily-leaderboard" style="font-family:'IBM Plex Mono',monospace;font-size:12px">Loading...</div>
-  </div>
-</div>
-<div class="start-bar">
-  <button class="gbtn" onclick="showMenu()">← Menu</button>
-  <button class="gbtn pri" onclick="startDailyChallenge()">Start Daily Challenge</button>
-</div>
-</div>
-
 <div class="screen" id="weekly-challenge">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="theme-credits">Photos: Leonid Mamchenkov (CC BY 2.0) · Fastestkid (CC BY-SA 4.0) · Benh LIEU SONG (CC BY-SA 2.0) · Ystokyo (PD) — via Wikimedia Commons</div>
 <div class="page-hdr">
   <button class="bk" onclick="showMenu()">← Menu</button>
   <div class="page-hdr-title">Weekly Rally</div>
@@ -1616,7 +940,77 @@
 </div>
 </div>
 
+<div class="screen" id="wangan">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="page-hdr">
+  <button class="bk" onclick="showMenu()">← Menu</button>
+  <div class="page-hdr-title">Wangan Run</div>
+</div>
+<div class="setup-scroll">
+  <div class="ss-sec">
+    <p style="color:var(--text2);font-size:13px;line-height:1.6">
+      Midnight on the Shuto Expressway. Plan your own route — one branch per segment —
+      then run it as a pacenote stage. Hazard branches inject cautions and speed-camera
+      risk; bold lines pay a score bonus. And the police <b style="color:var(--cyan)">can come</b>:
+      when your spotter calls it, type the evade word before the window closes.
+    </p>
+  </div>
+  <div id="wangan-plan"></div>
+</div>
+<div class="start-bar">
+  <button class="gbtn" onclick="showMenu()">← Menu</button>
+  <button class="gbtn pri wangan-start-guide" id="wangan-start" onclick="WanganModes.plannerAction()">PLANNING 0/4 — TAP FOR HELP</button>
+</div>
+</div>
+
+<div class="screen" id="roadcall">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="page-hdr">
+  <button class="bk" onclick="showMenu()">← Menu</button>
+  <div class="page-hdr-title">Road Call</div>
+</div>
+<div class="setup-scroll">
+  <div id="roadcall-brief"></div>
+</div>
+<div class="start-bar">
+  <button class="gbtn" onclick="showMenu()">← Menu</button>
+  <button class="gbtn pri" onclick="RoadCall.startCall()">OPEN THE BOOK ▸</button>
+</div>
+</div>
+
+<div class="screen" id="survival">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="page-hdr">
+  <button class="bk" onclick="showMenu()">← Menu</button>
+  <div class="page-hdr-title">Killer B</div>
+</div>
+<div class="setup-scroll">
+  <div id="survival-brief"></div>
+</div>
+<div class="start-bar">
+  <button class="gbtn" onclick="showMenu()">← Menu</button>
+  <button class="gbtn pri" onclick="GroupBSurvival.startSurvival()">START MANTA ROAD ▸</button>
+</div>
+</div>
+
+<div class="screen" id="recon">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="page-hdr">
+  <button class="bk" onclick="showMenu()">← Menu</button>
+  <div class="page-hdr-title">Night Recon</div>
+</div>
+<div class="setup-scroll">
+  <div id="recon-brief"></div>
+</div>
+<div class="start-bar">
+  <button class="gbtn" onclick="showMenu()">← Menu</button>
+  <button class="gbtn pri" onclick="NightRecon.startRecon()">ENTER THE FOREST ▸</button>
+</div>
+</div>
+
 <div class="screen" id="result">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="theme-credits">Photos: Leonid Mamchenkov (CC BY 2.0) · Fastestkid (CC BY-SA 4.0) · Benh LIEU SONG (CC BY-SA 2.0) · Ystokyo (PD) — via Wikimedia Commons</div>
 <div class="mp-mast">
   <div class="mp-mast-top">
     <span id="r-era-tag">Group B Special</span>
@@ -1647,6 +1041,7 @@
       </div>
     </div>
     <div class="mp-article" id="r-article">—</div>
+    <div id="r-debrief"></div>
 <div id="pro-summary"></div>
     <div class="mp-pull"><p id="r-quote">—</p><cite id="r-quote-attr">—</cite></div>
   </div>
@@ -1680,17 +1075,19 @@
 <div class="mp-foot">
   <button class="mpbtn" onclick="showMenu()">← Menu</button>
   <button class="mpbtn" onclick="openSetup()">Quick Stage</button>
-  <button class="mpbtn" onclick="generateShareableCard()">📸 Share Result</button>
+  <button class="mpbtn" onclick="generateShareableCard()"><i class="bi bi-camera"></i> Share Result</button>
   <button class="mpbtn pri" id="r-career-btn" style="display:none" onclick="continueCareer()">Next Stage →</button>
 </div>
 </div>
 
 <div class="screen" id="career">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="theme-credits">Photos: Leonid Mamchenkov (CC BY 2.0) · Fastestkid (CC BY-SA 4.0) · Benh LIEU SONG (CC BY-SA 2.0) · Ystokyo (PD) — via Wikimedia Commons</div>
 <div class="career-hdr">
   <div class="career-hdr-top">
     <h1>Career Mode</h1>
     <div style="display:flex;gap:8px">
-      <button class="gbtn" onclick="openTeamManagement()" style="font-size:12px;padding:5px 12px">🔧 Team &amp; Garage</button>
+      <button class="gbtn" onclick="openTeamManagement()" style="font-size:12px;padding:5px 12px"><i class="bi bi-wrench"></i> Team &amp; Garage</button>
       <button class="gbtn" onclick="resetCareer()" style="font-size:12px;padding:5px 12px">Reset</button>
       <button class="gbtn" onclick="showMenu()">← Menu</button>
     </div>
@@ -1761,7 +1158,7 @@
 <div id="car-detail-modal" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.9);align-items:center;justify-content:center;padding:2rem">
   <div style="background:linear-gradient(135deg,#1a1a1a 0%,#252530 100%);border-radius:12px;border:3px solid var(--rally-red);max-width:900px;width:100%;max-height:90vh;overflow-y:auto;position:relative">
     <div style="position:absolute;top:1rem;right:1rem;z-index:10">
-      <button onclick="closeCarDetail()" style="background:none;border:none;color:#f0f0f0;font-size:24px;cursor:pointer;padding:0.5rem">✕</button>
+      <button onclick="closeCarDetail()" style="background:none;border:none;color:#f0f0f0;font-size:24px;cursor:pointer;padding:0.5rem"><i class="bi bi-x-lg"></i></button>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:2rem">
       <div style="background:linear-gradient(135deg,#0a0a0c 0%,#1a1a1a 100%);border-radius:12px;border:3px solid var(--rally-red);padding:2rem;display:flex;align-items:center;justify-content:center">
@@ -1801,6 +1198,8 @@
 </div>
 
 <div class="screen" id="achievements">
+<div class="theme-bg" aria-hidden="true"></div>
+<div class="theme-credits">Photos: Leonid Mamchenkov (CC BY 2.0) · Fastestkid (CC BY-SA 4.0) · Benh LIEU SONG (CC BY-SA 2.0) · Ystokyo (PD) — via Wikimedia Commons</div>
 <div class="page-hdr">
   <button class="bk" onclick="showMenu()">← Menu</button>
   <div class="page-hdr-title">Achievements</div>
@@ -1821,68 +1220,21 @@
 <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="rally_systems.js?v=6"></script>
+<script src="pacenote-conventions.js?v=2"></script>
+<script src="pacenote-timing.js?v=3"></script>
+<script src="pacenote-ai.js?v=3"></script>
+<script src="recce-mode.js?v=2"></script>
+<script src="recce-ui.js?v=2"></script>
+<script src="rally_systems.js?v=13"></script>
 <script src="pacenote-matcher.js?v=6"></script>
-<script src="rally.js?v=6"></script>
+<script src="rally.js?v=17"></script>
 <script src="voice-engine.js?v=6"></script>
 <script src="multiplayer-p2p.js?v=6"></script>
-<script src="custom-track-editor.js?v=7"></script>
+<script src="custom-track-editor.js?v=8"></script>
 <script src="story_data.js?v=6"></script>
-<script src="story_system.js?v=6"></script>
+<script src="story-themes.js?v=2"></script>
+<script src="story_system.js?v=11"></script>
 
-<div class="screen" id="tuning">
-<div class="tun-header">
-  <div class="tun-hdr-top">
-    <h1>Tuning Garage</h1>
-    <div style="display:flex;gap:8px">
-      <button class="gbtn" onclick="resetTuning()" style="font-size:11px;padding:5px 12px">Reset defaults</button>
-      <button class="gbtn" onclick="returnFromTuning()">← Back</button>
-    </div>
-  </div>
-  <div class="tun-car-strip">
-    <div><div class="tun-car-name" id="tun-car-name">—</div><div class="tun-car-spec" id="tun-car-spec">—</div></div>
-    <div style="margin-left:auto;display:flex;gap:6px" id="tun-preset-row">
-      <button class="preset-btn" onclick="applyPreset('gravel')">Gravel setup</button>
-      <button class="preset-btn" onclick="applyPreset('tarmac')">Tarmac setup</button>
-      <button class="preset-btn" onclick="applyPreset('snow')">Snow/Ice setup</button>
-      <button class="preset-btn" onclick="applyPreset('attack')">Full attack</button>
-    </div>
-  </div>
-</div>
-<div class="tun-body">
-  <div class="tun-nav">
-    <div class="tun-nav-section">Powertrain</div>
-    <button class="tun-nav-btn on" onclick="showTunSection('engine',this)"><span class="tnb-icon">🔧</span><span class="tnb-text">Engine<span class="tnb-sub">Internals, mapping, boost</span></span></button>
-    <button class="tun-nav-btn" onclick="showTunSection('transmission',this)"><span class="tnb-icon">⚙️</span><span class="tnb-text">Transmission<span class="tnb-sub">Diffs, ratios, clutch</span></span></button>
-    <div class="tun-nav-section">Chassis</div>
-    <button class="tun-nav-btn" onclick="showTunSection('suspension',this)"><span class="tnb-icon">🏎️</span><span class="tnb-text">Suspension<span class="tnb-sub">Springs, dampers, geometry</span></span></button>
-    <button class="tun-nav-btn" onclick="showTunSection('brakes',this)"><span class="tnb-icon">🛑</span><span class="tnb-text">Brakes<span class="tnb-sub">Bias, pads, cooling</span></span></button>
-    <button class="tun-nav-btn" onclick="showTunSection('steering',this)"><span class="tnb-icon">🔄</span><span class="tnb-text">Steering<span class="tnb-sub">Rack, lock, weight</span></span></button>
-    <div class="tun-nav-section">Aero & Weight</div>
-    <button class="tun-nav-btn" onclick="showTunSection('aero',this)"><span class="tnb-icon">💨</span><span class="tnb-text">Aerodynamics<span class="tnb-sub">Wing, splitter, diffuser</span></span></button>
-    <button class="tun-nav-btn" onclick="showTunSection('weight',this)"><span class="tnb-icon">⚖️</span><span class="tnb-text">Weight & Balance<span class="tnb-sub">Ballast, distribution</span></span></button>
-    <div class="tun-nav-section">Tyres</div>
-    <button class="tun-nav-btn" onclick="showTunSection('tyres',this)"><span class="tnb-icon">🔘</span><span class="tnb-text">Tyres<span class="tnb-sub">Compound, pressure, width</span></span></button>
-    <div class="tun-nav-section">Electronics</div>
-    <button class="tun-nav-btn" onclick="showTunSection('electronics',this)"><span class="tnb-icon">💻</span><span class="tnb-text">Electronics<span class="tnb-sub">ABS, TC, maps, launch</span></span></button>
-  </div>
-  <div class="tun-main" id="tun-main"></div>
-  <div class="tun-stats">
-    <h3>Performance</h3>
-    <div id="tun-gauges"></div>
-    <div style="margin-top:.5rem">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem">Setup summary</div>
-      <div class="setup-summary" id="tun-summary">—</div>
-    </div>
-    <div class="tun-car-facts" id="tun-car-facts">—</div>
-    <div class="tun-warning" id="tun-warning" style="display:none">—</div>
-  </div>
-</div>
-<div class="tun-footer">
-  <button class="gbtn" onclick="returnFromTuning()">Cancel</button>
-  <button class="gbtn pri" onclick="confirmTuning()">Save & Continue</button>
-</div>
-</div>
 
 <div class="screen" id="editor">
   <div class="page-hdr">
@@ -1898,12 +1250,14 @@
     <div style="display:flex;flex-direction:column;min-height:0">
       <div style="padding:.75rem;background:var(--surf);border-bottom:1px solid var(--brd2);display:flex;gap:8px;align-items:center">
         <input id="editor-stage-name" type="text" placeholder="Stage name..." style="flex:1;background:var(--surf2);border:1px solid var(--brd2);color:var(--text);padding:7px 10px;font-size:13px;font-family:'IBM Plex Mono',monospace"/>
-        <button class="gbtn" onclick="toggleDrawMode()" id="draw-mode-btn" style="padding:6px 12px;font-size:12px">✏️ Draw Route</button>
-        <button class="gbtn" onclick="addMarkerMode()" id="marker-mode-btn" style="padding:6px 12px;font-size:12px">📍 Add Note</button>
+        <button class="gbtn" onclick="toggleDrawMode()" id="draw-mode-btn" style="padding:6px 12px;font-size:12px"><i class="bi bi-pencil"></i> Draw Route</button>
+        <button class="gbtn" onclick="addMarkerMode()" id="marker-mode-btn" style="padding:6px 12px;font-size:12px"><i class="bi bi-geo-alt"></i> Add Note</button>
       </div>
       <div id="editor-map" style="flex:1;min-height:400px;background:var(--surf2)"></div>
     </div>
     <div style="background:var(--surf);border-left:1px solid var(--brd2);display:flex;flex-direction:column;overflow:hidden">
+      <div id="note-conventions-panel" style="padding:1rem;border-bottom:1px solid var(--brd2)"></div>
+      <div id="timing-tuning-panel" style="padding:1rem;border-bottom:1px solid var(--brd2)"></div>
       <div style="padding:1rem;border-bottom:1px solid var(--brd2)">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;color:var(--text2);margin-bottom:.5rem">Add Pacenote</div>
         <textarea id="editor-note-input" placeholder="Type note (e.g. L3 INTO R4!)" style="width:100%;height:50px;background:var(--surf2);border:1px solid var(--brd2);color:var(--gold);padding:8px;font-size:13px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;resize:vertical"></textarea>
@@ -1967,7 +1321,7 @@
       <canvas id="stick-canvas" width="460" height="120" style="display:block"></canvas>
     </div>
     <div style="display:flex;align-items:center;gap:1rem">
-      <div style="font-size:48px;line-height:1" id="crash-emoji">💥</div>
+      <div style="font-size:48px;line-height:1" id="crash-emoji"><i class="bi bi-cone-striped"></i></div>
       <div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:#e8291c;line-height:1" id="crash-title">OFF THE ROAD!</div>
         <div style="font-size:13px;color:#9090a8;margin-top:4px;font-family:'IBM Plex Mono',monospace" id="crash-desc">The car left the road at this corner.</div>
