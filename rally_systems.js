@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    RALLY PACENOTE ACADEMY — SYSTEMS ENGINE v3.0
-   Covers: Analytics, AI Coaching, Adaptive Difficulty, Replay, Pacenote Editor,
+   Covers: Analytics, Coaching (statistical, on-device), Adaptive Difficulty, Replay, Pacenote Editor,
            Extended Tutorial, Mode Toggle, Export, Audio System, Accessibility,
            Training Programs, Damage Physics, Pro Layer
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -239,7 +239,7 @@ const Analytics = {
 };
 
 // ═══════════════════════════════════════════════════════════════
-// 2. AI COACHING ENGINE — #025
+// 2. COACHING ENGINE (pattern statistics — no AI) — #025
 // ═══════════════════════════════════════════════════════════════
 
 const Coach = {
@@ -664,7 +664,7 @@ const Replay = {
 const TrainingProgram = {
   LEVELS: [
     {
-      id: 'beginner', label: 'Beginner', icon: '🟢',
+      id: 'beginner', label: 'Beginner', icon: '<i class="bi bi-circle-fill" style="color:#2eaf64"></i>',
       requirement: null,
       description: 'Learn the core pacenote vocabulary. No timer pressure.',
       drills: [
@@ -675,7 +675,7 @@ const TrainingProgram = {
       certification: { accuracy: 75, sessions: 2, label: 'Beginner Certified' }
     },
     {
-      id: 'intermediate', label: 'Intermediate', icon: '🟡',
+      id: 'intermediate', label: 'Intermediate', icon: '<i class="bi bi-circle-fill" style="color:#ffb000"></i>',
       requirement: 'beginner',
       description: 'Caution marks, links, and distances. Time pressure increases.',
       drills: [
@@ -687,7 +687,7 @@ const TrainingProgram = {
       certification: { accuracy: 70, sessions: 3, label: 'Intermediate Certified' }
     },
     {
-      id: 'advanced', label: 'Advanced', icon: '🔴',
+      id: 'advanced', label: 'Advanced', icon: '<i class="bi bi-circle-fill" style="color:#e8291c"></i>',
       requirement: 'intermediate',
       description: 'Era-specific vocabulary, GRAVEL, CREST, JUMP. Tight timers.',
       drills: [
@@ -699,7 +699,7 @@ const TrainingProgram = {
       certification: { accuracy: 65, sessions: 4, label: 'Advanced Certified' }
     },
     {
-      id: 'expert', label: 'Expert', icon: '⭐',
+      id: 'expert', label: 'Expert', icon: '<i class="bi bi-star-fill"></i>',
       requirement: 'advanced',
       description: 'Maximum pressure. All eras. Chaos mode available.',
       drills: [
@@ -902,12 +902,19 @@ const CoDriverAudio = {
       utt.pitch = style.pitch;
       utt.volume = this.voiceVolume;
 
-      const voices = window.speechSynthesis.getVoices();
-      const pref = voices.find(v =>
-        v.lang.startsWith('en') &&
-        (v.name.toLowerCase().includes('male') || v.name.toLowerCase().includes('daniel') || v.name.toLowerCase().includes('george'))
-      );
-      if (pref) utt.voice = pref;
+      /* Shared natural-voice picker (audio-mixer.js). Falls back to the
+         old heuristic if the mixer isn't loaded. The old match on
+         name.includes('male') also caught 'fe[male]' — fixed upstream. */
+      if (typeof VoicePicker !== 'undefined') {
+        VoicePicker.apply(utt);
+      } else {
+        const voices = window.speechSynthesis.getVoices();
+        const pref = voices.find(v =>
+          v.lang.startsWith('en') &&
+          (v.name.toLowerCase().includes('daniel') || v.name.toLowerCase().includes('george'))
+        );
+        if (pref) utt.voice = pref;
+      }
 
       this.currentUtterance = utt;
       window.speechSynthesis.speak(utt);
@@ -938,6 +945,7 @@ const CoDriverAudio = {
       utt.rate = 0.88;
       utt.pitch = ok ? 1.05 : 0.85;
       utt.volume = 0.85;
+      if (typeof VoicePicker !== 'undefined') VoicePicker.apply(utt);
       window.speechSynthesis.speak(utt);
     }, delay);
   },
@@ -1241,6 +1249,13 @@ const Accessibility = {
   },
 
   applyAudioVolumes() {
+    /* Accessibility-screen sliders route through AudioMixer when present —
+       one shared, persisted audio state instead of two competing stores. */
+    if (typeof AudioMixer !== 'undefined' && AudioMixer.set) {
+      AudioMixer.set('music', this.prefs.musicVolume);
+      AudioMixer.set('voice', this.prefs.voiceVolume);
+      return;
+    }
     const bgMusic = document.getElementById('bg-music');
     if (bgMusic) {
       bgMusic.volume = this.prefs.musicVolume;
@@ -1291,7 +1306,7 @@ const EXTENDED_TUTORIAL_STEPS = [
     note: "L3",
     needsInput: true, prompt: "Translate:", hint: "left tight",
     accept: ["left tight","l3"],
-    successMsg: "✓ CORRECT — Clean read", nextLabel: "Next →"
+    successMsg: "OK â CORRECT — Clean read", nextLabel: "Next →"
   },
   {
     id: 'corner_r5', phase: 'corners',
@@ -1301,7 +1316,7 @@ const EXTENDED_TUTORIAL_STEPS = [
     note: "R5",
     needsInput: true, prompt: "Translate:", hint: "right open",
     accept: ["right open","r5"],
-    successMsg: "✓ GOOD — Open corner read", nextLabel: "Next →"
+    successMsg: "OK â GOOD — Open corner read", nextLabel: "Next →"
   },
 
   // ── CAUTIONS ──
@@ -1320,7 +1335,7 @@ const EXTENDED_TUTORIAL_STEPS = [
     note: "R3!",
     needsInput: true, prompt: "Translate:", hint: "right tight caution",
     accept: ["right tight caution","right 3!","r3"],
-    successMsg: "✓ HAZARD NOTED", nextLabel: "Next →"
+    successMsg: "OK â HAZARD NOTED", nextLabel: "Next →"
   },
   {
     id: 'caution_double', phase: 'hazards',
@@ -1330,7 +1345,7 @@ const EXTENDED_TUTORIAL_STEPS = [
     note: "L2!!",
     needsInput: true, prompt: "Translate:", hint: "left very tight maximum caution",
     accept: ["left very tight maximum caution","left very tight max caution","l2!!"],
-    successMsg: "✓ MAX CAUTION CALLED — Driver lives", nextLabel: "Next →"
+    successMsg: "OK â MAX CAUTION CALLED — Driver lives", nextLabel: "Next →"
   },
 
   // ── SURFACE HAZARDS ──
@@ -1342,7 +1357,7 @@ const EXTENDED_TUTORIAL_STEPS = [
     note: "R4 DONTCUT",
     needsInput: true, prompt: "Translate:", hint: "right medium don't cut",
     accept: ["right medium don't cut","right medium dontcut","r4 dontcut"],
-    successMsg: "✓ Inside hazard called", nextLabel: "Next →"
+    successMsg: "OK â Inside hazard called", nextLabel: "Next →"
   },
   {
     id: 'surface_gravel', phase: 'hazards',
@@ -1352,7 +1367,7 @@ const EXTENDED_TUTORIAL_STEPS = [
     note: "R3 GRAVEL INTO L4",
     needsInput: true, prompt: "Translate:", hint: "right tight gravel patch into left medium",
     accept: ["right tight gravel into left medium","right tight gravel patch into left medium"],
-    successMsg: "✓ Surface hazard noted", nextLabel: "Next →"
+    successMsg: "OK â Surface hazard noted", nextLabel: "Next →"
   },
   {
     id: 'surface_ice', phase: 'hazards',
@@ -1362,7 +1377,7 @@ const EXTENDED_TUTORIAL_STEPS = [
     note: "L3 ICE 50",
     needsInput: true, prompt: "Translate:", hint: "left tight ice 50 metres",
     accept: ["left tight ice 50","left tight ice 50 metres"],
-    successMsg: "✓ Ice called — Monte Carlo mode", nextLabel: "Next →"
+    successMsg: "OK â Ice called — Monte Carlo mode", nextLabel: "Next →"
   },
 
   // ── DISTANCES & LINKING ──
@@ -1381,7 +1396,7 @@ const EXTENDED_TUTORIAL_STEPS = [
     note: "L4 100 R3",
     needsInput: true, prompt: "Translate all three:", hint: "left medium 100 metres right tight",
     accept: ["left medium 100 right tight","left medium 100 metres right tight"],
-    successMsg: "✓ Full sequence called", nextLabel: "Next →"
+    successMsg: "OK â Full sequence called", nextLabel: "Next →"
   },
   {
     id: 'into_intro', phase: 'distances',
@@ -1391,7 +1406,7 @@ const EXTENDED_TUTORIAL_STEPS = [
     note: "L3 INTO R4",
     needsInput: true, prompt: "Translate the linked sequence:", hint: "left tight into right medium",
     accept: ["left tight into right medium","l3 into r4"],
-    successMsg: "✓ GOOD FLOW — Both corners read", nextLabel: "Next →"
+    successMsg: "OK â GOOD FLOW — Both corners read", nextLabel: "Next →"
   },
 
   // ── CREST / JUMP ──
@@ -1403,7 +1418,7 @@ const EXTENDED_TUTORIAL_STEPS = [
     note: "CREST R4",
     needsInput: true, prompt: "Translate:", hint: "over crest right medium",
     accept: ["over crest right medium","crest right medium"],
-    successMsg: "✓ Crest called — driver can commit", nextLabel: "Next →"
+    successMsg: "OK â Crest called — driver can commit", nextLabel: "Next →"
   },
   {
     id: 'jump', phase: 'advanced',
@@ -1413,7 +1428,7 @@ const EXTENDED_TUTORIAL_STEPS = [
     note: "JUMP R3 LONG",
     needsInput: true, prompt: "Translate:", hint: "jump into right tight long",
     accept: ["jump right tight long","jump into right tight long"],
-    successMsg: "✓ Jump called — landing right tight", nextLabel: "Next →"
+    successMsg: "OK â Jump called — landing right tight", nextLabel: "Next →"
   },
 
   // ── FULL COMPLEX NOTE ──
@@ -1425,7 +1440,7 @@ const EXTENDED_TUTORIAL_STEPS = [
     note: "L3 !2 INTO R4 DONTCUT",
     needsInput: true, prompt: "Translate the full note:", hint: "left tight caution hairpin into right medium don't cut",
     accept: ["left tight caution hairpin into right medium don't cut","left tight caution hairpin into right medium dontcut"],
-    successMsg: "✓ PERFECT — Full note read", nextLabel: "Almost done →"
+    successMsg: "OK â PERFECT — Full note read", nextLabel: "Almost done →"
   },
 
   // ── TIMED PRESSURE ──
@@ -1438,7 +1453,7 @@ const EXTENDED_TUTORIAL_STEPS = [
     needsInput: true, timedStep: true, timeLimit: 8,
     prompt: "Translate fast:", hint: "right open over crest left tight caution",
     accept: ["right open crest left tight caution","right open over crest left tight caution"],
-    successMsg: "✓ RAPID READ — Under pressure", nextLabel: "Final step →"
+    successMsg: "OK â RAPID READ — Under pressure", nextLabel: "Final step →"
   },
 
   // ── MODE CHOICE ──
@@ -1464,7 +1479,7 @@ if (typeof window !== 'undefined') {
 function renderModeToggle() {
   const el = document.getElementById('mode-toggle-btn');
   if (!el) return;
-  el.textContent = MODE.isPro ? '🧠 Training Mode' : '🎮 Game Mode';
+  el.innerHTML = MODE.isPro ? '<i class="bi bi-lightbulb"></i> Training Mode' : '<i class="bi bi-controller"></i> Game Mode';
   el.style.borderColor = MODE.isPro ? '#f5c518' : '#252530';
   el.style.color = MODE.isPro ? '#f5c518' : '#9090a8';
 }
@@ -1521,7 +1536,7 @@ function renderProSummary(session) {
   }).join('');
 
   el.innerHTML = `
-    <div class="pro-section-hdr">📊 Performance Analysis</div>
+    <div class="pro-section-hdr"><i class="bi bi-graph-up"></i> Performance Analysis</div>
     <div class="pro-stats-grid">
       <div class="ps-card"><div class="ps-val">${session.accuracy}%</div><div class="ps-lbl">Accuracy</div></div>
       <div class="ps-card"><div class="ps-val">${(session.avgReactionTime/1000).toFixed(1)}s</div><div class="ps-lbl">Avg Reaction</div></div>
@@ -1541,14 +1556,14 @@ function renderProSummary(session) {
       </div>` : ''}
     ${topTip ? `
       <div class="pro-coach-tip">
-        <div class="pro-slbl">🧠 Coach says</div>
+        <div class="pro-slbl"><i class="bi bi-lightbulb"></i> Coach says</div>
         <div class="pct-title">${topTip.title}</div>
         <ul class="pct-tips">${topTip.tips.map(t=>`<li>${t}</li>`).join('')}</ul>
       </div>` : ''}
     <div class="pro-export-row">
-      <button class="pro-export-btn" onclick="ExportSystem.exportAnalyticsCSV()">Export CSV</button>
-      <button class="pro-export-btn" onclick="ExportSystem.exportAnalyticsJSON()">Export JSON</button>
-      <button class="pro-export-btn" onclick="ExportSystem.exportTrainingReport()">Full Report</button>
+      <button class="pro-export-btn" onclick="ExportSystem.exportAnalyticsCSV()"><i class="bi bi-filetype-csv pe-ico"></i><span class="pe-body"><span class="pe-title">CSV</span><span class="pe-sub">spreadsheet of every stage</span></span></button>
+      <button class="pro-export-btn" onclick="ExportSystem.exportAnalyticsJSON()"><i class="bi bi-filetype-json pe-ico"></i><span class="pe-body"><span class="pe-title">JSON</span><span class="pe-sub">raw data for tools &amp; scripts</span></span></button>
+      <button class="pro-export-btn" onclick="ExportSystem.exportTrainingReport()"><i class="bi bi-clipboard-data pe-ico"></i><span class="pe-body"><span class="pe-title">FULL REPORT</span><span class="pe-sub">stats, coach tips, certifications</span></span></button>
     </div>
   `;
 }
@@ -1698,10 +1713,10 @@ function renderExtendedTutStep() {
       choiceDiv.style.cssText = 'display:flex;gap:10px;margin-top:1rem;';
       choiceDiv.innerHTML = `
         <button onclick="chooseTutMode('game')" style="flex:1;padding:1.1rem;background:#111116;border:1px solid #252530;color:#f0f0f0;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;transition:all .15s">
-          🎮 GAME MODE<div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#9090a8;font-weight:400;letter-spacing:.05em;margin-top:.35rem;text-transform:none">Play instantly · Simple feedback · Fun first</div>
+          <i class="bi bi-controller"></i> GAME MODE<div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#9090a8;font-weight:400;letter-spacing:.05em;margin-top:.35rem;text-transform:none">Play instantly · Simple feedback · Fun first</div>
         </button>
         <button onclick="chooseTutMode('pro')" style="flex:1;padding:1.1rem;background:#1a1400;border:1px solid #f5c518;color:#f5c518;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;transition:all .15s">
-          🧠 TRAINING MODE<div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#9090a8;font-weight:400;letter-spacing:.05em;margin-top:.35rem;text-transform:none">Analytics · Coaching · Structured drills</div>
+          <i class="bi bi-lightbulb"></i> TRAINING MODE<div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#9090a8;font-weight:400;letter-spacing:.05em;margin-top:.35rem;text-transform:none">Analytics · Coaching · Structured drills</div>
         </button>
       `;
       document.getElementById('tut-box').querySelector('div').appendChild(choiceDiv);
@@ -1809,7 +1824,7 @@ window.checkTutInput = function() {
   if (typeof tutTimer !== 'undefined') clearInterval(tutTimer);
 
   if (matched) {
-    feedbackEl.textContent = '✓ ' + (step.successMsg || 'Correct');
+    feedbackEl.textContent = 'OK â ' + (step.successMsg || 'Correct');
     feedbackEl.style.color = '#39ff14';
     inputEl.disabled = true;
     document.getElementById('tut-next').style.display = 'block';
@@ -1934,17 +1949,17 @@ function renderAnalyticsDashboard() {
 
     ${tips.length > 0 ? `
     <div style="background:var(--surf);border:1px solid var(--brd2);padding:1rem;margin-bottom:1rem">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--gold);margin-bottom:.75rem">🧠 AI Coaching</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--gold);margin-bottom:.75rem"><i class="bi bi-lightbulb"></i> Coach's Tips</div>
       ${tips.map(tip=>`<div style="background:${tip.priority==='high'?'#1a0a0a':'#1a1400'};border:1px solid ${tip.priority==='high'?'var(--red)':'var(--gold)'};padding:.75rem 1rem;margin-bottom:.5rem">
         <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:${tip.priority==='high'?'#ff7070':'var(--gold)'};margin-bottom:.5rem">${tip.title}</div>
         <ul style="padding-left:1.1rem;margin:0">${tip.tips.map(t=>`<li style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:.2rem">${t}</li>`).join('')}</ul>
       </div>`).join('')}
     </div>` : ''}
 
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="gbtn sec2" onclick="ExportSystem.exportAnalyticsCSV()">Export CSV</button>
-      <button class="gbtn sec2" onclick="ExportSystem.exportAnalyticsJSON()">Export JSON</button>
-      <button class="gbtn" onclick="ExportSystem.exportTrainingReport()">Training Report</button>
+    <div class="pro-export-row" style="margin-top:.75rem">
+      <button class="pro-export-btn" onclick="ExportSystem.exportAnalyticsCSV()"><i class="bi bi-filetype-csv pe-ico"></i><span class="pe-body"><span class="pe-title">CSV</span><span class="pe-sub">every stage, every note</span></span></button>
+      <button class="pro-export-btn" onclick="ExportSystem.exportAnalyticsJSON()"><i class="bi bi-filetype-json pe-ico"></i><span class="pe-body"><span class="pe-title">JSON</span><span class="pe-sub">raw data for tools</span></span></button>
+      <button class="pro-export-btn" onclick="ExportSystem.exportTrainingReport()"><i class="bi bi-clipboard-data pe-ico"></i><span class="pe-body"><span class="pe-title">TRAINING REPORT</span><span class="pe-sub">lifetime summary</span></span></button>
     </div>
   `;
 }
@@ -1969,7 +1984,7 @@ function renderTrainingPrograms() {
           <span class="tl-icon">${level.icon}</span>
           <span class="tl-label">${level.label}</span>
           <span class="tl-badge ${certified?'cert':!unlocked?'locked':'active'}">
-            ${certified ? '✓ CERTIFIED' : !unlocked ? 'LOCKED' : 'IN PROGRESS'}
+            ${certified ? 'OK â CERTIFIED' : !unlocked ? 'LOCKED' : 'IN PROGRESS'}
           </span>
         </div>
         <div style="padding:.5rem 1rem;font-size:12px;color:var(--text2);border-bottom:1px solid var(--brd)">${level.description}</div>
@@ -1977,7 +1992,7 @@ function renderTrainingPrograms() {
           ${level.drills.map(drill => {
             const done = (prog.drillsCompleted||[]).includes(drill.id);
             return `<div class="tl-drill ${done?'done':''}">
-              <span class="tl-drill-status">${done?'✓':'○'}</span>
+              <span class="tl-drill-status">${done?'<i class="bi bi-check-lg"></i>':'<i class="bi bi-circle"></i>'}</span>
               <span class="tl-drill-name">${drill.name}</span>
               <span class="tl-drill-target">Target: ${drill.target.accuracy}% · ${drill.timeLimit}s</span>
             </div>`;
@@ -1993,7 +2008,70 @@ function renderTrainingPrograms() {
 }
 
 // ── EDITOR FUNCTIONS ──
+// ============================================================================
+// Recce career bridge — recce performance now feeds progression instead of
+// being a mode the career ignores. XP is stored locally (works offline,
+// no account needed) and mirrored into the server savefile when one exists.
+// Level curve: 1 level per 250 XP. XP per session:
+//   10 per successfully-called note  +  round(20 × average information)
+//   + 25 perfect-session bonus.
+// ============================================================================
+const RecceCareer = {
+  XP_PER_LEVEL: 250,
+  _key: 'rpa_recce_xp',
+  _load() {
+    try { return JSON.parse(localStorage.getItem(this._key)) || { total: 0, sessions: 0 }; }
+    catch (e) { return { total: 0, sessions: 0 }; }
+  },
+  _save(d) { try { localStorage.setItem(this._key, JSON.stringify(d)); } catch (e) {} },
+  getLevel() { const d = this._load(); return 1 + Math.floor(d.total / this.XP_PER_LEVEL); },
+  getTotal() { return this._load().total; },
+  award(summary) {
+    if (!summary) return 0;
+    const xp = summary.called * 10 + Math.round((summary.avgSim || 0) * 20) +
+      (summary.total > 0 && summary.called === summary.total ? 25 : 0);
+    const d = this._load();
+    d.total += xp; d.sessions += 1;
+    this._save(d);
+    // Fire-and-forget server mirror (read-modify-write so we don't clobber
+    // the rest of the training savefile section).
+    if (typeof AccountSystem !== 'undefined' && AccountSystem.token && AccountSystem.savefile) {
+      (async () => {
+        try {
+          const cur = await AccountSystem.loadSavefile();
+          const training = (cur && AccountSystem.savefile && AccountSystem.savefile.training) || {};
+          training.recce = { xpTotal: d.total, sessions: d.sessions };
+          await AccountSystem.saveSavefile({ training });
+        } catch (e) { /* offline / no account — local XP still counts */ }
+      })();
+    }
+    return xp;
+  },
+  toast(xp) {
+    const t = document.createElement('div');
+    t.className = 'rpa-toast';
+    t.textContent = `RECCE +${xp} XP · level ${this.getLevel()}`;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3200);
+  }
+};
+
+// Called by RecceUI.renderSummary(); returns the XP earned this session.
+function awardRecceXP(summary) {
+  const xp = RecceCareer.award(summary);
+  if (xp > 0 && typeof RecceCareer.toast === 'function') RecceCareer.toast(xp);
+  return xp;
+}
+
 function renderEditorUI() {
+  // Driver-style preferences panel (convention, numbering direction, units,
+  // terminology — the team/driver-specific layer, saved to localStorage)
+  if (typeof PacenoteConventions !== 'undefined' && PacenoteConventions.attachPreferencesUI) {
+    PacenoteConventions.attachPreferencesUI('note-conventions-panel');
+  }
+  if (typeof NotesTiming !== 'undefined' && NotesTiming.attachTuningUI) {
+    NotesTiming.attachTuningUI('timing-tuning-panel');
+  }
   // Format buttons
   const fmtEl = document.getElementById('editor-format-btns');
   if (fmtEl) {
@@ -2038,7 +2116,7 @@ function renderEditorNotes() {
       <button class="editor-ctrl-btn" onclick="StageEditor.moveNote('${n.id}','up');renderEditorNotes()">↑</button>
       <button class="editor-ctrl-btn" onclick="StageEditor.moveNote('${n.id}','down');renderEditorNotes()">↓</button>
       <button class="editor-ctrl-btn" onclick="editorPreviewNote('${n.raw}')">▶</button>
-      <button class="editor-ctrl-btn" onclick="StageEditor.removeNote('${n.id}');renderEditorNotes()" style="border-color:var(--red);color:var(--red)">✕</button>
+      <button class="editor-ctrl-btn" onclick="StageEditor.removeNote('${n.id}');renderEditorNotes()" style="border-color:var(--red);color:var(--red)"><i class="bi bi-x-lg"></i></button>
     </div>`).join('');
 }
 
@@ -2131,8 +2209,8 @@ function renderAccessibilitySettings() {
         <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:.5rem">Theme</div>
         <div style="font-size:12px;color:var(--text2);margin-bottom:.5rem">Choose dark or light theme</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <button class="audio-style-btn ${Accessibility.prefs.theme==='dark'?'on':''}" onclick="Accessibility.set('theme','dark');renderAccessibilitySettings()">🌙 Dark</button>
-          <button class="audio-style-btn ${Accessibility.prefs.theme==='light'?'on':''}" onclick="Accessibility.set('theme','light');renderAccessibilitySettings()">☀️ Light</button>
+          <button class="audio-style-btn ${Accessibility.prefs.theme==='dark'?'on':''}" onclick="Accessibility.set('theme','dark');renderAccessibilitySettings()"><i class="bi bi-moon"></i> Dark</button>
+          <button class="audio-style-btn ${Accessibility.prefs.theme==='light'?'on':''}" onclick="Accessibility.set('theme','light');renderAccessibilitySettings()"><i class="bi bi-sun"></i> Light</button>
         </div>
       </div>
 
@@ -2142,7 +2220,7 @@ function renderAccessibilitySettings() {
         <div style="display:flex;flex-direction:column;gap:1rem">
           <div>
             <div style="display:flex;justify-content:space-between;margin-bottom:.25rem">
-              <span style="font-size:12px;color:var(--text)">🎵 Soundtrack</span>
+              <span style="font-size:12px;color:var(--text)"><i class="bi bi-music-note-beamed"></i> Soundtrack</span>
               <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text2)">${Math.round(Accessibility.prefs.musicVolume * 100)}%</span>
             </div>
             <input type="range" min="0" max="1" step="0.05" value="${Accessibility.prefs.musicVolume}"
@@ -2151,7 +2229,7 @@ function renderAccessibilitySettings() {
           </div>
           <div>
             <div style="display:flex;justify-content:space-between;margin-bottom:.25rem">
-              <span style="font-size:12px;color:var(--text)">🎤 Voice</span>
+              <span style="font-size:12px;color:var(--text)"><i class="bi bi-mic"></i> Voice</span>
               <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text2)">${Math.round(Accessibility.prefs.voiceVolume * 100)}%</span>
             </div>
             <input type="range" min="0" max="1" step="0.05" value="${Accessibility.prefs.voiceVolume}"
@@ -2182,8 +2260,8 @@ function renderAccessibilitySettings() {
         <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:.25rem">Input Mode</div>
         <div style="font-size:12px;color:var(--text2);margin-bottom:.5rem">Choose how to submit your pacenote translations</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <button class="audio-style-btn ${typeof INPUT_MODE!=='undefined'&&INPUT_MODE.type==='type'?'on':''}" onclick="if(typeof INPUT_MODE!=='undefined'){INPUT_MODE.type='type';INPUT_MODE.toggle();renderAccessibilitySettings();}">⌨️ Type</button>
-          <button class="audio-style-btn ${typeof INPUT_MODE!=='undefined'&&INPUT_MODE.type==='speak'?'on':''}" onclick="if(typeof INPUT_MODE!=='undefined'){INPUT_MODE.type='speak';INPUT_MODE.toggle();renderAccessibilitySettings();}">🎤 Speak</button>
+          <button class="audio-style-btn ${typeof INPUT_MODE!=='undefined'&&INPUT_MODE.type==='type'?'on':''}" onclick="if(typeof INPUT_MODE!=='undefined'){INPUT_MODE.type='type';INPUT_MODE.toggle();renderAccessibilitySettings();}">⌨ Type</button>
+          <button class="audio-style-btn ${typeof INPUT_MODE!=='undefined'&&INPUT_MODE.type==='speak'?'on':''}" onclick="if(typeof INPUT_MODE!=='undefined'){INPUT_MODE.type='speak';INPUT_MODE.toggle();renderAccessibilitySettings();}"><i class="bi bi-mic"></i> Speak</button>
         </div>
         <div style="font-size:11px;color:var(--text3);margin-top:.5rem">Speak mode uses voice recognition (Chrome/Edge only)</div>
       </div>
@@ -2204,19 +2282,19 @@ function renderAccessibilitySettings() {
         <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:.5rem">Game Mode / Training Mode</div>
         <div style="font-size:12px;color:var(--text2);margin-bottom:.5rem">
           <strong style="color:var(--text)">Game Mode</strong> — Play instantly, simple feedback, fun first.<br>
-          <strong style="color:var(--gold)">Training Mode</strong> — Analytics, AI coaching, structured drills, export tools. Every stage is measured and analysed.
+          <strong style="color:var(--gold)">Training Mode</strong> — Analytics, coach's tips, structured drills, export tools. Every stage is measured and analysed.
         </div>
         <button id="mode-toggle-btn-a11y" onclick="MODE.toggle();renderAccessibilitySettings()" style="
           padding:8px 18px;border:1px solid ${MODE.isPro?'var(--gold)':'var(--brd2)'};
           background:${MODE.isPro?'#1a1400':'none'};
           color:${MODE.isPro?'var(--gold)':'var(--text2)'};
           font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;cursor:pointer;transition:all .15s">
-          ${MODE.isPro ? '🧠 Training Mode — Click to switch to Game' : '🎮 Game Mode — Click to switch to Training'}
+          ${MODE.isPro ? '<i class="bi bi-lightbulb"></i> Training Mode — Click to switch to Game' : '<i class="bi bi-controller"></i> Game Mode — Click to switch to Training'}
         </button>
       </div>
 
       <div style="background:var(--surf);border:1px solid var(--brd2);padding:.85rem 1rem">
-        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:.25rem">💬 Send Feedback</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:.25rem"><i class="bi bi-chat-dots"></i> Send Feedback</div>
         <div style="font-size:12px;color:var(--text2);margin-bottom:.5rem">
           Have a suggestion, bug report, or just want to say hi? Send a message directly to the developer.
         </div>
@@ -2266,7 +2344,7 @@ function showFeedbackForm() {
     </div>
     <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:2rem;">
       <div style="background:var(--surf2);border:1px solid var(--brd2);padding:2rem;max-width:500px;width:100%;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);margin-bottom:1rem;text-align:center;">💬 Send Feedback</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);margin-bottom:1rem;text-align:center;"><i class="bi bi-chat-dots"></i> Send Feedback</div>
         <div style="font-size:12px;color:var(--text3);margin-bottom:1.5rem;text-align:center;">
           Your feedback helps improve the game! Send suggestions, bug reports, or just say hello.
         </div>
@@ -2324,7 +2402,7 @@ async function sendFeedback() {
     const result = await response.json();
     
     if (result.success) {
-      successDiv.textContent = '✓ Feedback sent! Thank you for your input.';
+      successDiv.textContent = 'OK â Feedback sent! Thank you for your input.';
       successDiv.style.display = 'block';
       document.getElementById('feedback-message').value = '';
       setTimeout(() => {
