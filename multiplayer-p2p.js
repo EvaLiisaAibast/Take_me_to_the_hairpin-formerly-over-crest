@@ -369,7 +369,7 @@ const MultiplayerP2P = {
     `;
     div.innerHTML = `
       <div style="margin-bottom: 0.5rem; font-weight: bold; color: var(--red);">
-        🎮 P2P LOBBY
+        <i class="bi bi-ethernet"></i> P2P LOBBY
       </div>
       <div style="margin-bottom: 0.25rem;">
         <span style="color: var(--text3);">Code:</span>
@@ -381,7 +381,7 @@ const MultiplayerP2P = {
       </div>
       <button onclick="MultiplayerP2P.disconnect()" 
               style="margin-top: 0.5rem; background: var(--red); color: white; border: none; padding: 4px 8px; cursor: pointer;">
-        ✕ Leave
+        <i class="bi bi-x-lg"></i> Leave
       </button>
     `;
     document.body.appendChild(div);
