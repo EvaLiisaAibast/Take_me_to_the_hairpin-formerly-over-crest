@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Take Me to the Hairpin — Instruction Manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Press+Start+2P&family=VT323&family=Orbitron:wght@700;900&family=Rubik+Mono+One&display=swap"/>
+<style>
+/* ============================================================================
+   MANUAL — one document, three personalities
+   The page body carries .theme-* exactly like the game, and each theme
+   re-skins the whole manual via the same design tokens the game uses.
+   Reads fine with no theme class (fallback defaults).
+   ============================================================================ */
+:root {
+  --bg: #0b0b0f; --surf: #101017; --surf2: #16161f; --brd: #2a2a3a; --brd2: #3c3c50;
+  --gold: #ffb000; --red: #ff2e2e; --cyan: #ffd166; --mp-red: #ff2e2e; --mp-yellow: #ffb000;
+  --text: #e8e8f0; --text2: #a0a0b8; --text3: #6a6a80;
+  --mono: 'IBM Plex Mono', monospace;
+}
+body.theme-street {
+  --bg: #05060e; --surf: #0a0b18; --surf2: #0e1022; --brd: #23264a; --brd2: #36408a;
+  --gold: #00e5ff; --red: #ff2ec4; --cyan: #00e5ff; --mp-red: #ff2ec4; --mp-yellow: #ffe600;
+  --text: #e8f6ff; --text2: #8ea8c9; --text3: #4d6480;
+  --mono: 'VT323', 'IBM Plex Mono', monospace;
+}
+body.theme-roadbook {
+  --bg: #191106; --surf: #221709; --surf2: #2a1d0e; --brd: #4a371e; --brd2: #6d5330;
+  --gold: #ff8c1a; --red: #e04430; --cyan: #e8c98f; --mp-red: #e04430; --mp-yellow: #ffb000;
+  --text: #f3e6c8; --text2: #b39b72; --text3: #7d6845;
+  --mono: 'IBM Plex Mono', monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: 'IBM Plex Sans', sans-serif; line-height: 1.65;
+  background-image: repeating-linear-gradient(0deg, rgba(128,128,128,.03) 0 1px, transparent 1px 4px);
+}
+.wrap { max-width: 980px; margin: 0 auto; padding: 24px 20px 80px; }
+
+/* masthead */
+.mast { border: 2px solid var(--brd2); border-top: 6px solid var(--gold); background: var(--surf); padding: 26px 28px 20px; margin-bottom: 28px; }
+.mast-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; }
+h1 { font-family: 'Anton', 'Bebas Neue', sans-serif; font-size: clamp(34px, 6vw, 56px); line-height: 1; margin: 8px 0 6px; letter-spacing: 2px; text-transform: uppercase; }
+h1 em { color: var(--gold); font-style: normal; }
+.mast-sub { color: var(--text2); font-family: var(--mono); font-size: 13px; }
+.mast-sub b { color: var(--text); }
+
+/* TOC */
+.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 8px; }
+.toc a {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--text); text-decoration: none; border: 1px solid var(--brd2);
+  background: var(--surf2); padding: 6px 12px;
+}
+.toc a:hover { border-color: var(--gold); color: var(--gold); }
+
+/* sections */
+section { margin: 40px 0; }
+h2 {
+  font-family: 'Bebas Neue', 'Anton', sans-serif; font-size: 30px; letter-spacing: 2px;
+  margin: 0 0 4px; padding-bottom: 6px; border-bottom: 3px double var(--brd2); text-transform: uppercase;
+}
+h2 .no { color: var(--gold); margin-right: 10px; }
+h3 { font-family: var(--mono); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 26px 0 8px; }
+p { color: var(--text2); }
+p b, li b { color: var(--text); }
+.lead { font-size: 16px; color: var(--text); }
+
+/* callouts */
+.callout { border: 1px solid var(--brd2); border-left: 4px solid var(--gold); background: var(--surf); padding: 12px 16px; margin: 14px 0; }
+.callout p { margin: 0; }
+.callout.warn { border-left-color: var(--red); }
+.callout .tag { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; display: block; margin-bottom: 4px; }
+.callout.warn .tag { color: var(--red); }
+
+/* tables */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+th { font-family: var(--mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); text-align: left; border-bottom: 2px solid var(--brd2); padding: 8px 10px; }
+td { border-bottom: 1px solid var(--brd); padding: 9px 10px; vertical-align: top; color: var(--text2); }
+td:first-child { color: var(--text); font-weight: 600; }
+tr:hover td { background: rgba(128,128,128,.05); }
+
+/* theme trio cards */
+.trio { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 16px 0; }
+.tcard { border: 1px solid var(--brd2); border-top: 5px solid var(--cyan); background: var(--surf); padding: 16px 18px; }
+.tcard.cockpit { border-top-color: #ffb000; }
+.tcard.street { border-top-color: #00e5ff; }
+.tcard.roadbook { border-top-color: #ff8c1a; }
+.tcard h4 { margin: 0 0 2px; font-family: 'Anton', 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; text-transform: uppercase; }
+.tcard .sub { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text3); display: block; margin-bottom: 10px; }
+.tcard p { font-size: 13.5px; margin: 0 0 8px; }
+.tcard ul { margin: 0; padding-left: 18px; color: var(--text2); font-size: 13.5px; }
+.tcard li { margin: 3px 0; }
+
+/* notation examples */
+.note-ex {
+  font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: var(--text);
+  border: 1px dashed var(--brd2); background: var(--surf2); padding: 10px 14px; margin: 8px 0;
+}
+.note-ex .raw { color: var(--gold); font-weight: 600; }
+.note-ex .mean { color: var(--text2); }
+
+/* achievements grid */
+.ach { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin: 14px 0; }
+.ach .a { border: 1px solid var(--brd); background: var(--surf); padding: 10px 12px; font-size: 13.5px; }
+.ach .a b { display: block; }
+.ach .a span { color: var(--text3); font-size: 12.5px; }
+
+/* difficulty chips */
+.diffs { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.diffs .d { font-family: var(--mono); font-size: 12px; border: 1px solid var(--brd2); background: var(--surf2); padding: 6px 12px; }
+.diffs .d b { color: var(--gold); }
+
+footer { margin-top: 56px; border-top: 3px double var(--brd2); padding-top: 14px; color: var(--text3); font-family: var(--mono); font-size: 11px; letter-spacing: 1px; }
+/* theme display faces: Cockpit = Orbitron, Roadbook = Rubik Mono One, Street keeps Anton */
+body.theme-roadbook h1, body.theme-roadbook h2, body.theme-roadbook .tcard h4 { font-family: 'Rubik Mono One', 'Bebas Neue', sans-serif; font-weight: 400; }
+body:not(.theme-street):not(.theme-roadbook) h1, body:not(.theme-street):not(.theme-roadbook) h2, body:not(.theme-street):not(.theme-roadbook) .tcard h4 { font-family: 'Orbitron', 'Bebas Neue', sans-serif; }
+@media (max-width: 640px) { .wrap { padding: 14px 12px 60px; } .mast { padding: 18px 16px 14px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="mast">
+  <span class="mast-kicker">Operations Manual · Stage Report Edition</span>
+  <h1>TAKE ME TO THE <em>HAIRPIN</em></h1>
+  <div class="mast-sub"><b>Co-driver academy &amp; career mode.</b> You don't drive. You call. Every corner, every caution, before the car arrives. This manual covers the loop, the three era campaigns, the three theme gimmicks, notation, scoring, achievements and every special mode.</div>
+  <div class="mast-sub" style="margin-top:6px"><b>© 2026 Eva-Liisa Aibast.</b> All rights reserved. Personal / non-commercial use only — to use the game another way, or to work on it together, message me on <a href="https://github.com/EvaLiisaAibast?tab=repositories" target="_blank" rel="noopener">GitHub</a>.</div>
+  <div class="toc">
+    <a href="#loop">The Loop</a>
+    <a href="#notation">Notation</a>
+    <a href="#eras">Eras</a>
+    <a href="#themes">Themes &amp; Gimmicks</a>
+    <a href="#difficulty">Difficulty</a>
+    <a href="#scoring">Scoring</a>
+    <a href="#modes">Special Modes</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#team">Your Team</a>
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<section id="loop">
+  <h2><span class="no">01</span>The Basic Loop</h2>
+  <p class="lead">A stage is a sequence of pace notes. Each note appears as shorthand with a tulip diagram, the stage clock is running, and your job is to translate the note into a full spoken-style call — in plain English — before the time window closes.</p>
+  <table>
+    <tr><th>Step</th><th>What happens</th></tr>
+    <tr><td>1 · The note shows</td><td>Shorthand (e.g. <b>R3 !</b>) and a tulip diagram appear. The clock starts — reaction time is measured from this moment, not from your first keystroke.</td></tr>
+    <tr><td>2 · You call</td><td>Type the full English meaning (e.g. <b>right tight, caution</b>) or use voice input. Match the meaning, not the exact words — the matcher is forgiving about phrasing.</td></tr>
+    <tr><td>3 · The verdict</td><td>Clean call scores; late or missed calls lose time and stack consequences. The commentator reacts.</td></tr>
+    <tr><td>4 · Repeat to the finish</td><td>Notes stack faster as complexity rises. Look-ahead pressure means a hard corner coming next shortens your window on the current one.</td></tr>
+  </table>
+  <div class="callout"><span class="tag">The one rule</span><p>Call it <b>early</b>. A perfect call a second late is worse than a good call a second early — the driver is already in the corner.</p></div>
+</section>
+
+<!-- ================================================================ -->
+<section id="notation">
+  <h2><span class="no">02</span>How To Read A Note</h2>
+  <p>The game's default notation (<b>RPA Standard</b>) works like this:</p>
+  <table>
+    <tr><th>Token</th><th>Meaning</th></tr>
+    <tr><td>L / R + 1–6</td><td>Corner direction and severity. <b>1 = hairpin</b> (tightest), <b>6 = fast sweep</b> (openest).</td></tr>
+    <tr><td>! / !!</td><td>Caution / maximum caution.</td></tr>
+    <tr><td>FLAT</td><td>Flat out — maximum speed, full commitment.</td></tr>
+    <tr><td>CREST / JUMP</td><td>Over a crest / airborne.</td></tr>
+    <tr><td>INTO</td><td>Corner follows immediately after the previous one.</td></tr>
+    <tr><td>DONTCUT</td><td>Do not cut the inside — something there wants your wheels.</td></tr>
+    <tr><td>TIGHTENS / OPENS</td><td>The corner gets tighter / wider through its length.</td></tr>
+    <tr><td>NUMBERS (100, 150…)</td><td>Metres between features.</td></tr>
+  </table>
+  <div class="note-ex"><span class="raw">L4 DONTCUT 100 R2 !</span> <span class="mean">→ "left medium, don't cut, 100 metres, right tight, caution"</span></div>
+  <div class="note-ex"><span class="raw">FLAT 300 R5 CREST</span> <span class="mean">→ "flat out for 300, right fast sweep over crest"</span></div>
+  <p><b>Prefer another team's language?</b> Settings → Note Conventions switches the whole game to <b>Jemba 1</b> (numeric 1–6, brake-point distances, "R2( L3" style), <b>Jemba 2</b> (loose, distances after the corner), or more — and you can set per-token preferences (numbering direction, terminology) to match a real team's book.</p>
+</section>
+
+<!-- ================================================================ -->
+<section id="eras">
+  <h2><span class="no">03</span>The Three Eras</h2>
+  <p>Career mode spans three decades of the sport. Each era has its own stages, vocabulary flavour, commentator, and media outlet for your stage reports.</p>
+  <div class="trio">
+    <div class="tcard cockpit">
+      <h4>Group B</h4><span class="sub">1982–1986 · Rallye Mondiale</span>
+      <p>Monsters with no limits. Sparse, brutal notes. One mistake is fatal.</p>
+      <ul><li>Commentator: Jean-Pierre Mauger</li><li>Sparse vocabulary, brutal consequences</li></ul>
+    </div>
+    <div class="tcard cockpit">
+      <h4>WRC 90s</h4><span class="sub">1990s · Autosport Rally Report</span>
+      <p>The classic era. Balanced notes, iconic cars, the language modern co-driving grew from.</p>
+      <ul><li>Commentator: Martin Holmes</li><li>The "textbook" era for learning notation</li></ul>
+    </div>
+    <div class="tcard cockpit">
+      <h4>Modern WRC</h4><span class="sub">2022–present · WRC Official Media</span>
+      <p>Rally1 hybrid era. Full vocabulary, 500hp, hybrid management, night stages.</p>
+      <ul><li>Commentator: Jona Siebel</li><li>Night stages: limited visibility, delayed notes</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<section id="themes">
+  <h2><span class="no">04</span>Themes &amp; Their Gimmicks</h2>
+  <p class="lead">The theme switcher (bottom-left of the menu) is not a coat of paint — <b>each theme changes how you play</b>, and unlocks its own signature mode.</p>
+  <div class="trio">
+    <div class="tcard cockpit">
+      <h4>Cockpit</h4><span class="sub">Classic WRC · the default</span>
+      <p>The core experience: classic WRC career across the three eras, proper notation, proper consequences. Plus its signature mode:</p>
+      <ul>
+        <li><b><i class="bi bi-heartbreak-fill"></i> Killer B</b> — a real Group B stage where every late or missed call adds <b>+18 STRAIN</b> to the car; clean calls bleed 4 off. At 50 the boost overheats (answer windows ×0.9), at 75 the tyres go (×0.8) <b>and the intercom breaks up</b> — notes arrive garbled with radio static that you decode by eye, repairing itself below 70 strain. A mid-stage mechanical gremlin makes damage compound ×1.5 until you string clean calls. At <b>100 the car lets go</b> and you DNF. The only mode where you can lose everything.</li>
+      </ul>
+    </div>
+    <div class="tcard street">
+      <h4>Street</h4><span class="sub">Mid Night Club · Tokyo, 1999</span>
+      <p>JDM night racing on the Wangan. Different note style, different risks:</p>
+      <ul>
+        <li><b><i class="bi bi-signpost-split"></i> Wangan Run</b> — plan your own route through four expressway segments, each with two branches: hazard lines inject <b>! / !!</b> cautions into your notes, bold lines pay +10–20% score. Your plan persists between sessions.</li>
+        <li><b>Police</b> — encounters fire at random between corners: your pace note is replaced by a spotter's <b>EVASION</b> call and you must type the evade word (GHOST, BREAKER…) before the window closes. Escape = +15% multiplier. Fail = <b>BUSTED</b>, +15s and your streak dies.</li>
+        <li><b>No Jemba numerics here</b> — Wangan calls like FLAT 300, R5 TUNNEL, JUNCTION R3.</li>
+      </ul>
+    </div>
+    <div class="tcard roadbook">
+      <h4>Roadbook</h4><span class="sub">Dakar desert · 2014 Atacama</span>
+      <p>Marathon-raiding energy. The roadbook itself is the star:</p>
+      <ul>
+        <li><b><i class="bi bi-journal-bookmark"></i> Road Call</b> — no spoken shorthand. Each corner arrives as a <b>roadbook row</b>: the tulip diagram, the distance chip, CAUTION cautions — the words are hidden. You read the book like a real co-driver and call the corner in full English yourself.</li>
+        <li><b><i class="bi bi-fire"></i> Night Recon</b> — a night stage on a <b>fuel budget</b>. Before every corner choose CONSERVE (clean answer refuels +8) or BURN (−12 fuel, your window shrinks to 70%, clean call pays +50%). Fail a burn and the fire dies — reserve lockout until you bank two clean calls. Finish with fuel and no lost burns for the FLAME ALIVE FLAME ALIVE rating.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout"><span class="tag">Which mode is mine?</span><p>The menu shows each theme's signature button only in its own theme — Street hides Night Recon, Roadbook hides Wangan Run, and so on. Switch theme to switch the toy box. The <b>launch splash</b> (shown when the game opens) and the <b>banner at the top of Stage Setup</b> both spell out what the active theme changes — garage, stages and gimmick — before every stage.</p></div>
+</section>
+
+<!-- ================================================================ -->
+<section id="difficulty">
+  <h2><span class="no">05</span>Difficulty</h2>
+  <p>Difficulty controls the answer window per note — the number is seconds you get:</p>
+  <div class="diffs">
+    <span class="d">Easy — <b>20s</b></span>
+    <span class="d">Normal — <b>16s</b></span>
+    <span class="d">Hard — <b>13s</b></span>
+    <span class="d">Insane — <b>11s</b></span>
+    <span class="d">Chaos — <b>9s</b></span>
+  </div>
+  <p>On top of the base window, <b>note complexity</b> and <b>look-ahead pressure</b> (a stacked hard corner next) shave further fractions, and mode modifiers (Killer B thresholds, Night Recon burns) multiply the remainder. There is no difficulty where the clock stops.</p>
+  <div class="callout warn"><span class="tag">Crashes &amp; damage</span><p>Late calls mean the driver reacts instead of drives. Crashes cost real time, damage accumulates, and career staff perks (better car prep, etc.) feed the crash-probability system. In Killer B they can end your rally.</p></div>
+</section>
+
+<!-- ================================================================ -->
+<section id="scoring">
+  <h2><span class="no">06</span>Scoring</h2>
+  <table>
+    <tr><th>Signal</th><th>Effect</th></tr>
+    <tr><td>Accuracy</td><td>How well your call matched the note's meaning. Phrasing is forgiven; wrong direction or severity is not.</td></tr>
+    <tr><td>Reaction time</td><td>Measured from note display. Symmetric early/late penalties — calling absurdly early is penalised like calling late.</td></tr>
+    <tr><td>Streak</td><td>Clean calls build a multiplier. Missed calls and BUSTED encounters reset it.</td></tr>
+    <tr><td>Route risk</td><td>Wangan Run: bold route branches pay +10–20%. Hazard branches cost windows, not score.</td></tr>
+    <tr><td>Burn calls</td><td>Night Recon: a clean call on BURN pays +50%.</td></tr>
+  </table>
+  <p>Every stage ends in a <b>Stage Report</b> — a themed magazine debrief with position, time, accuracy, note breakdown and a performance timeline.</p>
+</section>
+
+<!-- ================================================================ -->
+<section id="modes">
+  <h2><span class="no">07</span>Every Mode, Briefly</h2>
+  <table>
+    <tr><th>Mode</th><th>What it is</th></tr>
+    <tr><td>Quick Stage</td><td>One stage, any era/difficulty. The fastest way to play.</td></tr>
+    <tr><td>Career Mode</td><td>The three-era campaign with team management, staff, tuning and rivals (S. Laurent, C. MacRae, M. Grönholm, K. Rovanperä).</td></tr>
+    <tr><td>Daily / Weekly</td><td>Recurring challenge stages with fixed conditions.</td></tr>
+    <tr><td>Multiplayer</td><td>P2P co-driver duels — see MULTIPLAYER_README.md.</td></tr>
+    <tr><td>Training School / Tutorial</td><td>Guided learning for the notation and the loop.</td></tr>
+    <tr><td>Recce &amp; Call-Back</td><td>Watch a stage once and write your own shorthand; run it blind calling from your own notes. The real co-driver skill.</td></tr>
+    <tr><td>Tuning Garage</td><td>25+ parameters; the engineer's rabbit hole (and an achievement).</td></tr>
+    <tr><td>Note Editor / Custom Track</td><td>Build your own stages and notes.</td></tr>
+    <tr><td>Signature Stages</td><td>The special modes above (Killer B, Wangan Run, Night Recon, Road Call).</td></tr>
+    <tr><td>Story</td><td>Narrative career beats and team drama.</td></tr>
+  </table>
+</section>
+
+<!-- ================================================================ -->
+<section id="achievements">
+  <h2><span class="no">08</span>Achievements</h2>
+  <p>Ten are tracked and saved locally. The two hidden-depth ones are marked.</p>
+  <div class="ach">
+    <div class="a"><b><i class="bi bi-flag-fill"></i> First Pace Note</b><span>Complete your first stage</span></div>
+    <div class="a"><b><i class="bi bi-mic"></i> No Looking Down</b><span>Finish a stage in voice-only mode</span></div>
+    <div class="a"><b><i class="bi bi-shield-check"></i> Group B Survivor</b><span>Finish a Group B stage without crashing</span></div>
+    <div class="a"><b><i class="bi bi-wrench"></i> Engineer Brain</b><span>Change 25 tuning parameters</span></div>
+    <div class="a"><b><i class="bi bi-award"></i> Walter's Apprentice</b><span>Get perfect pacenote accuracy</span></div>
+    <div class="a"><b><i class="bi bi-stars"></i> Clean Sweep</b><span>Complete a stage with 100% accuracy</span></div>
+    <div class="a"><b><i class="bi bi-speedometer2"></i> Speed Demon</b><span>Complete a stage on Insane difficulty</span></div>
+    <div class="a"><b><i class="bi bi-trophy"></i> Era Master</b><span>Complete stages in all three eras</span></div>
+    <div class="a"><b><i class="bi bi-basket"></i> Occupational Hazard</b><span>Get hit in the head by an emergency granola bar. <i>(Yes, really.)</i></span></div>
+    <div class="a"><b><i class="bi bi-star"></i> Living Up To The Name</b><span>Complete a clean stage with a legendary rally name</span></div>
+    <div class="a"><b><i class="bi bi-thermometer-snow"></i> Cold Machine</b><span>Killer B: finish with peak strain under 25%</span></div>
+    <div class="a"><b><i class="bi bi-graph-down"></i> Edge Runner</b><span>Killer B: cross 75% strain and still finish</span></div>
+    <div class="a"><b><i class="bi bi-eye-slash"></i> Ghost of the Wangan</b><span>Wangan Run: escape 3 police pursuits in one run</span></div>
+    <div class="a"><b><i class="bi bi-escape"></i> Untouchable</b><span>Wangan Run: finish with escapes and zero BUSTED</span></div>
+    <div class="a"><b><i class="bi bi-fire"></i> Keep The Fire</b><span>Night Recon: finish with the FLAME ALIVE rating</span></div>
+    <div class="a"><b><i class="bi bi-brightness-high"></i> Pyromaniac</b><span>Night Recon: win 5 burns in one run</span></div>
+    <div class="a"><b><i class="bi bi-journal-bookmark"></i> Bookworm</b><span>Road Call: read 10 roadbook entries in one run</span></div>
+    <div class="a"><b><i class="bi bi-book"></i> First Read</b><span>Road Call: finish reading from the book with 80%+ accuracy</span></div>
+  </div>
+  <div class="callout"><span class="tag">Theme gimmick achievements</span><p>Eight achievements are tied to the signature modes — one per gimmick personality (strain control, clean getaways, fire management, book reading). They unlock the same way as the base ten and save locally.</p></div>
+</section>
+
+<!-- ================================================================ -->
+<section id="team">
+  <h2><span class="no">09</span>Your Team &amp; Settings Worth Knowing</h2>
+  <ul>
+    <li><b>Note Conventions</b> (Settings): switch to Jemba 1 / Jemba 2 or set per-token team preferences — numbering direction, terminology. What you learn transfers to a real team's book.</li>
+    <li><b>Voice input</b>: the "Hear co-driver call" modes use the voice engine; finishing a stage voice-only earns an achievement.</li>
+    <li><b>Theme persistence</b>: your theme and route plans save locally; achievements save locally too.</li>
+    <li><b>Reduced motion</b>: every decorative animation in the themes respects your OS-level prefers-reduced-motion setting.</li>
+  </ul>
+</section>
+
+<footer>TAKE ME TO THE HAIRPIN · OPERATIONS MANUAL · THREE ERAS, ONE CAREER · TRUST THE NOTES</footer>
+</div>
+<script>
+/* the manual wears whichever theme the game saved */
+try { var t = localStorage.getItem('rpa.theme'); if (t) document.body.className = t; } catch (e) {}
+</script>
+</body>
+</html>
