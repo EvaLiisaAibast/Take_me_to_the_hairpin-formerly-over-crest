@@ -58,11 +58,11 @@ const CustomTrackEditor = {
     
     if (btn) {
       btn.style.background = this.isDrawing ? 'var(--red)' : '';
-      btn.textContent = this.isDrawing ? '✏️ Drawing...' : '✏️ Draw Route';
+      btn.innerHTML = this.isDrawing ? '<i class="bi bi-pencil"></i> Drawing...' : '<i class="bi bi-pencil"></i> Draw Route';
     }
     if (markerBtn) {
       markerBtn.style.background = '';
-      markerBtn.textContent = '📍 Add Note';
+      markerBtn.innerHTML = '<i class="bi bi-geo-alt"></i> Add Note';
     }
     
     this.map.getContainer().style.cursor = this.isDrawing ? 'crosshair' : '';
@@ -78,11 +78,11 @@ const CustomTrackEditor = {
     
     if (btn) {
       btn.style.background = this.isAddingMarker ? 'var(--red)' : '';
-      btn.textContent = this.isAddingMarker ? '📍 Placing...' : '📍 Add Note';
+      btn.innerHTML = this.isAddingMarker ? '<i class="bi bi-geo-alt"></i> Placing...' : '<i class="bi bi-geo-alt"></i> Add Note';
     }
     if (drawBtn) {
       drawBtn.style.background = '';
-      drawBtn.textContent = '✏️ Draw Route';
+      drawBtn.textContent = ' Draw Route';
     }
     
     this.map.getContainer().style.cursor = this.isAddingMarker ? 'pointer' : '';
@@ -124,7 +124,7 @@ const CustomTrackEditor = {
     const marker = L.marker(latlng, {
       icon: L.divIcon({
         className: 'custom-note-marker',
-        html: '<div style="background:#f5c518;color:#000;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:bold;white-space:nowrap;">📍</div>',
+        html: '<div style="background:#f5c518;color:#000;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:bold;white-space:nowrap;"><i class="bi bi-geo-alt"></i></div>',
         iconSize: [24, 24],
         iconAnchor: [12, 12]
       })
@@ -151,7 +151,7 @@ const CustomTrackEditor = {
     const btn = document.getElementById('marker-mode-btn');
     if (btn) {
       btn.style.background = '';
-      btn.textContent = '📍 Add Note';
+      btn.innerHTML = '<i class="bi bi-geo-alt"></i> Add Note';
     }
     this.map.getContainer().style.cursor = '';
   },
@@ -194,11 +194,11 @@ const CustomTrackEditor = {
     const markerBtn = document.getElementById('marker-mode-btn');
     if (drawBtn) {
       drawBtn.style.background = '';
-      drawBtn.textContent = '✏️ Draw Route';
+      drawBtn.textContent = ' Draw Route';
     }
     if (markerBtn) {
       markerBtn.style.background = '';
-      markerBtn.textContent = '📍 Add Note';
+      markerBtn.innerHTML = '<i class="bi bi-geo-alt"></i> Add Note';
     }
     this.map.getContainer().style.cursor = '';
   },
@@ -274,7 +274,7 @@ const CustomTrackEditor = {
         const marker = L.marker(latlng, {
           icon: L.divIcon({
             className: 'custom-note-marker',
-            html: '<div style="background:#f5c518;color:#000;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:bold;white-space:nowrap;">📍</div>',
+            html: '<div style="background:#f5c518;color:#000;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:bold;white-space:nowrap;"><i class="bi bi-geo-alt-fill"></i></div>',
             iconSize: [24, 24],
             iconAnchor: [12, 12]
           })
